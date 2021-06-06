@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: gc.go in package internal/trace</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	gc.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/internal/trace.html">internal/trace</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71],
+input[id=r72]:checked ~pre label[for=r72],
+input[id=r73]:checked ~pre label[for=r73],
+input[id=r74]:checked ~pre label[for=r74],
+input[id=r75]:checked ~pre label[for=r75],
+input[id=r76]:checked ~pre label[for=r76],
+input[id=r77]:checked ~pre label[for=r77],
+input[id=r78]:checked ~pre label[for=r78],
+input[id=r79]:checked ~pre label[for=r79],
+input[id=r80]:checked ~pre label[for=r80],
+input[id=r81]:checked ~pre label[for=r81],
+input[id=r82]:checked ~pre label[for=r82],
+input[id=r83]:checked ~pre label[for=r83],
+input[id=r84]:checked ~pre label[for=r84],
+input[id=r85]:checked ~pre label[for=r85],
+input[id=r86]:checked ~pre label[for=r86],
+input[id=r87]:checked ~pre label[for=r87],
+input[id=r88]:checked ~pre label[for=r88],
+input[id=r89]:checked ~pre label[for=r89],
+input[id=r90]:checked ~pre label[for=r90],
+input[id=r91]:checked ~pre label[for=r91],
+input[id=r92]:checked ~pre label[for=r92],
+input[id=r93]:checked ~pre label[for=r93],
+input[id=r94]:checked ~pre label[for=r94],
+input[id=r95]:checked ~pre label[for=r95],
+input[id=r96]:checked ~pre label[for=r96],
+input[id=r97]:checked ~pre label[for=r97],
+input[id=r98]:checked ~pre label[for=r98],
+input[id=r99]:checked ~pre label[for=r99],
+input[id=r100]:checked ~pre label[for=r100],
+input[id=r101]:checked ~pre label[for=r101],
+input[id=r102]:checked ~pre label[for=r102],
+input[id=r103]:checked ~pre label[for=r103],
+input[id=r104]:checked ~pre label[for=r104],
+input[id=r105]:checked ~pre label[for=r105],
+input[id=r106]:checked ~pre label[for=r106],
+input[id=r107]:checked ~pre label[for=r107],
+input[id=r108]:checked ~pre label[for=r108],
+input[id=r109]:checked ~pre label[for=r109],
+input[id=r110]:checked ~pre label[for=r110],
+input[id=r111]:checked ~pre label[for=r111],
+input[id=r112]:checked ~pre label[for=r112],
+input[id=r113]:checked ~pre label[for=r113],
+input[id=r114]:checked ~pre label[for=r114],
+input[id=r115]:checked ~pre label[for=r115],
+input[id=r116]:checked ~pre label[for=r116],
+input[id=r117]:checked ~pre label[for=r117],
+input[id=r118]:checked ~pre label[for=r118],
+input[id=r119]:checked ~pre label[for=r119],
+input[id=r120]:checked ~pre label[for=r120],
+input[id=r121]:checked ~pre label[for=r121],
+input[id=r122]:checked ~pre label[for=r122],
+input[id=r123]:checked ~pre label[for=r123],
+input[id=r124]:checked ~pre label[for=r124],
+input[id=r125]:checked ~pre label[for=r125],
+input[id=r126]:checked ~pre label[for=r126],
+input[id=r127]:checked ~pre label[for=r127],
+input[id=r128]:checked ~pre label[for=r128],
+input[id=r129]:checked ~pre label[for=r129],
+input[id=r130]:checked ~pre label[for=r130],
+input[id=r131]:checked ~pre label[for=r131],
+input[id=r132]:checked ~pre label[for=r132],
+input[id=r133]:checked ~pre label[for=r133],
+input[id=r134]:checked ~pre label[for=r134],
+input[id=r135]:checked ~pre label[for=r135],
+input[id=r136]:checked ~pre label[for=r136],
+input[id=r137]:checked ~pre label[for=r137],
+input[id=r138]:checked ~pre label[for=r138],
+input[id=r139]:checked ~pre label[for=r139],
+input[id=r140]:checked ~pre label[for=r140],
+input[id=r141]:checked ~pre label[for=r141],
+input[id=r142]:checked ~pre label[for=r142],
+input[id=r143]:checked ~pre label[for=r143],
+input[id=r144]:checked ~pre label[for=r144],
+input[id=r145]:checked ~pre label[for=r145],
+input[id=r146]:checked ~pre label[for=r146],
+input[id=r147]:checked ~pre label[for=r147],
+input[id=r148]:checked ~pre label[for=r148],
+input[id=r149]:checked ~pre label[for=r149],
+input[id=r150]:checked ~pre label[for=r150],
+input[id=r151]:checked ~pre label[for=r151],
+input[id=r152]:checked ~pre label[for=r152],
+input[id=r153]:checked ~pre label[for=r153],
+input[id=r154]:checked ~pre label[for=r154],
+input[id=r155]:checked ~pre label[for=r155],
+input[id=r156]:checked ~pre label[for=r156],
+input[id=r157]:checked ~pre label[for=r157],
+input[id=r158]:checked ~pre label[for=r158],
+input[id=r159]:checked ~pre label[for=r159],
+input[id=r160]:checked ~pre label[for=r160],
+input[id=r161]:checked ~pre label[for=r161],
+input[id=r162]:checked ~pre label[for=r162],
+input[id=r163]:checked ~pre label[for=r163],
+input[id=r164]:checked ~pre label[for=r164],
+input[id=r165]:checked ~pre label[for=r165],
+input[id=r166]:checked ~pre label[for=r166],
+input[id=r167]:checked ~pre label[for=r167],
+input[id=r168]:checked ~pre label[for=r168],
+input[id=r169]:checked ~pre label[for=r169],
+input[id=r170]:checked ~pre label[for=r170],
+input[id=r171]:checked ~pre label[for=r171],
+input[id=r172]:checked ~pre label[for=r172],
+input[id=r173]:checked ~pre label[for=r173],
+input[id=r174]:checked ~pre label[for=r174],
+input[id=r175]:checked ~pre label[for=r175],
+input[id=r176]:checked ~pre label[for=r176],
+input[id=r177]:checked ~pre label[for=r177],
+input[id=r178]:checked ~pre label[for=r178],
+input[id=r179]:checked ~pre label[for=r179],
+input[id=r180]:checked ~pre label[for=r180],
+input[id=r181]:checked ~pre label[for=r181],
+input[id=r182]:checked ~pre label[for=r182],
+input[id=r183]:checked ~pre label[for=r183],
+input[id=r184]:checked ~pre label[for=r184],
+input[id=r185]:checked ~pre label[for=r185],
+input[id=r186]:checked ~pre label[for=r186],
+input[id=r187]:checked ~pre label[for=r187],
+input[id=r188]:checked ~pre label[for=r188],
+input[id=r189]:checked ~pre label[for=r189],
+input[id=r190]:checked ~pre label[for=r190],
+input[id=r191]:checked ~pre label[for=r191],
+input[id=r192]:checked ~pre label[for=r192],
+input[id=r193]:checked ~pre label[for=r193],
+input[id=r194]:checked ~pre label[for=r194]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
+<input id="r72" type="radio" name="g"/>
+<input id="r73" type="radio" name="g"/>
+<input id="r74" type="radio" name="g"/>
+<input id="r75" type="radio" name="g"/>
+<input id="r76" type="radio" name="g"/>
+<input id="r77" type="radio" name="g"/>
+<input id="r78" type="radio" name="g"/>
+<input id="r79" type="radio" name="g"/>
+<input id="r80" type="radio" name="g"/>
+<input id="r81" type="radio" name="g"/>
+<input id="r82" type="radio" name="g"/>
+<input id="r83" type="radio" name="g"/>
+<input id="r84" type="radio" name="g"/>
+<input id="r85" type="radio" name="g"/>
+<input id="r86" type="radio" name="g"/>
+<input id="r87" type="radio" name="g"/>
+<input id="r88" type="radio" name="g"/>
+<input id="r89" type="radio" name="g"/>
+<input id="r90" type="radio" name="g"/>
+<input id="r91" type="radio" name="g"/>
+<input id="r92" type="radio" name="g"/>
+<input id="r93" type="radio" name="g"/>
+<input id="r94" type="radio" name="g"/>
+<input id="r95" type="radio" name="g"/>
+<input id="r96" type="radio" name="g"/>
+<input id="r97" type="radio" name="g"/>
+<input id="r98" type="radio" name="g"/>
+<input id="r99" type="radio" name="g"/>
+<input id="r100" type="radio" name="g"/>
+<input id="r101" type="radio" name="g"/>
+<input id="r102" type="radio" name="g"/>
+<input id="r103" type="radio" name="g"/>
+<input id="r104" type="radio" name="g"/>
+<input id="r105" type="radio" name="g"/>
+<input id="r106" type="radio" name="g"/>
+<input id="r107" type="radio" name="g"/>
+<input id="r108" type="radio" name="g"/>
+<input id="r109" type="radio" name="g"/>
+<input id="r110" type="radio" name="g"/>
+<input id="r111" type="radio" name="g"/>
+<input id="r112" type="radio" name="g"/>
+<input id="r113" type="radio" name="g"/>
+<input id="r114" type="radio" name="g"/>
+<input id="r115" type="radio" name="g"/>
+<input id="r116" type="radio" name="g"/>
+<input id="r117" type="radio" name="g"/>
+<input id="r118" type="radio" name="g"/>
+<input id="r119" type="radio" name="g"/>
+<input id="r120" type="radio" name="g"/>
+<input id="r121" type="radio" name="g"/>
+<input id="r122" type="radio" name="g"/>
+<input id="r123" type="radio" name="g"/>
+<input id="r124" type="radio" name="g"/>
+<input id="r125" type="radio" name="g"/>
+<input id="r126" type="radio" name="g"/>
+<input id="r127" type="radio" name="g"/>
+<input id="r128" type="radio" name="g"/>
+<input id="r129" type="radio" name="g"/>
+<input id="r130" type="radio" name="g"/>
+<input id="r131" type="radio" name="g"/>
+<input id="r132" type="radio" name="g"/>
+<input id="r133" type="radio" name="g"/>
+<input id="r134" type="radio" name="g"/>
+<input id="r135" type="radio" name="g"/>
+<input id="r136" type="radio" name="g"/>
+<input id="r137" type="radio" name="g"/>
+<input id="r138" type="radio" name="g"/>
+<input id="r139" type="radio" name="g"/>
+<input id="r140" type="radio" name="g"/>
+<input id="r141" type="radio" name="g"/>
+<input id="r142" type="radio" name="g"/>
+<input id="r143" type="radio" name="g"/>
+<input id="r144" type="radio" name="g"/>
+<input id="r145" type="radio" name="g"/>
+<input id="r146" type="radio" name="g"/>
+<input id="r147" type="radio" name="g"/>
+<input id="r148" type="radio" name="g"/>
+<input id="r149" type="radio" name="g"/>
+<input id="r150" type="radio" name="g"/>
+<input id="r151" type="radio" name="g"/>
+<input id="r152" type="radio" name="g"/>
+<input id="r153" type="radio" name="g"/>
+<input id="r154" type="radio" name="g"/>
+<input id="r155" type="radio" name="g"/>
+<input id="r156" type="radio" name="g"/>
+<input id="r157" type="radio" name="g"/>
+<input id="r158" type="radio" name="g"/>
+<input id="r159" type="radio" name="g"/>
+<input id="r160" type="radio" name="g"/>
+<input id="r161" type="radio" name="g"/>
+<input id="r162" type="radio" name="g"/>
+<input id="r163" type="radio" name="g"/>
+<input id="r164" type="radio" name="g"/>
+<input id="r165" type="radio" name="g"/>
+<input id="r166" type="radio" name="g"/>
+<input id="r167" type="radio" name="g"/>
+<input id="r168" type="radio" name="g"/>
+<input id="r169" type="radio" name="g"/>
+<input id="r170" type="radio" name="g"/>
+<input id="r171" type="radio" name="g"/>
+<input id="r172" type="radio" name="g"/>
+<input id="r173" type="radio" name="g"/>
+<input id="r174" type="radio" name="g"/>
+<input id="r175" type="radio" name="g"/>
+<input id="r176" type="radio" name="g"/>
+<input id="r177" type="radio" name="g"/>
+<input id="r178" type="radio" name="g"/>
+<input id="r179" type="radio" name="g"/>
+<input id="r180" type="radio" name="g"/>
+<input id="r181" type="radio" name="g"/>
+<input id="r182" type="radio" name="g"/>
+<input id="r183" type="radio" name="g"/>
+<input id="r184" type="radio" name="g"/>
+<input id="r185" type="radio" name="g"/>
+<input id="r186" type="radio" name="g"/>
+<input id="r187" type="radio" name="g"/>
+<input id="r188" type="radio" name="g"/>
+<input id="r189" type="radio" name="g"/>
+<input id="r190" type="radio" name="g"/>
+<input id="r191" type="radio" name="g"/>
+<input id="r192" type="radio" name="g"/>
+<input id="r193" type="radio" name="g"/>
+<input id="r194" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2017 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> trace</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"container/heap"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"math"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"sort"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i3"><span class="lit-string i3">"strings"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i4"><span class="lit-string i4">"time"</span></label></code></span>
+<span class="codeline" id="line-13"><code>)</code></span>
+<span class="codeline" id="line-14"><code></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">// MutatorUtil is a change in mutator utilization at a particular</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">// time. Mutator utilization functions are represented as a</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">// time-ordered []MutatorUtil.</span></code></span>
+<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../pkg/internal/trace.html#name-MutatorUtil" class="ident">MutatorUtil</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-19"><code>	Time <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-20"><code>	<span class="comment">// Util is the mean mutator utilization starting at Time. This</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">	// is in the range [0, 1].</span></code></span>
+<span class="codeline" id="line-22"><code>	Util <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// UtilFlags controls the behavior of MutatorUtilization.</span></code></span>
+<span class="codeline" id="line-26"><code><span class="keyword">type</span> <a href="../../../pkg/internal/trace.html#name-UtilFlags" class="ident">UtilFlags</a> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-29"><code>	<span class="comment">// UtilSTW means utilization should account for STW events.</span></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../pkg/internal/trace.html#name-UtilSTW" class="ident">UtilSTW</a> <a href="gc.go.html#line-26" class="ident">UtilFlags</a> = <span class="lit-number">1</span> &lt;&lt; <a href="../../../pkg/builtin.html#name-iota" class="ident">iota</a></code></span>
+<span class="codeline" id="line-31"><code>	<span class="comment">// UtilBackground means utilization should account for</span></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">	// background mark workers.</span></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../pkg/internal/trace.html#name-UtilBackground" class="ident">UtilBackground</a></code></span>
+<span class="codeline" id="line-34"><code>	<span class="comment">// UtilAssist means utilization should account for mark</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">	// assists.</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../pkg/internal/trace.html#name-UtilAssist" class="ident">UtilAssist</a></code></span>
+<span class="codeline" id="line-37"><code>	<span class="comment">// UtilSweep means utilization should account for sweeping.</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../pkg/internal/trace.html#name-UtilSweep" class="ident">UtilSweep</a></code></span>
+<span class="codeline" id="line-39"><code></code></span>
+<span class="codeline" id="line-40"><code>	<span class="comment">// UtilPerProc means each P should be given a separate</span></code></span>
+<span class="codeline" id="line-41"><code><span class="comment">	// utilization function. Otherwise, there is a single function</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">	// and each P is given a fraction of the utilization.</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../pkg/internal/trace.html#name-UtilPerProc" class="ident">UtilPerProc</a></code></span>
+<span class="codeline" id="line-44"><code>)</code></span>
+<span class="codeline" id="line-45"><code></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">// MutatorUtilization returns a set of mutator utilization functions</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">// for the given trace. Each function will always end with 0</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">// utilization. The bounds of each function are implicit in the first</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// and last event; outside of these bounds each function is undefined.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// If the UtilPerProc flag is not given, this always returns a single</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">// utilization function. Otherwise, it returns one function per P.</span></code></span>
+<span class="codeline" id="line-53"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/internal/trace.html#name-MutatorUtilization" class="ident">MutatorUtilization</a></label>(<label for="r1" class="ident">events</label> []*<a href="parser.go.html#line-35" class="ident">Event</a>, <label for="r2" class="ident">flags</label> <a href="gc.go.html#line-26" class="ident">UtilFlags</a>) [][]<a href="gc.go.html#line-18" class="ident">MutatorUtil</a> {</code></span>
+<span class="codeline" id="line-54"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r1" class="ident">events</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-55"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-56"><code>	}</code></span>
+<span class="codeline" id="line-57"><code></code></span>
+<span class="codeline" id="line-58"><code>	<span class="keyword">type</span> <label for="r3" class="ident">perP</label> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-59"><code>		<span class="comment">// gc &gt; 0 indicates that GC is active on this P.</span></code></span>
+<span class="codeline" id="line-60"><code>		<label for="r4" class="ident">gc</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-61"><code>		<span class="comment">// series the logical series number for this P. This</span></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">		// is necessary because Ps may be removed and then</span></code></span>
+<span class="codeline" id="line-63"><code><span class="comment">		// re-added, and then the new P needs a new series.</span></code></span>
+<span class="codeline" id="line-64"><code>		<label for="r5" class="ident">series</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-65"><code>	}</code></span>
+<span class="codeline" id="line-66"><code>	<label for="r6" class="ident">ps</label> := []<label for="r3" class="ident">perP</label>{}</code></span>
+<span class="codeline" id="line-67"><code>	<label for="r7" class="ident">stw</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-68"><code></code></span>
+<span class="codeline" id="line-69"><code>	<label for="r8" class="ident">out</label> := [][]<a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{}</code></span>
+<span class="codeline" id="line-70"><code>	<label for="r9" class="ident">assists</label> := <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>{}</code></span>
+<span class="codeline" id="line-71"><code>	<label for="r10" class="ident">block</label> := <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]*<a href="parser.go.html#line-35" class="ident">Event</a>{}</code></span>
+<span class="codeline" id="line-72"><code>	<label for="r11" class="ident">bgMark</label> := <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>{}</code></span>
+<span class="codeline" id="line-73"><code></code></span>
+<span class="codeline" id="line-74"><code>	<span class="keyword">for</span> <label for="r12" class="ident">_</label>, <label for="r13" class="ident">ev</label> := <span class="keyword">range</span> <label for="r1" class="ident">events</label> {</code></span>
+<span class="codeline" id="line-75"><code>		<span class="keyword">switch</span> <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-76"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1016" class="ident">EvGomaxprocs</a>:</code></span>
+<span class="codeline" id="line-77"><code>			<label for="r14" class="ident">gomaxprocs</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>(<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>])</code></span>
+<span class="codeline" id="line-78"><code>			<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">ps</label>) &gt; <label for="r14" class="ident">gomaxprocs</label> {</code></span>
+<span class="codeline" id="line-79"><code>				<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-43" class="ident">UtilPerProc</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-80"><code>					<span class="comment">// End each P's series.</span></code></span>
+<span class="codeline" id="line-81"><code>					<span class="keyword">for</span> <label for="r15" class="ident">_</label>, <label for="r16" class="ident">p</label> := <span class="keyword">range</span> <label for="r6" class="ident">ps</label>[<label for="r14" class="ident">gomaxprocs</label>:] {</code></span>
+<span class="codeline" id="line-82"><code>						<label for="r8" class="ident">out</label>[<label for="r16" class="ident">p</label>.<label for="r5" class="ident">series</label>] = <a href="gc.go.html#line-204" class="ident">addUtil</a>(<label for="r8" class="ident">out</label>[<label for="r16" class="ident">p</label>.<label for="r5" class="ident">series</label>], <a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a>, <span class="lit-number">0</span>})</code></span>
+<span class="codeline" id="line-83"><code>					}</code></span>
+<span class="codeline" id="line-84"><code>				}</code></span>
+<span class="codeline" id="line-85"><code>				<label for="r6" class="ident">ps</label> = <label for="r6" class="ident">ps</label>[:<label for="r14" class="ident">gomaxprocs</label>]</code></span>
+<span class="codeline" id="line-86"><code>			}</code></span>
+<span class="codeline" id="line-87"><code>			<span class="keyword">for</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">ps</label>) &lt; <label for="r14" class="ident">gomaxprocs</label> {</code></span>
+<span class="codeline" id="line-88"><code>				<span class="comment">// Start new P's series.</span></code></span>
+<span class="codeline" id="line-89"><code>				<label for="r17" class="ident">series</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-90"><code>				<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-43" class="ident">UtilPerProc</a> != <span class="lit-number">0</span> || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">out</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-91"><code>					<label for="r17" class="ident">series</label> = <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r8" class="ident">out</label>)</code></span>
+<span class="codeline" id="line-92"><code>					<label for="r8" class="ident">out</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r8" class="ident">out</label>, []<a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{{<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a>, <span class="lit-number">1</span>}})</code></span>
+<span class="codeline" id="line-93"><code>				}</code></span>
+<span class="codeline" id="line-94"><code>				<label for="r6" class="ident">ps</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r6" class="ident">ps</label>, <label for="r3" class="ident">perP</label>{<label for="r5" class="ident">series</label>: <label for="r17" class="ident">series</label>})</code></span>
+<span class="codeline" id="line-95"><code>			}</code></span>
+<span class="codeline" id="line-96"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1021" class="ident">EvGCSTWStart</a>:</code></span>
+<span class="codeline" id="line-97"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-30" class="ident">UtilSTW</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-98"><code>				<label for="r7" class="ident">stw</label>++</code></span>
+<span class="codeline" id="line-99"><code>			}</code></span>
+<span class="codeline" id="line-100"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1022" class="ident">EvGCSTWDone</a>:</code></span>
+<span class="codeline" id="line-101"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-30" class="ident">UtilSTW</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-102"><code>				<label for="r7" class="ident">stw</label>--</code></span>
+<span class="codeline" id="line-103"><code>			}</code></span>
+<span class="codeline" id="line-104"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1055" class="ident">EvGCMarkAssistStart</a>:</code></span>
+<span class="codeline" id="line-105"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-36" class="ident">UtilAssist</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-106"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>++</code></span>
+<span class="codeline" id="line-107"><code>				<label for="r9" class="ident">assists</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-108"><code>			}</code></span>
+<span class="codeline" id="line-109"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1056" class="ident">EvGCMarkAssistDone</a>:</code></span>
+<span class="codeline" id="line-110"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-36" class="ident">UtilAssist</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-111"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>--</code></span>
+<span class="codeline" id="line-112"><code>				<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r9" class="ident">assists</label>, <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>)</code></span>
+<span class="codeline" id="line-113"><code>			}</code></span>
+<span class="codeline" id="line-114"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1023" class="ident">EvGCSweepStart</a>:</code></span>
+<span class="codeline" id="line-115"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-38" class="ident">UtilSweep</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-116"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>++</code></span>
+<span class="codeline" id="line-117"><code>			}</code></span>
+<span class="codeline" id="line-118"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1024" class="ident">EvGCSweepDone</a>:</code></span>
+<span class="codeline" id="line-119"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-38" class="ident">UtilSweep</a> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-120"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>--</code></span>
+<span class="codeline" id="line-121"><code>			}</code></span>
+<span class="codeline" id="line-122"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1053" class="ident">EvGoStartLabel</a>:</code></span>
+<span class="codeline" id="line-123"><code>			<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-33" class="ident">UtilBackground</a> != <span class="lit-number">0</span> &amp;&amp; <a href="../../../pkg/strings.html" class="ident i3">strings</a>.<a href="../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-45" class="ident">SArgs</a>[<span class="lit-number">0</span>], <span class="lit-string">"GC "</span>) &amp;&amp; <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-45" class="ident">SArgs</a>[<span class="lit-number">0</span>] != <span class="lit-string">"GC (idle)"</span> {</code></span>
+<span class="codeline" id="line-124"><code>				<span class="comment">// Background mark worker.</span></code></span>
+<span class="codeline" id="line-125"><code><span class="comment">				//</span></code></span>
+<span class="codeline" id="line-126"><code><span class="comment">				// If we're in per-proc mode, we don't</span></code></span>
+<span class="codeline" id="line-127"><code><span class="comment">				// count dedicated workers because</span></code></span>
+<span class="codeline" id="line-128"><code><span class="comment">				// they kick all of the goroutines off</span></code></span>
+<span class="codeline" id="line-129"><code><span class="comment">				// that P, so don't directly</span></code></span>
+<span class="codeline" id="line-130"><code><span class="comment">				// contribute to goroutine latency.</span></code></span>
+<span class="codeline" id="line-131"><code>				<span class="keyword">if</span> !(<label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-43" class="ident">UtilPerProc</a> != <span class="lit-number">0</span> &amp;&amp; <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-45" class="ident">SArgs</a>[<span class="lit-number">0</span>] == <span class="lit-string">"GC (dedicated)"</span>) {</code></span>
+<span class="codeline" id="line-132"><code>					<label for="r11" class="ident">bgMark</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-133"><code>					<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>++</code></span>
+<span class="codeline" id="line-134"><code>				}</code></span>
+<span class="codeline" id="line-135"><code>			}</code></span>
+<span class="codeline" id="line-136"><code>			<span class="keyword">fallthrough</span></code></span>
+<span class="codeline" id="line-137"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1026" class="ident">EvGoStart</a>:</code></span>
+<span class="codeline" id="line-138"><code>			<span class="keyword">if</span> <label for="r9" class="ident">assists</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] {</code></span>
+<span class="codeline" id="line-139"><code>				<span class="comment">// Unblocked during assist.</span></code></span>
+<span class="codeline" id="line-140"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>++</code></span>
+<span class="codeline" id="line-141"><code>			}</code></span>
+<span class="codeline" id="line-142"><code>			<label for="r10" class="ident">block</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] = <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-60" class="ident">Link</a></code></span>
+<span class="codeline" id="line-143"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-144"><code>			<span class="keyword">if</span> <label for="r13" class="ident">ev</label> != <label for="r10" class="ident">block</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] {</code></span>
+<span class="codeline" id="line-145"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-146"><code>			}</code></span>
+<span class="codeline" id="line-147"><code></code></span>
+<span class="codeline" id="line-148"><code>			<span class="keyword">if</span> <label for="r9" class="ident">assists</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] {</code></span>
+<span class="codeline" id="line-149"><code>				<span class="comment">// Blocked during assist.</span></code></span>
+<span class="codeline" id="line-150"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>--</code></span>
+<span class="codeline" id="line-151"><code>			}</code></span>
+<span class="codeline" id="line-152"><code>			<span class="keyword">if</span> <label for="r11" class="ident">bgMark</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] {</code></span>
+<span class="codeline" id="line-153"><code>				<span class="comment">// Background mark worker done.</span></code></span>
+<span class="codeline" id="line-154"><code>				<label for="r6" class="ident">ps</label>[<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-40" class="ident">P</a>].<label for="r4" class="ident">gc</label>--</code></span>
+<span class="codeline" id="line-155"><code>				<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r11" class="ident">bgMark</label>, <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>)</code></span>
+<span class="codeline" id="line-156"><code>			}</code></span>
+<span class="codeline" id="line-157"><code>			<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r10" class="ident">block</label>, <label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>)</code></span>
+<span class="codeline" id="line-158"><code>		}</code></span>
+<span class="codeline" id="line-159"><code></code></span>
+<span class="codeline" id="line-160"><code>		<span class="keyword">if</span> <label for="r2" class="ident">flags</label>&amp;<a href="gc.go.html#line-43" class="ident">UtilPerProc</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-161"><code>			<span class="comment">// Compute the current average utilization.</span></code></span>
+<span class="codeline" id="line-162"><code>			<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">ps</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-163"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-164"><code>			}</code></span>
+<span class="codeline" id="line-165"><code>			<label for="r18" class="ident">gcPs</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-166"><code>			<span class="keyword">if</span> <label for="r7" class="ident">stw</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-167"><code>				<label for="r18" class="ident">gcPs</label> = <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">ps</label>)</code></span>
+<span class="codeline" id="line-168"><code>			} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-169"><code>				<span class="keyword">for</span> <label for="r19" class="ident">i</label> := <span class="keyword">range</span> <label for="r6" class="ident">ps</label> {</code></span>
+<span class="codeline" id="line-170"><code>					<span class="keyword">if</span> <label for="r6" class="ident">ps</label>[<label for="r19" class="ident">i</label>].<label for="r4" class="ident">gc</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-171"><code>						<label for="r18" class="ident">gcPs</label>++</code></span>
+<span class="codeline" id="line-172"><code>					}</code></span>
+<span class="codeline" id="line-173"><code>				}</code></span>
+<span class="codeline" id="line-174"><code>			}</code></span>
+<span class="codeline" id="line-175"><code>			<label for="r20" class="ident">mu</label> := <a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a>, <span class="lit-number">1</span> - <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r18" class="ident">gcPs</label>)/<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r6" class="ident">ps</label>))}</code></span>
+<span class="codeline" id="line-176"><code></code></span>
+<span class="codeline" id="line-177"><code>			<span class="comment">// Record the utilization change. (Since</span></code></span>
+<span class="codeline" id="line-178"><code><span class="comment">			// len(ps) == len(out), we know len(out) &gt; 0.)</span></code></span>
+<span class="codeline" id="line-179"><code>			<label for="r8" class="ident">out</label>[<span class="lit-number">0</span>] = <a href="gc.go.html#line-204" class="ident">addUtil</a>(<label for="r8" class="ident">out</label>[<span class="lit-number">0</span>], <label for="r20" class="ident">mu</label>)</code></span>
+<span class="codeline" id="line-180"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-181"><code>			<span class="comment">// Check for per-P utilization changes.</span></code></span>
+<span class="codeline" id="line-182"><code>			<span class="keyword">for</span> <label for="r21" class="ident">i</label> := <span class="keyword">range</span> <label for="r6" class="ident">ps</label> {</code></span>
+<span class="codeline" id="line-183"><code>				<label for="r22" class="ident">p</label> := &amp;<label for="r6" class="ident">ps</label>[<label for="r21" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-184"><code>				<label for="r23" class="ident">util</label> := <span class="lit-number">1.0</span></code></span>
+<span class="codeline" id="line-185"><code>				<span class="keyword">if</span> <label for="r7" class="ident">stw</label> &gt; <span class="lit-number">0</span> || <label for="r22" class="ident">p</label>.<label for="r4" class="ident">gc</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-186"><code>					<label for="r23" class="ident">util</label> = <span class="lit-number">0.0</span></code></span>
+<span class="codeline" id="line-187"><code>				}</code></span>
+<span class="codeline" id="line-188"><code>				<label for="r8" class="ident">out</label>[<label for="r22" class="ident">p</label>.<label for="r5" class="ident">series</label>] = <a href="gc.go.html#line-204" class="ident">addUtil</a>(<label for="r8" class="ident">out</label>[<label for="r22" class="ident">p</label>.<label for="r5" class="ident">series</label>], <a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{<label for="r13" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a>, <label for="r23" class="ident">util</label>})</code></span>
+<span class="codeline" id="line-189"><code>			}</code></span>
+<span class="codeline" id="line-190"><code>		}</code></span>
+<span class="codeline" id="line-191"><code>	}</code></span>
+<span class="codeline" id="line-192"><code></code></span>
+<span class="codeline" id="line-193"><code>	<span class="comment">// Add final 0 utilization event to any remaining series. This</span></code></span>
+<span class="codeline" id="line-194"><code><span class="comment">	// is important to mark the end of the trace. The exact value</span></code></span>
+<span class="codeline" id="line-195"><code><span class="comment">	// shouldn't matter since no window should extend beyond this,</span></code></span>
+<span class="codeline" id="line-196"><code><span class="comment">	// but using 0 is symmetric with the start of the trace.</span></code></span>
+<span class="codeline" id="line-197"><code>	<label for="r24" class="ident">mu</label> := <a href="gc.go.html#line-18" class="ident">MutatorUtil</a>{<label for="r1" class="ident">events</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r1" class="ident">events</label>)-<span class="lit-number">1</span>].<a href="parser.go.html#line-39" class="ident">Ts</a>, <span class="lit-number">0</span>}</code></span>
+<span class="codeline" id="line-198"><code>	<span class="keyword">for</span> <label for="r25" class="ident">i</label> := <span class="keyword">range</span> <label for="r6" class="ident">ps</label> {</code></span>
+<span class="codeline" id="line-199"><code>		<label for="r8" class="ident">out</label>[<label for="r6" class="ident">ps</label>[<label for="r25" class="ident">i</label>].<label for="r5" class="ident">series</label>] = <a href="gc.go.html#line-204" class="ident">addUtil</a>(<label for="r8" class="ident">out</label>[<label for="r6" class="ident">ps</label>[<label for="r25" class="ident">i</label>].<label for="r5" class="ident">series</label>], <label for="r24" class="ident">mu</label>)</code></span>
+<span class="codeline" id="line-200"><code>	}</code></span>
+<span class="codeline" id="line-201"><code>	<span class="keyword">return</span> <label for="r8" class="ident">out</label></code></span>
+<span class="codeline" id="line-202"><code>}</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code><span class="keyword">func</span> addUtil(<label for="r27" class="ident">util</label> []<a href="gc.go.html#line-18" class="ident">MutatorUtil</a>, <label for="r28" class="ident">mu</label> <a href="gc.go.html#line-18" class="ident">MutatorUtil</a>) []<a href="gc.go.html#line-18" class="ident">MutatorUtil</a> {</code></span>
+<span class="codeline" id="line-205"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r27" class="ident">util</label>) &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-206"><code>		<span class="keyword">if</span> <label for="r28" class="ident">mu</label>.<a href="gc.go.html#line-22" class="ident">Util</a> == <label for="r27" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r27" class="ident">util</label>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-22" class="ident">Util</a> {</code></span>
+<span class="codeline" id="line-207"><code>			<span class="comment">// No change.</span></code></span>
+<span class="codeline" id="line-208"><code>			<span class="keyword">return</span> <label for="r27" class="ident">util</label></code></span>
+<span class="codeline" id="line-209"><code>		}</code></span>
+<span class="codeline" id="line-210"><code>		<span class="keyword">if</span> <label for="r28" class="ident">mu</label>.<a href="gc.go.html#line-19" class="ident">Time</a> == <label for="r27" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r27" class="ident">util</label>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-211"><code>			<span class="comment">// Take the lowest utilization at a time stamp.</span></code></span>
+<span class="codeline" id="line-212"><code>			<span class="keyword">if</span> <label for="r28" class="ident">mu</label>.<a href="gc.go.html#line-22" class="ident">Util</a> &lt; <label for="r27" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r27" class="ident">util</label>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-22" class="ident">Util</a> {</code></span>
+<span class="codeline" id="line-213"><code>				<label for="r27" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r27" class="ident">util</label>)-<span class="lit-number">1</span>] = <label for="r28" class="ident">mu</label></code></span>
+<span class="codeline" id="line-214"><code>			}</code></span>
+<span class="codeline" id="line-215"><code>			<span class="keyword">return</span> <label for="r27" class="ident">util</label></code></span>
+<span class="codeline" id="line-216"><code>		}</code></span>
+<span class="codeline" id="line-217"><code>	}</code></span>
+<span class="codeline" id="line-218"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r27" class="ident">util</label>, <label for="r28" class="ident">mu</label>)</code></span>
+<span class="codeline" id="line-219"><code>}</code></span>
+<span class="codeline" id="line-220"><code></code></span>
+<span class="codeline" id="line-221"><code><span class="comment">// totalUtil is total utilization, measured in nanoseconds. This is a</span></code></span>
+<span class="codeline" id="line-222"><code><span class="comment">// separate type primarily to distinguish it from mean utilization,</span></code></span>
+<span class="codeline" id="line-223"><code><span class="comment">// which is also a float64.</span></code></span>
+<span class="codeline" id="line-224"><code><span class="keyword">type</span> totalUtil <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-225"><code></code></span>
+<span class="codeline" id="line-226"><code><span class="keyword">func</span> totalUtilOf(<label for="r30" class="ident">meanUtil</label> <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r31" class="ident">dur</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="gc.go.html#line-224" class="ident">totalUtil</a> {</code></span>
+<span class="codeline" id="line-227"><code>	<span class="keyword">return</span> <a href="gc.go.html#line-224" class="ident">totalUtil</a>(<label for="r30" class="ident">meanUtil</label> * <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r31" class="ident">dur</label>))</code></span>
+<span class="codeline" id="line-228"><code>}</code></span>
+<span class="codeline" id="line-229"><code></code></span>
+<span class="codeline" id="line-230"><code><span class="comment">// mean returns the mean utilization over dur.</span></code></span>
+<span class="codeline" id="line-231"><code><span class="keyword">func</span> (<label for="r32" class="ident">u</label> <a href="gc.go.html#line-224" class="ident">totalUtil</a>) <label for="r33" class="ident">mean</label>(<label for="r34" class="ident">dur</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>) <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a> {</code></span>
+<span class="codeline" id="line-232"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r32" class="ident">u</label>) / <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r34" class="ident">dur</label>)</code></span>
+<span class="codeline" id="line-233"><code>}</code></span>
+<span class="codeline" id="line-234"><code></code></span>
+<span class="codeline" id="line-235"><code><span class="comment">// An MMUCurve is the minimum mutator utilization curve across</span></code></span>
+<span class="codeline" id="line-236"><code><span class="comment">// multiple window sizes.</span></code></span>
+<span class="codeline" id="line-237"><code><span class="keyword">type</span> <a href="../../../pkg/internal/trace.html#name-MMUCurve" class="ident">MMUCurve</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-238"><code>	series []<a href="gc.go.html#line-241" class="ident">mmuSeries</a></code></span>
+<span class="codeline" id="line-239"><code>}</code></span>
+<span class="codeline" id="line-240"><code></code></span>
+<span class="codeline" id="line-241"><code><span class="keyword">type</span> mmuSeries <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-242"><code>	util []<a href="gc.go.html#line-18" class="ident">MutatorUtil</a></code></span>
+<span class="codeline" id="line-243"><code>	<span class="comment">// sums[j] is the cumulative sum of util[:j].</span></code></span>
+<span class="codeline" id="line-244"><code>	sums []<a href="gc.go.html#line-224" class="ident">totalUtil</a></code></span>
+<span class="codeline" id="line-245"><code>	<span class="comment">// bands summarizes util in non-overlapping bands of duration</span></code></span>
+<span class="codeline" id="line-246"><code><span class="comment">	// bandDur.</span></code></span>
+<span class="codeline" id="line-247"><code>	bands []<a href="gc.go.html#line-252" class="ident">mmuBand</a></code></span>
+<span class="codeline" id="line-248"><code>	<span class="comment">// bandDur is the duration of each band.</span></code></span>
+<span class="codeline" id="line-249"><code>	bandDur <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-250"><code>}</code></span>
+<span class="codeline" id="line-251"><code></code></span>
+<span class="codeline" id="line-252"><code><span class="keyword">type</span> mmuBand <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-253"><code>	<span class="comment">// minUtil is the minimum instantaneous mutator utilization in</span></code></span>
+<span class="codeline" id="line-254"><code><span class="comment">	// this band.</span></code></span>
+<span class="codeline" id="line-255"><code>	minUtil <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-256"><code>	<span class="comment">// cumUtil is the cumulative total mutator utilization between</span></code></span>
+<span class="codeline" id="line-257"><code><span class="comment">	// time 0 and the left edge of this band.</span></code></span>
+<span class="codeline" id="line-258"><code>	cumUtil <a href="gc.go.html#line-224" class="ident">totalUtil</a></code></span>
+<span class="codeline" id="line-259"><code></code></span>
+<span class="codeline" id="line-260"><code>	<span class="comment">// integrator is the integrator for the left edge of this</span></code></span>
+<span class="codeline" id="line-261"><code><span class="comment">	// band.</span></code></span>
+<span class="codeline" id="line-262"><code>	integrator <a href="gc.go.html#line-771" class="ident">integrator</a></code></span>
+<span class="codeline" id="line-263"><code>}</code></span>
+<span class="codeline" id="line-264"><code></code></span>
+<span class="codeline" id="line-265"><code><span class="comment">// NewMMUCurve returns an MMU curve for the given mutator utilization</span></code></span>
+<span class="codeline" id="line-266"><code><span class="comment">// function.</span></code></span>
+<span class="codeline" id="line-267"><code><span class="keyword">func</span> <label for="r35" class="ident"><a href="../../../pkg/internal/trace.html#name-NewMMUCurve" class="ident">NewMMUCurve</a></label>(<label for="r36" class="ident">utils</label> [][]<a href="gc.go.html#line-18" class="ident">MutatorUtil</a>) *<a href="gc.go.html#line-237" class="ident">MMUCurve</a> {</code></span>
+<span class="codeline" id="line-268"><code>	<label for="r37" class="ident">series</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="gc.go.html#line-241" class="ident">mmuSeries</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r36" class="ident">utils</label>))</code></span>
+<span class="codeline" id="line-269"><code>	<span class="keyword">for</span> <label for="r38" class="ident">i</label>, <label for="r39" class="ident">util</label> := <span class="keyword">range</span> <label for="r36" class="ident">utils</label> {</code></span>
+<span class="codeline" id="line-270"><code>		<label for="r37" class="ident">series</label>[<label for="r38" class="ident">i</label>] = <a href="gc.go.html#line-279" class="ident">newMMUSeries</a>(<label for="r39" class="ident">util</label>)</code></span>
+<span class="codeline" id="line-271"><code>	}</code></span>
+<span class="codeline" id="line-272"><code>	<span class="keyword">return</span> &amp;<a href="gc.go.html#line-237" class="ident">MMUCurve</a>{<label for="r37" class="ident">series</label>}</code></span>
+<span class="codeline" id="line-273"><code>}</code></span>
+<span class="codeline" id="line-274"><code></code></span>
+<span class="codeline" id="line-275"><code><span class="comment">// bandsPerSeries is the number of bands to divide each series into.</span></code></span>
+<span class="codeline" id="line-276"><code><span class="comment">// This is only changed by tests.</span></code></span>
+<span class="codeline" id="line-277"><code><span class="keyword">var</span> bandsPerSeries = <span class="lit-number">1000</span></code></span>
+<span class="codeline" id="line-278"><code></code></span>
+<span class="codeline" id="line-279"><code><span class="keyword">func</span> newMMUSeries(<label for="r41" class="ident">util</label> []<a href="gc.go.html#line-18" class="ident">MutatorUtil</a>) <a href="gc.go.html#line-241" class="ident">mmuSeries</a> {</code></span>
+<span class="codeline" id="line-280"><code>	<span class="comment">// Compute cumulative sum.</span></code></span>
+<span class="codeline" id="line-281"><code>	<label for="r42" class="ident">sums</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="gc.go.html#line-224" class="ident">totalUtil</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">util</label>))</code></span>
+<span class="codeline" id="line-282"><code>	<span class="keyword">var</span> <label for="r43" class="ident">prev</label> <a href="gc.go.html#line-18" class="ident">MutatorUtil</a></code></span>
+<span class="codeline" id="line-283"><code>	<span class="keyword">var</span> <label for="r44" class="ident">sum</label> <a href="gc.go.html#line-224" class="ident">totalUtil</a></code></span>
+<span class="codeline" id="line-284"><code>	<span class="keyword">for</span> <label for="r45" class="ident">j</label>, <label for="r46" class="ident">u</label> := <span class="keyword">range</span> <label for="r41" class="ident">util</label> {</code></span>
+<span class="codeline" id="line-285"><code>		<label for="r44" class="ident">sum</label> += <a href="gc.go.html#line-226" class="ident">totalUtilOf</a>(<label for="r43" class="ident">prev</label>.<a href="gc.go.html#line-22" class="ident">Util</a>, <label for="r46" class="ident">u</label>.<a href="gc.go.html#line-19" class="ident">Time</a>-<label for="r43" class="ident">prev</label>.<a href="gc.go.html#line-19" class="ident">Time</a>)</code></span>
+<span class="codeline" id="line-286"><code>		<label for="r42" class="ident">sums</label>[<label for="r45" class="ident">j</label>] = <label for="r44" class="ident">sum</label></code></span>
+<span class="codeline" id="line-287"><code>		<label for="r43" class="ident">prev</label> = <label for="r46" class="ident">u</label></code></span>
+<span class="codeline" id="line-288"><code>	}</code></span>
+<span class="codeline" id="line-289"><code></code></span>
+<span class="codeline" id="line-290"><code>	<span class="comment">// Divide the utilization curve up into equal size</span></code></span>
+<span class="codeline" id="line-291"><code><span class="comment">	// non-overlapping "bands" and compute a summary for each of</span></code></span>
+<span class="codeline" id="line-292"><code><span class="comment">	// these bands.</span></code></span>
+<span class="codeline" id="line-293"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-294"><code><span class="comment">	// Compute the duration of each band.</span></code></span>
+<span class="codeline" id="line-295"><code>	<label for="r47" class="ident">numBands</label> := <a href="gc.go.html#line-277" class="ident">bandsPerSeries</a></code></span>
+<span class="codeline" id="line-296"><code>	<span class="keyword">if</span> <label for="r47" class="ident">numBands</label> &gt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">util</label>) {</code></span>
+<span class="codeline" id="line-297"><code>		<span class="comment">// There's no point in having lots of bands if there</span></code></span>
+<span class="codeline" id="line-298"><code><span class="comment">		// aren't many events.</span></code></span>
+<span class="codeline" id="line-299"><code>		<label for="r47" class="ident">numBands</label> = <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">util</label>)</code></span>
+<span class="codeline" id="line-300"><code>	}</code></span>
+<span class="codeline" id="line-301"><code>	<label for="r48" class="ident">dur</label> := <label for="r41" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">util</label>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> - <label for="r41" class="ident">util</label>[<span class="lit-number">0</span>].<a href="gc.go.html#line-19" class="ident">Time</a></code></span>
+<span class="codeline" id="line-302"><code>	<label for="r49" class="ident">bandDur</label> := (<label for="r48" class="ident">dur</label> + <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r47" class="ident">numBands</label>) - <span class="lit-number">1</span>) / <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r47" class="ident">numBands</label>)</code></span>
+<span class="codeline" id="line-303"><code>	<span class="keyword">if</span> <label for="r49" class="ident">bandDur</label> &lt; <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-304"><code>		<label for="r49" class="ident">bandDur</label> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-305"><code>	}</code></span>
+<span class="codeline" id="line-306"><code>	<span class="comment">// Compute the bands. There are numBands+1 bands in order to</span></code></span>
+<span class="codeline" id="line-307"><code><span class="comment">	// record the final cumulative sum.</span></code></span>
+<span class="codeline" id="line-308"><code>	<label for="r50" class="ident">bands</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="gc.go.html#line-252" class="ident">mmuBand</a>, <label for="r47" class="ident">numBands</label>+<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-309"><code>	<label for="r51" class="ident">s</label> := <a href="gc.go.html#line-241" class="ident">mmuSeries</a>{<label for="r41" class="ident">util</label>, <label for="r42" class="ident">sums</label>, <label for="r50" class="ident">bands</label>, <label for="r49" class="ident">bandDur</label>}</code></span>
+<span class="codeline" id="line-310"><code>	<label for="r52" class="ident">leftSum</label> := <a href="gc.go.html#line-771" class="ident">integrator</a>{&amp;<label for="r51" class="ident">s</label>, <span class="lit-number">0</span>}</code></span>
+<span class="codeline" id="line-311"><code>	<span class="keyword">for</span> <label for="r53" class="ident">i</label> := <span class="keyword">range</span> <label for="r50" class="ident">bands</label> {</code></span>
+<span class="codeline" id="line-312"><code>		<label for="r54" class="ident">startTime</label>, <label for="r55" class="ident">endTime</label> := <label for="r51" class="ident">s</label>.<a href="gc.go.html#line-325" class="ident">bandTime</a>(<label for="r53" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-313"><code>		<label for="r56" class="ident">cumUtil</label> := <label for="r52" class="ident">leftSum</label>.<a href="gc.go.html#line-781" class="ident">advance</a>(<label for="r54" class="ident">startTime</label>)</code></span>
+<span class="codeline" id="line-314"><code>		<label for="r57" class="ident">predIdx</label> := <label for="r52" class="ident">leftSum</label>.<a href="gc.go.html#line-775" class="ident">pos</a></code></span>
+<span class="codeline" id="line-315"><code>		<label for="r58" class="ident">minUtil</label> := <span class="lit-number">1.0</span></code></span>
+<span class="codeline" id="line-316"><code>		<span class="keyword">for</span> <label for="r59" class="ident">i</label> := <label for="r57" class="ident">predIdx</label>; <label for="r59" class="ident">i</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r41" class="ident">util</label>) &amp;&amp; <label for="r41" class="ident">util</label>[<label for="r59" class="ident">i</label>].<a href="gc.go.html#line-19" class="ident">Time</a> &lt; <label for="r55" class="ident">endTime</label>; <label for="r59" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-317"><code>			<label for="r58" class="ident">minUtil</label> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r58" class="ident">minUtil</label>, <label for="r41" class="ident">util</label>[<label for="r59" class="ident">i</label>].<a href="gc.go.html#line-22" class="ident">Util</a>)</code></span>
+<span class="codeline" id="line-318"><code>		}</code></span>
+<span class="codeline" id="line-319"><code>		<label for="r50" class="ident">bands</label>[<label for="r53" class="ident">i</label>] = <a href="gc.go.html#line-252" class="ident">mmuBand</a>{<label for="r58" class="ident">minUtil</label>, <label for="r56" class="ident">cumUtil</label>, <label for="r52" class="ident">leftSum</label>}</code></span>
+<span class="codeline" id="line-320"><code>	}</code></span>
+<span class="codeline" id="line-321"><code></code></span>
+<span class="codeline" id="line-322"><code>	<span class="keyword">return</span> <label for="r51" class="ident">s</label></code></span>
+<span class="codeline" id="line-323"><code>}</code></span>
+<span class="codeline" id="line-324"><code></code></span>
+<span class="codeline" id="line-325"><code><span class="keyword">func</span> (<label for="r60" class="ident">s</label> *<a href="gc.go.html#line-241" class="ident">mmuSeries</a>) <label for="r61" class="ident">bandTime</label>(<label for="r62" class="ident">i</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) (<label for="r63" class="ident">start</label>, <label for="r64" class="ident">end</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>) {</code></span>
+<span class="codeline" id="line-326"><code>	<label for="r63" class="ident">start</label> = <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r62" class="ident">i</label>)*<label for="r60" class="ident">s</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a> + <label for="r60" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-19" class="ident">Time</a></code></span>
+<span class="codeline" id="line-327"><code>	<label for="r64" class="ident">end</label> = <label for="r63" class="ident">start</label> + <label for="r60" class="ident">s</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a></code></span>
+<span class="codeline" id="line-328"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-329"><code>}</code></span>
+<span class="codeline" id="line-330"><code></code></span>
+<span class="codeline" id="line-331"><code><span class="keyword">type</span> bandUtil <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-332"><code>	<span class="comment">// Utilization series index</span></code></span>
+<span class="codeline" id="line-333"><code>	series <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-334"><code>	<span class="comment">// Band index</span></code></span>
+<span class="codeline" id="line-335"><code>	i <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-336"><code>	<span class="comment">// Lower bound of mutator utilization for all windows</span></code></span>
+<span class="codeline" id="line-337"><code><span class="comment">	// with a left edge in this band.</span></code></span>
+<span class="codeline" id="line-338"><code>	utilBound <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-339"><code>}</code></span>
+<span class="codeline" id="line-340"><code></code></span>
+<span class="codeline" id="line-341"><code><span class="keyword">type</span> bandUtilHeap []<a href="gc.go.html#line-331" class="ident">bandUtil</a></code></span>
+<span class="codeline" id="line-342"><code></code></span>
+<span class="codeline" id="line-343"><code><span class="keyword">func</span> (<label for="r65" class="ident">h</label> <a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>) <label for="r66" class="ident">Len</label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-344"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r65" class="ident">h</label>)</code></span>
+<span class="codeline" id="line-345"><code>}</code></span>
+<span class="codeline" id="line-346"><code></code></span>
+<span class="codeline" id="line-347"><code><span class="keyword">func</span> (<label for="r67" class="ident">h</label> <a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>) <label for="r68" class="ident">Less</label>(<label for="r69" class="ident">i</label>, <label for="r70" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-348"><code>	<span class="keyword">return</span> <label for="r67" class="ident">h</label>[<label for="r69" class="ident">i</label>].<a href="gc.go.html#line-338" class="ident">utilBound</a> &lt; <label for="r67" class="ident">h</label>[<label for="r70" class="ident">j</label>].<a href="gc.go.html#line-338" class="ident">utilBound</a></code></span>
+<span class="codeline" id="line-349"><code>}</code></span>
+<span class="codeline" id="line-350"><code></code></span>
+<span class="codeline" id="line-351"><code><span class="keyword">func</span> (<label for="r71" class="ident">h</label> <a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>) <label for="r72" class="ident">Swap</label>(<label for="r73" class="ident">i</label>, <label for="r74" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-352"><code>	<label for="r71" class="ident">h</label>[<label for="r73" class="ident">i</label>], <label for="r71" class="ident">h</label>[<label for="r74" class="ident">j</label>] = <label for="r71" class="ident">h</label>[<label for="r74" class="ident">j</label>], <label for="r71" class="ident">h</label>[<label for="r73" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-353"><code>}</code></span>
+<span class="codeline" id="line-354"><code></code></span>
+<span class="codeline" id="line-355"><code><span class="keyword">func</span> (<label for="r75" class="ident">h</label> *<a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>) <label for="r76" class="ident">Push</label>(<label for="r77" class="ident">x</label> <span class="keyword">interface</span>{}) {</code></span>
+<span class="codeline" id="line-356"><code>	*<label for="r75" class="ident">h</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(*<label for="r75" class="ident">h</label>, <label for="r77" class="ident">x</label>.(<a href="gc.go.html#line-331" class="ident">bandUtil</a>))</code></span>
+<span class="codeline" id="line-357"><code>}</code></span>
+<span class="codeline" id="line-358"><code></code></span>
+<span class="codeline" id="line-359"><code><span class="keyword">func</span> (<label for="r78" class="ident">h</label> *<a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>) <label for="r79" class="ident">Pop</label>() <span class="keyword">interface</span>{} {</code></span>
+<span class="codeline" id="line-360"><code>	<label for="r80" class="ident">x</label> := (*<label for="r78" class="ident">h</label>)[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(*<label for="r78" class="ident">h</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-361"><code>	*<label for="r78" class="ident">h</label> = (*<label for="r78" class="ident">h</label>)[:<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(*<label for="r78" class="ident">h</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-362"><code>	<span class="keyword">return</span> <label for="r80" class="ident">x</label></code></span>
+<span class="codeline" id="line-363"><code>}</code></span>
+<span class="codeline" id="line-364"><code></code></span>
+<span class="codeline" id="line-365"><code><span class="comment">// UtilWindow is a specific window at Time.</span></code></span>
+<span class="codeline" id="line-366"><code><span class="keyword">type</span> <a href="../../../pkg/internal/trace.html#name-UtilWindow" class="ident">UtilWindow</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-367"><code>	Time <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-368"><code>	<span class="comment">// MutatorUtil is the mean mutator utilization in this window.</span></code></span>
+<span class="codeline" id="line-369"><code>	MutatorUtil <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-370"><code>}</code></span>
+<span class="codeline" id="line-371"><code></code></span>
+<span class="codeline" id="line-372"><code><span class="keyword">type</span> utilHeap []<a href="gc.go.html#line-366" class="ident">UtilWindow</a></code></span>
+<span class="codeline" id="line-373"><code></code></span>
+<span class="codeline" id="line-374"><code><span class="keyword">func</span> (<label for="r81" class="ident">h</label> <a href="gc.go.html#line-372" class="ident">utilHeap</a>) <label for="r82" class="ident">Len</label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-375"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r81" class="ident">h</label>)</code></span>
+<span class="codeline" id="line-376"><code>}</code></span>
+<span class="codeline" id="line-377"><code></code></span>
+<span class="codeline" id="line-378"><code><span class="keyword">func</span> (<label for="r83" class="ident">h</label> <a href="gc.go.html#line-372" class="ident">utilHeap</a>) <label for="r84" class="ident">Less</label>(<label for="r85" class="ident">i</label>, <label for="r86" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-379"><code>	<span class="keyword">if</span> <label for="r83" class="ident">h</label>[<label for="r85" class="ident">i</label>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> != <label for="r83" class="ident">h</label>[<label for="r86" class="ident">j</label>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> {</code></span>
+<span class="codeline" id="line-380"><code>		<span class="keyword">return</span> <label for="r83" class="ident">h</label>[<label for="r85" class="ident">i</label>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> &gt; <label for="r83" class="ident">h</label>[<label for="r86" class="ident">j</label>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a></code></span>
+<span class="codeline" id="line-381"><code>	}</code></span>
+<span class="codeline" id="line-382"><code>	<span class="keyword">return</span> <label for="r83" class="ident">h</label>[<label for="r85" class="ident">i</label>].<a href="gc.go.html#line-367" class="ident">Time</a> &gt; <label for="r83" class="ident">h</label>[<label for="r86" class="ident">j</label>].<a href="gc.go.html#line-367" class="ident">Time</a></code></span>
+<span class="codeline" id="line-383"><code>}</code></span>
+<span class="codeline" id="line-384"><code></code></span>
+<span class="codeline" id="line-385"><code><span class="keyword">func</span> (<label for="r87" class="ident">h</label> <a href="gc.go.html#line-372" class="ident">utilHeap</a>) <label for="r88" class="ident">Swap</label>(<label for="r89" class="ident">i</label>, <label for="r90" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-386"><code>	<label for="r87" class="ident">h</label>[<label for="r89" class="ident">i</label>], <label for="r87" class="ident">h</label>[<label for="r90" class="ident">j</label>] = <label for="r87" class="ident">h</label>[<label for="r90" class="ident">j</label>], <label for="r87" class="ident">h</label>[<label for="r89" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-387"><code>}</code></span>
+<span class="codeline" id="line-388"><code></code></span>
+<span class="codeline" id="line-389"><code><span class="keyword">func</span> (<label for="r91" class="ident">h</label> *<a href="gc.go.html#line-372" class="ident">utilHeap</a>) <label for="r92" class="ident">Push</label>(<label for="r93" class="ident">x</label> <span class="keyword">interface</span>{}) {</code></span>
+<span class="codeline" id="line-390"><code>	*<label for="r91" class="ident">h</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(*<label for="r91" class="ident">h</label>, <label for="r93" class="ident">x</label>.(<a href="gc.go.html#line-366" class="ident">UtilWindow</a>))</code></span>
+<span class="codeline" id="line-391"><code>}</code></span>
+<span class="codeline" id="line-392"><code></code></span>
+<span class="codeline" id="line-393"><code><span class="keyword">func</span> (<label for="r94" class="ident">h</label> *<a href="gc.go.html#line-372" class="ident">utilHeap</a>) <label for="r95" class="ident">Pop</label>() <span class="keyword">interface</span>{} {</code></span>
+<span class="codeline" id="line-394"><code>	<label for="r96" class="ident">x</label> := (*<label for="r94" class="ident">h</label>)[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(*<label for="r94" class="ident">h</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-395"><code>	*<label for="r94" class="ident">h</label> = (*<label for="r94" class="ident">h</label>)[:<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(*<label for="r94" class="ident">h</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-396"><code>	<span class="keyword">return</span> <label for="r96" class="ident">x</label></code></span>
+<span class="codeline" id="line-397"><code>}</code></span>
+<span class="codeline" id="line-398"><code></code></span>
+<span class="codeline" id="line-399"><code><span class="comment">// An accumulator takes a windowed mutator utilization function and</span></code></span>
+<span class="codeline" id="line-400"><code><span class="comment">// tracks various statistics for that function.</span></code></span>
+<span class="codeline" id="line-401"><code><span class="keyword">type</span> accumulator <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-402"><code>	mmu <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-403"><code></code></span>
+<span class="codeline" id="line-404"><code>	<span class="comment">// bound is the mutator utilization bound where adding any</span></code></span>
+<span class="codeline" id="line-405"><code><span class="comment">	// mutator utilization above this bound cannot affect the</span></code></span>
+<span class="codeline" id="line-406"><code><span class="comment">	// accumulated statistics.</span></code></span>
+<span class="codeline" id="line-407"><code>	bound <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-408"><code></code></span>
+<span class="codeline" id="line-409"><code>	<span class="comment">// Worst N window tracking</span></code></span>
+<span class="codeline" id="line-410"><code>	nWorst <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-411"><code>	wHeap  <a href="gc.go.html#line-372" class="ident">utilHeap</a></code></span>
+<span class="codeline" id="line-412"><code></code></span>
+<span class="codeline" id="line-413"><code>	<span class="comment">// Mutator utilization distribution tracking</span></code></span>
+<span class="codeline" id="line-414"><code>	mud *<a href="mud.go.html#line-26" class="ident">mud</a></code></span>
+<span class="codeline" id="line-415"><code>	<span class="comment">// preciseMass is the distribution mass that must be precise</span></code></span>
+<span class="codeline" id="line-416"><code><span class="comment">	// before accumulation is stopped.</span></code></span>
+<span class="codeline" id="line-417"><code>	preciseMass <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-418"><code>	<span class="comment">// lastTime and lastMU are the previous point added to the</span></code></span>
+<span class="codeline" id="line-419"><code><span class="comment">	// windowed mutator utilization function.</span></code></span>
+<span class="codeline" id="line-420"><code>	lastTime <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-421"><code>	lastMU   <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a></code></span>
+<span class="codeline" id="line-422"><code>}</code></span>
+<span class="codeline" id="line-423"><code></code></span>
+<span class="codeline" id="line-424"><code><span class="comment">// resetTime declares a discontinuity in the windowed mutator</span></code></span>
+<span class="codeline" id="line-425"><code><span class="comment">// utilization function by resetting the current time.</span></code></span>
+<span class="codeline" id="line-426"><code><span class="keyword">func</span> (<label for="r97" class="ident">acc</label> *<a href="gc.go.html#line-401" class="ident">accumulator</a>) <label for="r98" class="ident">resetTime</label>() {</code></span>
+<span class="codeline" id="line-427"><code>	<span class="comment">// This only matters for distribution collection, since that's</span></code></span>
+<span class="codeline" id="line-428"><code><span class="comment">	// the only thing that depends on the progression of the</span></code></span>
+<span class="codeline" id="line-429"><code><span class="comment">	// windowed mutator utilization function.</span></code></span>
+<span class="codeline" id="line-430"><code>	<label for="r97" class="ident">acc</label>.<a href="gc.go.html#line-420" class="ident">lastTime</a> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/const.go.html#line-46" class="ident">MaxInt64</a></code></span>
+<span class="codeline" id="line-431"><code>}</code></span>
+<span class="codeline" id="line-432"><code></code></span>
+<span class="codeline" id="line-433"><code><span class="comment">// addMU adds a point to the windowed mutator utilization function at</span></code></span>
+<span class="codeline" id="line-434"><code><span class="comment">// (time, mu). This must be called for monotonically increasing values</span></code></span>
+<span class="codeline" id="line-435"><code><span class="comment">// of time.</span></code></span>
+<span class="codeline" id="line-436"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-437"><code><span class="comment">// It returns true if further calls to addMU would be pointless.</span></code></span>
+<span class="codeline" id="line-438"><code><span class="keyword">func</span> (<label for="r99" class="ident">acc</label> *<a href="gc.go.html#line-401" class="ident">accumulator</a>) <label for="r100" class="ident">addMU</label>(<label for="r101" class="ident">time</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <label for="r102" class="ident">mu</label> <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>, <label for="r103" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-439"><code>	<span class="keyword">if</span> <label for="r102" class="ident">mu</label> &lt; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a> {</code></span>
+<span class="codeline" id="line-440"><code>		<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a> = <label for="r102" class="ident">mu</label></code></span>
+<span class="codeline" id="line-441"><code>	}</code></span>
+<span class="codeline" id="line-442"><code>	<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> = <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a></code></span>
+<span class="codeline" id="line-443"><code></code></span>
+<span class="codeline" id="line-444"><code>	<span class="keyword">if</span> <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-410" class="ident">nWorst</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-445"><code>		<span class="comment">// If the minimum has reached zero, it can't go any</span></code></span>
+<span class="codeline" id="line-446"><code><span class="comment">		// lower, so we can stop early.</span></code></span>
+<span class="codeline" id="line-447"><code>		<span class="keyword">return</span> <label for="r102" class="ident">mu</label> == <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-448"><code>	}</code></span>
+<span class="codeline" id="line-449"><code></code></span>
+<span class="codeline" id="line-450"><code>	<span class="comment">// Consider adding this window to the n worst.</span></code></span>
+<span class="codeline" id="line-451"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>) &lt; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-410" class="ident">nWorst</a> || <label for="r102" class="ident">mu</label> &lt; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> {</code></span>
+<span class="codeline" id="line-452"><code>		<span class="comment">// This window is lower than the K'th worst window.</span></code></span>
+<span class="codeline" id="line-453"><code><span class="comment">		//</span></code></span>
+<span class="codeline" id="line-454"><code><span class="comment">		// Check if there's any overlapping window</span></code></span>
+<span class="codeline" id="line-455"><code><span class="comment">		// already in the heap and keep whichever is</span></code></span>
+<span class="codeline" id="line-456"><code><span class="comment">		// worse.</span></code></span>
+<span class="codeline" id="line-457"><code>		<span class="keyword">for</span> <label for="r104" class="ident">i</label>, <label for="r105" class="ident">ui</label> := <span class="keyword">range</span> <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a> {</code></span>
+<span class="codeline" id="line-458"><code>			<span class="keyword">if</span> <label for="r101" class="ident">time</label>+<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r103" class="ident">window</label>) &gt; <label for="r105" class="ident">ui</label>.<a href="gc.go.html#line-367" class="ident">Time</a> &amp;&amp; <label for="r105" class="ident">ui</label>.<a href="gc.go.html#line-367" class="ident">Time</a>+<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r103" class="ident">window</label>) &gt; <label for="r101" class="ident">time</label> {</code></span>
+<span class="codeline" id="line-459"><code>				<span class="keyword">if</span> <label for="r105" class="ident">ui</label>.<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> &lt;= <label for="r102" class="ident">mu</label> {</code></span>
+<span class="codeline" id="line-460"><code>					<span class="comment">// Keep the first window.</span></code></span>
+<span class="codeline" id="line-461"><code>					<span class="keyword">goto</span> <label for="r106" class="ident">keep</label></code></span>
+<span class="codeline" id="line-462"><code>				} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-463"><code>					<span class="comment">// Replace it with this window.</span></code></span>
+<span class="codeline" id="line-464"><code>					<a href="../../../pkg/container/heap.html" class="ident i0">heap</a>.<a href="../../container/heap/heap.go.html#line-69" class="ident">Remove</a>(&amp;<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>, <label for="r104" class="ident">i</label>)</code></span>
+<span class="codeline" id="line-465"><code>					<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-466"><code>				}</code></span>
+<span class="codeline" id="line-467"><code>			}</code></span>
+<span class="codeline" id="line-468"><code>		}</code></span>
+<span class="codeline" id="line-469"><code></code></span>
+<span class="codeline" id="line-470"><code>		<a href="../../../pkg/container/heap.html" class="ident i0">heap</a>.<a href="../../container/heap/heap.go.html#line-52" class="ident">Push</a>(&amp;<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>, <a href="gc.go.html#line-366" class="ident">UtilWindow</a>{<label for="r101" class="ident">time</label>, <label for="r102" class="ident">mu</label>})</code></span>
+<span class="codeline" id="line-471"><code>		<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>) &gt; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-410" class="ident">nWorst</a> {</code></span>
+<span class="codeline" id="line-472"><code>			<a href="../../../pkg/container/heap.html" class="ident i0">heap</a>.<a href="../../container/heap/heap.go.html#line-60" class="ident">Pop</a>(&amp;<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>)</code></span>
+<span class="codeline" id="line-473"><code>		}</code></span>
+<span class="codeline" id="line-474"><code>	<label for="r106" class="ident">keep</label>:</code></span>
+<span class="codeline" id="line-475"><code>	}</code></span>
+<span class="codeline" id="line-476"><code></code></span>
+<span class="codeline" id="line-477"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>) &lt; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-410" class="ident">nWorst</a> {</code></span>
+<span class="codeline" id="line-478"><code>		<span class="comment">// We don't have N windows yet, so keep accumulating.</span></code></span>
+<span class="codeline" id="line-479"><code>		<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> = <span class="lit-number">1.0</span></code></span>
+<span class="codeline" id="line-480"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-481"><code>		<span class="comment">// Anything above the least worst window has no effect.</span></code></span>
+<span class="codeline" id="line-482"><code>		<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-35" class="ident">Max</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a>, <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a>)</code></span>
+<span class="codeline" id="line-483"><code>	}</code></span>
+<span class="codeline" id="line-484"><code></code></span>
+<span class="codeline" id="line-485"><code>	<span class="keyword">if</span> <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-414" class="ident">mud</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-486"><code>		<span class="keyword">if</span> <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-420" class="ident">lastTime</a> != <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/const.go.html#line-46" class="ident">MaxInt64</a> {</code></span>
+<span class="codeline" id="line-487"><code>			<span class="comment">// Update distribution.</span></code></span>
+<span class="codeline" id="line-488"><code>			<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-414" class="ident">mud</a>.<a href="mud.go.html#line-59" class="ident">add</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-421" class="ident">lastMU</a>, <label for="r102" class="ident">mu</label>, <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r101" class="ident">time</label>-<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-420" class="ident">lastTime</a>))</code></span>
+<span class="codeline" id="line-489"><code>		}</code></span>
+<span class="codeline" id="line-490"><code>		<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-420" class="ident">lastTime</a>, <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-421" class="ident">lastMU</a> = <label for="r101" class="ident">time</label>, <label for="r102" class="ident">mu</label></code></span>
+<span class="codeline" id="line-491"><code>		<span class="keyword">if</span> <label for="r107" class="ident">_</label>, <label for="r108" class="ident">mudBound</label>, <label for="r109" class="ident">ok</label> := <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-414" class="ident">mud</a>.<a href="mud.go.html#line-148" class="ident">approxInvCumulativeSum</a>(); <label for="r109" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-492"><code>			<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-35" class="ident">Max</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a>, <label for="r108" class="ident">mudBound</label>)</code></span>
+<span class="codeline" id="line-493"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-494"><code>			<span class="comment">// We haven't accumulated enough total precise</span></code></span>
+<span class="codeline" id="line-495"><code><span class="comment">			// mass yet to even reach our goal, so keep</span></code></span>
+<span class="codeline" id="line-496"><code><span class="comment">			// accumulating.</span></code></span>
+<span class="codeline" id="line-497"><code>			<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-498"><code>		}</code></span>
+<span class="codeline" id="line-499"><code>		<span class="comment">// It's not worth checking percentiles every time, so</span></code></span>
+<span class="codeline" id="line-500"><code><span class="comment">		// just keep accumulating this band.</span></code></span>
+<span class="codeline" id="line-501"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-502"><code>	}</code></span>
+<span class="codeline" id="line-503"><code></code></span>
+<span class="codeline" id="line-504"><code>	<span class="comment">// If we've found enough 0 utilizations, we can stop immediately.</span></code></span>
+<span class="codeline" id="line-505"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>) == <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-410" class="ident">nWorst</a> &amp;&amp; <label for="r99" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-369" class="ident">MutatorUtil</a> == <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-506"><code>}</code></span>
+<span class="codeline" id="line-507"><code></code></span>
+<span class="codeline" id="line-508"><code><span class="comment">// MMU returns the minimum mutator utilization for the given time</span></code></span>
+<span class="codeline" id="line-509"><code><span class="comment">// window. This is the minimum utilization for all windows of this</span></code></span>
+<span class="codeline" id="line-510"><code><span class="comment">// duration across the execution. The returned value is in the range</span></code></span>
+<span class="codeline" id="line-511"><code><span class="comment">// [0, 1].</span></code></span>
+<span class="codeline" id="line-512"><code><span class="keyword">func</span> (<label for="r110" class="ident">c</label> *<a href="gc.go.html#line-237" class="ident">MMUCurve</a>) <label for="r111" class="ident">MMU</label>(<label for="r112" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>) (<label for="r113" class="ident">mmu</label> <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>) {</code></span>
+<span class="codeline" id="line-513"><code>	<label for="r114" class="ident">acc</label> := <a href="gc.go.html#line-401" class="ident">accumulator</a>{<a href="gc.go.html#line-402" class="ident">mmu</a>: <span class="lit-number">1.0</span>, <a href="gc.go.html#line-407" class="ident">bound</a>: <span class="lit-number">1.0</span>}</code></span>
+<span class="codeline" id="line-514"><code>	<label for="r110" class="ident">c</label>.<a href="gc.go.html#line-609" class="ident">mmu</a>(<label for="r112" class="ident">window</label>, &amp;<label for="r114" class="ident">acc</label>)</code></span>
+<span class="codeline" id="line-515"><code>	<span class="keyword">return</span> <label for="r114" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a></code></span>
+<span class="codeline" id="line-516"><code>}</code></span>
+<span class="codeline" id="line-517"><code></code></span>
+<span class="codeline" id="line-518"><code><span class="comment">// Examples returns n specific examples of the lowest mutator</span></code></span>
+<span class="codeline" id="line-519"><code><span class="comment">// utilization for the given window size. The returned windows will be</span></code></span>
+<span class="codeline" id="line-520"><code><span class="comment">// disjoint (otherwise there would be a huge number of</span></code></span>
+<span class="codeline" id="line-521"><code><span class="comment">// mostly-overlapping windows at the single lowest point). There are</span></code></span>
+<span class="codeline" id="line-522"><code><span class="comment">// no guarantees on which set of disjoint windows this returns.</span></code></span>
+<span class="codeline" id="line-523"><code><span class="keyword">func</span> (<label for="r115" class="ident">c</label> *<a href="gc.go.html#line-237" class="ident">MMUCurve</a>) <label for="r116" class="ident">Examples</label>(<label for="r117" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>, <label for="r118" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) (<label for="r119" class="ident">worst</label> []<a href="gc.go.html#line-366" class="ident">UtilWindow</a>) {</code></span>
+<span class="codeline" id="line-524"><code>	<label for="r120" class="ident">acc</label> := <a href="gc.go.html#line-401" class="ident">accumulator</a>{<a href="gc.go.html#line-402" class="ident">mmu</a>: <span class="lit-number">1.0</span>, <a href="gc.go.html#line-407" class="ident">bound</a>: <span class="lit-number">1.0</span>, <a href="gc.go.html#line-410" class="ident">nWorst</a>: <label for="r118" class="ident">n</label>}</code></span>
+<span class="codeline" id="line-525"><code>	<label for="r115" class="ident">c</label>.<a href="gc.go.html#line-609" class="ident">mmu</a>(<label for="r117" class="ident">window</label>, &amp;<label for="r120" class="ident">acc</label>)</code></span>
+<span class="codeline" id="line-526"><code>	<a href="../../../pkg/sort.html" class="ident i2">sort</a>.<a href="../../sort/sort.go.html#line-229" class="ident">Sort</a>(<a href="../../../pkg/sort.html" class="ident i2">sort</a>.<a href="../../sort/sort.go.html#line-264" class="ident">Reverse</a>(<label for="r120" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>))</code></span>
+<span class="codeline" id="line-527"><code>	<span class="keyword">return</span> ([]<a href="gc.go.html#line-366" class="ident">UtilWindow</a>)(<label for="r120" class="ident">acc</label>.<a href="gc.go.html#line-411" class="ident">wHeap</a>)</code></span>
+<span class="codeline" id="line-528"><code>}</code></span>
+<span class="codeline" id="line-529"><code></code></span>
+<span class="codeline" id="line-530"><code><span class="comment">// MUD returns mutator utilization distribution quantiles for the</span></code></span>
+<span class="codeline" id="line-531"><code><span class="comment">// given window size.</span></code></span>
+<span class="codeline" id="line-532"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-533"><code><span class="comment">// The mutator utilization distribution is the distribution of mean</span></code></span>
+<span class="codeline" id="line-534"><code><span class="comment">// mutator utilization across all windows of the given window size in</span></code></span>
+<span class="codeline" id="line-535"><code><span class="comment">// the trace.</span></code></span>
+<span class="codeline" id="line-536"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-537"><code><span class="comment">// The minimum mutator utilization is the minimum (0th percentile) of</span></code></span>
+<span class="codeline" id="line-538"><code><span class="comment">// this distribution. (However, if only the minimum is desired, it's</span></code></span>
+<span class="codeline" id="line-539"><code><span class="comment">// more efficient to use the MMU method.)</span></code></span>
+<span class="codeline" id="line-540"><code><span class="keyword">func</span> (<label for="r121" class="ident">c</label> *<a href="gc.go.html#line-237" class="ident">MMUCurve</a>) <label for="r122" class="ident">MUD</label>(<label for="r123" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>, <label for="r124" class="ident">quantiles</label> []<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>) []<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a> {</code></span>
+<span class="codeline" id="line-541"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r124" class="ident">quantiles</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-542"><code>		<span class="keyword">return</span> []<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>{}</code></span>
+<span class="codeline" id="line-543"><code>	}</code></span>
+<span class="codeline" id="line-544"><code></code></span>
+<span class="codeline" id="line-545"><code>	<span class="comment">// Each unrefined band contributes a known total mass to the</span></code></span>
+<span class="codeline" id="line-546"><code><span class="comment">	// distribution (bandDur except at the end), but in an unknown</span></code></span>
+<span class="codeline" id="line-547"><code><span class="comment">	// way. However, we know that all the mass it contributes must</span></code></span>
+<span class="codeline" id="line-548"><code><span class="comment">	// be at or above its worst-case mean mutator utilization.</span></code></span>
+<span class="codeline" id="line-549"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-550"><code><span class="comment">	// Hence, we refine bands until the highest desired</span></code></span>
+<span class="codeline" id="line-551"><code><span class="comment">	// distribution quantile is less than the next worst-case mean</span></code></span>
+<span class="codeline" id="line-552"><code><span class="comment">	// mutator utilization. At this point, all further</span></code></span>
+<span class="codeline" id="line-553"><code><span class="comment">	// contributions to the distribution must be beyond the</span></code></span>
+<span class="codeline" id="line-554"><code><span class="comment">	// desired quantile and hence cannot affect it.</span></code></span>
+<span class="codeline" id="line-555"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-556"><code><span class="comment">	// First, find the highest desired distribution quantile.</span></code></span>
+<span class="codeline" id="line-557"><code>	<label for="r125" class="ident">maxQ</label> := <label for="r124" class="ident">quantiles</label>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-558"><code>	<span class="keyword">for</span> <label for="r126" class="ident">_</label>, <label for="r127" class="ident">q</label> := <span class="keyword">range</span> <label for="r124" class="ident">quantiles</label> {</code></span>
+<span class="codeline" id="line-559"><code>		<span class="keyword">if</span> <label for="r127" class="ident">q</label> &gt; <label for="r125" class="ident">maxQ</label> {</code></span>
+<span class="codeline" id="line-560"><code>			<label for="r125" class="ident">maxQ</label> = <label for="r127" class="ident">q</label></code></span>
+<span class="codeline" id="line-561"><code>		}</code></span>
+<span class="codeline" id="line-562"><code>	}</code></span>
+<span class="codeline" id="line-563"><code>	<span class="comment">// The distribution's mass is in units of time (it's not</span></code></span>
+<span class="codeline" id="line-564"><code><span class="comment">	// normalized because this would make it more annoying to</span></code></span>
+<span class="codeline" id="line-565"><code><span class="comment">	// account for future contributions of unrefined bands). The</span></code></span>
+<span class="codeline" id="line-566"><code><span class="comment">	// total final mass will be the duration of the trace itself</span></code></span>
+<span class="codeline" id="line-567"><code><span class="comment">	// minus the window size. Using this, we can compute the mass</span></code></span>
+<span class="codeline" id="line-568"><code><span class="comment">	// corresponding to quantile maxQ.</span></code></span>
+<span class="codeline" id="line-569"><code>	<span class="keyword">var</span> <label for="r128" class="ident">duration</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-570"><code>	<span class="keyword">for</span> <label for="r129" class="ident">_</label>, <label for="r130" class="ident">s</label> := <span class="keyword">range</span> <label for="r121" class="ident">c</label>.<a href="gc.go.html#line-238" class="ident">series</a> {</code></span>
+<span class="codeline" id="line-571"><code>		<label for="r131" class="ident">duration1</label> := <label for="r130" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r130" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> - <label for="r130" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-19" class="ident">Time</a></code></span>
+<span class="codeline" id="line-572"><code>		<span class="keyword">if</span> <label for="r131" class="ident">duration1</label> &gt;= <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r123" class="ident">window</label>) {</code></span>
+<span class="codeline" id="line-573"><code>			<label for="r128" class="ident">duration</label> += <label for="r131" class="ident">duration1</label> - <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r123" class="ident">window</label>)</code></span>
+<span class="codeline" id="line-574"><code>		}</code></span>
+<span class="codeline" id="line-575"><code>	}</code></span>
+<span class="codeline" id="line-576"><code>	<label for="r132" class="ident">qMass</label> := <a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r128" class="ident">duration</label>) * <label for="r125" class="ident">maxQ</label></code></span>
+<span class="codeline" id="line-577"><code></code></span>
+<span class="codeline" id="line-578"><code>	<span class="comment">// Accumulate the MUD until we have precise information for</span></code></span>
+<span class="codeline" id="line-579"><code><span class="comment">	// everything to the left of qMass.</span></code></span>
+<span class="codeline" id="line-580"><code>	<label for="r133" class="ident">acc</label> := <a href="gc.go.html#line-401" class="ident">accumulator</a>{<a href="gc.go.html#line-402" class="ident">mmu</a>: <span class="lit-number">1.0</span>, <a href="gc.go.html#line-407" class="ident">bound</a>: <span class="lit-number">1.0</span>, <a href="gc.go.html#line-417" class="ident">preciseMass</a>: <label for="r132" class="ident">qMass</label>, <a href="gc.go.html#line-414" class="ident">mud</a>: <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="mud.go.html#line-26" class="ident">mud</a>)}</code></span>
+<span class="codeline" id="line-581"><code>	<label for="r133" class="ident">acc</label>.<a href="gc.go.html#line-414" class="ident">mud</a>.<a href="mud.go.html#line-123" class="ident">setTrackMass</a>(<label for="r132" class="ident">qMass</label>)</code></span>
+<span class="codeline" id="line-582"><code>	<label for="r121" class="ident">c</label>.<a href="gc.go.html#line-609" class="ident">mmu</a>(<label for="r123" class="ident">window</label>, &amp;<label for="r133" class="ident">acc</label>)</code></span>
+<span class="codeline" id="line-583"><code></code></span>
+<span class="codeline" id="line-584"><code>	<span class="comment">// Evaluate the quantiles on the accumulated MUD.</span></code></span>
+<span class="codeline" id="line-585"><code>	<label for="r134" class="ident">out</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r124" class="ident">quantiles</label>))</code></span>
+<span class="codeline" id="line-586"><code>	<span class="keyword">for</span> <label for="r135" class="ident">i</label> := <span class="keyword">range</span> <label for="r134" class="ident">out</label> {</code></span>
+<span class="codeline" id="line-587"><code>		<label for="r136" class="ident">mu</label>, <label for="r137" class="ident">_</label> := <label for="r133" class="ident">acc</label>.<a href="gc.go.html#line-414" class="ident">mud</a>.<a href="mud.go.html#line-162" class="ident">invCumulativeSum</a>(<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r128" class="ident">duration</label>) * <label for="r124" class="ident">quantiles</label>[<label for="r135" class="ident">i</label>])</code></span>
+<span class="codeline" id="line-588"><code>		<span class="keyword">if</span> <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/bits.go.html#line-34" class="ident">IsNaN</a>(<label for="r136" class="ident">mu</label>) {</code></span>
+<span class="codeline" id="line-589"><code>			<span class="comment">// There are a few legitimate ways this can</span></code></span>
+<span class="codeline" id="line-590"><code><span class="comment">			// happen:</span></code></span>
+<span class="codeline" id="line-591"><code><span class="comment">			//</span></code></span>
+<span class="codeline" id="line-592"><code><span class="comment">			// 1. If the window is the full trace</span></code></span>
+<span class="codeline" id="line-593"><code><span class="comment">			// duration, then the windowed MU function is</span></code></span>
+<span class="codeline" id="line-594"><code><span class="comment">			// only defined at a single point, so the MU</span></code></span>
+<span class="codeline" id="line-595"><code><span class="comment">			// distribution is not well-defined.</span></code></span>
+<span class="codeline" id="line-596"><code><span class="comment">			//</span></code></span>
+<span class="codeline" id="line-597"><code><span class="comment">			// 2. If there are no events, then the MU</span></code></span>
+<span class="codeline" id="line-598"><code><span class="comment">			// distribution has no mass.</span></code></span>
+<span class="codeline" id="line-599"><code><span class="comment">			//</span></code></span>
+<span class="codeline" id="line-600"><code><span class="comment">			// Either way, all of the quantiles will have</span></code></span>
+<span class="codeline" id="line-601"><code><span class="comment">			// converged toward the MMU at this point.</span></code></span>
+<span class="codeline" id="line-602"><code>			<label for="r136" class="ident">mu</label> = <label for="r133" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a></code></span>
+<span class="codeline" id="line-603"><code>		}</code></span>
+<span class="codeline" id="line-604"><code>		<label for="r134" class="ident">out</label>[<label for="r135" class="ident">i</label>] = <label for="r136" class="ident">mu</label></code></span>
+<span class="codeline" id="line-605"><code>	}</code></span>
+<span class="codeline" id="line-606"><code>	<span class="keyword">return</span> <label for="r134" class="ident">out</label></code></span>
+<span class="codeline" id="line-607"><code>}</code></span>
+<span class="codeline" id="line-608"><code></code></span>
+<span class="codeline" id="line-609"><code><span class="keyword">func</span> (<label for="r138" class="ident">c</label> *<a href="gc.go.html#line-237" class="ident">MMUCurve</a>) <label for="r139" class="ident">mmu</label>(<label for="r140" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>, <label for="r141" class="ident">acc</label> *<a href="gc.go.html#line-401" class="ident">accumulator</a>) {</code></span>
+<span class="codeline" id="line-610"><code>	<span class="keyword">if</span> <label for="r140" class="ident">window</label> &lt;= <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-611"><code>		<label for="r141" class="ident">acc</label>.<a href="gc.go.html#line-402" class="ident">mmu</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-612"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-613"><code>	}</code></span>
+<span class="codeline" id="line-614"><code></code></span>
+<span class="codeline" id="line-615"><code>	<span class="keyword">var</span> <label for="r142" class="ident">bandU</label> <a href="gc.go.html#line-341" class="ident">bandUtilHeap</a></code></span>
+<span class="codeline" id="line-616"><code>	<label for="r143" class="ident">windows</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r138" class="ident">c</label>.<a href="gc.go.html#line-238" class="ident">series</a>))</code></span>
+<span class="codeline" id="line-617"><code>	<span class="keyword">for</span> <label for="r144" class="ident">i</label>, <label for="r145" class="ident">s</label> := <span class="keyword">range</span> <label for="r138" class="ident">c</label>.<a href="gc.go.html#line-238" class="ident">series</a> {</code></span>
+<span class="codeline" id="line-618"><code>		<label for="r143" class="ident">windows</label>[<label for="r144" class="ident">i</label>] = <label for="r140" class="ident">window</label></code></span>
+<span class="codeline" id="line-619"><code>		<span class="keyword">if</span> <label for="r146" class="ident">max</label> := <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>(<label for="r145" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r145" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> - <label for="r145" class="ident">s</label>.<a href="gc.go.html#line-242" class="ident">util</a>[<span class="lit-number">0</span>].<a href="gc.go.html#line-19" class="ident">Time</a>); <label for="r140" class="ident">window</label> &gt; <label for="r146" class="ident">max</label> {</code></span>
+<span class="codeline" id="line-620"><code>			<label for="r143" class="ident">windows</label>[<label for="r144" class="ident">i</label>] = <label for="r146" class="ident">max</label></code></span>
+<span class="codeline" id="line-621"><code>		}</code></span>
+<span class="codeline" id="line-622"><code></code></span>
+<span class="codeline" id="line-623"><code>		<label for="r147" class="ident">bandU1</label> := <a href="gc.go.html#line-341" class="ident">bandUtilHeap</a>(<label for="r145" class="ident">s</label>.<a href="gc.go.html#line-644" class="ident">mkBandUtil</a>(<label for="r144" class="ident">i</label>, <label for="r143" class="ident">windows</label>[<label for="r144" class="ident">i</label>]))</code></span>
+<span class="codeline" id="line-624"><code>		<span class="keyword">if</span> <label for="r142" class="ident">bandU</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-625"><code>			<label for="r142" class="ident">bandU</label> = <label for="r147" class="ident">bandU1</label></code></span>
+<span class="codeline" id="line-626"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-627"><code>			<label for="r142" class="ident">bandU</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r142" class="ident">bandU</label>, <label for="r147" class="ident">bandU1</label>...)</code></span>
+<span class="codeline" id="line-628"><code>		}</code></span>
+<span class="codeline" id="line-629"><code>	}</code></span>
+<span class="codeline" id="line-630"><code></code></span>
+<span class="codeline" id="line-631"><code>	<span class="comment">// Process bands from lowest utilization bound to highest.</span></code></span>
+<span class="codeline" id="line-632"><code>	<a href="../../../pkg/container/heap.html" class="ident i0">heap</a>.<a href="../../container/heap/heap.go.html#line-42" class="ident">Init</a>(&amp;<label for="r142" class="ident">bandU</label>)</code></span>
+<span class="codeline" id="line-633"><code></code></span>
+<span class="codeline" id="line-634"><code>	<span class="comment">// Refine each band into a precise window and MMU until</span></code></span>
+<span class="codeline" id="line-635"><code><span class="comment">	// refining the next lowest band can no longer affect the MMU</span></code></span>
+<span class="codeline" id="line-636"><code><span class="comment">	// or windows.</span></code></span>
+<span class="codeline" id="line-637"><code>	<span class="keyword">for</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r142" class="ident">bandU</label>) &gt; <span class="lit-number">0</span> &amp;&amp; <label for="r142" class="ident">bandU</label>[<span class="lit-number">0</span>].<a href="gc.go.html#line-338" class="ident">utilBound</a> &lt; <label for="r141" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a> {</code></span>
+<span class="codeline" id="line-638"><code>		<label for="r148" class="ident">i</label> := <label for="r142" class="ident">bandU</label>[<span class="lit-number">0</span>].<a href="gc.go.html#line-333" class="ident">series</a></code></span>
+<span class="codeline" id="line-639"><code>		<label for="r138" class="ident">c</label>.<a href="gc.go.html#line-238" class="ident">series</a>[<label for="r148" class="ident">i</label>].<a href="gc.go.html#line-708" class="ident">bandMMU</a>(<label for="r142" class="ident">bandU</label>[<span class="lit-number">0</span>].<a href="gc.go.html#line-335" class="ident">i</a>, <label for="r143" class="ident">windows</label>[<label for="r148" class="ident">i</label>], <label for="r141" class="ident">acc</label>)</code></span>
+<span class="codeline" id="line-640"><code>		<a href="../../../pkg/container/heap.html" class="ident i0">heap</a>.<a href="../../container/heap/heap.go.html#line-60" class="ident">Pop</a>(&amp;<label for="r142" class="ident">bandU</label>)</code></span>
+<span class="codeline" id="line-641"><code>	}</code></span>
+<span class="codeline" id="line-642"><code>}</code></span>
+<span class="codeline" id="line-643"><code></code></span>
+<span class="codeline" id="line-644"><code><span class="keyword">func</span> (<label for="r149" class="ident">c</label> *<a href="gc.go.html#line-241" class="ident">mmuSeries</a>) <label for="r150" class="ident">mkBandUtil</label>(<label for="r151" class="ident">series</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r152" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>) []<a href="gc.go.html#line-331" class="ident">bandUtil</a> {</code></span>
+<span class="codeline" id="line-645"><code>	<span class="comment">// For each band, compute the worst-possible total mutator</span></code></span>
+<span class="codeline" id="line-646"><code><span class="comment">	// utilization for all windows that start in that band.</span></code></span>
+<span class="codeline" id="line-647"><code></code></span>
+<span class="codeline" id="line-648"><code>	<span class="comment">// minBands is the minimum number of bands a window can span</span></code></span>
+<span class="codeline" id="line-649"><code><span class="comment">	// and maxBands is the maximum number of bands a window can</span></code></span>
+<span class="codeline" id="line-650"><code><span class="comment">	// span in any alignment.</span></code></span>
+<span class="codeline" id="line-651"><code>	<label for="r153" class="ident">minBands</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>((<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r152" class="ident">window</label>) + <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a> - <span class="lit-number">1</span>) / <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a>)</code></span>
+<span class="codeline" id="line-652"><code>	<label for="r154" class="ident">maxBands</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>((<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r152" class="ident">window</label>) + <span class="lit-number">2</span>*(<label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a>-<span class="lit-number">1</span>)) / <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a>)</code></span>
+<span class="codeline" id="line-653"><code>	<span class="keyword">if</span> <label for="r152" class="ident">window</label> &gt; <span class="lit-number">1</span> &amp;&amp; <label for="r154" class="ident">maxBands</label> &lt; <span class="lit-number">2</span> {</code></span>
+<span class="codeline" id="line-654"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"maxBands &lt; 2"</span>)</code></span>
+<span class="codeline" id="line-655"><code>	}</code></span>
+<span class="codeline" id="line-656"><code>	<label for="r155" class="ident">tailDur</label> := <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r152" class="ident">window</label>) % <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a></code></span>
+<span class="codeline" id="line-657"><code>	<label for="r156" class="ident">nUtil</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>) - <label for="r154" class="ident">maxBands</label> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-658"><code>	<span class="keyword">if</span> <label for="r156" class="ident">nUtil</label> &lt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-659"><code>		<label for="r156" class="ident">nUtil</label> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-660"><code>	}</code></span>
+<span class="codeline" id="line-661"><code>	<label for="r157" class="ident">bandU</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="gc.go.html#line-331" class="ident">bandUtil</a>, <label for="r156" class="ident">nUtil</label>)</code></span>
+<span class="codeline" id="line-662"><code>	<span class="keyword">for</span> <label for="r158" class="ident">i</label> := <span class="keyword">range</span> <label for="r157" class="ident">bandU</label> {</code></span>
+<span class="codeline" id="line-663"><code>		<span class="comment">// To compute the worst-case MU, we assume the minimum</span></code></span>
+<span class="codeline" id="line-664"><code><span class="comment">		// for any bands that are only partially overlapped by</span></code></span>
+<span class="codeline" id="line-665"><code><span class="comment">		// some window and the mean for any bands that are</span></code></span>
+<span class="codeline" id="line-666"><code><span class="comment">		// completely covered by all windows.</span></code></span>
+<span class="codeline" id="line-667"><code>		<span class="keyword">var</span> <label for="r159" class="ident">util</label> <a href="gc.go.html#line-224" class="ident">totalUtil</a></code></span>
+<span class="codeline" id="line-668"><code></code></span>
+<span class="codeline" id="line-669"><code>		<span class="comment">// Find the lowest and second lowest of the partial</span></code></span>
+<span class="codeline" id="line-670"><code><span class="comment">		// bands.</span></code></span>
+<span class="codeline" id="line-671"><code>		<label for="r160" class="ident">l</label> := <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r158" class="ident">i</label>].<a href="gc.go.html#line-255" class="ident">minUtil</a></code></span>
+<span class="codeline" id="line-672"><code>		<label for="r161" class="ident">r1</label> := <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r158" class="ident">i</label>+<label for="r153" class="ident">minBands</label>-<span class="lit-number">1</span>].<a href="gc.go.html#line-255" class="ident">minUtil</a></code></span>
+<span class="codeline" id="line-673"><code>		<label for="r162" class="ident">r2</label> := <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r158" class="ident">i</label>+<label for="r154" class="ident">maxBands</label>-<span class="lit-number">1</span>].<a href="gc.go.html#line-255" class="ident">minUtil</a></code></span>
+<span class="codeline" id="line-674"><code>		<label for="r163" class="ident">minBand</label> := <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r160" class="ident">l</label>, <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r161" class="ident">r1</label>, <label for="r162" class="ident">r2</label>))</code></span>
+<span class="codeline" id="line-675"><code>		<span class="comment">// Assume the worst window maximally overlaps the</span></code></span>
+<span class="codeline" id="line-676"><code><span class="comment">		// worst minimum and then the rest overlaps the second</span></code></span>
+<span class="codeline" id="line-677"><code><span class="comment">		// worst minimum.</span></code></span>
+<span class="codeline" id="line-678"><code>		<span class="keyword">if</span> <label for="r153" class="ident">minBands</label> == <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-679"><code>			<label for="r159" class="ident">util</label> += <a href="gc.go.html#line-226" class="ident">totalUtilOf</a>(<label for="r163" class="ident">minBand</label>, <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r152" class="ident">window</label>))</code></span>
+<span class="codeline" id="line-680"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-681"><code>			<label for="r159" class="ident">util</label> += <a href="gc.go.html#line-226" class="ident">totalUtilOf</a>(<label for="r163" class="ident">minBand</label>, <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-249" class="ident">bandDur</a>)</code></span>
+<span class="codeline" id="line-682"><code>			<label for="r164" class="ident">midBand</label> := <span class="lit-number">0.0</span></code></span>
+<span class="codeline" id="line-683"><code>			<span class="keyword">switch</span> {</code></span>
+<span class="codeline" id="line-684"><code>			<span class="keyword">case</span> <label for="r163" class="ident">minBand</label> == <label for="r160" class="ident">l</label>:</code></span>
+<span class="codeline" id="line-685"><code>				<label for="r164" class="ident">midBand</label> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r161" class="ident">r1</label>, <label for="r162" class="ident">r2</label>)</code></span>
+<span class="codeline" id="line-686"><code>			<span class="keyword">case</span> <label for="r163" class="ident">minBand</label> == <label for="r161" class="ident">r1</label>:</code></span>
+<span class="codeline" id="line-687"><code>				<label for="r164" class="ident">midBand</label> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r160" class="ident">l</label>, <label for="r162" class="ident">r2</label>)</code></span>
+<span class="codeline" id="line-688"><code>			<span class="keyword">case</span> <label for="r163" class="ident">minBand</label> == <label for="r162" class="ident">r2</label>:</code></span>
+<span class="codeline" id="line-689"><code>				<label for="r164" class="ident">midBand</label> = <a href="../../../pkg/math.html" class="ident i1">math</a>.<a href="../../math/dim.go.html#line-62" class="ident">Min</a>(<label for="r160" class="ident">l</label>, <label for="r161" class="ident">r1</label>)</code></span>
+<span class="codeline" id="line-690"><code>			}</code></span>
+<span class="codeline" id="line-691"><code>			<label for="r159" class="ident">util</label> += <a href="gc.go.html#line-226" class="ident">totalUtilOf</a>(<label for="r164" class="ident">midBand</label>, <label for="r155" class="ident">tailDur</label>)</code></span>
+<span class="codeline" id="line-692"><code>		}</code></span>
+<span class="codeline" id="line-693"><code></code></span>
+<span class="codeline" id="line-694"><code>		<span class="comment">// Add the total mean MU of bands that are completely</span></code></span>
+<span class="codeline" id="line-695"><code><span class="comment">		// overlapped by all windows.</span></code></span>
+<span class="codeline" id="line-696"><code>		<span class="keyword">if</span> <label for="r153" class="ident">minBands</label> &gt; <span class="lit-number">2</span> {</code></span>
+<span class="codeline" id="line-697"><code>			<label for="r159" class="ident">util</label> += <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r158" class="ident">i</label>+<label for="r153" class="ident">minBands</label>-<span class="lit-number">1</span>].<a href="gc.go.html#line-258" class="ident">cumUtil</a> - <label for="r149" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r158" class="ident">i</label>+<span class="lit-number">1</span>].<a href="gc.go.html#line-258" class="ident">cumUtil</a></code></span>
+<span class="codeline" id="line-698"><code>		}</code></span>
+<span class="codeline" id="line-699"><code></code></span>
+<span class="codeline" id="line-700"><code>		<label for="r157" class="ident">bandU</label>[<label for="r158" class="ident">i</label>] = <a href="gc.go.html#line-331" class="ident">bandUtil</a>{<label for="r151" class="ident">series</label>, <label for="r158" class="ident">i</label>, <label for="r159" class="ident">util</label>.<a href="gc.go.html#line-231" class="ident">mean</a>(<label for="r152" class="ident">window</label>)}</code></span>
+<span class="codeline" id="line-701"><code>	}</code></span>
+<span class="codeline" id="line-702"><code></code></span>
+<span class="codeline" id="line-703"><code>	<span class="keyword">return</span> <label for="r157" class="ident">bandU</label></code></span>
+<span class="codeline" id="line-704"><code>}</code></span>
+<span class="codeline" id="line-705"><code></code></span>
+<span class="codeline" id="line-706"><code><span class="comment">// bandMMU computes the precise minimum mutator utilization for</span></code></span>
+<span class="codeline" id="line-707"><code><span class="comment">// windows with a left edge in band bandIdx.</span></code></span>
+<span class="codeline" id="line-708"><code><span class="keyword">func</span> (<label for="r165" class="ident">c</label> *<a href="gc.go.html#line-241" class="ident">mmuSeries</a>) <label for="r166" class="ident">bandMMU</label>(<label for="r167" class="ident">bandIdx</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r168" class="ident">window</label> <a href="../../../pkg/time.html" class="ident i4">time</a>.<a href="../../time/time.go.html#line-583" class="ident">Duration</a>, <label for="r169" class="ident">acc</label> *<a href="gc.go.html#line-401" class="ident">accumulator</a>) {</code></span>
+<span class="codeline" id="line-709"><code>	<label for="r170" class="ident">util</label> := <label for="r165" class="ident">c</label>.<a href="gc.go.html#line-242" class="ident">util</a></code></span>
+<span class="codeline" id="line-710"><code></code></span>
+<span class="codeline" id="line-711"><code>	<span class="comment">// We think of the mutator utilization over time as the</span></code></span>
+<span class="codeline" id="line-712"><code><span class="comment">	// box-filtered utilization function, which we call the</span></code></span>
+<span class="codeline" id="line-713"><code><span class="comment">	// "windowed mutator utilization function". The resulting</span></code></span>
+<span class="codeline" id="line-714"><code><span class="comment">	// function is continuous and piecewise linear (unless</span></code></span>
+<span class="codeline" id="line-715"><code><span class="comment">	// window==0, which we handle elsewhere), where the boundaries</span></code></span>
+<span class="codeline" id="line-716"><code><span class="comment">	// between segments occur when either edge of the window</span></code></span>
+<span class="codeline" id="line-717"><code><span class="comment">	// encounters a change in the instantaneous mutator</span></code></span>
+<span class="codeline" id="line-718"><code><span class="comment">	// utilization function. Hence, the minimum of this function</span></code></span>
+<span class="codeline" id="line-719"><code><span class="comment">	// will always occur when one of the edges of the window</span></code></span>
+<span class="codeline" id="line-720"><code><span class="comment">	// aligns with a utilization change, so these are the only</span></code></span>
+<span class="codeline" id="line-721"><code><span class="comment">	// points we need to consider.</span></code></span>
+<span class="codeline" id="line-722"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-723"><code><span class="comment">	// We compute the mutator utilization function incrementally</span></code></span>
+<span class="codeline" id="line-724"><code><span class="comment">	// by tracking the integral from t=0 to the left edge of the</span></code></span>
+<span class="codeline" id="line-725"><code><span class="comment">	// window and to the right edge of the window.</span></code></span>
+<span class="codeline" id="line-726"><code>	<label for="r171" class="ident">left</label> := <label for="r165" class="ident">c</label>.<a href="gc.go.html#line-247" class="ident">bands</a>[<label for="r167" class="ident">bandIdx</label>].<a href="gc.go.html#line-262" class="ident">integrator</a></code></span>
+<span class="codeline" id="line-727"><code>	<label for="r172" class="ident">right</label> := <label for="r171" class="ident">left</label></code></span>
+<span class="codeline" id="line-728"><code>	<label for="r173" class="ident">time</label>, <label for="r174" class="ident">endTime</label> := <label for="r165" class="ident">c</label>.<a href="gc.go.html#line-325" class="ident">bandTime</a>(<label for="r167" class="ident">bandIdx</label>)</code></span>
+<span class="codeline" id="line-729"><code>	<span class="keyword">if</span> <label for="r175" class="ident">utilEnd</label> := <label for="r170" class="ident">util</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r170" class="ident">util</label>)-<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> - <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r168" class="ident">window</label>); <label for="r175" class="ident">utilEnd</label> &lt; <label for="r174" class="ident">endTime</label> {</code></span>
+<span class="codeline" id="line-730"><code>		<label for="r174" class="ident">endTime</label> = <label for="r175" class="ident">utilEnd</label></code></span>
+<span class="codeline" id="line-731"><code>	}</code></span>
+<span class="codeline" id="line-732"><code>	<label for="r169" class="ident">acc</label>.<a href="gc.go.html#line-426" class="ident">resetTime</a>()</code></span>
+<span class="codeline" id="line-733"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-734"><code>		<span class="comment">// Advance edges to time and time+window.</span></code></span>
+<span class="codeline" id="line-735"><code>		<label for="r176" class="ident">mu</label> := (<label for="r172" class="ident">right</label>.<a href="gc.go.html#line-781" class="ident">advance</a>(<label for="r173" class="ident">time</label>+<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r168" class="ident">window</label>)) - <label for="r171" class="ident">left</label>.<a href="gc.go.html#line-781" class="ident">advance</a>(<label for="r173" class="ident">time</label>)).<a href="gc.go.html#line-231" class="ident">mean</a>(<label for="r168" class="ident">window</label>)</code></span>
+<span class="codeline" id="line-736"><code>		<span class="keyword">if</span> <label for="r169" class="ident">acc</label>.<a href="gc.go.html#line-438" class="ident">addMU</a>(<label for="r173" class="ident">time</label>, <label for="r176" class="ident">mu</label>, <label for="r168" class="ident">window</label>) {</code></span>
+<span class="codeline" id="line-737"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-738"><code>		}</code></span>
+<span class="codeline" id="line-739"><code>		<span class="keyword">if</span> <label for="r173" class="ident">time</label> == <label for="r174" class="ident">endTime</label> {</code></span>
+<span class="codeline" id="line-740"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-741"><code>		}</code></span>
+<span class="codeline" id="line-742"><code></code></span>
+<span class="codeline" id="line-743"><code>		<span class="comment">// The maximum slope of the windowed mutator</span></code></span>
+<span class="codeline" id="line-744"><code><span class="comment">		// utilization function is 1/window, so we can always</span></code></span>
+<span class="codeline" id="line-745"><code><span class="comment">		// advance the time by at least (mu - mmu) * window</span></code></span>
+<span class="codeline" id="line-746"><code><span class="comment">		// without dropping below mmu.</span></code></span>
+<span class="codeline" id="line-747"><code>		<label for="r177" class="ident">minTime</label> := <label for="r173" class="ident">time</label> + <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>((<label for="r176" class="ident">mu</label>-<label for="r169" class="ident">acc</label>.<a href="gc.go.html#line-407" class="ident">bound</a>)*<a href="../../../pkg/builtin.html#name-float64" class="ident">float64</a>(<label for="r168" class="ident">window</label>))</code></span>
+<span class="codeline" id="line-748"><code></code></span>
+<span class="codeline" id="line-749"><code>		<span class="comment">// Advance the window to the next time where either</span></code></span>
+<span class="codeline" id="line-750"><code><span class="comment">		// the left or right edge of the window encounters a</span></code></span>
+<span class="codeline" id="line-751"><code><span class="comment">		// change in the utilization curve.</span></code></span>
+<span class="codeline" id="line-752"><code>		<span class="keyword">if</span> <label for="r178" class="ident">t1</label>, <label for="r179" class="ident">t2</label> := <label for="r171" class="ident">left</label>.<a href="gc.go.html#line-818" class="ident">next</a>(<label for="r173" class="ident">time</label>), <label for="r172" class="ident">right</label>.<a href="gc.go.html#line-818" class="ident">next</a>(<label for="r173" class="ident">time</label>+<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r168" class="ident">window</label>))-<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r168" class="ident">window</label>); <label for="r178" class="ident">t1</label> &lt; <label for="r179" class="ident">t2</label> {</code></span>
+<span class="codeline" id="line-753"><code>			<label for="r173" class="ident">time</label> = <label for="r178" class="ident">t1</label></code></span>
+<span class="codeline" id="line-754"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-755"><code>			<label for="r173" class="ident">time</label> = <label for="r179" class="ident">t2</label></code></span>
+<span class="codeline" id="line-756"><code>		}</code></span>
+<span class="codeline" id="line-757"><code>		<span class="keyword">if</span> <label for="r173" class="ident">time</label> &lt; <label for="r177" class="ident">minTime</label> {</code></span>
+<span class="codeline" id="line-758"><code>			<label for="r173" class="ident">time</label> = <label for="r177" class="ident">minTime</label></code></span>
+<span class="codeline" id="line-759"><code>		}</code></span>
+<span class="codeline" id="line-760"><code>		<span class="keyword">if</span> <label for="r173" class="ident">time</label> &gt;= <label for="r174" class="ident">endTime</label> {</code></span>
+<span class="codeline" id="line-761"><code>			<span class="comment">// For MMUs we could stop here, but for MUDs</span></code></span>
+<span class="codeline" id="line-762"><code><span class="comment">			// it's important that we span the entire</span></code></span>
+<span class="codeline" id="line-763"><code><span class="comment">			// band.</span></code></span>
+<span class="codeline" id="line-764"><code>			<label for="r173" class="ident">time</label> = <label for="r174" class="ident">endTime</label></code></span>
+<span class="codeline" id="line-765"><code>		}</code></span>
+<span class="codeline" id="line-766"><code>	}</code></span>
+<span class="codeline" id="line-767"><code>}</code></span>
+<span class="codeline" id="line-768"><code></code></span>
+<span class="codeline" id="line-769"><code><span class="comment">// An integrator tracks a position in a utilization function and</span></code></span>
+<span class="codeline" id="line-770"><code><span class="comment">// integrates it.</span></code></span>
+<span class="codeline" id="line-771"><code><span class="keyword">type</span> integrator <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-772"><code>	u *<a href="gc.go.html#line-241" class="ident">mmuSeries</a></code></span>
+<span class="codeline" id="line-773"><code>	<span class="comment">// pos is the index in u.util of the current time's non-strict</span></code></span>
+<span class="codeline" id="line-774"><code><span class="comment">	// predecessor.</span></code></span>
+<span class="codeline" id="line-775"><code>	pos <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-776"><code>}</code></span>
+<span class="codeline" id="line-777"><code></code></span>
+<span class="codeline" id="line-778"><code><span class="comment">// advance returns the integral of the utilization function from 0 to</span></code></span>
+<span class="codeline" id="line-779"><code><span class="comment">// time. advance must be called on monotonically increasing values of</span></code></span>
+<span class="codeline" id="line-780"><code><span class="comment">// times.</span></code></span>
+<span class="codeline" id="line-781"><code><span class="keyword">func</span> (<label for="r180" class="ident">in</label> *<a href="gc.go.html#line-771" class="ident">integrator</a>) <label for="r181" class="ident">advance</label>(<label for="r182" class="ident">time</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="gc.go.html#line-224" class="ident">totalUtil</a> {</code></span>
+<span class="codeline" id="line-782"><code>	<label for="r183" class="ident">util</label>, <label for="r184" class="ident">pos</label> := <label for="r180" class="ident">in</label>.<a href="gc.go.html#line-772" class="ident">u</a>.<a href="gc.go.html#line-242" class="ident">util</a>, <label for="r180" class="ident">in</label>.<a href="gc.go.html#line-775" class="ident">pos</a></code></span>
+<span class="codeline" id="line-783"><code>	<span class="comment">// Advance pos until pos+1 is time's strict successor (making</span></code></span>
+<span class="codeline" id="line-784"><code><span class="comment">	// pos time's non-strict predecessor).</span></code></span>
+<span class="codeline" id="line-785"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-786"><code><span class="comment">	// Very often, this will be nearby, so we optimize that case,</span></code></span>
+<span class="codeline" id="line-787"><code><span class="comment">	// but it may be arbitrarily far away, so we handled that</span></code></span>
+<span class="codeline" id="line-788"><code><span class="comment">	// efficiently, too.</span></code></span>
+<span class="codeline" id="line-789"><code>	<span class="keyword">const</span> <label for="r185" class="ident">maxSeq</label> = <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-790"><code>	<span class="keyword">if</span> <label for="r184" class="ident">pos</label>+<label for="r185" class="ident">maxSeq</label> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r183" class="ident">util</label>) &amp;&amp; <label for="r183" class="ident">util</label>[<label for="r184" class="ident">pos</label>+<label for="r185" class="ident">maxSeq</label>].<a href="gc.go.html#line-19" class="ident">Time</a> &gt; <label for="r182" class="ident">time</label> {</code></span>
+<span class="codeline" id="line-791"><code>		<span class="comment">// Nearby. Use a linear scan.</span></code></span>
+<span class="codeline" id="line-792"><code>		<span class="keyword">for</span> <label for="r184" class="ident">pos</label>+<span class="lit-number">1</span> &lt; <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r183" class="ident">util</label>) &amp;&amp; <label for="r183" class="ident">util</label>[<label for="r184" class="ident">pos</label>+<span class="lit-number">1</span>].<a href="gc.go.html#line-19" class="ident">Time</a> &lt;= <label for="r182" class="ident">time</label> {</code></span>
+<span class="codeline" id="line-793"><code>			<label for="r184" class="ident">pos</label>++</code></span>
+<span class="codeline" id="line-794"><code>		}</code></span>
+<span class="codeline" id="line-795"><code>	} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-796"><code>		<span class="comment">// Far. Binary search for time's strict successor.</span></code></span>
+<span class="codeline" id="line-797"><code>		<label for="r186" class="ident">l</label>, <label for="r187" class="ident">r</label> := <label for="r184" class="ident">pos</label>, <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r183" class="ident">util</label>)</code></span>
+<span class="codeline" id="line-798"><code>		<span class="keyword">for</span> <label for="r186" class="ident">l</label> &lt; <label for="r187" class="ident">r</label> {</code></span>
+<span class="codeline" id="line-799"><code>			<label for="r188" class="ident">h</label> := <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>(<a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r186" class="ident">l</label>+<label for="r187" class="ident">r</label>) &gt;&gt; <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-800"><code>			<span class="keyword">if</span> <label for="r183" class="ident">util</label>[<label for="r188" class="ident">h</label>].<a href="gc.go.html#line-19" class="ident">Time</a> &lt;= <label for="r182" class="ident">time</label> {</code></span>
+<span class="codeline" id="line-801"><code>				<label for="r186" class="ident">l</label> = <label for="r188" class="ident">h</label> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-802"><code>			} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-803"><code>				<label for="r187" class="ident">r</label> = <label for="r188" class="ident">h</label></code></span>
+<span class="codeline" id="line-804"><code>			}</code></span>
+<span class="codeline" id="line-805"><code>		}</code></span>
+<span class="codeline" id="line-806"><code>		<label for="r184" class="ident">pos</label> = <label for="r186" class="ident">l</label> - <span class="lit-number">1</span> <span class="comment">// Non-strict predecessor.</span></code></span>
+<span class="codeline" id="line-807"><code>	}</code></span>
+<span class="codeline" id="line-808"><code>	<label for="r180" class="ident">in</label>.<a href="gc.go.html#line-775" class="ident">pos</a> = <label for="r184" class="ident">pos</label></code></span>
+<span class="codeline" id="line-809"><code>	<span class="keyword">var</span> <label for="r189" class="ident">partial</label> <a href="gc.go.html#line-224" class="ident">totalUtil</a></code></span>
+<span class="codeline" id="line-810"><code>	<span class="keyword">if</span> <label for="r182" class="ident">time</label> != <label for="r183" class="ident">util</label>[<label for="r184" class="ident">pos</label>].<a href="gc.go.html#line-19" class="ident">Time</a> {</code></span>
+<span class="codeline" id="line-811"><code>		<label for="r189" class="ident">partial</label> = <a href="gc.go.html#line-226" class="ident">totalUtilOf</a>(<label for="r183" class="ident">util</label>[<label for="r184" class="ident">pos</label>].<a href="gc.go.html#line-22" class="ident">Util</a>, <label for="r182" class="ident">time</label>-<label for="r183" class="ident">util</label>[<label for="r184" class="ident">pos</label>].<a href="gc.go.html#line-19" class="ident">Time</a>)</code></span>
+<span class="codeline" id="line-812"><code>	}</code></span>
+<span class="codeline" id="line-813"><code>	<span class="keyword">return</span> <label for="r180" class="ident">in</label>.<a href="gc.go.html#line-772" class="ident">u</a>.<a href="gc.go.html#line-244" class="ident">sums</a>[<label for="r184" class="ident">pos</label>] + <label for="r189" class="ident">partial</label></code></span>
+<span class="codeline" id="line-814"><code>}</code></span>
+<span class="codeline" id="line-815"><code></code></span>
+<span class="codeline" id="line-816"><code><span class="comment">// next returns the smallest time t' &gt; time of a change in the</span></code></span>
+<span class="codeline" id="line-817"><code><span class="comment">// utilization function.</span></code></span>
+<span class="codeline" id="line-818"><code><span class="keyword">func</span> (<label for="r190" class="ident">in</label> *<a href="gc.go.html#line-771" class="ident">integrator</a>) <label for="r191" class="ident">next</label>(<label for="r192" class="ident">time</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>) <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> {</code></span>
+<span class="codeline" id="line-819"><code>	<span class="keyword">for</span> <label for="r193" class="ident">_</label>, <label for="r194" class="ident">u</label> := <span class="keyword">range</span> <label for="r190" class="ident">in</label>.<a href="gc.go.html#line-772" class="ident">u</a>.<a href="gc.go.html#line-242" class="ident">util</a>[<label for="r190" class="ident">in</label>.<a href="gc.go.html#line-775" class="ident">pos</a>:] {</code></span>
+<span class="codeline" id="line-820"><code>		<span class="keyword">if</span> <label for="r194" class="ident">u</label>.<a href="gc.go.html#line-19" class="ident">Time</a> &gt; <label for="r192" class="ident">time</label> {</code></span>
+<span class="codeline" id="line-821"><code>			<span class="keyword">return</span> <label for="r194" class="ident">u</label>.<a href="gc.go.html#line-19" class="ident">Time</a></code></span>
+<span class="codeline" id="line-822"><code>		}</code></span>
+<span class="codeline" id="line-823"><code>	}</code></span>
+<span class="codeline" id="line-824"><code>	<span class="keyword">return</span> <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">63</span> - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-825"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

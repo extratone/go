@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: image/png</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>png</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-image/png">image/png</a><i> (on <a href="https://golang.org/pkg/image/png/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/image/png" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/image/png.html">10 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/image/png/paeth.go.html">paeth.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../src/image/png/reader.go.html#doc">d➜</a> <a href="../../src/image/png/reader.go.html">reader.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package png implements a PNG image decoder and encoder.
+
+		The PNG specification is at https://www.w3.org/TR/PNG/.
+</span>
+	<span class="nodocs">      <a href="../../src/image/png/writer.go.html">writer.go</a></span></div>
+<div id="examples"><span class="title">Code Examples</span>
+
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Decode</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"encoding/base64"
+			"fmt"
+			"image/color"
+			"image/png"
+			"io"
+			"log"
+			"strings"
+		)
+		
+		const gopher = `iVBORw0KGgoAAAANSUhEUgAAAEsAAAA8CAAAAAALAhhPAAAFfUlEQVRYw62XeWwUVRzHf2+OPbo9d7tsWyiyaZti6eWGAhISoIGKECEKCAiJJkYTiUgTMYSIosYYBBIUIxoSPIINEBDi2VhwkQrVsj1ESgu9doHWdrul7ba73WNm3vOPtsseM9MdwvvrzTs+8/t95ze/33sI5BqiabU6m9En8oNjduLnAEDLUsQXFF8tQ5oxK3vmnNmDSMtrncks9Hhtt/qeWZapHb1ha3UqYSWVl2ZmpWgaXMXGohQAvmeop3bjTRtv6SgaK/Pb9/bFzUrYslbFAmHPp+3WhAYdr+7GN/YnpN46Opv55VDsJkoEpMrY/vO2BIYQ6LLvm0ThY3MzDzzeSJeeWNyTkgnIE5ePKsvKlcg/0T9QMzXalwXMlj54z4c0rh/mzEfr+FgWEz2w6uk8dkzFAgcARAgNp1ZYef8bH2AgvuStbc2/i6CiWGj98y2tw2l4FAXKkQBIf+exyRnteY83LfEwDQAYCoK+P6bxkZm/0966LxcAAILHB56kgD95PPxltuYcMtFTWw/FKkY/6Opf3GGd9ZF+Qp6mzJxzuRSractOmJrH1u8XTvWFHINNkLQLMR+XHXvfPPHw967raE1xxwtA36IMRfkAAG29/7mLuQcb2WOnsJReZGfpiHsSBX81cvMKywYZHhX5hFPtOqPGWZCXnhWGAu6lX91ElKXSalcLXu3UaOXVay57ZSe5f6Gpx7J2MXAsi7EqSp09b/MirKSyJfnfEEgeDjl8FgDAfvewP03zZ+AJ0m9aFRM8eEHBDRKjfcreDXnZdQuAxXpT2NRJ7xl3UkLBhuVGU16gZiGOgZmrSbRdqkILuL/yYoSXHHkl9KXgqNu3PB8oRg0geC5vFmLjad6mUyTKLmF3OtraWDIfACyXqmephaDABawfpi6tqqBZytfQMqOz6S09iWXhktrRaB8Xz4Yi/8gyABDm5NVe6qq/3VzPrcjELWrebVuyY2T7ar4zQyybUCtsQ5Es1FGaZVrRVQwAgHGW2ZCRZshI5bGQi7HesyE972pOSeMM0dSktlzxRdrlqb3Osa6CCS8IJoQQQgBAbTAa5l5epO34rJszibJI8rxLfGzcp1dRosutGeb2VDNgqYrwTiPNsLxXiPi3dz7LiS1WBRBDBOnqEjyy3aQb+/bLiJzz9dIkscVBBLxMfSEac7kO4Fpkngi0ruNBeSOal+u8jgOuqPz12nryMLCniEjtOOOmpt+KEIqsEdocJjYXwrh9OZqWJQyPCTo67LNS/TdxLAv6R5ZNK9npEjbYdT33gRo4o5oTqR34R+OmaSzDBWsAIPhuRcgyoteNi9gF0KzNYWVItPf2TLoXEg+7isNC7uJkgo1iQWOfRSP9NR11RtbZZ3OMG/VhL6jvx+J1m87+RCfJChAtEBQkSBX2PnSiihc/Twh3j0h7qdYQAoRVsRGmq7HU2QRbaxVGa1D6nIOqaIWRjyRZpHMQKWKpZM5feA+lzC4ZFultV8S6T0mzQGhQohi5I8iw+CsqBSxhFMuwyLgSwbghGb0AiIKkSDmGZVmJSiKihsiyOAUs70UkywooYP0bii9GdH4sfr1UNysd3fUyLLMQN+rsmo3grHl9VNJHbbwxoa47Vw5gupIqrZcjPh9R4Nye3nRDk199V+aetmvVtDRE8/+cbgAAgMIWGb3UA0MGLE9SCbWX670TDy1y98c3D27eppUjsZ6fql3jcd5rUe7+ZIlLNQny3Rd+E5Tct3WVhTM5RBCEdiEK0b6B+/ca2gYU393nFj/n1AygRQxPIUA043M42u85+z2SnssKrPl8Mx76NL3E6eXc3be7OD+H4WHbJkKI8AU8irbITQjZ+0hQcPEgId/Fn/pl9crKH02+5o2b9T/eMx7pKoskYgAAAABJRU5ErkJggg==`
+		
+		// gopherPNG creates an io.Reader by decoding the base64 encoded image data string in the gopher constant.
+		func gopherPNG() io.Reader { return base64.NewDecoder(base64.StdEncoding, strings.NewReader(gopher)) }
+		
+		func main() {
+			// This example uses png.Decode which can only decode PNG images.
+			// Consider using the general image.Decode as it can sniff and decode any registered image format.
+			img, err := png.Decode(gopherPNG())
+			if err != nil {
+				log.Fatal(err)
+			}
+		
+			levels := []string{" ", "░", "▒", "▓", "█"}
+		
+			for y := img.Bounds().Min.Y; y < img.Bounds().Max.Y; y++ {
+				for x := img.Bounds().Min.X; x < img.Bounds().Max.X; x++ {
+					c := color.GrayModel.Convert(img.At(x, y)).(color.Gray)
+					level := c.Y / 51 // 51 * 5 = 255
+					if level == 5 {
+						level--
+					}
+					fmt.Print(levels[level])
+				}
+				fmt.Print("\n")
+			}
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Encode</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"image"
+			"image/color"
+			"image/png"
+			"log"
+			"os"
+		)
+		
+		func main() {
+			const width, height = 256, 256
+		
+			// Create a colored image of the given width and height.
+			img := image.NewNRGBA(image.Rect(0, 0, width, height))
+		
+			for y := 0; y < height; y++ {
+				for x := 0; x < width; x++ {
+					img.Set(x, y, color.NRGBA{
+						R: uint8((x + y) & 255),
+						G: uint8((x + y) << 1 & 255),
+						B: uint8((x + y) << 2 & 255),
+						A: 255,
+					})
+				}
+			}
+		
+			f, err := os.Create("image.png")
+			if err != nil {
+				log.Fatal(err)
+			}
+		
+			if err := png.Encode(f, img); err != nil {
+				f.Close()
+				log.Fatal(err)
+			}
+		
+			if err := f.Close(); err != nil {
+				log.Fatal(err)
+			}
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 6)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-CompressionLevel" data-popularity="15">	<input type='checkbox' class="fold" id="CompressionLevel-fold-content"><label for="CompressionLevel-fold-content"> type <a href="../../src/image/png/writer.go.html#line-54">CompressionLevel</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='CompressionLevel-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="CompressionLevel-fold-values"><label for="CompressionLevel-fold-values">As Types Of (<i>total 4</i>)</label><span id='CompressionLevel-fold-values-items' class="fold-items"><span>
+			const <a href="png.html#name-BestCompression">BestCompression</a></span><span>
+			const <a href="png.html#name-BestSpeed">BestSpeed</a></span><span>
+			const <a href="png.html#name-DefaultCompression">DefaultCompression</a></span><span>
+			const <a href="png.html#name-NoCompression">NoCompression</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Encoder" data-popularity="50">	<input type='checkbox' class="fold" id="Encoder-fold-content"><label for="Encoder-fold-content"> type <a href="../../src/image/png/writer.go.html#line-19">Encoder</a> <i>(struct)</i></label><span id='Encoder-fold-content-docs' class="fold-docs">
+		Encoder configures encoding PNG images.
+
+		<input type='checkbox' class="fold" id="Encoder-fold-fields"><label for="Encoder-fold-fields">Fields (<i>total 2</i>)</label><span id='Encoder-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Encoder-fold-field-BufferPool"><label for="Encoder-fold-field-BufferPool"><a href="../../src/image/png/writer.go.html#line-24">BufferPool</a> <i><a href="png.html#name-EncoderBufferPool">EncoderBufferPool</a></i></label><span id='Encoder-fold-field-BufferPool-docs' class="fold-docs">
+				BufferPool optionally specifies a buffer pool to get temporary
+				EncoderBuffers when encoding an image.
+</span></span><span>
+			<span class="nodocs"><a href="../../src/image/png/writer.go.html#line-20">CompressionLevel</a> <i><a href="png.html#name-CompressionLevel">CompressionLevel</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="Encoder-fold-methods"><label for="Encoder-fold-methods">Methods (<i>only one</i>)</label><span id='Encoder-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Encoder-fold-method-Encode"><label for="Encoder-fold-method-Encode">(*T) <a href="../../src/image/png/writer.go.html#line-565">Encode</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>, m <a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a>) <a href="../builtin.html#name-error">error</a></label><span id='Encoder-fold-method-Encode-docs' class="fold-docs">
+				Encode writes the Image m to w in PNG format.
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-EncoderBuffer" data-popularity="110">	<input type='checkbox' class="fold" id="EncoderBuffer-fold-content"><label for="EncoderBuffer-fold-content"> type <a href="../../src/image/png/writer.go.html#line-36">EncoderBuffer</a> <a href="../../src/image/png/writer.go.html#line-38">encoder</a> <i>(struct)</i></label><span id='EncoderBuffer-fold-content-docs' class="fold-docs">
+		EncoderBuffer holds the buffers used for encoding PNG images.
+
+		<input type='checkbox' class="fold" id="EncoderBuffer-fold-results"><label for="EncoderBuffer-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='EncoderBuffer-fold-results-items' class="fold-items"><span>
+			func <a href="png.html#name-EncoderBufferPool">EncoderBufferPool</a>.<a href="../../src/image/png/writer.go.html#line-31">Get</a>() *<b>EncoderBuffer</b></span></span>
+		<input type='checkbox' class="fold" id="EncoderBuffer-fold-params"><label for="EncoderBuffer-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='EncoderBuffer-fold-params-items' class="fold-items"><span>
+			func <a href="png.html#name-EncoderBufferPool">EncoderBufferPool</a>.<a href="../../src/image/png/writer.go.html#line-32">Put</a>(*<b>EncoderBuffer</b>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-EncoderBufferPool" data-popularity="100">	<input type='checkbox' class="fold" id="EncoderBufferPool-fold-content"><label for="EncoderBufferPool-fold-content"> type <a href="../../src/image/png/writer.go.html#line-30">EncoderBufferPool</a> <b><i>(interface)</i></b></label><span id='EncoderBufferPool-fold-content-docs' class="fold-docs">
+		EncoderBufferPool is an interface for getting and returning temporary
+		instances of the EncoderBuffer struct. This can be used to reuse buffers
+		when encoding multiple images.
+
+		<input type='checkbox' class="fold" id="EncoderBufferPool-fold-methods"><label for="EncoderBufferPool-fold-methods">Methods (<i>total 2</i>)</label><span id='EncoderBufferPool-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/image/png/writer.go.html#line-31">Get</a>() *<a href="png.html#name-EncoderBuffer">EncoderBuffer</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/image/png/writer.go.html#line-32">Put</a>(*<a href="png.html#name-EncoderBuffer">EncoderBuffer</a>)</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-FormatError" data-popularity="100">	<input type='checkbox' class="fold" id="FormatError-fold-content"><label for="FormatError-fold-content"> type <a href="../../src/image/png/reader.go.html#line-124">FormatError</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='FormatError-fold-content-docs' class="fold-docs">
+		A FormatError reports that the input is not a valid PNG.
+
+		<input type='checkbox' class="fold" id="FormatError-fold-methods"><label for="FormatError-fold-methods">Methods (<i>only one</i>)</label><span id='FormatError-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/image/png/reader.go.html#line-126">Error</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="FormatError-fold-impls"><label for="FormatError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='FormatError-fold-impls-items' class="fold-items"><span>
+			 T : <a href="../builtin.html#name-error">error</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-UnsupportedError" data-popularity="100">	<input type='checkbox' class="fold" id="UnsupportedError-fold-content"><label for="UnsupportedError-fold-content"> type <a href="../../src/image/png/reader.go.html#line-131">UnsupportedError</a> <a href="../builtin.html#name-string">string</a> <i>(basic type)</i></label><span id='UnsupportedError-fold-content-docs' class="fold-docs">
+		An UnsupportedError reports that the input uses a valid but unimplemented PNG feature.
+
+		<input type='checkbox' class="fold" id="UnsupportedError-fold-methods"><label for="UnsupportedError-fold-methods">Methods (<i>only one</i>)</label><span id='UnsupportedError-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/image/png/reader.go.html#line-133">Error</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="UnsupportedError-fold-impls"><label for="UnsupportedError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='UnsupportedError-fold-impls-items' class="fold-items"><span>
+			 T : <a href="../builtin.html#name-error">error</a></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 3)</i></span></span>
+
+<div class="anchor value-res" id="name-Decode">	<input type='checkbox' class="fold" id="Decode-fold-content"><label for="Decode-fold-content"> func <a href="../../src/image/png/reader.go.html#line-955">Decode</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (<a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Decode-fold-content-docs' class="fold-docs">
+		Decode reads a PNG image from r and returns it as an image.Image.
+		The type of Image returned depends on the PNG contents.
+
+</span></div><div class="anchor value-res" id="name-DecodeConfig">	<input type='checkbox' class="fold" id="DecodeConfig-fold-content"><label for="DecodeConfig-fold-content"> func <a href="../../src/image/png/reader.go.html#line-979">DecodeConfig</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) (<a href="../image.html">image</a>.<a href="../image.html#name-Config">Config</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='DecodeConfig-fold-content-docs' class="fold-docs">
+		DecodeConfig returns the color model and dimensions of a PNG image without
+		decoding the entire image.
+
+</span></div><div class="anchor value-res" id="name-Encode">	<input type='checkbox' class="fold" id="Encode-fold-content"><label for="Encode-fold-content"> func <a href="../../src/image/png/writer.go.html#line-559">Encode</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>, m <a href="../image.html">image</a>.<a href="../image.html#name-Image">Image</a>) <a href="../builtin.html#name-error">error</a></label><span id='Encode-fold-content-docs' class="fold-docs">
+		Encode writes the Image m to w in PNG format. Any Image may be
+		encoded, but images that are not image.NRGBA might be encoded lossily.
+
+</span></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 4)</i></span></span>
+
+<div class="anchor value-res" id="name-BestCompression">	<span class="nodocs">const <a href="../../src/image/png/writer.go.html#line-60">BestCompression</a> <a href="png.html#name-CompressionLevel">CompressionLevel</a> = -3</span></div><div class="anchor value-res" id="name-BestSpeed">	<span class="nodocs">const <a href="../../src/image/png/writer.go.html#line-59">BestSpeed</a> <a href="png.html#name-CompressionLevel">CompressionLevel</a> = -2</span></div><div class="anchor value-res" id="name-DefaultCompression">	<span class="nodocs">const <a href="../../src/image/png/writer.go.html#line-57">DefaultCompression</a> <a href="png.html#name-CompressionLevel">CompressionLevel</a> = 0</span></div><div class="anchor value-res" id="name-NoCompression">	<span class="nodocs">const <a href="../../src/image/png/writer.go.html#line-58">NoCompression</a> <a href="png.html#name-CompressionLevel">CompressionLevel</a> = -1</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

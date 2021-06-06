@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: order.go in package internal/trace</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	order.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/internal/trace.html">internal/trace</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71],
+input[id=r72]:checked ~pre label[for=r72],
+input[id=r73]:checked ~pre label[for=r73],
+input[id=r74]:checked ~pre label[for=r74]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
+<input id="r72" type="radio" name="g"/>
+<input id="r73" type="radio" name="g"/>
+<input id="r74" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2016 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> trace</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"sort"</span></label></code></span>
+<span class="codeline" id="line-10"><code>)</code></span>
+<span class="codeline" id="line-11"><code></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">type</span> eventBatch <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-13"><code>	events   []*<a href="parser.go.html#line-35" class="ident">Event</a></code></span>
+<span class="codeline" id="line-14"><code>	selected <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-15"><code>}</code></span>
+<span class="codeline" id="line-16"><code></code></span>
+<span class="codeline" id="line-17"><code><span class="keyword">type</span> orderEvent <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-18"><code>	ev    *<a href="parser.go.html#line-35" class="ident">Event</a></code></span>
+<span class="codeline" id="line-19"><code>	batch <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-20"><code>	g     <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-21"><code>	init  <a href="order.go.html#line-27" class="ident">gState</a></code></span>
+<span class="codeline" id="line-22"><code>	next  <a href="order.go.html#line-27" class="ident">gState</a></code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">type</span> gStatus <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="keyword">type</span> gState <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-28"><code>	seq    <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-29"><code>	status <a href="order.go.html#line-25" class="ident">gStatus</a></code></span>
+<span class="codeline" id="line-30"><code>}</code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-33"><code>	gDead <a href="order.go.html#line-25" class="ident">gStatus</a> = <a href="../../../pkg/builtin.html#name-iota" class="ident">iota</a></code></span>
+<span class="codeline" id="line-34"><code>	gRunnable</code></span>
+<span class="codeline" id="line-35"><code>	gRunning</code></span>
+<span class="codeline" id="line-36"><code>	gWaiting</code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code>	unordered = ^<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-39"><code>	garbage   = ^<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">0</span>) - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-40"><code>	noseq     = ^<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">0</span>)</code></span>
+<span class="codeline" id="line-41"><code>	seqinc    = ^<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<span class="lit-number">0</span>) - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-42"><code>)</code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// order1007 merges a set of per-P event batches into a single, consistent stream.</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">// The high level idea is as follows. Events within an individual batch are in</span></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">// correct order, because they are emitted by a single P. So we need to produce</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">// a correct interleaving of the batches. To do this we take first unmerged event</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">// from each batch (frontier). Then choose subset that is "ready" to be merged,</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// that is, events for which all dependencies are already merged. Then we choose</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">// event with the lowest timestamp from the subset, merge it and repeat.</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// This approach ensures that we form a consistent stream even if timestamps are</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">// incorrect (condition observed on some machines).</span></code></span>
+<span class="codeline" id="line-53"><code><span class="keyword">func</span> order1007(<label for="r1" class="ident">m</label> <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>][]*<a href="parser.go.html#line-35" class="ident">Event</a>) (<label for="r2" class="ident">events</label> []*<a href="parser.go.html#line-35" class="ident">Event</a>, <label for="r3" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-54"><code>	<label for="r4" class="ident">pending</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-55"><code>	<span class="keyword">var</span> <label for="r5" class="ident">batches</label> []*<a href="order.go.html#line-12" class="ident">eventBatch</a></code></span>
+<span class="codeline" id="line-56"><code>	<span class="keyword">for</span> <label for="r6" class="ident">_</label>, <label for="r7" class="ident">v</label> := <span class="keyword">range</span> <label for="r1" class="ident">m</label> {</code></span>
+<span class="codeline" id="line-57"><code>		<label for="r4" class="ident">pending</label> += <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r7" class="ident">v</label>)</code></span>
+<span class="codeline" id="line-58"><code>		<label for="r5" class="ident">batches</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r5" class="ident">batches</label>, &amp;<a href="order.go.html#line-12" class="ident">eventBatch</a>{<label for="r7" class="ident">v</label>, <a href="../../../pkg/builtin.html#name-false" class="ident">false</a>})</code></span>
+<span class="codeline" id="line-59"><code>	}</code></span>
+<span class="codeline" id="line-60"><code>	<label for="r8" class="ident">gs</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="order.go.html#line-27" class="ident">gState</a>)</code></span>
+<span class="codeline" id="line-61"><code>	<span class="keyword">var</span> <label for="r9" class="ident">frontier</label> []<a href="order.go.html#line-17" class="ident">orderEvent</a></code></span>
+<span class="codeline" id="line-62"><code>	<span class="keyword">for</span> ; <label for="r4" class="ident">pending</label> != <span class="lit-number">0</span>; <label for="r4" class="ident">pending</label>-- {</code></span>
+<span class="codeline" id="line-63"><code>		<span class="keyword">for</span> <label for="r10" class="ident">i</label>, <label for="r11" class="ident">b</label> := <span class="keyword">range</span> <label for="r5" class="ident">batches</label> {</code></span>
+<span class="codeline" id="line-64"><code>			<span class="keyword">if</span> <label for="r11" class="ident">b</label>.<a href="order.go.html#line-14" class="ident">selected</a> || <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r11" class="ident">b</label>.<a href="order.go.html#line-13" class="ident">events</a>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-65"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-66"><code>			}</code></span>
+<span class="codeline" id="line-67"><code>			<label for="r12" class="ident">ev</label> := <label for="r11" class="ident">b</label>.<a href="order.go.html#line-13" class="ident">events</a>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-68"><code>			<label for="r13" class="ident">g</label>, <label for="r14" class="ident">init</label>, <label for="r15" class="ident">next</label> := <a href="order.go.html#line-143" class="ident">stateTransition</a>(<label for="r12" class="ident">ev</label>)</code></span>
+<span class="codeline" id="line-69"><code>			<span class="keyword">if</span> !<a href="order.go.html#line-196" class="ident">transitionReady</a>(<label for="r13" class="ident">g</label>, <label for="r8" class="ident">gs</label>[<label for="r13" class="ident">g</label>], <label for="r14" class="ident">init</label>) {</code></span>
+<span class="codeline" id="line-70"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-71"><code>			}</code></span>
+<span class="codeline" id="line-72"><code>			<label for="r9" class="ident">frontier</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r9" class="ident">frontier</label>, <a href="order.go.html#line-17" class="ident">orderEvent</a>{<label for="r12" class="ident">ev</label>, <label for="r10" class="ident">i</label>, <label for="r13" class="ident">g</label>, <label for="r14" class="ident">init</label>, <label for="r15" class="ident">next</label>})</code></span>
+<span class="codeline" id="line-73"><code>			<label for="r11" class="ident">b</label>.<a href="order.go.html#line-13" class="ident">events</a> = <label for="r11" class="ident">b</label>.<a href="order.go.html#line-13" class="ident">events</a>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-74"><code>			<label for="r11" class="ident">b</label>.<a href="order.go.html#line-14" class="ident">selected</a> = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-75"><code>			<span class="comment">// Get rid of "Local" events, they are intended merely for ordering.</span></code></span>
+<span class="codeline" id="line-76"><code>			<span class="keyword">switch</span> <label for="r12" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-77"><code>			<span class="keyword">case</span> <a href="parser.go.html#line-1050" class="ident">EvGoStartLocal</a>:</code></span>
+<span class="codeline" id="line-78"><code>				<label for="r12" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> = <a href="parser.go.html#line-1026" class="ident">EvGoStart</a></code></span>
+<span class="codeline" id="line-79"><code>			<span class="keyword">case</span> <a href="parser.go.html#line-1051" class="ident">EvGoUnblockLocal</a>:</code></span>
+<span class="codeline" id="line-80"><code>				<label for="r12" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> = <a href="parser.go.html#line-1033" class="ident">EvGoUnblock</a></code></span>
+<span class="codeline" id="line-81"><code>			<span class="keyword">case</span> <a href="parser.go.html#line-1052" class="ident">EvGoSysExitLocal</a>:</code></span>
+<span class="codeline" id="line-82"><code>				<label for="r12" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> = <a href="parser.go.html#line-1041" class="ident">EvGoSysExit</a></code></span>
+<span class="codeline" id="line-83"><code>			}</code></span>
+<span class="codeline" id="line-84"><code>		}</code></span>
+<span class="codeline" id="line-85"><code>		<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r9" class="ident">frontier</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-86"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"no consistent ordering of events possible"</span>)</code></span>
+<span class="codeline" id="line-87"><code>		}</code></span>
+<span class="codeline" id="line-88"><code>		<a href="../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../sort/sort.go.html#line-229" class="ident">Sort</a>(<a href="order.go.html#line-239" class="ident">orderEventList</a>(<label for="r9" class="ident">frontier</label>))</code></span>
+<span class="codeline" id="line-89"><code>		<label for="r16" class="ident">f</label> := <label for="r9" class="ident">frontier</label>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-90"><code>		<label for="r9" class="ident">frontier</label>[<span class="lit-number">0</span>] = <label for="r9" class="ident">frontier</label>[<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r9" class="ident">frontier</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-91"><code>		<label for="r9" class="ident">frontier</label> = <label for="r9" class="ident">frontier</label>[:<a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r9" class="ident">frontier</label>)-<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-92"><code>		<label for="r2" class="ident">events</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r2" class="ident">events</label>, <label for="r16" class="ident">f</label>.<a href="order.go.html#line-18" class="ident">ev</a>)</code></span>
+<span class="codeline" id="line-93"><code>		<a href="order.go.html#line-200" class="ident">transition</a>(<label for="r8" class="ident">gs</label>, <label for="r16" class="ident">f</label>.<a href="order.go.html#line-20" class="ident">g</a>, <label for="r16" class="ident">f</label>.<a href="order.go.html#line-21" class="ident">init</a>, <label for="r16" class="ident">f</label>.<a href="order.go.html#line-22" class="ident">next</a>)</code></span>
+<span class="codeline" id="line-94"><code>		<span class="keyword">if</span> !<label for="r5" class="ident">batches</label>[<label for="r16" class="ident">f</label>.<a href="order.go.html#line-19" class="ident">batch</a>].<a href="order.go.html#line-14" class="ident">selected</a> {</code></span>
+<span class="codeline" id="line-95"><code>			<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"frontier batch is not selected"</span>)</code></span>
+<span class="codeline" id="line-96"><code>		}</code></span>
+<span class="codeline" id="line-97"><code>		<label for="r5" class="ident">batches</label>[<label for="r16" class="ident">f</label>.<a href="order.go.html#line-19" class="ident">batch</a>].<a href="order.go.html#line-14" class="ident">selected</a> = <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code></code></span>
+<span class="codeline" id="line-100"><code>	<span class="comment">// At this point we have a consistent stream of events.</span></code></span>
+<span class="codeline" id="line-101"><code><span class="comment">	// Make sure time stamps respect the ordering.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">	// The tests will skip (not fail) the test case if they see this error.</span></code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> !<a href="../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../sort/sort.go.html#line-269" class="ident">IsSorted</a>(<a href="order.go.html#line-253" class="ident">eventList</a>(<label for="r2" class="ident">events</label>)) {</code></span>
+<span class="codeline" id="line-104"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="parser.go.html#line-557" class="ident">ErrTimeOrder</a></code></span>
+<span class="codeline" id="line-105"><code>	}</code></span>
+<span class="codeline" id="line-106"><code></code></span>
+<span class="codeline" id="line-107"><code>	<span class="comment">// The last part is giving correct timestamps to EvGoSysExit events.</span></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">	// The problem with EvGoSysExit is that actual syscall exit timestamp (ev.Args[2])</span></code></span>
+<span class="codeline" id="line-109"><code><span class="comment">	// is potentially acquired long before event emission. So far we've used</span></code></span>
+<span class="codeline" id="line-110"><code><span class="comment">	// timestamp of event emission (ev.Ts).</span></code></span>
+<span class="codeline" id="line-111"><code><span class="comment">	// We could not set ev.Ts = ev.Args[2] earlier, because it would produce</span></code></span>
+<span class="codeline" id="line-112"><code><span class="comment">	// seemingly broken timestamps (misplaced event).</span></code></span>
+<span class="codeline" id="line-113"><code><span class="comment">	// We also can't simply update the timestamp and resort events, because</span></code></span>
+<span class="codeline" id="line-114"><code><span class="comment">	// if timestamps are broken we will misplace the event and later report</span></code></span>
+<span class="codeline" id="line-115"><code><span class="comment">	// logically broken trace (instead of reporting broken timestamps).</span></code></span>
+<span class="codeline" id="line-116"><code>	<label for="r17" class="ident">lastSysBlock</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-117"><code>	<span class="keyword">for</span> <label for="r18" class="ident">_</label>, <label for="r19" class="ident">ev</label> := <span class="keyword">range</span> <label for="r2" class="ident">events</label> {</code></span>
+<span class="codeline" id="line-118"><code>		<span class="keyword">switch</span> <label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-119"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1042" class="ident">EvGoSysBlock</a>, <a href="parser.go.html#line-1044" class="ident">EvGoInSyscall</a>:</code></span>
+<span class="codeline" id="line-120"><code>			<label for="r17" class="ident">lastSysBlock</label>[<label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>] = <label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a></code></span>
+<span class="codeline" id="line-121"><code>		<span class="keyword">case</span> <a href="parser.go.html#line-1041" class="ident">EvGoSysExit</a>:</code></span>
+<span class="codeline" id="line-122"><code>			<label for="r20" class="ident">ts</label> := <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">2</span>])</code></span>
+<span class="codeline" id="line-123"><code>			<span class="keyword">if</span> <label for="r20" class="ident">ts</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-124"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-125"><code>			}</code></span>
+<span class="codeline" id="line-126"><code>			<label for="r21" class="ident">block</label> := <label for="r17" class="ident">lastSysBlock</label>[<label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a>]</code></span>
+<span class="codeline" id="line-127"><code>			<span class="keyword">if</span> <label for="r21" class="ident">block</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-128"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"stray syscall exit"</span>)</code></span>
+<span class="codeline" id="line-129"><code>			}</code></span>
+<span class="codeline" id="line-130"><code>			<span class="keyword">if</span> <label for="r20" class="ident">ts</label> &lt; <label for="r21" class="ident">block</label> {</code></span>
+<span class="codeline" id="line-131"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="parser.go.html#line-557" class="ident">ErrTimeOrder</a></code></span>
+<span class="codeline" id="line-132"><code>			}</code></span>
+<span class="codeline" id="line-133"><code>			<label for="r19" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a> = <label for="r20" class="ident">ts</label></code></span>
+<span class="codeline" id="line-134"><code>		}</code></span>
+<span class="codeline" id="line-135"><code>	}</code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../sort/sort.go.html#line-377" class="ident">Stable</a>(<a href="order.go.html#line-253" class="ident">eventList</a>(<label for="r2" class="ident">events</label>))</code></span>
+<span class="codeline" id="line-137"><code></code></span>
+<span class="codeline" id="line-138"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-139"><code>}</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code><span class="comment">// stateTransition returns goroutine state (sequence and status) when the event</span></code></span>
+<span class="codeline" id="line-142"><code><span class="comment">// becomes ready for merging (init) and the goroutine state after the event (next).</span></code></span>
+<span class="codeline" id="line-143"><code><span class="keyword">func</span> stateTransition(<label for="r23" class="ident">ev</label> *<a href="parser.go.html#line-35" class="ident">Event</a>) (<label for="r24" class="ident">g</label> <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r25" class="ident">init</label>, <label for="r26" class="ident">next</label> <a href="order.go.html#line-27" class="ident">gState</a>) {</code></span>
+<span class="codeline" id="line-144"><code>	<span class="keyword">switch</span> <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1025" class="ident">EvGoCreate</a>:</code></span>
+<span class="codeline" id="line-146"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-147"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<span class="lit-number">0</span>, <a href="order.go.html#line-33" class="ident">gDead</a>}</code></span>
+<span class="codeline" id="line-148"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<span class="lit-number">1</span>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-149"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1043" class="ident">EvGoWaiting</a>, <a href="parser.go.html#line-1044" class="ident">EvGoInSyscall</a>:</code></span>
+<span class="codeline" id="line-150"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a></code></span>
+<span class="codeline" id="line-151"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<span class="lit-number">1</span>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-152"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<span class="lit-number">2</span>, <a href="order.go.html#line-36" class="ident">gWaiting</a>}</code></span>
+<span class="codeline" id="line-153"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1026" class="ident">EvGoStart</a>, <a href="parser.go.html#line-1053" class="ident">EvGoStartLabel</a>:</code></span>
+<span class="codeline" id="line-154"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a></code></span>
+<span class="codeline" id="line-155"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">1</span>], <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-156"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">1</span>] + <span class="lit-number">1</span>, <a href="order.go.html#line-35" class="ident">gRunning</a>}</code></span>
+<span class="codeline" id="line-157"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1050" class="ident">EvGoStartLocal</a>:</code></span>
+<span class="codeline" id="line-158"><code>		<span class="comment">// noseq means that this event is ready for merging as soon as</span></code></span>
+<span class="codeline" id="line-159"><code><span class="comment">		// frontier reaches it (EvGoStartLocal is emitted on the same P</span></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">		// as the corresponding EvGoCreate/EvGoUnblock, and thus the latter</span></code></span>
+<span class="codeline" id="line-161"><code><span class="comment">		// is already merged).</span></code></span>
+<span class="codeline" id="line-162"><code><span class="comment">		// seqinc is a stub for cases when event increments g sequence,</span></code></span>
+<span class="codeline" id="line-163"><code><span class="comment">		// but since we don't know current seq we also don't know next seq.</span></code></span>
+<span class="codeline" id="line-164"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a></code></span>
+<span class="codeline" id="line-165"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-166"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-41" class="ident">seqinc</a>, <a href="order.go.html#line-35" class="ident">gRunning</a>}</code></span>
+<span class="codeline" id="line-167"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1032" class="ident">EvGoBlock</a>, <a href="parser.go.html#line-1034" class="ident">EvGoBlockSend</a>, <a href="parser.go.html#line-1035" class="ident">EvGoBlockRecv</a>, <a href="parser.go.html#line-1036" class="ident">EvGoBlockSelect</a>,</code></span>
+<span class="codeline" id="line-168"><code>		<a href="parser.go.html#line-1037" class="ident">EvGoBlockSync</a>, <a href="parser.go.html#line-1038" class="ident">EvGoBlockCond</a>, <a href="parser.go.html#line-1039" class="ident">EvGoBlockNet</a>, <a href="parser.go.html#line-1031" class="ident">EvGoSleep</a>,</code></span>
+<span class="codeline" id="line-169"><code>		<a href="parser.go.html#line-1042" class="ident">EvGoSysBlock</a>, <a href="parser.go.html#line-1054" class="ident">EvGoBlockGC</a>:</code></span>
+<span class="codeline" id="line-170"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a></code></span>
+<span class="codeline" id="line-171"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-35" class="ident">gRunning</a>}</code></span>
+<span class="codeline" id="line-172"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-36" class="ident">gWaiting</a>}</code></span>
+<span class="codeline" id="line-173"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1029" class="ident">EvGoSched</a>, <a href="parser.go.html#line-1030" class="ident">EvGoPreempt</a>:</code></span>
+<span class="codeline" id="line-174"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-41" class="ident">G</a></code></span>
+<span class="codeline" id="line-175"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-35" class="ident">gRunning</a>}</code></span>
+<span class="codeline" id="line-176"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-177"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1033" class="ident">EvGoUnblock</a>, <a href="parser.go.html#line-1041" class="ident">EvGoSysExit</a>:</code></span>
+<span class="codeline" id="line-178"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-179"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">1</span>], <a href="order.go.html#line-36" class="ident">gWaiting</a>}</code></span>
+<span class="codeline" id="line-180"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">1</span>] + <span class="lit-number">1</span>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-181"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1051" class="ident">EvGoUnblockLocal</a>, <a href="parser.go.html#line-1052" class="ident">EvGoSysExitLocal</a>:</code></span>
+<span class="codeline" id="line-182"><code>		<label for="r24" class="ident">g</label> = <label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-183"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-40" class="ident">noseq</a>, <a href="order.go.html#line-36" class="ident">gWaiting</a>}</code></span>
+<span class="codeline" id="line-184"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<a href="order.go.html#line-41" class="ident">seqinc</a>, <a href="order.go.html#line-34" class="ident">gRunnable</a>}</code></span>
+<span class="codeline" id="line-185"><code>	<span class="keyword">case</span> <a href="parser.go.html#line-1019" class="ident">EvGCStart</a>:</code></span>
+<span class="codeline" id="line-186"><code>		<label for="r24" class="ident">g</label> = <a href="order.go.html#line-39" class="ident">garbage</a></code></span>
+<span class="codeline" id="line-187"><code>		<label for="r25" class="ident">init</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>], <a href="order.go.html#line-33" class="ident">gDead</a>}</code></span>
+<span class="codeline" id="line-188"><code>		<label for="r26" class="ident">next</label> = <a href="order.go.html#line-27" class="ident">gState</a>{<label for="r23" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">0</span>] + <span class="lit-number">1</span>, <a href="order.go.html#line-33" class="ident">gDead</a>}</code></span>
+<span class="codeline" id="line-189"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-190"><code>		<span class="comment">// no ordering requirements</span></code></span>
+<span class="codeline" id="line-191"><code>		<label for="r24" class="ident">g</label> = <a href="order.go.html#line-38" class="ident">unordered</a></code></span>
+<span class="codeline" id="line-192"><code>	}</code></span>
+<span class="codeline" id="line-193"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-194"><code>}</code></span>
+<span class="codeline" id="line-195"><code></code></span>
+<span class="codeline" id="line-196"><code><span class="keyword">func</span> transitionReady(<label for="r28" class="ident">g</label> <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r29" class="ident">curr</label>, <label for="r30" class="ident">init</label> <a href="order.go.html#line-27" class="ident">gState</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-197"><code>	<span class="keyword">return</span> <label for="r28" class="ident">g</label> == <a href="order.go.html#line-38" class="ident">unordered</a> || (<label for="r30" class="ident">init</label>.<a href="order.go.html#line-28" class="ident">seq</a> == <a href="order.go.html#line-40" class="ident">noseq</a> || <label for="r30" class="ident">init</label>.<a href="order.go.html#line-28" class="ident">seq</a> == <label for="r29" class="ident">curr</label>.<a href="order.go.html#line-28" class="ident">seq</a>) &amp;&amp; <label for="r30" class="ident">init</label>.<a href="order.go.html#line-29" class="ident">status</a> == <label for="r29" class="ident">curr</label>.<a href="order.go.html#line-29" class="ident">status</a></code></span>
+<span class="codeline" id="line-198"><code>}</code></span>
+<span class="codeline" id="line-199"><code></code></span>
+<span class="codeline" id="line-200"><code><span class="keyword">func</span> transition(<label for="r32" class="ident">gs</label> <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="order.go.html#line-27" class="ident">gState</a>, <label for="r33" class="ident">g</label> <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>, <label for="r34" class="ident">init</label>, <label for="r35" class="ident">next</label> <a href="order.go.html#line-27" class="ident">gState</a>) {</code></span>
+<span class="codeline" id="line-201"><code>	<span class="keyword">if</span> <label for="r33" class="ident">g</label> == <a href="order.go.html#line-38" class="ident">unordered</a> {</code></span>
+<span class="codeline" id="line-202"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-203"><code>	}</code></span>
+<span class="codeline" id="line-204"><code>	<label for="r36" class="ident">curr</label> := <label for="r32" class="ident">gs</label>[<label for="r33" class="ident">g</label>]</code></span>
+<span class="codeline" id="line-205"><code>	<span class="keyword">if</span> !<a href="order.go.html#line-196" class="ident">transitionReady</a>(<label for="r33" class="ident">g</label>, <label for="r36" class="ident">curr</label>, <label for="r34" class="ident">init</label>) {</code></span>
+<span class="codeline" id="line-206"><code>		<a href="../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<span class="lit-string">"event sequences are broken"</span>)</code></span>
+<span class="codeline" id="line-207"><code>	}</code></span>
+<span class="codeline" id="line-208"><code>	<span class="keyword">switch</span> <label for="r35" class="ident">next</label>.<a href="order.go.html#line-28" class="ident">seq</a> {</code></span>
+<span class="codeline" id="line-209"><code>	<span class="keyword">case</span> <a href="order.go.html#line-40" class="ident">noseq</a>:</code></span>
+<span class="codeline" id="line-210"><code>		<label for="r35" class="ident">next</label>.<a href="order.go.html#line-28" class="ident">seq</a> = <label for="r36" class="ident">curr</label>.<a href="order.go.html#line-28" class="ident">seq</a></code></span>
+<span class="codeline" id="line-211"><code>	<span class="keyword">case</span> <a href="order.go.html#line-41" class="ident">seqinc</a>:</code></span>
+<span class="codeline" id="line-212"><code>		<label for="r35" class="ident">next</label>.<a href="order.go.html#line-28" class="ident">seq</a> = <label for="r36" class="ident">curr</label>.<a href="order.go.html#line-28" class="ident">seq</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-213"><code>	}</code></span>
+<span class="codeline" id="line-214"><code>	<label for="r32" class="ident">gs</label>[<label for="r33" class="ident">g</label>] = <label for="r35" class="ident">next</label></code></span>
+<span class="codeline" id="line-215"><code>}</code></span>
+<span class="codeline" id="line-216"><code></code></span>
+<span class="codeline" id="line-217"><code><span class="comment">// order1005 merges a set of per-P event batches into a single, consistent stream.</span></code></span>
+<span class="codeline" id="line-218"><code><span class="keyword">func</span> order1005(<label for="r38" class="ident">m</label> <span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>][]*<a href="parser.go.html#line-35" class="ident">Event</a>) (<label for="r39" class="ident">events</label> []*<a href="parser.go.html#line-35" class="ident">Event</a>, <label for="r40" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-219"><code>	<span class="keyword">for</span> <label for="r41" class="ident">_</label>, <label for="r42" class="ident">batch</label> := <span class="keyword">range</span> <label for="r38" class="ident">m</label> {</code></span>
+<span class="codeline" id="line-220"><code>		<label for="r39" class="ident">events</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r39" class="ident">events</label>, <label for="r42" class="ident">batch</label>...)</code></span>
+<span class="codeline" id="line-221"><code>	}</code></span>
+<span class="codeline" id="line-222"><code>	<span class="keyword">for</span> <label for="r43" class="ident">_</label>, <label for="r44" class="ident">ev</label> := <span class="keyword">range</span> <label for="r39" class="ident">events</label> {</code></span>
+<span class="codeline" id="line-223"><code>		<span class="keyword">if</span> <label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-37" class="ident">Type</a> == <a href="parser.go.html#line-1041" class="ident">EvGoSysExit</a> {</code></span>
+<span class="codeline" id="line-224"><code>			<span class="comment">// EvGoSysExit emission is delayed until the thread has a P.</span></code></span>
+<span class="codeline" id="line-225"><code><span class="comment">			// Give it the real sequence number and time stamp.</span></code></span>
+<span class="codeline" id="line-226"><code>			<label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-38" class="ident">seq</a> = <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">1</span>])</code></span>
+<span class="codeline" id="line-227"><code>			<span class="keyword">if</span> <label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">2</span>] != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-228"><code>				<label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-39" class="ident">Ts</a> = <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r44" class="ident">ev</label>.<a href="parser.go.html#line-44" class="ident">Args</a>[<span class="lit-number">2</span>])</code></span>
+<span class="codeline" id="line-229"><code>			}</code></span>
+<span class="codeline" id="line-230"><code>		}</code></span>
+<span class="codeline" id="line-231"><code>	}</code></span>
+<span class="codeline" id="line-232"><code>	<a href="../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../sort/sort.go.html#line-229" class="ident">Sort</a>(<a href="order.go.html#line-267" class="ident">eventSeqList</a>(<label for="r39" class="ident">events</label>))</code></span>
+<span class="codeline" id="line-233"><code>	<span class="keyword">if</span> !<a href="../../../pkg/sort.html" class="ident i1">sort</a>.<a href="../../sort/sort.go.html#line-269" class="ident">IsSorted</a>(<a href="order.go.html#line-253" class="ident">eventList</a>(<label for="r39" class="ident">events</label>)) {</code></span>
+<span class="codeline" id="line-234"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="parser.go.html#line-557" class="ident">ErrTimeOrder</a></code></span>
+<span class="codeline" id="line-235"><code>	}</code></span>
+<span class="codeline" id="line-236"><code>	<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-237"><code>}</code></span>
+<span class="codeline" id="line-238"><code></code></span>
+<span class="codeline" id="line-239"><code><span class="keyword">type</span> orderEventList []<a href="order.go.html#line-17" class="ident">orderEvent</a></code></span>
+<span class="codeline" id="line-240"><code></code></span>
+<span class="codeline" id="line-241"><code><span class="keyword">func</span> (<label for="r45" class="ident">l</label> <a href="order.go.html#line-239" class="ident">orderEventList</a>) <label for="r46" class="ident">Len</label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-242"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r45" class="ident">l</label>)</code></span>
+<span class="codeline" id="line-243"><code>}</code></span>
+<span class="codeline" id="line-244"><code></code></span>
+<span class="codeline" id="line-245"><code><span class="keyword">func</span> (<label for="r47" class="ident">l</label> <a href="order.go.html#line-239" class="ident">orderEventList</a>) <label for="r48" class="ident">Less</label>(<label for="r49" class="ident">i</label>, <label for="r50" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-246"><code>	<span class="keyword">return</span> <label for="r47" class="ident">l</label>[<label for="r49" class="ident">i</label>].<a href="order.go.html#line-18" class="ident">ev</a>.<a href="parser.go.html#line-39" class="ident">Ts</a> &lt; <label for="r47" class="ident">l</label>[<label for="r50" class="ident">j</label>].<a href="order.go.html#line-18" class="ident">ev</a>.<a href="parser.go.html#line-39" class="ident">Ts</a></code></span>
+<span class="codeline" id="line-247"><code>}</code></span>
+<span class="codeline" id="line-248"><code></code></span>
+<span class="codeline" id="line-249"><code><span class="keyword">func</span> (<label for="r51" class="ident">l</label> <a href="order.go.html#line-239" class="ident">orderEventList</a>) <label for="r52" class="ident">Swap</label>(<label for="r53" class="ident">i</label>, <label for="r54" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-250"><code>	<label for="r51" class="ident">l</label>[<label for="r53" class="ident">i</label>], <label for="r51" class="ident">l</label>[<label for="r54" class="ident">j</label>] = <label for="r51" class="ident">l</label>[<label for="r54" class="ident">j</label>], <label for="r51" class="ident">l</label>[<label for="r53" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-251"><code>}</code></span>
+<span class="codeline" id="line-252"><code></code></span>
+<span class="codeline" id="line-253"><code><span class="keyword">type</span> eventList []*<a href="parser.go.html#line-35" class="ident">Event</a></code></span>
+<span class="codeline" id="line-254"><code></code></span>
+<span class="codeline" id="line-255"><code><span class="keyword">func</span> (<label for="r55" class="ident">l</label> <a href="order.go.html#line-253" class="ident">eventList</a>) <label for="r56" class="ident">Len</label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-256"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r55" class="ident">l</label>)</code></span>
+<span class="codeline" id="line-257"><code>}</code></span>
+<span class="codeline" id="line-258"><code></code></span>
+<span class="codeline" id="line-259"><code><span class="keyword">func</span> (<label for="r57" class="ident">l</label> <a href="order.go.html#line-253" class="ident">eventList</a>) <label for="r58" class="ident">Less</label>(<label for="r59" class="ident">i</label>, <label for="r60" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-260"><code>	<span class="keyword">return</span> <label for="r57" class="ident">l</label>[<label for="r59" class="ident">i</label>].<a href="parser.go.html#line-39" class="ident">Ts</a> &lt; <label for="r57" class="ident">l</label>[<label for="r60" class="ident">j</label>].<a href="parser.go.html#line-39" class="ident">Ts</a></code></span>
+<span class="codeline" id="line-261"><code>}</code></span>
+<span class="codeline" id="line-262"><code></code></span>
+<span class="codeline" id="line-263"><code><span class="keyword">func</span> (<label for="r61" class="ident">l</label> <a href="order.go.html#line-253" class="ident">eventList</a>) <label for="r62" class="ident">Swap</label>(<label for="r63" class="ident">i</label>, <label for="r64" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-264"><code>	<label for="r61" class="ident">l</label>[<label for="r63" class="ident">i</label>], <label for="r61" class="ident">l</label>[<label for="r64" class="ident">j</label>] = <label for="r61" class="ident">l</label>[<label for="r64" class="ident">j</label>], <label for="r61" class="ident">l</label>[<label for="r63" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-265"><code>}</code></span>
+<span class="codeline" id="line-266"><code></code></span>
+<span class="codeline" id="line-267"><code><span class="keyword">type</span> eventSeqList []*<a href="parser.go.html#line-35" class="ident">Event</a></code></span>
+<span class="codeline" id="line-268"><code></code></span>
+<span class="codeline" id="line-269"><code><span class="keyword">func</span> (<label for="r65" class="ident">l</label> <a href="order.go.html#line-267" class="ident">eventSeqList</a>) <label for="r66" class="ident">Len</label>() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a> {</code></span>
+<span class="codeline" id="line-270"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r65" class="ident">l</label>)</code></span>
+<span class="codeline" id="line-271"><code>}</code></span>
+<span class="codeline" id="line-272"><code></code></span>
+<span class="codeline" id="line-273"><code><span class="keyword">func</span> (<label for="r67" class="ident">l</label> <a href="order.go.html#line-267" class="ident">eventSeqList</a>) <label for="r68" class="ident">Less</label>(<label for="r69" class="ident">i</label>, <label for="r70" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-274"><code>	<span class="keyword">return</span> <label for="r67" class="ident">l</label>[<label for="r69" class="ident">i</label>].<a href="parser.go.html#line-38" class="ident">seq</a> &lt; <label for="r67" class="ident">l</label>[<label for="r70" class="ident">j</label>].<a href="parser.go.html#line-38" class="ident">seq</a></code></span>
+<span class="codeline" id="line-275"><code>}</code></span>
+<span class="codeline" id="line-276"><code></code></span>
+<span class="codeline" id="line-277"><code><span class="keyword">func</span> (<label for="r71" class="ident">l</label> <a href="order.go.html#line-267" class="ident">eventSeqList</a>) <label for="r72" class="ident">Swap</label>(<label for="r73" class="ident">i</label>, <label for="r74" class="ident">j</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-278"><code>	<label for="r71" class="ident">l</label>[<label for="r73" class="ident">i</label>], <label for="r71" class="ident">l</label>[<label for="r74" class="ident">j</label>] = <label for="r71" class="ident">l</label>[<label for="r74" class="ident">j</label>], <label for="r71" class="ident">l</label>[<label for="r73" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-279"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

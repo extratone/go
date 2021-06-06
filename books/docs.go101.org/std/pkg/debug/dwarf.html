@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: debug/dwarf</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>dwarf</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-debug/dwarf">debug/dwarf</a><i> (on <a href="https://golang.org/pkg/debug/dwarf/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/debug/dwarf" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/debug/dwarf.html">9 packages</a>, and imported by <a href="../../dep/debug/dwarf.html#imported-by">4 packages</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/debug/dwarf/attr_string.go.html">attr_string.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/buf.go.html">buf.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/class_string.go.html">class_string.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/const.go.html">const.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/entry.go.html">entry.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/line.go.html">line.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-6-fold-content"><label for="file-6-fold-content">   <a href="../../src/debug/dwarf/open.go.html#doc">d➜</a> <a href="../../src/debug/dwarf/open.go.html">open.go</a></label><span id='file-6-fold-content-items' class="fold-items">
+		Package dwarf provides access to DWARF debugging information loaded from
+		executable files, as defined in the DWARF 2.0 Standard at
+		http://dwarfstd.org/doc/dwarf-2.0.0.pdf
+</span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/tag_string.go.html">tag_string.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/type.go.html">type.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/typeunit.go.html">typeunit.go</a></span>
+	<span class="nodocs">      <a href="../../src/debug/dwarf/unit.go.html">unit.go</a></span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 37)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-AddrType" data-popularity="350">	<input type='checkbox' class="fold" id="AddrType-fold-content"><label for="AddrType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-87">AddrType</a> <i>(struct)</i></label><span id='AddrType-fold-content-docs' class="fold-docs">
+		An AddrType represents a machine address type.
+
+		<input type='checkbox' class="fold" id="AddrType-fold-fields"><label for="AddrType-fold-fields">Fields (<i>total 6</i>)</label><span id='AddrType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="AddrType-fold-field-ByteSize"><label for="AddrType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='AddrType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="AddrType-fold-field-Name"><label for="AddrType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='AddrType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="AddrType-fold-methods"><label for="AddrType-fold-methods">Methods (<i>total 4</i>)</label><span id='AddrType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="AddrType-fold-impls"><label for="AddrType-fold-impls">Implements (<i>at least 3</i>)</label><span id='AddrType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-ArrayType" data-popularity="300">	<input type='checkbox' class="fold" id="ArrayType-fold-content"><label for="ArrayType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-110">ArrayType</a> <i>(struct)</i></label><span id='ArrayType-fold-content-docs' class="fold-docs">
+		An ArrayType represents a fixed size array type.
+
+		<input type='checkbox' class="fold" id="ArrayType-fold-fields"><label for="ArrayType-fold-fields">Fields (<i>total 6</i>)</label><span id='ArrayType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-111">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="ArrayType-fold-field-ByteSize"><label for="ArrayType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-111" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='ArrayType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="ArrayType-fold-field-Name"><label for="ArrayType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-111" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='ArrayType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<input type='checkbox' class="fold" id="ArrayType-fold-field-Count"><label for="ArrayType-fold-field-Count"><a href="../../src/debug/dwarf/type.go.html#line-114">Count</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='ArrayType-fold-field-Count-docs' class="fold-docs">
+				// if == -1, an incomplete array, like char x[].
+</span></span><span>
+			<input type='checkbox' class="fold" id="ArrayType-fold-field-StrideBitSize"><label for="ArrayType-fold-field-StrideBitSize"><a href="../../src/debug/dwarf/type.go.html#line-113">StrideBitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='ArrayType-fold-field-StrideBitSize-docs' class="fold-docs">
+				// if &gt; 0, number of bits to hold each element
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-112">Type</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="ArrayType-fold-methods"><label for="ArrayType-fold-methods">Methods (<i>total 3</i>)</label><span id='ArrayType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-121">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-117">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="ArrayType-fold-impls"><label for="ArrayType-fold-impls">Implements (<i>at least 3</i>)</label><span id='ArrayType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Attr" data-popularity="335">	<input type='checkbox' class="fold" id="Attr-fold-content"><label for="Attr-fold-content"> type <a href="../../src/debug/dwarf/const.go.html#line-12">Attr</a> <a href="../builtin.html#name-uint32">uint32</a> <i>(basic type)</i></label><span id='Attr-fold-content-docs' class="fold-docs">
+		An Attr identifies the attribute type in a DWARF Entry's Field.
+
+		<input type='checkbox' class="fold" id="Attr-fold-methods"><label for="Attr-fold-methods">Methods (<i>total 2</i>)</label><span id='Attr-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/const.go.html#line-141">GoString</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/attr_string.go.html#line-260">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Attr-fold-impls"><label for="Attr-fold-impls">Implements (<i>at least 3</i>)</label><span id='Attr-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-GoStringer">GoStringer</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Attr-fold-params"><label for="Attr-fold-params">As Inputs Of (<i>at least 2</i>)</label><span id='Attr-fold-params-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Entry">Entry</a>).<a href="../../src/debug/dwarf/entry.go.html#line-394">AttrField</a>(a <b>Attr</b>) *<a href="dwarf.html#name-Field">Field</a></span><span>
+			func (*<a href="dwarf.html#name-Entry">Entry</a>).<a href="../../src/debug/dwarf/entry.go.html#line-385">Val</a>(a <b>Attr</b>) interface{}</span></span>
+		<input type='checkbox' class="fold" id="Attr-fold-values"><label for="Attr-fold-values">As Types Of (<i>total 121</i>)</label><span id='Attr-fold-values-items' class="fold-items"><span>
+			const <a href="dwarf.html#name-AttrAbstractOrigin">AttrAbstractOrigin</a></span><span>
+			const <a href="dwarf.html#name-AttrAccessibility">AttrAccessibility</a></span><span>
+			const <a href="dwarf.html#name-AttrAddrBase">AttrAddrBase</a></span><span>
+			const <a href="dwarf.html#name-AttrAddrClass">AttrAddrClass</a></span><span>
+			const <a href="dwarf.html#name-AttrAlignment">AttrAlignment</a></span><span>
+			const <a href="dwarf.html#name-AttrAllocated">AttrAllocated</a></span><span>
+			const <a href="dwarf.html#name-AttrArtificial">AttrArtificial</a></span><span>
+			const <a href="dwarf.html#name-AttrAssociated">AttrAssociated</a></span><span>
+			const <a href="dwarf.html#name-AttrBaseTypes">AttrBaseTypes</a></span><span>
+			const <a href="dwarf.html#name-AttrBinaryScale">AttrBinaryScale</a></span><span>
+			const <a href="dwarf.html#name-AttrBitOffset">AttrBitOffset</a></span><span>
+			const <a href="dwarf.html#name-AttrBitSize">AttrBitSize</a></span><span>
+			const <a href="dwarf.html#name-AttrByteSize">AttrByteSize</a></span><span>
+			const <a href="dwarf.html#name-AttrCallAllCalls">AttrCallAllCalls</a></span><span>
+			const <a href="dwarf.html#name-AttrCallAllSourceCalls">AttrCallAllSourceCalls</a></span><span>
+			const <a href="dwarf.html#name-AttrCallAllTailCalls">AttrCallAllTailCalls</a></span><span>
+			const <a href="dwarf.html#name-AttrCallColumn">AttrCallColumn</a></span><span>
+			const <a href="dwarf.html#name-AttrCallDataLocation">AttrCallDataLocation</a></span><span>
+			const <a href="dwarf.html#name-AttrCallDataValue">AttrCallDataValue</a></span><span>
+			const <a href="dwarf.html#name-AttrCallFile">AttrCallFile</a></span><span>
+			const <a href="dwarf.html#name-AttrCalling">AttrCalling</a></span><span>
+			const <a href="dwarf.html#name-AttrCallLine">AttrCallLine</a></span><span>
+			const <a href="dwarf.html#name-AttrCallOrigin">AttrCallOrigin</a></span><span>
+			const <a href="dwarf.html#name-AttrCallParameter">AttrCallParameter</a></span><span>
+			const <a href="dwarf.html#name-AttrCallPC">AttrCallPC</a></span><span>
+			const <a href="dwarf.html#name-AttrCallReturnPC">AttrCallReturnPC</a></span><span>
+			const <a href="dwarf.html#name-AttrCallTailCall">AttrCallTailCall</a></span><span>
+			const <a href="dwarf.html#name-AttrCallTarget">AttrCallTarget</a></span><span>
+			const <a href="dwarf.html#name-AttrCallTargetClobbered">AttrCallTargetClobbered</a></span><span>
+			const <a href="dwarf.html#name-AttrCallValue">AttrCallValue</a></span><span>
+			const <a href="dwarf.html#name-AttrCommonRef">AttrCommonRef</a></span><span>
+			const <a href="dwarf.html#name-AttrCompDir">AttrCompDir</a></span><span>
+			const <a href="dwarf.html#name-AttrConstExpr">AttrConstExpr</a></span><span>
+			const <a href="dwarf.html#name-AttrConstValue">AttrConstValue</a></span><span>
+			const <a href="dwarf.html#name-AttrContainingType">AttrContainingType</a></span><span>
+			const <a href="dwarf.html#name-AttrCount">AttrCount</a></span><span>
+			const <a href="dwarf.html#name-AttrDataBitOffset">AttrDataBitOffset</a></span><span>
+			const <a href="dwarf.html#name-AttrDataLocation">AttrDataLocation</a></span><span>
+			const <a href="dwarf.html#name-AttrDataMemberLoc">AttrDataMemberLoc</a></span><span>
+			const <a href="dwarf.html#name-AttrDecimalScale">AttrDecimalScale</a></span><span>
+			const <a href="dwarf.html#name-AttrDecimalSign">AttrDecimalSign</a></span><span>
+			const <a href="dwarf.html#name-AttrDeclaration">AttrDeclaration</a></span><span>
+			const <a href="dwarf.html#name-AttrDeclColumn">AttrDeclColumn</a></span><span>
+			const <a href="dwarf.html#name-AttrDeclFile">AttrDeclFile</a></span><span>
+			const <a href="dwarf.html#name-AttrDeclLine">AttrDeclLine</a></span><span>
+			const <a href="dwarf.html#name-AttrDefaulted">AttrDefaulted</a></span><span>
+			const <a href="dwarf.html#name-AttrDefaultValue">AttrDefaultValue</a></span><span>
+			const <a href="dwarf.html#name-AttrDeleted">AttrDeleted</a></span><span>
+			const <a href="dwarf.html#name-AttrDescription">AttrDescription</a></span><span>
+			const <a href="dwarf.html#name-AttrDigitCount">AttrDigitCount</a></span><span>
+			const <a href="dwarf.html#name-AttrDiscr">AttrDiscr</a></span><span>
+			const <a href="dwarf.html#name-AttrDiscrList">AttrDiscrList</a></span><span>
+			const <a href="dwarf.html#name-AttrDiscrValue">AttrDiscrValue</a></span><span>
+			const <a href="dwarf.html#name-AttrDwoName">AttrDwoName</a></span><span>
+			const <a href="dwarf.html#name-AttrElemental">AttrElemental</a></span><span>
+			const <a href="dwarf.html#name-AttrEncoding">AttrEncoding</a></span><span>
+			const <a href="dwarf.html#name-AttrEndianity">AttrEndianity</a></span><span>
+			const <a href="dwarf.html#name-AttrEntrypc">AttrEntrypc</a></span><span>
+			const <a href="dwarf.html#name-AttrEnumClass">AttrEnumClass</a></span><span>
+			const <a href="dwarf.html#name-AttrExplicit">AttrExplicit</a></span><span>
+			const <a href="dwarf.html#name-AttrExportSymbols">AttrExportSymbols</a></span><span>
+			const <a href="dwarf.html#name-AttrExtension">AttrExtension</a></span><span>
+			const <a href="dwarf.html#name-AttrExternal">AttrExternal</a></span><span>
+			const <a href="dwarf.html#name-AttrFrameBase">AttrFrameBase</a></span><span>
+			const <a href="dwarf.html#name-AttrFriend">AttrFriend</a></span><span>
+			const <a href="dwarf.html#name-AttrHighpc">AttrHighpc</a></span><span>
+			const <a href="dwarf.html#name-AttrIdentifierCase">AttrIdentifierCase</a></span><span>
+			const <a href="dwarf.html#name-AttrImport">AttrImport</a></span><span>
+			const <a href="dwarf.html#name-AttrInline">AttrInline</a></span><span>
+			const <a href="dwarf.html#name-AttrIsOptional">AttrIsOptional</a></span><span>
+			const <a href="dwarf.html#name-AttrLanguage">AttrLanguage</a></span><span>
+			const <a href="dwarf.html#name-AttrLinkageName">AttrLinkageName</a></span><span>
+			const <a href="dwarf.html#name-AttrLocation">AttrLocation</a></span><span>
+			const <a href="dwarf.html#name-AttrLoclistsBase">AttrLoclistsBase</a></span><span>
+			const <a href="dwarf.html#name-AttrLowerBound">AttrLowerBound</a></span><span>
+			const <a href="dwarf.html#name-AttrLowpc">AttrLowpc</a></span><span>
+			const <a href="dwarf.html#name-AttrMacroInfo">AttrMacroInfo</a></span><span>
+			const <a href="dwarf.html#name-AttrMacros">AttrMacros</a></span><span>
+			const <a href="dwarf.html#name-AttrMainSubprogram">AttrMainSubprogram</a></span><span>
+			const <a href="dwarf.html#name-AttrMutable">AttrMutable</a></span><span>
+			const <a href="dwarf.html#name-AttrName">AttrName</a></span><span>
+			const <a href="dwarf.html#name-AttrNamelistItem">AttrNamelistItem</a></span><span>
+			const <a href="dwarf.html#name-AttrNoreturn">AttrNoreturn</a></span><span>
+			const <a href="dwarf.html#name-AttrObjectPointer">AttrObjectPointer</a></span><span>
+			const <a href="dwarf.html#name-AttrOrdering">AttrOrdering</a></span><span>
+			const <a href="dwarf.html#name-AttrPictureString">AttrPictureString</a></span><span>
+			const <a href="dwarf.html#name-AttrPriority">AttrPriority</a></span><span>
+			const <a href="dwarf.html#name-AttrProducer">AttrProducer</a></span><span>
+			const <a href="dwarf.html#name-AttrPrototyped">AttrPrototyped</a></span><span>
+			const <a href="dwarf.html#name-AttrPure">AttrPure</a></span><span>
+			const <a href="dwarf.html#name-AttrRanges">AttrRanges</a></span><span>
+			const <a href="dwarf.html#name-AttrRank">AttrRank</a></span><span>
+			const <a href="dwarf.html#name-AttrRecursive">AttrRecursive</a></span><span>
+			const <a href="dwarf.html#name-AttrReference">AttrReference</a></span><span>
+			const <a href="dwarf.html#name-AttrReturnAddr">AttrReturnAddr</a></span><span>
+			const <a href="dwarf.html#name-AttrRnglistsBase">AttrRnglistsBase</a></span><span>
+			const <a href="dwarf.html#name-AttrRvalueReference">AttrRvalueReference</a></span><span>
+			const <a href="dwarf.html#name-AttrSegment">AttrSegment</a></span><span>
+			const <a href="dwarf.html#name-AttrSibling">AttrSibling</a></span><span>
+			const <a href="dwarf.html#name-AttrSignature">AttrSignature</a></span><span>
+			const <a href="dwarf.html#name-AttrSmall">AttrSmall</a></span><span>
+			const <a href="dwarf.html#name-AttrSpecification">AttrSpecification</a></span><span>
+			const <a href="dwarf.html#name-AttrStartScope">AttrStartScope</a></span><span>
+			const <a href="dwarf.html#name-AttrStaticLink">AttrStaticLink</a></span><span>
+			const <a href="dwarf.html#name-AttrStmtList">AttrStmtList</a></span><span>
+			const <a href="dwarf.html#name-AttrStride">AttrStride</a></span><span>
+			const <a href="dwarf.html#name-AttrStrideSize">AttrStrideSize</a></span><span>
+			const <a href="dwarf.html#name-AttrStringLength">AttrStringLength</a></span><span>
+			const <a href="dwarf.html#name-AttrStringLengthBitSize">AttrStringLengthBitSize</a></span><span>
+			const <a href="dwarf.html#name-AttrStringLengthByteSize">AttrStringLengthByteSize</a></span><span>
+			const <a href="dwarf.html#name-AttrStrOffsetsBase">AttrStrOffsetsBase</a></span><span>
+			const <a href="dwarf.html#name-AttrThreadsScaled">AttrThreadsScaled</a></span><span>
+			const <a href="dwarf.html#name-AttrTrampoline">AttrTrampoline</a></span><span>
+			const <a href="dwarf.html#name-AttrType">AttrType</a></span><span>
+			const <a href="dwarf.html#name-AttrUpperBound">AttrUpperBound</a></span><span>
+			const <a href="dwarf.html#name-AttrUseLocation">AttrUseLocation</a></span><span>
+			const <a href="dwarf.html#name-AttrUseUTF8">AttrUseUTF8</a></span><span>
+			const <a href="dwarf.html#name-AttrVarParam">AttrVarParam</a></span><span>
+			const <a href="dwarf.html#name-AttrVirtuality">AttrVirtuality</a></span><span>
+			const <a href="dwarf.html#name-AttrVisibility">AttrVisibility</a></span><span>
+			const <a href="dwarf.html#name-AttrVtableElemLoc">AttrVtableElemLoc</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-BasicType" data-popularity="425">	<input type='checkbox' class="fold" id="BasicType-fold-content"><label for="BasicType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-36">BasicType</a> <i>(struct)</i></label><span id='BasicType-fold-content-docs' class="fold-docs">
+		A BasicType holds fields common to all basic types.
+
+		<input type='checkbox' class="fold" id="BasicType-fold-fields"><label for="BasicType-fold-fields">Fields (<i>total 5</i>)</label><span id='BasicType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="BasicType-fold-field-ByteSize"><label for="BasicType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='BasicType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="BasicType-fold-field-Name"><label for="BasicType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='BasicType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="BasicType-fold-methods"><label for="BasicType-fold-methods">Methods (<i>total 4</i>)</label><span id='BasicType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<b>BasicType</b></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="BasicType-fold-impls"><label for="BasicType-fold-impls">Implements (<i>at least 3</i>)</label><span id='BasicType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="BasicType-fold-results"><label for="BasicType-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='BasicType-fold-results-items' class="fold-items"><span>
+			func (*BasicType).<a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<b>BasicType</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-BoolType" data-popularity="350">	<input type='checkbox' class="fold" id="BoolType-fold-content"><label for="BoolType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-82">BoolType</a> <i>(struct)</i></label><span id='BoolType-fold-content-docs' class="fold-docs">
+		A BoolType represents a boolean type.
+
+		<input type='checkbox' class="fold" id="BoolType-fold-fields"><label for="BoolType-fold-fields">Fields (<i>total 6</i>)</label><span id='BoolType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="BoolType-fold-field-ByteSize"><label for="BoolType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='BoolType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="BoolType-fold-field-Name"><label for="BoolType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='BoolType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="BoolType-fold-methods"><label for="BoolType-fold-methods">Methods (<i>total 4</i>)</label><span id='BoolType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="BoolType-fold-impls"><label for="BoolType-fold-impls">Implements (<i>at least 3</i>)</label><span id='BoolType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-CharType" data-popularity="350">	<input type='checkbox' class="fold" id="CharType-fold-content"><label for="CharType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-52">CharType</a> <i>(struct)</i></label><span id='CharType-fold-content-docs' class="fold-docs">
+		A CharType represents a signed character type.
+
+		<input type='checkbox' class="fold" id="CharType-fold-fields"><label for="CharType-fold-fields">Fields (<i>total 6</i>)</label><span id='CharType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="CharType-fold-field-ByteSize"><label for="CharType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='CharType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="CharType-fold-field-Name"><label for="CharType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='CharType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="CharType-fold-methods"><label for="CharType-fold-methods">Methods (<i>total 4</i>)</label><span id='CharType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="CharType-fold-impls"><label for="CharType-fold-impls">Implements (<i>at least 3</i>)</label><span id='CharType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Class" data-popularity="265">	<input type='checkbox' class="fold" id="Class-fold-content"><label for="Class-fold-content"> type <a href="../../src/debug/dwarf/entry.go.html#line-282">Class</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='Class-fold-content-docs' class="fold-docs">
+		A Class is the DWARF 4 class of an attribute value.
+
+		In general, a given attribute's value may take on one of several
+		possible classes defined by DWARF, each of which leads to a
+		slightly different interpretation of the attribute.
+
+		DWARF version 4 distinguishes attribute value classes more finely
+		than previous versions of DWARF. The reader will disambiguate
+		coarser classes from earlier versions of DWARF into the appropriate
+		DWARF 4 class. For example, DWARF 2 uses "constant" for constants
+		as well as all types of section offsets, but the reader will
+		canonicalize attributes in DWARF 2 files that refer to section
+		offsets to one of the Class*Ptr classes, even though these classes
+		were only defined in DWARF 3.
+
+		<input type='checkbox' class="fold" id="Class-fold-methods"><label for="Class-fold-methods">Methods (<i>total 2</i>)</label><span id='Class-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/entry.go.html#line-374">GoString</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/class_string.go.html#line-32">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Class-fold-impls"><label for="Class-fold-impls">Implements (<i>at least 3</i>)</label><span id='Class-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-GoStringer">GoStringer</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Class-fold-values"><label for="Class-fold-values">As Types Of (<i>total 20</i>)</label><span id='Class-fold-values-items' class="fold-items"><span>
+			const <a href="dwarf.html#name-ClassAddress">ClassAddress</a></span><span>
+			const <a href="dwarf.html#name-ClassAddrPtr">ClassAddrPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassBlock">ClassBlock</a></span><span>
+			const <a href="dwarf.html#name-ClassConstant">ClassConstant</a></span><span>
+			const <a href="dwarf.html#name-ClassExprLoc">ClassExprLoc</a></span><span>
+			const <a href="dwarf.html#name-ClassFlag">ClassFlag</a></span><span>
+			const <a href="dwarf.html#name-ClassLinePtr">ClassLinePtr</a></span><span>
+			const <a href="dwarf.html#name-ClassLocList">ClassLocList</a></span><span>
+			const <a href="dwarf.html#name-ClassLocListPtr">ClassLocListPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassMacPtr">ClassMacPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassRangeListPtr">ClassRangeListPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassReference">ClassReference</a></span><span>
+			const <a href="dwarf.html#name-ClassReferenceAlt">ClassReferenceAlt</a></span><span>
+			const <a href="dwarf.html#name-ClassReferenceSig">ClassReferenceSig</a></span><span>
+			const <a href="dwarf.html#name-ClassRngList">ClassRngList</a></span><span>
+			const <a href="dwarf.html#name-ClassRngListsPtr">ClassRngListsPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassString">ClassString</a></span><span>
+			const <a href="dwarf.html#name-ClassStringAlt">ClassStringAlt</a></span><span>
+			const <a href="dwarf.html#name-ClassStrOffsetsPtr">ClassStrOffsetsPtr</a></span><span>
+			const <a href="dwarf.html#name-ClassUnknown">ClassUnknown</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-CommonType" data-popularity="250">	<input type='checkbox' class="fold" id="CommonType-fold-content"><label for="CommonType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-24">CommonType</a> <i>(struct)</i></label><span id='CommonType-fold-content-docs' class="fold-docs">
+		A CommonType holds fields common to multiple types.
+		If a field is not known or not applicable for a given type,
+		the zero value is used.
+
+		<input type='checkbox' class="fold" id="CommonType-fold-fields"><label for="CommonType-fold-fields">Fields (<i>total 2</i>)</label><span id='CommonType-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="CommonType-fold-field-ByteSize"><label for="CommonType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='CommonType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="CommonType-fold-field-Name"><label for="CommonType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='CommonType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="CommonType-fold-methods"><label for="CommonType-fold-methods">Methods (<i>total 2</i>)</label><span id='CommonType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<b>CommonType</b></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span></span>
+		<input type='checkbox' class="fold" id="CommonType-fold-results"><label for="CommonType-fold-results">As Outputs Of (<i>at least 2</i>)</label><span id='CommonType-fold-results-items' class="fold-items"><span>
+			func (*CommonType).<a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<b>CommonType</b></span><span>
+			func <a href="dwarf.html#name-Type">Type</a>.<a href="../../src/debug/dwarf/type.go.html#line-16">Common</a>() *<b>CommonType</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-ComplexType" data-popularity="350">	<input type='checkbox' class="fold" id="ComplexType-fold-content"><label for="ComplexType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-77">ComplexType</a> <i>(struct)</i></label><span id='ComplexType-fold-content-docs' class="fold-docs">
+		A ComplexType represents a complex floating point type.
+
+		<input type='checkbox' class="fold" id="ComplexType-fold-fields"><label for="ComplexType-fold-fields">Fields (<i>total 6</i>)</label><span id='ComplexType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="ComplexType-fold-field-ByteSize"><label for="ComplexType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='ComplexType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="ComplexType-fold-field-Name"><label for="ComplexType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='ComplexType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="ComplexType-fold-methods"><label for="ComplexType-fold-methods">Methods (<i>total 4</i>)</label><span id='ComplexType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="ComplexType-fold-impls"><label for="ComplexType-fold-impls">Implements (<i>at least 3</i>)</label><span id='ComplexType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Data" data-popularity="675">	<input type='checkbox' class="fold" id="Data-fold-content"><label for="Data-fold-content"> type <a href="../../src/debug/dwarf/open.go.html#line-17">Data</a> <i>(struct)</i></label><span id='Data-fold-content-docs' class="fold-docs">
+		Data represents the DWARF debugging information
+		loaded from an executable file (for example, an ELF or Mach-O executable).
+
+		<input type='checkbox' class="fold" id="Data-fold-methods"><label for="Data-fold-methods">Methods (<i>total 6</i>)</label><span id='Data-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-AddSection"><label for="Data-fold-method-AddSection">(*T) <a href="../../src/debug/dwarf/open.go.html#line-116">AddSection</a>(name <a href="../builtin.html#name-string">string</a>, contents []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Data-fold-method-AddSection-docs' class="fold-docs">
+				AddSection adds another DWARF section by name. The name should be a
+				DWARF section name such as ".debug_addr", ".debug_str_offsets", and
+				so forth. This approach is used for new DWARF sections added in
+				DWARF 5 and later.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-AddTypes"><label for="Data-fold-method-AddTypes">(*T) <a href="../../src/debug/dwarf/open.go.html#line-108">AddTypes</a>(name <a href="../builtin.html#name-string">string</a>, types []<a href="../builtin.html#name-byte">byte</a>) <a href="../builtin.html#name-error">error</a></label><span id='Data-fold-method-AddTypes-docs' class="fold-docs">
+				AddTypes will add one .debug_types section to the DWARF data. A
+				typical object with DWARF version 4 debug info will have multiple
+				.debug_types sections. The name is used for error reporting only,
+				and serves to distinguish one .debug_types section from another.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-LineReader"><label for="Data-fold-method-LineReader">(*T) <a href="../../src/debug/dwarf/line.go.html#line-143">LineReader</a>(cu *<a href="dwarf.html#name-Entry">Entry</a>) (*<a href="dwarf.html#name-LineReader">LineReader</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Data-fold-method-LineReader-docs' class="fold-docs">
+				LineReader returns a new reader for the line table of compilation
+				unit cu, which must be an Entry with tag TagCompileUnit.
+
+				If this compilation unit has no line table, it returns nil, nil.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-Ranges"><label for="Data-fold-method-Ranges">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-947">Ranges</a>(e *<a href="dwarf.html#name-Entry">Entry</a>) ([][2]<a href="../builtin.html#name-uint64">uint64</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Data-fold-method-Ranges-docs' class="fold-docs">
+				Ranges returns the PC ranges covered by e, a slice of [low,high) pairs.
+				Only some entry types, such as TagCompileUnit or TagSubprogram, have PC
+				ranges; for others, this will return nil with no error.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-Reader"><label for="Data-fold-method-Reader">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-761">Reader</a>() *<a href="dwarf.html#name-Reader">Reader</a></label><span id='Data-fold-method-Reader-docs' class="fold-docs">
+				Reader returns a new Reader for Data.
+				The reader is positioned at byte offset 0 in the DWARF ``info'' section.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Data-fold-method-Type"><label for="Data-fold-method-Type">(*T) <a href="../../src/debug/dwarf/type.go.html#line-291">Type</a>(off <a href="dwarf.html#name-Offset">Offset</a>) (<a href="dwarf.html#name-Type">Type</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Data-fold-method-Type-docs' class="fold-docs">
+				Type reads the type at off in the DWARF ``info'' section.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Data-fold-results"><label for="Data-fold-results">As Outputs Of (<i>at least 5</i>)</label><span id='Data-fold-results-items' class="fold-items"><span>
+			func <a href="dwarf.html#name-New">New</a>(abbrev, aranges, frame, info, line, pubnames, ranges, str []<a href="../builtin.html#name-byte">byte</a>) (*<b>Data</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func debug/elf.(*<a href="elf.html#name-File">File</a>).<a href="../../src/debug/elf/file.go.html#line-1131">DWARF</a>() (*<b>Data</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func debug/macho.(*<a href="macho.html#name-File">File</a>).<a href="../../src/debug/macho/file.go.html#line-584">DWARF</a>() (*<b>Data</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func debug/pe.(*<a href="pe.html#name-File">File</a>).<a href="../../src/debug/pe/file.go.html#line-203">DWARF</a>() (*<b>Data</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func internal/xcoff.(*<a href="../internal/xcoff.html#name-File">File</a>).<a href="../../src/internal/xcoff/file.go.html#line-486">DWARF</a>() (*<b>Data</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-DecodeError" data-popularity="100">	<input type='checkbox' class="fold" id="DecodeError-fold-content"><label for="DecodeError-fold-content"> type <a href="../../src/debug/dwarf/buf.go.html#line-197">DecodeError</a> <i>(struct)</i></label><span id='DecodeError-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="DecodeError-fold-fields"><label for="DecodeError-fold-fields">Fields (<i>total 3</i>)</label><span id='DecodeError-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/buf.go.html#line-200">Err</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/buf.go.html#line-198">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/buf.go.html#line-199">Offset</a> <i><a href="dwarf.html#name-Offset">Offset</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="DecodeError-fold-methods"><label for="DecodeError-fold-methods">Methods (<i>only one</i>)</label><span id='DecodeError-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/buf.go.html#line-203">Error</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="DecodeError-fold-impls"><label for="DecodeError-fold-impls">Implements (<i>at least one exported</i>)</label><span id='DecodeError-fold-impls-items' class="fold-items"><span>
+			 T : <a href="../builtin.html#name-error">error</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-DotDotDotType" data-popularity="300">	<input type='checkbox' class="fold" id="DotDotDotType-fold-content"><label for="DotDotDotType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-248">DotDotDotType</a> <i>(struct)</i></label><span id='DotDotDotType-fold-content-docs' class="fold-docs">
+		A DotDotDotType represents the variadic ... function parameter.
+
+		<input type='checkbox' class="fold" id="DotDotDotType-fold-fields"><label for="DotDotDotType-fold-fields">Fields (<i>total 3</i>)</label><span id='DotDotDotType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-130">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="DotDotDotType-fold-field-ByteSize"><label for="DotDotDotType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-130" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='DotDotDotType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="DotDotDotType-fold-field-Name"><label for="DotDotDotType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-130" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='DotDotDotType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="DotDotDotType-fold-methods"><label for="DotDotDotType-fold-methods">Methods (<i>total 3</i>)</label><span id='DotDotDotType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-252">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="DotDotDotType-fold-impls"><label for="DotDotDotType-fold-impls">Implements (<i>at least 3</i>)</label><span id='DotDotDotType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Entry" data-popularity="320">	<input type='checkbox' class="fold" id="Entry-fold-content"><label for="Entry-fold-content"> type <a href="../../src/debug/dwarf/entry.go.html#line-232">Entry</a> <i>(struct)</i></label><span id='Entry-fold-content-docs' class="fold-docs">
+		An entry is a sequence of attribute/value pairs.
+
+		<input type='checkbox' class="fold" id="Entry-fold-fields"><label for="Entry-fold-fields">Fields (<i>total 4</i>)</label><span id='Entry-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Entry-fold-field-Children"><label for="Entry-fold-field-Children"><a href="../../src/debug/dwarf/entry.go.html#line-235">Children</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='Entry-fold-field-Children-docs' class="fold-docs">
+				// whether Entry is followed by children
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/entry.go.html#line-236">Field</a> <i>[]<a href="dwarf.html#name-Field">Field</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="Entry-fold-field-Offset"><label for="Entry-fold-field-Offset"><a href="../../src/debug/dwarf/entry.go.html#line-233">Offset</a> <i><a href="dwarf.html#name-Offset">Offset</a></i></label><span id='Entry-fold-field-Offset-docs' class="fold-docs">
+				// offset of Entry in DWARF info
+</span></span><span>
+			<input type='checkbox' class="fold" id="Entry-fold-field-Tag"><label for="Entry-fold-field-Tag"><a href="../../src/debug/dwarf/entry.go.html#line-234">Tag</a> <i><a href="dwarf.html#name-Tag">Tag</a></i></label><span id='Entry-fold-field-Tag-docs' class="fold-docs">
+				// tag (kind of Entry)
+</span></span></span>
+		<input type='checkbox' class="fold" id="Entry-fold-methods"><label for="Entry-fold-methods">Methods (<i>total 2</i>)</label><span id='Entry-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Entry-fold-method-AttrField"><label for="Entry-fold-method-AttrField">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-394">AttrField</a>(a <a href="dwarf.html#name-Attr">Attr</a>) *<a href="dwarf.html#name-Field">Field</a></label><span id='Entry-fold-method-AttrField-docs' class="fold-docs">
+				AttrField returns the Field associated with attribute Attr in
+				Entry, or nil if there is no such attribute.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Entry-fold-method-Val"><label for="Entry-fold-method-Val">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-385">Val</a>(a <a href="dwarf.html#name-Attr">Attr</a>) interface{}</label><span id='Entry-fold-method-Val-docs' class="fold-docs">
+				Val returns the value associated with attribute Attr in Entry,
+				or nil if there is no such attribute.
+
+				A common idiom is to merge the check for nil return with
+				the check that the value has the expected dynamic type, as in:
+					v, ok := e.Val(AttrSibling).(int64)
+</span></span></span>
+		<input type='checkbox' class="fold" id="Entry-fold-results"><label for="Entry-fold-results">As Outputs Of (<i>at least 2</i>)</label><span id='Entry-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Reader">Reader</a>).<a href="../../src/debug/dwarf/entry.go.html#line-827">Next</a>() (*<b>Entry</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="dwarf.html#name-Reader">Reader</a>).<a href="../../src/debug/dwarf/entry.go.html#line-914">SeekPC</a>(pc <a href="../builtin.html#name-uint64">uint64</a>) (*<b>Entry</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+		<input type='checkbox' class="fold" id="Entry-fold-params"><label for="Entry-fold-params">As Inputs Of (<i>at least 2</i>)</label><span id='Entry-fold-params-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/line.go.html#line-143">LineReader</a>(cu *<b>Entry</b>) (*<a href="dwarf.html#name-LineReader">LineReader</a>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/entry.go.html#line-947">Ranges</a>(e *<b>Entry</b>) ([][2]<a href="../builtin.html#name-uint64">uint64</a>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-EnumType" data-popularity="300">	<input type='checkbox' class="fold" id="EnumType-fold-content"><label for="EnumType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-197">EnumType</a> <i>(struct)</i></label><span id='EnumType-fold-content-docs' class="fold-docs">
+		An EnumType represents an enumerated type.
+		The only indication of its native integer type is its ByteSize
+		(inside CommonType).
+
+		<input type='checkbox' class="fold" id="EnumType-fold-fields"><label for="EnumType-fold-fields">Fields (<i>total 5</i>)</label><span id='EnumType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-198">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="EnumType-fold-field-ByteSize"><label for="EnumType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-198" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='EnumType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="EnumType-fold-field-Name"><label for="EnumType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-198" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='EnumType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-199">EnumName</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-200">Val</a> <i>[]*<a href="dwarf.html#name-EnumValue">EnumValue</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="EnumType-fold-methods"><label for="EnumType-fold-methods">Methods (<i>total 3</i>)</label><span id='EnumType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-209">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="EnumType-fold-impls"><label for="EnumType-fold-impls">Implements (<i>at least 3</i>)</label><span id='EnumType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-EnumValue" data-popularity="0">	<input type='checkbox' class="fold" id="EnumValue-fold-content"><label for="EnumValue-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-204">EnumValue</a> <i>(struct)</i></label><span id='EnumValue-fold-content-docs' class="fold-docs">
+		An EnumValue represents a single enumeration value.
+
+		<input type='checkbox' class="fold" id="EnumValue-fold-fields"><label for="EnumValue-fold-fields">Fields (<i>total 2</i>)</label><span id='EnumValue-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-205">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-206">Val</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Field" data-popularity="75">	<input type='checkbox' class="fold" id="Field-fold-content"><label for="Field-fold-content"> type <a href="../../src/debug/dwarf/entry.go.html#line-262">Field</a> <i>(struct)</i></label><span id='Field-fold-content-docs' class="fold-docs">
+		A Field is a single attribute/value pair in an Entry.
+
+		A value can be one of several "attribute classes" defined by DWARF.
+		The Go types corresponding to each class are:
+
+		   DWARF class       Go type        Class
+		   -----------       -------        -----
+		   address           uint64         ClassAddress
+		   block             []byte         ClassBlock
+		   constant          int64          ClassConstant
+		   flag              bool           ClassFlag
+		   reference
+		     to info         dwarf.Offset   ClassReference
+		     to type unit    uint64         ClassReferenceSig
+		   string            string         ClassString
+		   exprloc           []byte         ClassExprLoc
+		   lineptr           int64          ClassLinePtr
+		   loclistptr        int64          ClassLocListPtr
+		   macptr            int64          ClassMacPtr
+		   rangelistptr      int64          ClassRangeListPtr
+
+		For unrecognized or vendor-defined attributes, Class may be
+		ClassUnknown.
+
+		<input type='checkbox' class="fold" id="Field-fold-fields"><label for="Field-fold-fields">Fields (<i>total 3</i>)</label><span id='Field-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/entry.go.html#line-263">Attr</a> <i><a href="dwarf.html#name-Attr">Attr</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/entry.go.html#line-265">Class</a> <i><a href="dwarf.html#name-Class">Class</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/entry.go.html#line-264">Val</a> <i>interface{}</i></span></span></span>
+		<input type='checkbox' class="fold" id="Field-fold-results"><label for="Field-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Field-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Entry">Entry</a>).<a href="../../src/debug/dwarf/entry.go.html#line-394">AttrField</a>(a <a href="dwarf.html#name-Attr">Attr</a>) *<b>Field</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-FloatType" data-popularity="350">	<input type='checkbox' class="fold" id="FloatType-fold-content"><label for="FloatType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-72">FloatType</a> <i>(struct)</i></label><span id='FloatType-fold-content-docs' class="fold-docs">
+		A FloatType represents a floating point type.
+
+		<input type='checkbox' class="fold" id="FloatType-fold-fields"><label for="FloatType-fold-fields">Fields (<i>total 6</i>)</label><span id='FloatType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="FloatType-fold-field-ByteSize"><label for="FloatType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='FloatType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="FloatType-fold-field-Name"><label for="FloatType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='FloatType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="FloatType-fold-methods"><label for="FloatType-fold-methods">Methods (<i>total 4</i>)</label><span id='FloatType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="FloatType-fold-impls"><label for="FloatType-fold-impls">Implements (<i>at least 3</i>)</label><span id='FloatType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-FuncType" data-popularity="300">	<input type='checkbox' class="fold" id="FuncType-fold-content"><label for="FuncType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-226">FuncType</a> <i>(struct)</i></label><span id='FuncType-fold-content-docs' class="fold-docs">
+		A FuncType represents a function type.
+
+		<input type='checkbox' class="fold" id="FuncType-fold-fields"><label for="FuncType-fold-fields">Fields (<i>total 5</i>)</label><span id='FuncType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-227">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="FuncType-fold-field-ByteSize"><label for="FuncType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-227" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='FuncType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="FuncType-fold-field-Name"><label for="FuncType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-227" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='FuncType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-229">ParamType</a> <i>[]<a href="dwarf.html#name-Type">Type</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-228">ReturnType</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="FuncType-fold-methods"><label for="FuncType-fold-methods">Methods (<i>total 3</i>)</label><span id='FuncType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-232">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="FuncType-fold-impls"><label for="FuncType-fold-impls">Implements (<i>at least 3</i>)</label><span id='FuncType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-IntType" data-popularity="350">	<input type='checkbox' class="fold" id="IntType-fold-content"><label for="IntType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-62">IntType</a> <i>(struct)</i></label><span id='IntType-fold-content-docs' class="fold-docs">
+		An IntType represents a signed integer type.
+
+		<input type='checkbox' class="fold" id="IntType-fold-fields"><label for="IntType-fold-fields">Fields (<i>total 6</i>)</label><span id='IntType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="IntType-fold-field-ByteSize"><label for="IntType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='IntType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="IntType-fold-field-Name"><label for="IntType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='IntType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="IntType-fold-methods"><label for="IntType-fold-methods">Methods (<i>total 4</i>)</label><span id='IntType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="IntType-fold-impls"><label for="IntType-fold-impls">Implements (<i>at least 3</i>)</label><span id='IntType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-LineEntry" data-popularity="70">	<input type='checkbox' class="fold" id="LineEntry-fold-content"><label for="LineEntry-fold-content"> type <a href="../../src/debug/dwarf/line.go.html#line-54">LineEntry</a> <i>(struct)</i></label><span id='LineEntry-fold-content-docs' class="fold-docs">
+		A LineEntry is a row in a DWARF line table.
+
+		<input type='checkbox' class="fold" id="LineEntry-fold-fields"><label for="LineEntry-fold-fields">Fields (<i>total 12</i>)</label><span id='LineEntry-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-Address"><label for="LineEntry-fold-field-Address"><a href="../../src/debug/dwarf/line.go.html#line-59">Address</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LineEntry-fold-field-Address-docs' class="fold-docs">
+				Address is the program-counter value of a machine
+				instruction generated by the compiler. This LineEntry
+				applies to each instruction from Address to just before the
+				Address of the next LineEntry.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-BasicBlock"><label for="LineEntry-fold-field-BasicBlock"><a href="../../src/debug/dwarf/line.go.html#line-91">BasicBlock</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='LineEntry-fold-field-BasicBlock-docs' class="fold-docs">
+				BasicBlock indicates that Address is the beginning of a
+				basic block.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-Column"><label for="LineEntry-fold-field-Column"><a href="../../src/debug/dwarf/line.go.html#line-82">Column</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineEntry-fold-field-Column-docs' class="fold-docs">
+				Column is the column number within the source line of these
+				instructions. Columns are numbered beginning at 1. It may
+				be 0 to indicate the "left edge" of the line.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-Discriminator"><label for="LineEntry-fold-field-Discriminator"><a href="../../src/debug/dwarf/line.go.html#line-121">Discriminator</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineEntry-fold-field-Discriminator-docs' class="fold-docs">
+				Discriminator is an arbitrary integer indicating the block
+				to which these instructions belong. It serves to
+				distinguish among multiple blocks that may all have with
+				the same source file, line, and column. Where only one
+				block exists for a given source position, it should be 0.
+
+				Added in DWARF 3.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-EndSequence"><label for="LineEntry-fold-field-EndSequence"><a href="../../src/debug/dwarf/line.go.html#line-129">EndSequence</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='LineEntry-fold-field-EndSequence-docs' class="fold-docs">
+				EndSequence indicates that Address is the first byte after
+				the end of a sequence of target machine instructions. If it
+				is set, only this and the Address field are meaningful. A
+				line number table may contain information for multiple
+				potentially disjoint instruction sequences. The last entry
+				in a line table should always have EndSequence set.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-EpilogueBegin"><label for="LineEntry-fold-field-EpilogueBegin"><a href="../../src/debug/dwarf/line.go.html#line-105">EpilogueBegin</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='LineEntry-fold-field-EpilogueBegin-docs' class="fold-docs">
+				EpilogueBegin indicates that Address is one (of possibly
+				many) PCs where execution should be suspended for a
+				breakpoint on exit from this function.
+
+				Added in DWARF 3.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-File"><label for="LineEntry-fold-field-File"><a href="../../src/debug/dwarf/line.go.html#line-71">File</a> <i>*<a href="dwarf.html#name-LineFile">LineFile</a></i></label><span id='LineEntry-fold-field-File-docs' class="fold-docs">
+				File is the source file corresponding to these
+				instructions.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-ISA"><label for="LineEntry-fold-field-ISA"><a href="../../src/debug/dwarf/line.go.html#line-112">ISA</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineEntry-fold-field-ISA-docs' class="fold-docs">
+				ISA is the instruction set architecture for these
+				instructions. Possible ISA values should be defined by the
+				applicable ABI specification.
+
+				Added in DWARF 3.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-IsStmt"><label for="LineEntry-fold-field-IsStmt"><a href="../../src/debug/dwarf/line.go.html#line-87">IsStmt</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='LineEntry-fold-field-IsStmt-docs' class="fold-docs">
+				IsStmt indicates that Address is a recommended breakpoint
+				location, such as the beginning of a line, statement, or a
+				distinct subpart of a statement.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-Line"><label for="LineEntry-fold-field-Line"><a href="../../src/debug/dwarf/line.go.html#line-77">Line</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineEntry-fold-field-Line-docs' class="fold-docs">
+				Line is the source code line number corresponding to these
+				instructions. Lines are numbered beginning at 1. It may be
+				0 if these instructions cannot be attributed to any source
+				line.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-OpIndex"><label for="LineEntry-fold-field-OpIndex"><a href="../../src/debug/dwarf/line.go.html#line-67">OpIndex</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineEntry-fold-field-OpIndex-docs' class="fold-docs">
+				OpIndex is the index of an operation within a VLIW
+				instruction. The index of the first operation is 0. For
+				non-VLIW architectures, it will always be 0. Address and
+				OpIndex together form an operation pointer that can
+				reference any individual operation within the instruction
+				stream.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineEntry-fold-field-PrologueEnd"><label for="LineEntry-fold-field-PrologueEnd"><a href="../../src/debug/dwarf/line.go.html#line-98">PrologueEnd</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='LineEntry-fold-field-PrologueEnd-docs' class="fold-docs">
+				PrologueEnd indicates that Address is one (of possibly
+				many) PCs where execution should be suspended for a
+				breakpoint on entry to the containing function.
+
+				Added in DWARF 3.
+</span></span></span>
+		<input type='checkbox' class="fold" id="LineEntry-fold-params"><label for="LineEntry-fold-params">As Inputs Of (<i>at least 2</i>)</label><span id='LineEntry-fold-params-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-LineReader">LineReader</a>).<a href="../../src/debug/dwarf/line.go.html#line-477">Next</a>(entry *<b>LineEntry</b>) <a href="../builtin.html#name-error">error</a></span><span>
+			func (*<a href="dwarf.html#name-LineReader">LineReader</a>).<a href="../../src/debug/dwarf/line.go.html#line-740">SeekPC</a>(pc <a href="../builtin.html#name-uint64">uint64</a>, entry *<b>LineEntry</b>) <a href="../builtin.html#name-error">error</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-LineFile" data-popularity="75">	<input type='checkbox' class="fold" id="LineFile-fold-content"><label for="LineFile-fold-content"> type <a href="../../src/debug/dwarf/line.go.html#line-133">LineFile</a> <i>(struct)</i></label><span id='LineFile-fold-content-docs' class="fold-docs">
+		A LineFile is a source file referenced by a DWARF line table entry.
+
+		<input type='checkbox' class="fold" id="LineFile-fold-fields"><label for="LineFile-fold-fields">Fields (<i>total 3</i>)</label><span id='LineFile-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LineFile-fold-field-Length"><label for="LineFile-fold-field-Length"><a href="../../src/debug/dwarf/line.go.html#line-136">Length</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='LineFile-fold-field-Length-docs' class="fold-docs">
+				// File length, or 0 if unknown
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineFile-fold-field-Mtime"><label for="LineFile-fold-field-Mtime"><a href="../../src/debug/dwarf/line.go.html#line-135">Mtime</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LineFile-fold-field-Mtime-docs' class="fold-docs">
+				// Implementation defined modification time, or 0 if unknown
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/line.go.html#line-134">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="LineFile-fold-results"><label for="LineFile-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='LineFile-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-LineReader">LineReader</a>).<a href="../../src/debug/dwarf/line.go.html#line-720">Files</a>() []*<b>LineFile</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-LineReader" data-popularity="375">	<input type='checkbox' class="fold" id="LineReader-fold-content"><label for="LineReader-fold-content"> type <a href="../../src/debug/dwarf/line.go.html#line-20">LineReader</a> <i>(struct)</i></label><span id='LineReader-fold-content-docs' class="fold-docs">
+		A LineReader reads a sequence of LineEntry structures from a DWARF
+		"line" section for a single compilation unit. LineEntries occur in
+		order of increasing PC and each LineEntry gives metadata for the
+		instructions from that LineEntry's PC to just before the next
+		LineEntry's PC. The last entry will have its EndSequence field set.
+
+		<input type='checkbox' class="fold" id="LineReader-fold-methods"><label for="LineReader-fold-methods">Methods (<i>total 6</i>)</label><span id='LineReader-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-Files"><label for="LineReader-fold-method-Files">(*T) <a href="../../src/debug/dwarf/line.go.html#line-720">Files</a>() []*<a href="dwarf.html#name-LineFile">LineFile</a></label><span id='LineReader-fold-method-Files-docs' class="fold-docs">
+				Files returns the file name table of this compilation unit as of
+				the current position in the line table. The file name table may be
+				referenced from attributes in this compilation unit such as
+				AttrDeclFile.
+
+				Entry 0 is always nil, since file index 0 represents "no file".
+
+				The file name table of a compilation unit is not fixed. Files
+				returns the file table as of the current position in the line
+				table. This may contain more entries than the file table at an
+				earlier position in the line table, though existing entries never
+				change.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-Next"><label for="LineReader-fold-method-Next">(*T) <a href="../../src/debug/dwarf/line.go.html#line-477">Next</a>(entry *<a href="dwarf.html#name-LineEntry">LineEntry</a>) <a href="../builtin.html#name-error">error</a></label><span id='LineReader-fold-method-Next-docs' class="fold-docs">
+				Next sets *entry to the next row in this line table and moves to
+				the next row. If there are no more entries and the line table is
+				properly terminated, it returns io.EOF.
+
+				Rows are always in order of increasing entry.Address, but
+				entry.Line may go forward or backward.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-Reset"><label for="LineReader-fold-method-Reset">(*T) <a href="../../src/debug/dwarf/line.go.html#line-675">Reset</a>()</label><span id='LineReader-fold-method-Reset-docs' class="fold-docs">
+				Reset repositions the line table reader at the beginning of the
+				line table.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-Seek"><label for="LineReader-fold-method-Seek">(*T) <a href="../../src/debug/dwarf/line.go.html#line-665">Seek</a>(pos <a href="dwarf.html#name-LineReaderPos">LineReaderPos</a>)</label><span id='LineReader-fold-method-Seek-docs' class="fold-docs">
+				Seek restores the line table reader to a position returned by Tell.
+
+				The argument pos must have been returned by a call to Tell on this
+				line table.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-SeekPC"><label for="LineReader-fold-method-SeekPC">(*T) <a href="../../src/debug/dwarf/line.go.html#line-740">SeekPC</a>(pc <a href="../builtin.html#name-uint64">uint64</a>, entry *<a href="dwarf.html#name-LineEntry">LineEntry</a>) <a href="../builtin.html#name-error">error</a></label><span id='LineReader-fold-method-SeekPC-docs' class="fold-docs">
+				SeekPC sets *entry to the LineEntry that includes pc and positions
+				the reader on the next entry in the line table. If necessary, this
+				will seek backwards to find pc.
+
+				If pc is not covered by any entry in this line table, SeekPC
+				returns ErrUnknownPC. In this case, *entry and the final seek
+				position are unspecified.
+
+				Note that DWARF line tables only permit sequential, forward scans.
+				Hence, in the worst case, this takes time linear in the size of the
+				line table. If the caller wishes to do repeated fast PC lookups, it
+				should build an appropriate index of the line table.
+</span></span><span>
+			<input type='checkbox' class="fold" id="LineReader-fold-method-Tell"><label for="LineReader-fold-method-Tell">(*T) <a href="../../src/debug/dwarf/line.go.html#line-657">Tell</a>() <a href="dwarf.html#name-LineReaderPos">LineReaderPos</a></label><span id='LineReader-fold-method-Tell-docs' class="fold-docs">
+				Tell returns the current position in the line table.
+</span></span></span>
+		<input type='checkbox' class="fold" id="LineReader-fold-results"><label for="LineReader-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='LineReader-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/line.go.html#line-143">LineReader</a>(cu *<a href="dwarf.html#name-Entry">Entry</a>) (*<b>LineReader</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-LineReaderPos" data-popularity="110">	<input type='checkbox' class="fold" id="LineReaderPos-fold-content"><label for="LineReaderPos-fold-content"> type <a href="../../src/debug/dwarf/line.go.html#line-645">LineReaderPos</a> <i>(struct)</i></label><span id='LineReaderPos-fold-content-docs' class="fold-docs">
+		A LineReaderPos represents a position in a line table.
+
+		<input type='checkbox' class="fold" id="LineReaderPos-fold-results"><label for="LineReaderPos-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='LineReaderPos-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-LineReader">LineReader</a>).<a href="../../src/debug/dwarf/line.go.html#line-657">Tell</a>() <b>LineReaderPos</b></span></span>
+		<input type='checkbox' class="fold" id="LineReaderPos-fold-params"><label for="LineReaderPos-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='LineReaderPos-fold-params-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-LineReader">LineReader</a>).<a href="../../src/debug/dwarf/line.go.html#line-665">Seek</a>(pos <b>LineReaderPos</b>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-Offset" data-popularity="70">	<input type='checkbox' class="fold" id="Offset-fold-content"><label for="Offset-fold-content"> type <a href="../../src/debug/dwarf/entry.go.html#line-405">Offset</a> <a href="../builtin.html#name-uint32">uint32</a> <i>(basic type)</i></label><span id='Offset-fold-content-docs' class="fold-docs">
+		An Offset represents the location of an Entry within the DWARF info.
+		(See Reader.Seek.)
+
+		<input type='checkbox' class="fold" id="Offset-fold-params"><label for="Offset-fold-params">As Inputs Of (<i>at least 2</i>)</label><span id='Offset-fold-params-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/type.go.html#line-291">Type</a>(off <b>Offset</b>) (<a href="dwarf.html#name-Type">Type</a>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="dwarf.html#name-Reader">Reader</a>).<a href="../../src/debug/dwarf/entry.go.html#line-780">Seek</a>(off <b>Offset</b>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-PtrType" data-popularity="300">	<input type='checkbox' class="fold" id="PtrType-fold-content"><label for="PtrType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-136">PtrType</a> <i>(struct)</i></label><span id='PtrType-fold-content-docs' class="fold-docs">
+		A PtrType represents a pointer type.
+
+		<input type='checkbox' class="fold" id="PtrType-fold-fields"><label for="PtrType-fold-fields">Fields (<i>total 4</i>)</label><span id='PtrType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-137">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="PtrType-fold-field-ByteSize"><label for="PtrType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-137" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='PtrType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="PtrType-fold-field-Name"><label for="PtrType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-137" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='PtrType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-138">Type</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="PtrType-fold-methods"><label for="PtrType-fold-methods">Methods (<i>total 3</i>)</label><span id='PtrType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-141">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="PtrType-fold-impls"><label for="PtrType-fold-impls">Implements (<i>at least 3</i>)</label><span id='PtrType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-QualType" data-popularity="300">	<input type='checkbox' class="fold" id="QualType-fold-content"><label for="QualType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-99">QualType</a> <i>(struct)</i></label><span id='QualType-fold-content-docs' class="fold-docs">
+		A QualType represents a type that has the C/C++ "const", "restrict", or "volatile" qualifier.
+
+		<input type='checkbox' class="fold" id="QualType-fold-fields"><label for="QualType-fold-fields">Fields (<i>total 5</i>)</label><span id='QualType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-100">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="QualType-fold-field-ByteSize"><label for="QualType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-100" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='QualType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="QualType-fold-field-Name"><label for="QualType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-100" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='QualType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-101">Qual</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-102">Type</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="QualType-fold-methods"><label for="QualType-fold-methods">Methods (<i>total 3</i>)</label><span id='QualType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-107">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-105">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="QualType-fold-impls"><label for="QualType-fold-impls">Implements (<i>at least 3</i>)</label><span id='QualType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Reader" data-popularity="375">	<input type='checkbox' class="fold" id="Reader-fold-content"><label for="Reader-fold-content"> type <a href="../../src/debug/dwarf/entry.go.html#line-748">Reader</a> <i>(struct)</i></label><span id='Reader-fold-content-docs' class="fold-docs">
+		A Reader allows reading Entry structures from a DWARF ``info'' section.
+		The Entry structures are arranged in a tree. The Reader's Next function
+		return successive entries from a pre-order traversal of the tree.
+		If an entry has children, its Children field will be true, and the children
+		follow, terminated by an Entry with Tag 0.
+
+		<input type='checkbox' class="fold" id="Reader-fold-methods"><label for="Reader-fold-methods">Methods (<i>total 6</i>)</label><span id='Reader-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-AddressSize"><label for="Reader-fold-method-AddressSize">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-769">AddressSize</a>() <a href="../builtin.html#name-int">int</a></label><span id='Reader-fold-method-AddressSize-docs' class="fold-docs">
+				AddressSize returns the size in bytes of addresses in the current compilation
+				unit.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-ByteOrder"><label for="Reader-fold-method-ByteOrder">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-774">ByteOrder</a>() <a href="../encoding/binary.html">binary</a>.<a href="../encoding/binary.html#name-ByteOrder">ByteOrder</a></label><span id='Reader-fold-method-ByteOrder-docs' class="fold-docs">
+				ByteOrder returns the byte order in the current compilation unit.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-Next"><label for="Reader-fold-method-Next">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-827">Next</a>() (*<a href="dwarf.html#name-Entry">Entry</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Reader-fold-method-Next-docs' class="fold-docs">
+				Next reads the next entry from the encoded entry stream.
+				It returns nil, nil when it reaches the end of the section.
+				It returns an error if the current offset is invalid or the data at the
+				offset cannot be decoded as a valid Entry.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-Seek"><label for="Reader-fold-method-Seek">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-780">Seek</a>(off <a href="dwarf.html#name-Offset">Offset</a>)</label><span id='Reader-fold-method-Seek-docs' class="fold-docs">
+				Seek positions the Reader at offset off in the encoded entry stream.
+				Offset 0 can be used to denote the first entry.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-SeekPC"><label for="Reader-fold-method-SeekPC">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-914">SeekPC</a>(pc <a href="../builtin.html#name-uint64">uint64</a>) (*<a href="dwarf.html#name-Entry">Entry</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Reader-fold-method-SeekPC-docs' class="fold-docs">
+				SeekPC returns the Entry for the compilation unit that includes pc,
+				and positions the reader to read the children of that unit.  If pc
+				is not covered by any unit, SeekPC returns ErrUnknownPC and the
+				position of the reader is undefined.
+
+				Because compilation units can describe multiple regions of the
+				executable, in the worst case SeekPC must search through all the
+				ranges in all the compilation units. Each call to SeekPC starts the
+				search at the compilation unit of the last call, so in general
+				looking up a series of PCs will be faster if they are sorted. If
+				the caller wishes to do repeated fast PC lookups, it should build
+				an appropriate index using the Ranges method.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-SkipChildren"><label for="Reader-fold-method-SkipChildren">(*T) <a href="../../src/debug/dwarf/entry.go.html#line-860">SkipChildren</a>()</label><span id='Reader-fold-method-SkipChildren-docs' class="fold-docs">
+				SkipChildren skips over the child entries associated with
+				the last Entry returned by Next. If that Entry did not have
+				children or Next has not been called, SkipChildren is a no-op.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Reader-fold-results"><label for="Reader-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Reader-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/entry.go.html#line-761">Reader</a>() *<b>Reader</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-StructField" data-popularity="0">	<input type='checkbox' class="fold" id="StructField-fold-content"><label for="StructField-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-153">StructField</a> <i>(struct)</i></label><span id='StructField-fold-content-docs' class="fold-docs">
+		A StructField represents a field in a struct, union, or C++ class type.
+
+		<input type='checkbox' class="fold" id="StructField-fold-fields"><label for="StructField-fold-fields">Fields (<i>total 6</i>)</label><span id='StructField-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="StructField-fold-field-BitOffset"><label for="StructField-fold-field-BitOffset"><a href="../../src/debug/dwarf/type.go.html#line-158">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='StructField-fold-field-BitOffset-docs' class="fold-docs">
+				// within the ByteSize bytes at ByteOffset
+</span></span><span>
+			<input type='checkbox' class="fold" id="StructField-fold-field-BitSize"><label for="StructField-fold-field-BitSize"><a href="../../src/debug/dwarf/type.go.html#line-159">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='StructField-fold-field-BitSize-docs' class="fold-docs">
+				// zero if not a bit field
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-156">ByteOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="StructField-fold-field-ByteSize"><label for="StructField-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-157">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='StructField-fold-field-ByteSize-docs' class="fold-docs">
+				// usually zero; use Type.Size() for normal fields
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-154">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-155">Type</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-StructType" data-popularity="350">	<input type='checkbox' class="fold" id="StructType-fold-content"><label for="StructType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-144">StructType</a> <i>(struct)</i></label><span id='StructType-fold-content-docs' class="fold-docs">
+		A StructType represents a struct, union, or C++ class type.
+
+		<input type='checkbox' class="fold" id="StructType-fold-fields"><label for="StructType-fold-fields">Fields (<i>total 7</i>)</label><span id='StructType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-145">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="StructType-fold-field-ByteSize"><label for="StructType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-145" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='StructType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="StructType-fold-field-Name"><label for="StructType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-145" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='StructType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-148">Field</a> <i>[]*<a href="dwarf.html#name-StructField">StructField</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="StructType-fold-field-Incomplete"><label for="StructType-fold-field-Incomplete"><a href="../../src/debug/dwarf/type.go.html#line-149">Incomplete</a> <i><a href="../builtin.html#name-bool">bool</a></i></label><span id='StructType-fold-field-Incomplete-docs' class="fold-docs">
+				// if true, struct, union, class is declared but not defined
+</span></span><span>
+			<input type='checkbox' class="fold" id="StructType-fold-field-Kind"><label for="StructType-fold-field-Kind"><a href="../../src/debug/dwarf/type.go.html#line-147">Kind</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='StructType-fold-field-Kind-docs' class="fold-docs">
+				// "struct", "union", or "class".
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-146">StructName</a> <i><a href="../builtin.html#name-string">string</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="StructType-fold-methods"><label for="StructType-fold-methods">Methods (<i>total 4</i>)</label><span id='StructType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-169">Defn</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-162">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="StructType-fold-impls"><label for="StructType-fold-impls">Implements (<i>at least 3</i>)</label><span id='StructType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Tag" data-popularity="265">	<input type='checkbox' class="fold" id="Tag-fold-content"><label for="Tag-fold-content"> type <a href="../../src/debug/dwarf/const.go.html#line-207">Tag</a> <a href="../builtin.html#name-uint32">uint32</a> <i>(basic type)</i></label><span id='Tag-fold-content-docs' class="fold-docs">
+		A Tag is the classification (the type) of an Entry.
+
+		<input type='checkbox' class="fold" id="Tag-fold-methods"><label for="Tag-fold-methods">Methods (<i>total 2</i>)</label><span id='Tag-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/const.go.html#line-284">GoString</a>() <a href="../builtin.html#name-string">string</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/tag_string.go.html#line-98">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Tag-fold-impls"><label for="Tag-fold-impls">Implements (<i>at least 3</i>)</label><span id='Tag-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-GoStringer">GoStringer</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Tag-fold-values"><label for="Tag-fold-values">As Types Of (<i>total 69</i>)</label><span id='Tag-fold-values-items' class="fold-items"><span>
+			const <a href="dwarf.html#name-TagAccessDeclaration">TagAccessDeclaration</a></span><span>
+			const <a href="dwarf.html#name-TagArrayType">TagArrayType</a></span><span>
+			const <a href="dwarf.html#name-TagAtomicType">TagAtomicType</a></span><span>
+			const <a href="dwarf.html#name-TagBaseType">TagBaseType</a></span><span>
+			const <a href="dwarf.html#name-TagCallSite">TagCallSite</a></span><span>
+			const <a href="dwarf.html#name-TagCallSiteParameter">TagCallSiteParameter</a></span><span>
+			const <a href="dwarf.html#name-TagCatchDwarfBlock">TagCatchDwarfBlock</a></span><span>
+			const <a href="dwarf.html#name-TagClassType">TagClassType</a></span><span>
+			const <a href="dwarf.html#name-TagCoarrayType">TagCoarrayType</a></span><span>
+			const <a href="dwarf.html#name-TagCommonDwarfBlock">TagCommonDwarfBlock</a></span><span>
+			const <a href="dwarf.html#name-TagCommonInclusion">TagCommonInclusion</a></span><span>
+			const <a href="dwarf.html#name-TagCompileUnit">TagCompileUnit</a></span><span>
+			const <a href="dwarf.html#name-TagCondition">TagCondition</a></span><span>
+			const <a href="dwarf.html#name-TagConstant">TagConstant</a></span><span>
+			const <a href="dwarf.html#name-TagConstType">TagConstType</a></span><span>
+			const <a href="dwarf.html#name-TagDwarfProcedure">TagDwarfProcedure</a></span><span>
+			const <a href="dwarf.html#name-TagDynamicType">TagDynamicType</a></span><span>
+			const <a href="dwarf.html#name-TagEntryPoint">TagEntryPoint</a></span><span>
+			const <a href="dwarf.html#name-TagEnumerationType">TagEnumerationType</a></span><span>
+			const <a href="dwarf.html#name-TagEnumerator">TagEnumerator</a></span><span>
+			const <a href="dwarf.html#name-TagFileType">TagFileType</a></span><span>
+			const <a href="dwarf.html#name-TagFormalParameter">TagFormalParameter</a></span><span>
+			const <a href="dwarf.html#name-TagFriend">TagFriend</a></span><span>
+			const <a href="dwarf.html#name-TagGenericSubrange">TagGenericSubrange</a></span><span>
+			const <a href="dwarf.html#name-TagImmutableType">TagImmutableType</a></span><span>
+			const <a href="dwarf.html#name-TagImportedDeclaration">TagImportedDeclaration</a></span><span>
+			const <a href="dwarf.html#name-TagImportedModule">TagImportedModule</a></span><span>
+			const <a href="dwarf.html#name-TagImportedUnit">TagImportedUnit</a></span><span>
+			const <a href="dwarf.html#name-TagInheritance">TagInheritance</a></span><span>
+			const <a href="dwarf.html#name-TagInlinedSubroutine">TagInlinedSubroutine</a></span><span>
+			const <a href="dwarf.html#name-TagInterfaceType">TagInterfaceType</a></span><span>
+			const <a href="dwarf.html#name-TagLabel">TagLabel</a></span><span>
+			const <a href="dwarf.html#name-TagLexDwarfBlock">TagLexDwarfBlock</a></span><span>
+			const <a href="dwarf.html#name-TagMember">TagMember</a></span><span>
+			const <a href="dwarf.html#name-TagModule">TagModule</a></span><span>
+			const <a href="dwarf.html#name-TagMutableType">TagMutableType</a></span><span>
+			const <a href="dwarf.html#name-TagNamelist">TagNamelist</a></span><span>
+			const <a href="dwarf.html#name-TagNamelistItem">TagNamelistItem</a></span><span>
+			const <a href="dwarf.html#name-TagNamespace">TagNamespace</a></span><span>
+			const <a href="dwarf.html#name-TagPackedType">TagPackedType</a></span><span>
+			const <a href="dwarf.html#name-TagPartialUnit">TagPartialUnit</a></span><span>
+			const <a href="dwarf.html#name-TagPointerType">TagPointerType</a></span><span>
+			const <a href="dwarf.html#name-TagPtrToMemberType">TagPtrToMemberType</a></span><span>
+			const <a href="dwarf.html#name-TagReferenceType">TagReferenceType</a></span><span>
+			const <a href="dwarf.html#name-TagRestrictType">TagRestrictType</a></span><span>
+			const <a href="dwarf.html#name-TagRvalueReferenceType">TagRvalueReferenceType</a></span><span>
+			const <a href="dwarf.html#name-TagSetType">TagSetType</a></span><span>
+			const <a href="dwarf.html#name-TagSharedType">TagSharedType</a></span><span>
+			const <a href="dwarf.html#name-TagSkeletonUnit">TagSkeletonUnit</a></span><span>
+			const <a href="dwarf.html#name-TagStringType">TagStringType</a></span><span>
+			const <a href="dwarf.html#name-TagStructType">TagStructType</a></span><span>
+			const <a href="dwarf.html#name-TagSubprogram">TagSubprogram</a></span><span>
+			const <a href="dwarf.html#name-TagSubrangeType">TagSubrangeType</a></span><span>
+			const <a href="dwarf.html#name-TagSubroutineType">TagSubroutineType</a></span><span>
+			const <a href="dwarf.html#name-TagTemplateAlias">TagTemplateAlias</a></span><span>
+			const <a href="dwarf.html#name-TagTemplateTypeParameter">TagTemplateTypeParameter</a></span><span>
+			const <a href="dwarf.html#name-TagTemplateValueParameter">TagTemplateValueParameter</a></span><span>
+			const <a href="dwarf.html#name-TagThrownType">TagThrownType</a></span><span>
+			const <a href="dwarf.html#name-TagTryDwarfBlock">TagTryDwarfBlock</a></span><span>
+			const <a href="dwarf.html#name-TagTypedef">TagTypedef</a></span><span>
+			const <a href="dwarf.html#name-TagTypeUnit">TagTypeUnit</a></span><span>
+			const <a href="dwarf.html#name-TagUnionType">TagUnionType</a></span><span>
+			const <a href="dwarf.html#name-TagUnspecifiedParameters">TagUnspecifiedParameters</a></span><span>
+			const <a href="dwarf.html#name-TagUnspecifiedType">TagUnspecifiedType</a></span><span>
+			const <a href="dwarf.html#name-TagVariable">TagVariable</a></span><span>
+			const <a href="dwarf.html#name-TagVariant">TagVariant</a></span><span>
+			const <a href="dwarf.html#name-TagVariantPart">TagVariantPart</a></span><span>
+			const <a href="dwarf.html#name-TagVolatileType">TagVolatileType</a></span><span>
+			const <a href="dwarf.html#name-TagWithStmt">TagWithStmt</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Type" data-popularity="3325">	<input type='checkbox' class="fold" id="Type-fold-content"><label for="Type-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-15">Type</a> <b><i>(interface)</i></b></label><span id='Type-fold-content-docs' class="fold-docs">
+		A Type conventionally represents a pointer to any of the
+		specific Type structures (CharType, StructType, etc.).
+
+		<input type='checkbox' class="fold" id="Type-fold-methods"><label for="Type-fold-methods">Methods (<i>total 3</i>)</label><span id='Type-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/type.go.html#line-16">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/type.go.html#line-18">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">( T) <a href="../../src/debug/dwarf/type.go.html#line-17">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Type-fold-impledby"><label for="Type-fold-impledby">Implemented By (<i>at least 20</i>)</label><span id='Type-fold-impledby-items' class="fold-items"><span>
+			*<a href="dwarf.html#name-AddrType">AddrType</a></span><span>
+			*<a href="dwarf.html#name-ArrayType">ArrayType</a></span><span>
+			*<a href="dwarf.html#name-BasicType">BasicType</a></span><span>
+			*<a href="dwarf.html#name-BoolType">BoolType</a></span><span>
+			*<a href="dwarf.html#name-CharType">CharType</a></span><span>
+			*<a href="dwarf.html#name-ComplexType">ComplexType</a></span><span>
+			*<a href="dwarf.html#name-DotDotDotType">DotDotDotType</a></span><span>
+			*<a href="dwarf.html#name-EnumType">EnumType</a></span><span>
+			*<a href="dwarf.html#name-FloatType">FloatType</a></span><span>
+			*<a href="dwarf.html#name-FuncType">FuncType</a></span><span>
+			*<a href="dwarf.html#name-IntType">IntType</a></span><span>
+			*<a href="dwarf.html#name-PtrType">PtrType</a></span><span>
+			*<a href="dwarf.html#name-QualType">QualType</a></span><span>
+			*<a href="dwarf.html#name-StructType">StructType</a></span><span>
+			*<a href="dwarf.html#name-TypedefType">TypedefType</a></span><span>
+			*<a href="dwarf.html#name-UcharType">UcharType</a></span><span>
+			*<a href="dwarf.html#name-UintType">UintType</a></span><span>
+			*<a href="dwarf.html#name-UnspecifiedType">UnspecifiedType</a></span><span>
+			*<a href="dwarf.html#name-UnsupportedType">UnsupportedType</a></span><span>
+			*<a href="dwarf.html#name-VoidType">VoidType</a></span></span>
+		<input type='checkbox' class="fold" id="Type-fold-impls"><label for="Type-fold-impls">Implements (<i>at least 2</i>)</label><span id='Type-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Type-fold-results"><label for="Type-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Type-fold-results-items' class="fold-items"><span>
+			func (*<a href="dwarf.html#name-Data">Data</a>).<a href="../../src/debug/dwarf/type.go.html#line-291">Type</a>(off <a href="dwarf.html#name-Offset">Offset</a>) (<b>Type</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-TypedefType" data-popularity="300">	<input type='checkbox' class="fold" id="TypedefType-fold-content"><label for="TypedefType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-255">TypedefType</a> <i>(struct)</i></label><span id='TypedefType-fold-content-docs' class="fold-docs">
+		A TypedefType represents a named type.
+
+		<input type='checkbox' class="fold" id="TypedefType-fold-fields"><label for="TypedefType-fold-fields">Fields (<i>total 4</i>)</label><span id='TypedefType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-137">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="TypedefType-fold-field-ByteSize"><label for="TypedefType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-137" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='TypedefType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="TypedefType-fold-field-Name"><label for="TypedefType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-137" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='TypedefType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-138">Type</a> <i><a href="dwarf.html#name-Type">Type</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="TypedefType-fold-methods"><label for="TypedefType-fold-methods">Methods (<i>total 3</i>)</label><span id='TypedefType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-262">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-260">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="TypedefType-fold-impls"><label for="TypedefType-fold-impls">Implements (<i>at least 3</i>)</label><span id='TypedefType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-UcharType" data-popularity="350">	<input type='checkbox' class="fold" id="UcharType-fold-content"><label for="UcharType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-57">UcharType</a> <i>(struct)</i></label><span id='UcharType-fold-content-docs' class="fold-docs">
+		A UcharType represents an unsigned character type.
+
+		<input type='checkbox' class="fold" id="UcharType-fold-fields"><label for="UcharType-fold-fields">Fields (<i>total 6</i>)</label><span id='UcharType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="UcharType-fold-field-ByteSize"><label for="UcharType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='UcharType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="UcharType-fold-field-Name"><label for="UcharType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='UcharType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="UcharType-fold-methods"><label for="UcharType-fold-methods">Methods (<i>total 4</i>)</label><span id='UcharType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="UcharType-fold-impls"><label for="UcharType-fold-impls">Implements (<i>at least 3</i>)</label><span id='UcharType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-UintType" data-popularity="350">	<input type='checkbox' class="fold" id="UintType-fold-content"><label for="UintType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-67">UintType</a> <i>(struct)</i></label><span id='UintType-fold-content-docs' class="fold-docs">
+		A UintType represents an unsigned integer type.
+
+		<input type='checkbox' class="fold" id="UintType-fold-fields"><label for="UintType-fold-fields">Fields (<i>total 6</i>)</label><span id='UintType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="UintType-fold-field-ByteSize"><label for="UintType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='UintType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="UintType-fold-field-Name"><label for="UintType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='UintType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="UintType-fold-methods"><label for="UintType-fold-methods">Methods (<i>total 4</i>)</label><span id='UintType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="UintType-fold-impls"><label for="UintType-fold-impls">Implements (<i>at least 3</i>)</label><span id='UintType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-UnspecifiedType" data-popularity="350">	<input type='checkbox' class="fold" id="UnspecifiedType-fold-content"><label for="UnspecifiedType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-92">UnspecifiedType</a> <i>(struct)</i></label><span id='UnspecifiedType-fold-content-docs' class="fold-docs">
+		An UnspecifiedType represents an implicit, unknown, ambiguous or nonexistent type.
+
+		<input type='checkbox' class="fold" id="UnspecifiedType-fold-fields"><label for="UnspecifiedType-fold-fields">Fields (<i>total 6</i>)</label><span id='UnspecifiedType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53">BasicType</a> <i><a href="dwarf.html#name-BasicType">BasicType</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-39">BitOffset</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-38">BitSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="UnspecifiedType-fold-field-ByteSize"><label for="UnspecifiedType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='UnspecifiedType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="UnspecifiedType-fold-field-Name"><label for="UnspecifiedType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-53" class="path-duplicate">BasicType</a>.<a href="../../src/debug/dwarf/type.go.html#line-37" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='UnspecifiedType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="UnspecifiedType-fold-methods"><label for="UnspecifiedType-fold-methods">Methods (<i>total 4</i>)</label><span id='UnspecifiedType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-42">Basic</a>() *<a href="dwarf.html#name-BasicType">BasicType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-44">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="UnspecifiedType-fold-impls"><label for="UnspecifiedType-fold-impls">Implements (<i>at least 3</i>)</label><span id='UnspecifiedType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-UnsupportedType" data-popularity="300">	<input type='checkbox' class="fold" id="UnsupportedType-fold-content"><label for="UnsupportedType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-266">UnsupportedType</a> <i>(struct)</i></label><span id='UnsupportedType-fold-content-docs' class="fold-docs">
+		An UnsupportedType is a placeholder returned in situations where we
+		encounter a type that isn't supported.
+
+		<input type='checkbox' class="fold" id="UnsupportedType-fold-fields"><label for="UnsupportedType-fold-fields">Fields (<i>total 4</i>)</label><span id='UnsupportedType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-267">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="UnsupportedType-fold-field-ByteSize"><label for="UnsupportedType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-267" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='UnsupportedType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="UnsupportedType-fold-field-Name"><label for="UnsupportedType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-267" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='UnsupportedType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-268">Tag</a> <i><a href="dwarf.html#name-Tag">Tag</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="UnsupportedType-fold-methods"><label for="UnsupportedType-fold-methods">Methods (<i>total 3</i>)</label><span id='UnsupportedType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-271">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="UnsupportedType-fold-impls"><label for="UnsupportedType-fold-impls">Implements (<i>at least 3</i>)</label><span id='UnsupportedType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-VoidType" data-popularity="300">	<input type='checkbox' class="fold" id="VoidType-fold-content"><label for="VoidType-fold-content"> type <a href="../../src/debug/dwarf/type.go.html#line-129">VoidType</a> <i>(struct)</i></label><span id='VoidType-fold-content-docs' class="fold-docs">
+		A VoidType represents the C void type.
+
+		<input type='checkbox' class="fold" id="VoidType-fold-fields"><label for="VoidType-fold-fields">Fields (<i>total 3</i>)</label><span id='VoidType-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/debug/dwarf/type.go.html#line-130">CommonType</a> <i><a href="dwarf.html#name-CommonType">CommonType</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="VoidType-fold-field-ByteSize"><label for="VoidType-fold-field-ByteSize"><a href="../../src/debug/dwarf/type.go.html#line-130" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-25">ByteSize</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='VoidType-fold-field-ByteSize-docs' class="fold-docs">
+				// size of value of this type, in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="VoidType-fold-field-Name"><label for="VoidType-fold-field-Name"><a href="../../src/debug/dwarf/type.go.html#line-130" class="path-duplicate">CommonType</a>.<a href="../../src/debug/dwarf/type.go.html#line-26">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='VoidType-fold-field-Name-docs' class="fold-docs">
+				// name that can be used to refer to type
+</span></span></span>
+		<input type='checkbox' class="fold" id="VoidType-fold-methods"><label for="VoidType-fold-methods">Methods (<i>total 3</i>)</label><span id='VoidType-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-29">Common</a>() *<a href="dwarf.html#name-CommonType">CommonType</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-31">Size</a>() <a href="../builtin.html#name-int64">int64</a></span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/debug/dwarf/type.go.html#line-133">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="VoidType-fold-impls"><label for="VoidType-fold-impls">Implements (<i>at least 3</i>)</label><span id='VoidType-fold-impls-items' class="fold-items"><span>
+			*T : <a href="dwarf.html#name-Type">Type</a></span><span>
+			*T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			*T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (only one)</i></span></span>
+
+<div class="anchor value-res" id="name-New">	<input type='checkbox' class="fold" id="New-fold-content"><label for="New-fold-content"> func <a href="../../src/debug/dwarf/open.go.html#line-53">New</a>(abbrev, aranges, frame, info, line, pubnames, ranges, str []<a href="../builtin.html#name-byte">byte</a>) (*<a href="dwarf.html#name-Data">Data</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='New-fold-content-docs' class="fold-docs">
+		New returns a new Data object initialized from the given parameters.
+		Rather than calling this function directly, clients should typically use
+		the DWARF method of the File type of the appropriate package debug/elf,
+		debug/macho, or debug/pe.
+
+		The []byte arguments are the data from the corresponding debug section
+		in the object file; for example, for an ELF object, abbrev is the contents of
+		the ".debug_abbrev" section.
+
+</span></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (only one)</i></span></span>
+
+<div class="anchor value-res" id="name-ErrUnknownPC">	<input type='checkbox' class="fold" id="ErrUnknownPC-fold-content"><label for="ErrUnknownPC-fold-content">  var <a href="../../src/debug/dwarf/line.go.html#line-726">ErrUnknownPC</a> <a href="../builtin.html#name-error">error</a></label><span id='ErrUnknownPC-fold-content-docs' class="fold-docs">
+		ErrUnknownPC is the error returned by LineReader.ScanPC when the
+		seek PC is not covered by any entry in the line table.
+
+</span></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 210)</i></span></span>
+
+<div class="anchor value-res" id="name-AttrAbstractOrigin">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-45">AttrAbstractOrigin</a> <a href="dwarf.html#name-Attr">Attr</a> = 49</span></div><div class="anchor value-res" id="name-AttrAccessibility">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-46">AttrAccessibility</a> <a href="dwarf.html#name-Attr">Attr</a> = 50</span></div><div class="anchor value-res" id="name-AttrAddrBase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-114">AttrAddrBase</a> <a href="dwarf.html#name-Attr">Attr</a> = 115</span></div><div class="anchor value-res" id="name-AttrAddrClass">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-47">AttrAddrClass</a> <a href="dwarf.html#name-Attr">Attr</a> = 51</span></div><div class="anchor value-res" id="name-AttrAlignment">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-134">AttrAlignment</a> <a href="dwarf.html#name-Attr">Attr</a> = 136</span></div><div class="anchor value-res" id="name-AttrAllocated">	<input type='checkbox' class="fold" id="AttrAllocated-fold-content"><label for="AttrAllocated-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-75">AttrAllocated</a> <a href="dwarf.html#name-Attr">Attr</a> = 78</label><span id='AttrAllocated-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 3.
+
+</span></div><div class="anchor value-res" id="name-AttrArtificial">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-48">AttrArtificial</a> <a href="dwarf.html#name-Attr">Attr</a> = 52</span></div><div class="anchor value-res" id="name-AttrAssociated">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-76">AttrAssociated</a> <a href="dwarf.html#name-Attr">Attr</a> = 79</span></div><div class="anchor value-res" id="name-AttrBaseTypes">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-49">AttrBaseTypes</a> <a href="dwarf.html#name-Attr">Attr</a> = 53</span></div><div class="anchor value-res" id="name-AttrBinaryScale">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-88">AttrBinaryScale</a> <a href="dwarf.html#name-Attr">Attr</a> = 91</span></div><div class="anchor value-res" id="name-AttrBitOffset">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-20">AttrBitOffset</a> <a href="dwarf.html#name-Attr">Attr</a> = 12</span></div><div class="anchor value-res" id="name-AttrBitSize">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-21">AttrBitSize</a> <a href="dwarf.html#name-Attr">Attr</a> = 13</span></div><div class="anchor value-res" id="name-AttrByteSize">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-19">AttrByteSize</a> <a href="dwarf.html#name-Attr">Attr</a> = 11</span></div><div class="anchor value-res" id="name-AttrCallAllCalls">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-120">AttrCallAllCalls</a> <a href="dwarf.html#name-Attr">Attr</a> = 122</span></div><div class="anchor value-res" id="name-AttrCallAllSourceCalls">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-121">AttrCallAllSourceCalls</a> <a href="dwarf.html#name-Attr">Attr</a> = 123</span></div><div class="anchor value-res" id="name-AttrCallAllTailCalls">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-122">AttrCallAllTailCalls</a> <a href="dwarf.html#name-Attr">Attr</a> = 124</span></div><div class="anchor value-res" id="name-AttrCallColumn">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-84">AttrCallColumn</a> <a href="dwarf.html#name-Attr">Attr</a> = 87</span></div><div class="anchor value-res" id="name-AttrCallDataLocation">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-131">AttrCallDataLocation</a> <a href="dwarf.html#name-Attr">Attr</a> = 133</span></div><div class="anchor value-res" id="name-AttrCallDataValue">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-132">AttrCallDataValue</a> <a href="dwarf.html#name-Attr">Attr</a> = 134</span></div><div class="anchor value-res" id="name-AttrCallFile">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-85">AttrCallFile</a> <a href="dwarf.html#name-Attr">Attr</a> = 88</span></div><div class="anchor value-res" id="name-AttrCalling">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-50">AttrCalling</a> <a href="dwarf.html#name-Attr">Attr</a> = 54</span></div><div class="anchor value-res" id="name-AttrCallLine">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-86">AttrCallLine</a> <a href="dwarf.html#name-Attr">Attr</a> = 89</span></div><div class="anchor value-res" id="name-AttrCallOrigin">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-125">AttrCallOrigin</a> <a href="dwarf.html#name-Attr">Attr</a> = 127</span></div><div class="anchor value-res" id="name-AttrCallParameter">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-126">AttrCallParameter</a> <a href="dwarf.html#name-Attr">Attr</a> = 128</span></div><div class="anchor value-res" id="name-AttrCallPC">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-127">AttrCallPC</a> <a href="dwarf.html#name-Attr">Attr</a> = 129</span></div><div class="anchor value-res" id="name-AttrCallReturnPC">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-123">AttrCallReturnPC</a> <a href="dwarf.html#name-Attr">Attr</a> = 125</span></div><div class="anchor value-res" id="name-AttrCallTailCall">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-128">AttrCallTailCall</a> <a href="dwarf.html#name-Attr">Attr</a> = 130</span></div><div class="anchor value-res" id="name-AttrCallTarget">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-129">AttrCallTarget</a> <a href="dwarf.html#name-Attr">Attr</a> = 131</span></div><div class="anchor value-res" id="name-AttrCallTargetClobbered">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-130">AttrCallTargetClobbered</a> <a href="dwarf.html#name-Attr">Attr</a> = 132</span></div><div class="anchor value-res" id="name-AttrCallValue">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-124">AttrCallValue</a> <a href="dwarf.html#name-Attr">Attr</a> = 126</span></div><div class="anchor value-res" id="name-AttrCommonRef">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-31">AttrCommonRef</a> <a href="dwarf.html#name-Attr">Attr</a> = 26</span></div><div class="anchor value-res" id="name-AttrCompDir">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-32">AttrCompDir</a> <a href="dwarf.html#name-Attr">Attr</a> = 27</span></div><div class="anchor value-res" id="name-AttrConstExpr">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-106">AttrConstExpr</a> <a href="dwarf.html#name-Attr">Attr</a> = 108</span></div><div class="anchor value-res" id="name-AttrConstValue">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-33">AttrConstValue</a> <a href="dwarf.html#name-Attr">Attr</a> = 28</span></div><div class="anchor value-res" id="name-AttrContainingType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-34">AttrContainingType</a> <a href="dwarf.html#name-Attr">Attr</a> = 29</span></div><div class="anchor value-res" id="name-AttrCount">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-51">AttrCount</a> <a href="dwarf.html#name-Attr">Attr</a> = 55</span></div><div class="anchor value-res" id="name-AttrDataBitOffset">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-105">AttrDataBitOffset</a> <a href="dwarf.html#name-Attr">Attr</a> = 107</span></div><div class="anchor value-res" id="name-AttrDataLocation">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-77">AttrDataLocation</a> <a href="dwarf.html#name-Attr">Attr</a> = 80</span></div><div class="anchor value-res" id="name-AttrDataMemberLoc">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-52">AttrDataMemberLoc</a> <a href="dwarf.html#name-Attr">Attr</a> = 56</span></div><div class="anchor value-res" id="name-AttrDecimalScale">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-89">AttrDecimalScale</a> <a href="dwarf.html#name-Attr">Attr</a> = 92</span></div><div class="anchor value-res" id="name-AttrDecimalSign">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-91">AttrDecimalSign</a> <a href="dwarf.html#name-Attr">Attr</a> = 94</span></div><div class="anchor value-res" id="name-AttrDeclaration">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-56">AttrDeclaration</a> <a href="dwarf.html#name-Attr">Attr</a> = 60</span></div><div class="anchor value-res" id="name-AttrDeclColumn">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-53">AttrDeclColumn</a> <a href="dwarf.html#name-Attr">Attr</a> = 57</span></div><div class="anchor value-res" id="name-AttrDeclFile">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-54">AttrDeclFile</a> <a href="dwarf.html#name-Attr">Attr</a> = 58</span></div><div class="anchor value-res" id="name-AttrDeclLine">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-55">AttrDeclLine</a> <a href="dwarf.html#name-Attr">Attr</a> = 59</span></div><div class="anchor value-res" id="name-AttrDefaulted">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-137">AttrDefaulted</a> <a href="dwarf.html#name-Attr">Attr</a> = 139</span></div><div class="anchor value-res" id="name-AttrDefaultValue">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-35">AttrDefaultValue</a> <a href="dwarf.html#name-Attr">Attr</a> = 30</span></div><div class="anchor value-res" id="name-AttrDeleted">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-136">AttrDeleted</a> <a href="dwarf.html#name-Attr">Attr</a> = 138</span></div><div class="anchor value-res" id="name-AttrDescription">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-87">AttrDescription</a> <a href="dwarf.html#name-Attr">Attr</a> = 90</span></div><div class="anchor value-res" id="name-AttrDigitCount">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-92">AttrDigitCount</a> <a href="dwarf.html#name-Attr">Attr</a> = 95</span></div><div class="anchor value-res" id="name-AttrDiscr">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-26">AttrDiscr</a> <a href="dwarf.html#name-Attr">Attr</a> = 21</span></div><div class="anchor value-res" id="name-AttrDiscrList">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-57">AttrDiscrList</a> <a href="dwarf.html#name-Attr">Attr</a> = 61</span></div><div class="anchor value-res" id="name-AttrDiscrValue">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-27">AttrDiscrValue</a> <a href="dwarf.html#name-Attr">Attr</a> = 22</span></div><div class="anchor value-res" id="name-AttrDwoName">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-116">AttrDwoName</a> <a href="dwarf.html#name-Attr">Attr</a> = 118</span></div><div class="anchor value-res" id="name-AttrElemental">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-99">AttrElemental</a> <a href="dwarf.html#name-Attr">Attr</a> = 102</span></div><div class="anchor value-res" id="name-AttrEncoding">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-58">AttrEncoding</a> <a href="dwarf.html#name-Attr">Attr</a> = 62</span></div><div class="anchor value-res" id="name-AttrEndianity">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-98">AttrEndianity</a> <a href="dwarf.html#name-Attr">Attr</a> = 101</span></div><div class="anchor value-res" id="name-AttrEntrypc">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-79">AttrEntrypc</a> <a href="dwarf.html#name-Attr">Attr</a> = 82</span></div><div class="anchor value-res" id="name-AttrEnumClass">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-107">AttrEnumClass</a> <a href="dwarf.html#name-Attr">Attr</a> = 109</span></div><div class="anchor value-res" id="name-AttrExplicit">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-96">AttrExplicit</a> <a href="dwarf.html#name-Attr">Attr</a> = 99</span></div><div class="anchor value-res" id="name-AttrExportSymbols">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-135">AttrExportSymbols</a> <a href="dwarf.html#name-Attr">Attr</a> = 137</span></div><div class="anchor value-res" id="name-AttrExtension">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-81">AttrExtension</a> <a href="dwarf.html#name-Attr">Attr</a> = 84</span></div><div class="anchor value-res" id="name-AttrExternal">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-59">AttrExternal</a> <a href="dwarf.html#name-Attr">Attr</a> = 63</span></div><div class="anchor value-res" id="name-AttrFrameBase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-60">AttrFrameBase</a> <a href="dwarf.html#name-Attr">Attr</a> = 64</span></div><div class="anchor value-res" id="name-AttrFriend">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-61">AttrFriend</a> <a href="dwarf.html#name-Attr">Attr</a> = 65</span></div><div class="anchor value-res" id="name-AttrHighpc">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-24">AttrHighpc</a> <a href="dwarf.html#name-Attr">Attr</a> = 18</span></div><div class="anchor value-res" id="name-AttrIdentifierCase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-62">AttrIdentifierCase</a> <a href="dwarf.html#name-Attr">Attr</a> = 66</span></div><div class="anchor value-res" id="name-AttrImport">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-29">AttrImport</a> <a href="dwarf.html#name-Attr">Attr</a> = 24</span></div><div class="anchor value-res" id="name-AttrInline">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-36">AttrInline</a> <a href="dwarf.html#name-Attr">Attr</a> = 32</span></div><div class="anchor value-res" id="name-AttrIsOptional">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-37">AttrIsOptional</a> <a href="dwarf.html#name-Attr">Attr</a> = 33</span></div><div class="anchor value-res" id="name-AttrLanguage">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-25">AttrLanguage</a> <a href="dwarf.html#name-Attr">Attr</a> = 19</span></div><div class="anchor value-res" id="name-AttrLinkageName">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-108">AttrLinkageName</a> <a href="dwarf.html#name-Attr">Attr</a> = 110</span></div><div class="anchor value-res" id="name-AttrLocation">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-16">AttrLocation</a> <a href="dwarf.html#name-Attr">Attr</a> = 2</span></div><div class="anchor value-res" id="name-AttrLoclistsBase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-138">AttrLoclistsBase</a> <a href="dwarf.html#name-Attr">Attr</a> = 140</span></div><div class="anchor value-res" id="name-AttrLowerBound">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-38">AttrLowerBound</a> <a href="dwarf.html#name-Attr">Attr</a> = 34</span></div><div class="anchor value-res" id="name-AttrLowpc">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-23">AttrLowpc</a> <a href="dwarf.html#name-Attr">Attr</a> = 17</span></div><div class="anchor value-res" id="name-AttrMacroInfo">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-63">AttrMacroInfo</a> <a href="dwarf.html#name-Attr">Attr</a> = 67</span></div><div class="anchor value-res" id="name-AttrMacros">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-119">AttrMacros</a> <a href="dwarf.html#name-Attr">Attr</a> = 121</span></div><div class="anchor value-res" id="name-AttrMainSubprogram">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-104">AttrMainSubprogram</a> <a href="dwarf.html#name-Attr">Attr</a> = 106</span></div><div class="anchor value-res" id="name-AttrMutable">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-94">AttrMutable</a> <a href="dwarf.html#name-Attr">Attr</a> = 97</span></div><div class="anchor value-res" id="name-AttrName">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-17">AttrName</a> <a href="dwarf.html#name-Attr">Attr</a> = 3</span></div><div class="anchor value-res" id="name-AttrNamelistItem">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-64">AttrNamelistItem</a> <a href="dwarf.html#name-Attr">Attr</a> = 68</span></div><div class="anchor value-res" id="name-AttrNoreturn">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-133">AttrNoreturn</a> <a href="dwarf.html#name-Attr">Attr</a> = 135</span></div><div class="anchor value-res" id="name-AttrObjectPointer">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-97">AttrObjectPointer</a> <a href="dwarf.html#name-Attr">Attr</a> = 100</span></div><div class="anchor value-res" id="name-AttrOrdering">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-18">AttrOrdering</a> <a href="dwarf.html#name-Attr">Attr</a> = 9</span></div><div class="anchor value-res" id="name-AttrPictureString">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-93">AttrPictureString</a> <a href="dwarf.html#name-Attr">Attr</a> = 96</span></div><div class="anchor value-res" id="name-AttrPriority">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-65">AttrPriority</a> <a href="dwarf.html#name-Attr">Attr</a> = 69</span></div><div class="anchor value-res" id="name-AttrProducer">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-39">AttrProducer</a> <a href="dwarf.html#name-Attr">Attr</a> = 37</span></div><div class="anchor value-res" id="name-AttrPrototyped">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-40">AttrPrototyped</a> <a href="dwarf.html#name-Attr">Attr</a> = 39</span></div><div class="anchor value-res" id="name-AttrPure">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-100">AttrPure</a> <a href="dwarf.html#name-Attr">Attr</a> = 103</span></div><div class="anchor value-res" id="name-AttrRanges">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-82">AttrRanges</a> <a href="dwarf.html#name-Attr">Attr</a> = 85</span></div><div class="anchor value-res" id="name-AttrRank">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-112">AttrRank</a> <a href="dwarf.html#name-Attr">Attr</a> = 113</span></div><div class="anchor value-res" id="name-AttrRecursive">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-101">AttrRecursive</a> <a href="dwarf.html#name-Attr">Attr</a> = 104</span></div><div class="anchor value-res" id="name-AttrReference">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-117">AttrReference</a> <a href="dwarf.html#name-Attr">Attr</a> = 119</span></div><div class="anchor value-res" id="name-AttrReturnAddr">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-41">AttrReturnAddr</a> <a href="dwarf.html#name-Attr">Attr</a> = 42</span></div><div class="anchor value-res" id="name-AttrRnglistsBase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-115">AttrRnglistsBase</a> <a href="dwarf.html#name-Attr">Attr</a> = 116</span></div><div class="anchor value-res" id="name-AttrRvalueReference">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-118">AttrRvalueReference</a> <a href="dwarf.html#name-Attr">Attr</a> = 120</span></div><div class="anchor value-res" id="name-AttrSegment">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-66">AttrSegment</a> <a href="dwarf.html#name-Attr">Attr</a> = 70</span></div><div class="anchor value-res" id="name-AttrSibling">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-15">AttrSibling</a> <a href="dwarf.html#name-Attr">Attr</a> = 1</span></div><div class="anchor value-res" id="name-AttrSignature">	<input type='checkbox' class="fold" id="AttrSignature-fold-content"><label for="AttrSignature-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-103">AttrSignature</a> <a href="dwarf.html#name-Attr">Attr</a> = 105</label><span id='AttrSignature-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 4.
+
+</span></div><div class="anchor value-res" id="name-AttrSmall">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-90">AttrSmall</a> <a href="dwarf.html#name-Attr">Attr</a> = 93</span></div><div class="anchor value-res" id="name-AttrSpecification">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-67">AttrSpecification</a> <a href="dwarf.html#name-Attr">Attr</a> = 71</span></div><div class="anchor value-res" id="name-AttrStartScope">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-42">AttrStartScope</a> <a href="dwarf.html#name-Attr">Attr</a> = 44</span></div><div class="anchor value-res" id="name-AttrStaticLink">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-68">AttrStaticLink</a> <a href="dwarf.html#name-Attr">Attr</a> = 72</span></div><div class="anchor value-res" id="name-AttrStmtList">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-22">AttrStmtList</a> <a href="dwarf.html#name-Attr">Attr</a> = 16</span></div><div class="anchor value-res" id="name-AttrStride">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-78">AttrStride</a> <a href="dwarf.html#name-Attr">Attr</a> = 81</span></div><div class="anchor value-res" id="name-AttrStrideSize">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-43">AttrStrideSize</a> <a href="dwarf.html#name-Attr">Attr</a> = 46</span></div><div class="anchor value-res" id="name-AttrStringLength">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-30">AttrStringLength</a> <a href="dwarf.html#name-Attr">Attr</a> = 25</span></div><div class="anchor value-res" id="name-AttrStringLengthBitSize">	<input type='checkbox' class="fold" id="AttrStringLengthBitSize-fold-content"><label for="AttrStringLengthBitSize-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-110">AttrStringLengthBitSize</a> <a href="dwarf.html#name-Attr">Attr</a> = 111</label><span id='AttrStringLengthBitSize-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 5.
+
+</span></div><div class="anchor value-res" id="name-AttrStringLengthByteSize">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-111">AttrStringLengthByteSize</a> <a href="dwarf.html#name-Attr">Attr</a> = 112</span></div><div class="anchor value-res" id="name-AttrStrOffsetsBase">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-113">AttrStrOffsetsBase</a> <a href="dwarf.html#name-Attr">Attr</a> = 114</span></div><div class="anchor value-res" id="name-AttrThreadsScaled">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-95">AttrThreadsScaled</a> <a href="dwarf.html#name-Attr">Attr</a> = 98</span></div><div class="anchor value-res" id="name-AttrTrampoline">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-83">AttrTrampoline</a> <a href="dwarf.html#name-Attr">Attr</a> = 86</span></div><div class="anchor value-res" id="name-AttrType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-69">AttrType</a> <a href="dwarf.html#name-Attr">Attr</a> = 73</span></div><div class="anchor value-res" id="name-AttrUpperBound">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-44">AttrUpperBound</a> <a href="dwarf.html#name-Attr">Attr</a> = 47</span></div><div class="anchor value-res" id="name-AttrUseLocation">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-70">AttrUseLocation</a> <a href="dwarf.html#name-Attr">Attr</a> = 74</span></div><div class="anchor value-res" id="name-AttrUseUTF8">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-80">AttrUseUTF8</a> <a href="dwarf.html#name-Attr">Attr</a> = 83</span></div><div class="anchor value-res" id="name-AttrVarParam">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-71">AttrVarParam</a> <a href="dwarf.html#name-Attr">Attr</a> = 75</span></div><div class="anchor value-res" id="name-AttrVirtuality">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-72">AttrVirtuality</a> <a href="dwarf.html#name-Attr">Attr</a> = 76</span></div><div class="anchor value-res" id="name-AttrVisibility">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-28">AttrVisibility</a> <a href="dwarf.html#name-Attr">Attr</a> = 23</span></div><div class="anchor value-res" id="name-AttrVtableElemLoc">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-73">AttrVtableElemLoc</a> <a href="dwarf.html#name-Attr">Attr</a> = 77</span></div><div class="anchor value-res" id="name-ClassAddress">	<input type='checkbox' class="fold" id="ClassAddress-fold-content"><label for="ClassAddress-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-290">ClassAddress</a> <a href="dwarf.html#name-Class">Class</a> = 1</label><span id='ClassAddress-fold-content-docs' class="fold-docs">
+		ClassAddress represents values of type uint64 that are
+		addresses on the target machine.
+
+</span></div><div class="anchor value-res" id="name-ClassAddrPtr">	<input type='checkbox' class="fold" id="ClassAddrPtr-fold-content"><label for="ClassAddrPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-352">ClassAddrPtr</a> <a href="dwarf.html#name-Class">Class</a> = 15</label><span id='ClassAddrPtr-fold-content-docs' class="fold-docs">
+		ClassAddrPtr represents values that are an int64 offset
+		into the "addr" section.
+
+</span></div><div class="anchor value-res" id="name-ClassBlock">	<input type='checkbox' class="fold" id="ClassBlock-fold-content"><label for="ClassBlock-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-294">ClassBlock</a> <a href="dwarf.html#name-Class">Class</a> = 2</label><span id='ClassBlock-fold-content-docs' class="fold-docs">
+		ClassBlock represents values of type []byte whose
+		interpretation depends on the attribute.
+
+</span></div><div class="anchor value-res" id="name-ClassConstant">	<input type='checkbox' class="fold" id="ClassConstant-fold-content"><label for="ClassConstant-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-299">ClassConstant</a> <a href="dwarf.html#name-Class">Class</a> = 3</label><span id='ClassConstant-fold-content-docs' class="fold-docs">
+		ClassConstant represents values of type int64 that are
+		constants. The interpretation of this constant depends on
+		the attribute.
+
+</span></div><div class="anchor value-res" id="name-ClassExprLoc">	<input type='checkbox' class="fold" id="ClassExprLoc-fold-content"><label for="ClassExprLoc-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-303">ClassExprLoc</a> <a href="dwarf.html#name-Class">Class</a> = 4</label><span id='ClassExprLoc-fold-content-docs' class="fold-docs">
+		ClassExprLoc represents values of type []byte that contain
+		an encoded DWARF expression or location description.
+
+</span></div><div class="anchor value-res" id="name-ClassFlag">	<input type='checkbox' class="fold" id="ClassFlag-fold-content"><label for="ClassFlag-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-306">ClassFlag</a> <a href="dwarf.html#name-Class">Class</a> = 5</label><span id='ClassFlag-fold-content-docs' class="fold-docs">
+		ClassFlag represents values of type bool.
+
+</span></div><div class="anchor value-res" id="name-ClassLinePtr">	<input type='checkbox' class="fold" id="ClassLinePtr-fold-content"><label for="ClassLinePtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-310">ClassLinePtr</a> <a href="dwarf.html#name-Class">Class</a> = 6</label><span id='ClassLinePtr-fold-content-docs' class="fold-docs">
+		ClassLinePtr represents values that are an int64 offset
+		into the "line" section.
+
+</span></div><div class="anchor value-res" id="name-ClassLocList">	<input type='checkbox' class="fold" id="ClassLocList-fold-content"><label for="ClassLocList-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-356">ClassLocList</a> <a href="dwarf.html#name-Class">Class</a> = 16</label><span id='ClassLocList-fold-content-docs' class="fold-docs">
+		ClassLocList represents values that are an int64 offset
+		into the "loclists" section.
+
+</span></div><div class="anchor value-res" id="name-ClassLocListPtr">	<input type='checkbox' class="fold" id="ClassLocListPtr-fold-content"><label for="ClassLocListPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-314">ClassLocListPtr</a> <a href="dwarf.html#name-Class">Class</a> = 7</label><span id='ClassLocListPtr-fold-content-docs' class="fold-docs">
+		ClassLocListPtr represents values that are an int64 offset
+		into the "loclist" section.
+
+</span></div><div class="anchor value-res" id="name-ClassMacPtr">	<input type='checkbox' class="fold" id="ClassMacPtr-fold-content"><label for="ClassMacPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-318">ClassMacPtr</a> <a href="dwarf.html#name-Class">Class</a> = 8</label><span id='ClassMacPtr-fold-content-docs' class="fold-docs">
+		ClassMacPtr represents values that are an int64 offset into
+		the "mac" section.
+
+</span></div><div class="anchor value-res" id="name-ClassRangeListPtr">	<input type='checkbox' class="fold" id="ClassRangeListPtr-fold-content"><label for="ClassRangeListPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-322">ClassRangeListPtr</a> <a href="dwarf.html#name-Class">Class</a> = 9</label><span id='ClassRangeListPtr-fold-content-docs' class="fold-docs">
+		ClassMacPtr represents values that are an int64 offset into
+		the "rangelist" section.
+
+</span></div><div class="anchor value-res" id="name-ClassReference">	<input type='checkbox' class="fold" id="ClassReference-fold-content"><label for="ClassReference-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-328">ClassReference</a> <a href="dwarf.html#name-Class">Class</a> = 10</label><span id='ClassReference-fold-content-docs' class="fold-docs">
+		ClassReference represents values that are an Offset offset
+		of an Entry in the info section (for use with Reader.Seek).
+		The DWARF specification combines ClassReference and
+		ClassReferenceSig into class "reference".
+
+</span></div><div class="anchor value-res" id="name-ClassReferenceAlt">	<input type='checkbox' class="fold" id="ClassReferenceAlt-fold-content"><label for="ClassReferenceAlt-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-343">ClassReferenceAlt</a> <a href="dwarf.html#name-Class">Class</a> = 13</label><span id='ClassReferenceAlt-fold-content-docs' class="fold-docs">
+		ClassReferenceAlt represents values of type int64 that are
+		an offset into the DWARF "info" section of an alternate
+		object file.
+
+</span></div><div class="anchor value-res" id="name-ClassReferenceSig">	<input type='checkbox' class="fold" id="ClassReferenceSig-fold-content"><label for="ClassReferenceSig-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-332">ClassReferenceSig</a> <a href="dwarf.html#name-Class">Class</a> = 11</label><span id='ClassReferenceSig-fold-content-docs' class="fold-docs">
+		ClassReferenceSig represents values that are a uint64 type
+		signature referencing a type Entry.
+
+</span></div><div class="anchor value-res" id="name-ClassRngList">	<input type='checkbox' class="fold" id="ClassRngList-fold-content"><label for="ClassRngList-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-360">ClassRngList</a> <a href="dwarf.html#name-Class">Class</a> = 17</label><span id='ClassRngList-fold-content-docs' class="fold-docs">
+		ClassRngList represents values that are an int64 offset
+		from the base of the "rnglists" section.
+
+</span></div><div class="anchor value-res" id="name-ClassRngListsPtr">	<input type='checkbox' class="fold" id="ClassRngListsPtr-fold-content"><label for="ClassRngListsPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-365">ClassRngListsPtr</a> <a href="dwarf.html#name-Class">Class</a> = 18</label><span id='ClassRngListsPtr-fold-content-docs' class="fold-docs">
+		ClassRngListsPtr represents values that are an int64 offset
+		into the "rnglists" section. These are used as the base for
+		ClassRngList values.
+
+</span></div><div class="anchor value-res" id="name-ClassString">	<input type='checkbox' class="fold" id="ClassString-fold-content"><label for="ClassString-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-338">ClassString</a> <a href="dwarf.html#name-Class">Class</a> = 12</label><span id='ClassString-fold-content-docs' class="fold-docs">
+		ClassString represents values that are strings. If the
+		compilation unit specifies the AttrUseUTF8 flag (strongly
+		recommended), the string value will be encoded in UTF-8.
+		Otherwise, the encoding is unspecified.
+
+</span></div><div class="anchor value-res" id="name-ClassStringAlt">	<input type='checkbox' class="fold" id="ClassStringAlt-fold-content"><label for="ClassStringAlt-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-348">ClassStringAlt</a> <a href="dwarf.html#name-Class">Class</a> = 14</label><span id='ClassStringAlt-fold-content-docs' class="fold-docs">
+		ClassStringAlt represents values of type int64 that are an
+		offset into the DWARF string section of an alternate object
+		file.
+
+</span></div><div class="anchor value-res" id="name-ClassStrOffsetsPtr">	<input type='checkbox' class="fold" id="ClassStrOffsetsPtr-fold-content"><label for="ClassStrOffsetsPtr-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-369">ClassStrOffsetsPtr</a> <a href="dwarf.html#name-Class">Class</a> = 19</label><span id='ClassStrOffsetsPtr-fold-content-docs' class="fold-docs">
+		ClassStrOffsetsPtr represents values that are an int64
+		offset into the "str_offsets" section.
+
+</span></div><div class="anchor value-res" id="name-ClassUnknown">	<input type='checkbox' class="fold" id="ClassUnknown-fold-content"><label for="ClassUnknown-fold-content">const <a href="../../src/debug/dwarf/entry.go.html#line-286">ClassUnknown</a> <a href="dwarf.html#name-Class">Class</a> = 0</label><span id='ClassUnknown-fold-content-docs' class="fold-docs">
+		ClassUnknown represents values of unknown DWARF class.
+
+</span></div><div class="anchor value-res" id="name-TagAccessDeclaration">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-238">TagAccessDeclaration</a> <a href="dwarf.html#name-Tag">Tag</a> = 35</span></div><div class="anchor value-res" id="name-TagArrayType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-210">TagArrayType</a> <a href="dwarf.html#name-Tag">Tag</a> = 1</span></div><div class="anchor value-res" id="name-TagAtomicType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-277">TagAtomicType</a> <a href="dwarf.html#name-Tag">Tag</a> = 71</span></div><div class="anchor value-res" id="name-TagBaseType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-239">TagBaseType</a> <a href="dwarf.html#name-Tag">Tag</a> = 36</span></div><div class="anchor value-res" id="name-TagCallSite">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-278">TagCallSite</a> <a href="dwarf.html#name-Tag">Tag</a> = 72</span></div><div class="anchor value-res" id="name-TagCallSiteParameter">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-279">TagCallSiteParameter</a> <a href="dwarf.html#name-Tag">Tag</a> = 73</span></div><div class="anchor value-res" id="name-TagCatchDwarfBlock">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-240">TagCatchDwarfBlock</a> <a href="dwarf.html#name-Tag">Tag</a> = 37</span></div><div class="anchor value-res" id="name-TagClassType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-211">TagClassType</a> <a href="dwarf.html#name-Tag">Tag</a> = 2</span></div><div class="anchor value-res" id="name-TagCoarrayType">	<input type='checkbox' class="fold" id="TagCoarrayType-fold-content"><label for="TagCoarrayType-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-274">TagCoarrayType</a> <a href="dwarf.html#name-Tag">Tag</a> = 68</label><span id='TagCoarrayType-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 5.
+
+</span></div><div class="anchor value-res" id="name-TagCommonDwarfBlock">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-229">TagCommonDwarfBlock</a> <a href="dwarf.html#name-Tag">Tag</a> = 26</span></div><div class="anchor value-res" id="name-TagCommonInclusion">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-230">TagCommonInclusion</a> <a href="dwarf.html#name-Tag">Tag</a> = 27</span></div><div class="anchor value-res" id="name-TagCompileUnit">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-221">TagCompileUnit</a> <a href="dwarf.html#name-Tag">Tag</a> = 17</span></div><div class="anchor value-res" id="name-TagCondition">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-267">TagCondition</a> <a href="dwarf.html#name-Tag">Tag</a> = 63</span></div><div class="anchor value-res" id="name-TagConstant">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-242">TagConstant</a> <a href="dwarf.html#name-Tag">Tag</a> = 39</span></div><div class="anchor value-res" id="name-TagConstType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-241">TagConstType</a> <a href="dwarf.html#name-Tag">Tag</a> = 38</span></div><div class="anchor value-res" id="name-TagDwarfProcedure">	<input type='checkbox' class="fold" id="TagDwarfProcedure-fold-content"><label for="TagDwarfProcedure-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-258">TagDwarfProcedure</a> <a href="dwarf.html#name-Tag">Tag</a> = 54</label><span id='TagDwarfProcedure-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 3.
+
+</span></div><div class="anchor value-res" id="name-TagDynamicType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-276">TagDynamicType</a> <a href="dwarf.html#name-Tag">Tag</a> = 70</span></div><div class="anchor value-res" id="name-TagEntryPoint">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-212">TagEntryPoint</a> <a href="dwarf.html#name-Tag">Tag</a> = 3</span></div><div class="anchor value-res" id="name-TagEnumerationType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-213">TagEnumerationType</a> <a href="dwarf.html#name-Tag">Tag</a> = 4</span></div><div class="anchor value-res" id="name-TagEnumerator">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-243">TagEnumerator</a> <a href="dwarf.html#name-Tag">Tag</a> = 40</span></div><div class="anchor value-res" id="name-TagFileType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-244">TagFileType</a> <a href="dwarf.html#name-Tag">Tag</a> = 41</span></div><div class="anchor value-res" id="name-TagFormalParameter">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-214">TagFormalParameter</a> <a href="dwarf.html#name-Tag">Tag</a> = 5</span></div><div class="anchor value-res" id="name-TagFriend">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-245">TagFriend</a> <a href="dwarf.html#name-Tag">Tag</a> = 42</span></div><div class="anchor value-res" id="name-TagGenericSubrange">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-275">TagGenericSubrange</a> <a href="dwarf.html#name-Tag">Tag</a> = 69</span></div><div class="anchor value-res" id="name-TagImmutableType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-281">TagImmutableType</a> <a href="dwarf.html#name-Tag">Tag</a> = 75</span></div><div class="anchor value-res" id="name-TagImportedDeclaration">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-215">TagImportedDeclaration</a> <a href="dwarf.html#name-Tag">Tag</a> = 8</span></div><div class="anchor value-res" id="name-TagImportedModule">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-262">TagImportedModule</a> <a href="dwarf.html#name-Tag">Tag</a> = 58</span></div><div class="anchor value-res" id="name-TagImportedUnit">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-265">TagImportedUnit</a> <a href="dwarf.html#name-Tag">Tag</a> = 61</span></div><div class="anchor value-res" id="name-TagInheritance">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-231">TagInheritance</a> <a href="dwarf.html#name-Tag">Tag</a> = 28</span></div><div class="anchor value-res" id="name-TagInlinedSubroutine">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-232">TagInlinedSubroutine</a> <a href="dwarf.html#name-Tag">Tag</a> = 29</span></div><div class="anchor value-res" id="name-TagInterfaceType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-260">TagInterfaceType</a> <a href="dwarf.html#name-Tag">Tag</a> = 56</span></div><div class="anchor value-res" id="name-TagLabel">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-216">TagLabel</a> <a href="dwarf.html#name-Tag">Tag</a> = 10</span></div><div class="anchor value-res" id="name-TagLexDwarfBlock">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-217">TagLexDwarfBlock</a> <a href="dwarf.html#name-Tag">Tag</a> = 11</span></div><div class="anchor value-res" id="name-TagMember">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-218">TagMember</a> <a href="dwarf.html#name-Tag">Tag</a> = 13</span></div><div class="anchor value-res" id="name-TagModule">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-233">TagModule</a> <a href="dwarf.html#name-Tag">Tag</a> = 30</span></div><div class="anchor value-res" id="name-TagMutableType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-266">TagMutableType</a> <a href="dwarf.html#name-Tag">Tag</a> = 62 // Later removed from DWARF.</span></div><div class="anchor value-res" id="name-TagNamelist">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-246">TagNamelist</a> <a href="dwarf.html#name-Tag">Tag</a> = 43</span></div><div class="anchor value-res" id="name-TagNamelistItem">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-247">TagNamelistItem</a> <a href="dwarf.html#name-Tag">Tag</a> = 44</span></div><div class="anchor value-res" id="name-TagNamespace">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-261">TagNamespace</a> <a href="dwarf.html#name-Tag">Tag</a> = 57</span></div><div class="anchor value-res" id="name-TagPackedType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-248">TagPackedType</a> <a href="dwarf.html#name-Tag">Tag</a> = 45</span></div><div class="anchor value-res" id="name-TagPartialUnit">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-264">TagPartialUnit</a> <a href="dwarf.html#name-Tag">Tag</a> = 60</span></div><div class="anchor value-res" id="name-TagPointerType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-219">TagPointerType</a> <a href="dwarf.html#name-Tag">Tag</a> = 15</span></div><div class="anchor value-res" id="name-TagPtrToMemberType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-234">TagPtrToMemberType</a> <a href="dwarf.html#name-Tag">Tag</a> = 31</span></div><div class="anchor value-res" id="name-TagReferenceType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-220">TagReferenceType</a> <a href="dwarf.html#name-Tag">Tag</a> = 16</span></div><div class="anchor value-res" id="name-TagRestrictType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-259">TagRestrictType</a> <a href="dwarf.html#name-Tag">Tag</a> = 55</span></div><div class="anchor value-res" id="name-TagRvalueReferenceType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-271">TagRvalueReferenceType</a> <a href="dwarf.html#name-Tag">Tag</a> = 66</span></div><div class="anchor value-res" id="name-TagSetType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-235">TagSetType</a> <a href="dwarf.html#name-Tag">Tag</a> = 32</span></div><div class="anchor value-res" id="name-TagSharedType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-268">TagSharedType</a> <a href="dwarf.html#name-Tag">Tag</a> = 64</span></div><div class="anchor value-res" id="name-TagSkeletonUnit">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-280">TagSkeletonUnit</a> <a href="dwarf.html#name-Tag">Tag</a> = 74</span></div><div class="anchor value-res" id="name-TagStringType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-222">TagStringType</a> <a href="dwarf.html#name-Tag">Tag</a> = 18</span></div><div class="anchor value-res" id="name-TagStructType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-223">TagStructType</a> <a href="dwarf.html#name-Tag">Tag</a> = 19</span></div><div class="anchor value-res" id="name-TagSubprogram">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-249">TagSubprogram</a> <a href="dwarf.html#name-Tag">Tag</a> = 46</span></div><div class="anchor value-res" id="name-TagSubrangeType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-236">TagSubrangeType</a> <a href="dwarf.html#name-Tag">Tag</a> = 33</span></div><div class="anchor value-res" id="name-TagSubroutineType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-224">TagSubroutineType</a> <a href="dwarf.html#name-Tag">Tag</a> = 21</span></div><div class="anchor value-res" id="name-TagTemplateAlias">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-272">TagTemplateAlias</a> <a href="dwarf.html#name-Tag">Tag</a> = 67</span></div><div class="anchor value-res" id="name-TagTemplateTypeParameter">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-250">TagTemplateTypeParameter</a> <a href="dwarf.html#name-Tag">Tag</a> = 47</span></div><div class="anchor value-res" id="name-TagTemplateValueParameter">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-251">TagTemplateValueParameter</a> <a href="dwarf.html#name-Tag">Tag</a> = 48</span></div><div class="anchor value-res" id="name-TagThrownType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-252">TagThrownType</a> <a href="dwarf.html#name-Tag">Tag</a> = 49</span></div><div class="anchor value-res" id="name-TagTryDwarfBlock">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-253">TagTryDwarfBlock</a> <a href="dwarf.html#name-Tag">Tag</a> = 50</span></div><div class="anchor value-res" id="name-TagTypedef">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-225">TagTypedef</a> <a href="dwarf.html#name-Tag">Tag</a> = 22</span></div><div class="anchor value-res" id="name-TagTypeUnit">	<input type='checkbox' class="fold" id="TagTypeUnit-fold-content"><label for="TagTypeUnit-fold-content">const <a href="../../src/debug/dwarf/const.go.html#line-270">TagTypeUnit</a> <a href="dwarf.html#name-Tag">Tag</a> = 65</label><span id='TagTypeUnit-fold-content-docs' class="fold-docs">
+		The following are new in DWARF 4.
+
+</span></div><div class="anchor value-res" id="name-TagUnionType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-226">TagUnionType</a> <a href="dwarf.html#name-Tag">Tag</a> = 23</span></div><div class="anchor value-res" id="name-TagUnspecifiedParameters">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-227">TagUnspecifiedParameters</a> <a href="dwarf.html#name-Tag">Tag</a> = 24</span></div><div class="anchor value-res" id="name-TagUnspecifiedType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-263">TagUnspecifiedType</a> <a href="dwarf.html#name-Tag">Tag</a> = 59</span></div><div class="anchor value-res" id="name-TagVariable">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-255">TagVariable</a> <a href="dwarf.html#name-Tag">Tag</a> = 52</span></div><div class="anchor value-res" id="name-TagVariant">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-228">TagVariant</a> <a href="dwarf.html#name-Tag">Tag</a> = 25</span></div><div class="anchor value-res" id="name-TagVariantPart">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-254">TagVariantPart</a> <a href="dwarf.html#name-Tag">Tag</a> = 51</span></div><div class="anchor value-res" id="name-TagVolatileType">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-256">TagVolatileType</a> <a href="dwarf.html#name-Tag">Tag</a> = 53</span></div><div class="anchor value-res" id="name-TagWithStmt">	<span class="nodocs">const <a href="../../src/debug/dwarf/const.go.html#line-237">TagWithStmt</a> <a href="dwarf.html#name-Tag">Tag</a> = 34</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

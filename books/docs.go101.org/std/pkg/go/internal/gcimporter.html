@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: go/internal/gcimporter</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>gcimporter</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-go/internal/gcimporter">go/internal/gcimporter</a><i> (on <a href="https://golang.org/pkg/go/internal/gcimporter/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/go/internal/gcimporter" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/go/internal/gcimporter.html">15 packages</a>, and imported by <a href="../../../dep/go/internal/gcimporter.html#imported-by">one package</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../../src/go/internal/gcimporter/exportdata.go.html">exportdata.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../../src/go/internal/gcimporter/gcimporter.go.html#doc">d➜</a> <a href="../../../src/go/internal/gcimporter/gcimporter.go.html">gcimporter.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package gcimporter implements Import for gc-generated object files.
+</span>
+	<span class="nodocs">      <a href="../../../src/go/internal/gcimporter/iimport.go.html">iimport.go</a></span>
+	<span class="nodocs">      <a href="../../../src/go/internal/gcimporter/support.go.html">support.go</a></span></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 3)</i></span></span>
+
+<div class="anchor value-res" id="name-FindExportData">	<input type='checkbox' class="fold" id="FindExportData-fold-content"><label for="FindExportData-fold-content"> func <a href="../../../src/go/internal/gcimporter/exportdata.go.html#line-44">FindExportData</a>(r *<a href="../../bufio.html">bufio</a>.<a href="../../bufio.html#name-Reader">Reader</a>) (hdr <a href="../../builtin.html#name-string">string</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='FindExportData-fold-content-docs' class="fold-docs">
+		FindExportData positions the reader r at the beginning of the
+		export data section of an underlying GC-created object/archive
+		file by reading from it. The reader must be positioned at the
+		start of the file before calling this function. The hdr result
+		is the string before the export data, either "$$" or "$$B".
+
+</span></div><div class="anchor value-res" id="name-FindPkg">	<input type='checkbox' class="fold" id="FindPkg-fold-content"><label for="FindPkg-fold-content"> func <a href="../../../src/go/internal/gcimporter/gcimporter.go.html#line-31">FindPkg</a>(path, srcDir <a href="../../builtin.html#name-string">string</a>) (filename, id <a href="../../builtin.html#name-string">string</a>)</label><span id='FindPkg-fold-content-docs' class="fold-docs">
+		FindPkg returns the filename and unique package id for an import
+		path based on package information provided by build.Import (using
+		the build.Default build.Context). A relative srcDir is interpreted
+		relative to the current working directory.
+		If no file was found, an empty filename is returned.
+
+</span></div><div class="anchor value-res" id="name-Import">	<input type='checkbox' class="fold" id="Import-fold-content"><label for="Import-fold-content"> func <a href="../../../src/go/internal/gcimporter/gcimporter.go.html#line-87">Import</a>(fset *<a href="../token.html">token</a>.<a href="../token.html#name-FileSet">FileSet</a>, packages map[<a href="../../builtin.html#name-string">string</a>]*<a href="../types.html">types</a>.<a href="../types.html#name-Package">Package</a>, path, srcDir <a href="../../builtin.html#name-string">string</a>, lookup func(path <a href="../../builtin.html#name-string">string</a>) (<a href="../../io.html">io</a>.<a href="../../io.html#name-ReadCloser">ReadCloser</a>, <a href="../../builtin.html#name-error">error</a>)) (pkg *<a href="../types.html">types</a>.<a href="../types.html#name-Package">Package</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='Import-fold-content-docs' class="fold-docs">
+		Import imports a gc-generated package given its import path and srcDir, adds
+		the corresponding package object to the packages map, and returns the object.
+		The packages map must contain all packages already imported.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

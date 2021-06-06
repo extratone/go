@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: math/cmplx</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>cmplx</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-math/cmplx">math/cmplx</a><i> (on <a href="https://golang.org/pkg/math/cmplx/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/math/cmplx" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/math/cmplx.html">2 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../src/math/cmplx/abs.go.html#doc">d➜</a> <a href="../../src/math/cmplx/abs.go.html">abs.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package cmplx provides basic constants and mathematical functions for
+		complex numbers. Special case handling conforms to the C99 standard
+		Annex G IEC 60559-compatible complex arithmetic.
+</span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/asin.go.html">asin.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/conj.go.html">conj.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/exp.go.html">exp.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/isinf.go.html">isinf.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/isnan.go.html">isnan.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/log.go.html">log.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/phase.go.html">phase.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/polar.go.html">polar.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/pow.go.html">pow.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/rect.go.html">rect.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/sin.go.html">sin.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/sqrt.go.html">sqrt.go</a></span>
+	<span class="nodocs">      <a href="../../src/math/cmplx/tan.go.html">tan.go</a></span></div>
+<div id="examples"><span class="title">Code Examples</span>
+
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Abs</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"math/cmplx"
+		)
+		
+		func main() {
+			fmt.Printf("%.1f", cmplx.Abs(3+4i))
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Exp</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"math"
+			"math/cmplx"
+		)
+		
+		func main() {
+			fmt.Printf("%.1f", cmplx.Exp(1i*math.Pi)+1)
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Polar</label><span id='example-2-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"fmt"
+			"math"
+			"math/cmplx"
+		)
+		
+		func main() {
+			r, theta := cmplx.Polar(2i)
+			fmt.Printf("r: %.1f, θ: %.1f*π", r, theta/math.Pi)
+		}
+</span>
+</div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 27)</i></span></span>
+
+<div class="anchor value-res" id="name-Abs">	<input type='checkbox' class="fold" id="Abs-fold-content"><label for="Abs-fold-content"> func <a href="../../src/math/cmplx/abs.go.html#line-13">Abs</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-float64">float64</a></label><span id='Abs-fold-content-docs' class="fold-docs">
+		Abs returns the absolute value (also called the modulus) of x.
+
+</span></div><div class="anchor value-res" id="name-Acos">	<input type='checkbox' class="fold" id="Acos-fold-content"><label for="Acos-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-133">Acos</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Acos-fold-content-docs' class="fold-docs">
+		Acos returns the inverse cosine of x.
+
+</span></div><div class="anchor value-res" id="name-Acosh">	<input type='checkbox' class="fold" id="Acosh-fold-content"><label for="Acosh-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-139">Acosh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Acosh-fold-content-docs' class="fold-docs">
+		Acosh returns the inverse hyperbolic cosine of x.
+
+</span></div><div class="anchor value-res" id="name-Asin">	<input type='checkbox' class="fold" id="Asin-fold-content"><label for="Asin-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-51">Asin</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Asin-fold-content-docs' class="fold-docs">
+		Asin returns the inverse sine of x.
+
+</span></div><div class="anchor value-res" id="name-Asinh">	<input type='checkbox' class="fold" id="Asinh-fold-content"><label for="Asinh-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-87">Asinh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Asinh-fold-content-docs' class="fold-docs">
+		Asinh returns the inverse hyperbolic sine of x.
+
+</span></div><div class="anchor value-res" id="name-Atan">	<input type='checkbox' class="fold" id="Atan-fold-content"><label for="Atan-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-184">Atan</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Atan-fold-content-docs' class="fold-docs">
+		Atan returns the inverse tangent of x.
+
+</span></div><div class="anchor value-res" id="name-Atanh">	<input type='checkbox' class="fold" id="Atanh-fold-content"><label for="Atanh-fold-content"> func <a href="../../src/math/cmplx/asin.go.html#line-217">Atanh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Atanh-fold-content-docs' class="fold-docs">
+		Atanh returns the inverse hyperbolic tangent of x.
+
+</span></div><div class="anchor value-res" id="name-Conj">	<input type='checkbox' class="fold" id="Conj-fold-content"><label for="Conj-fold-content"> func <a href="../../src/math/cmplx/conj.go.html#line-8">Conj</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Conj-fold-content-docs' class="fold-docs">
+		Conj returns the complex conjugate of x.
+
+</span></div><div class="anchor value-res" id="name-Cos">	<input type='checkbox' class="fold" id="Cos-fold-content"><label for="Cos-fold-content"> func <a href="../../src/math/cmplx/sin.go.html#line-124">Cos</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Cos-fold-content-docs' class="fold-docs">
+		Cos returns the cosine of x.
+
+</span></div><div class="anchor value-res" id="name-Cosh">	<input type='checkbox' class="fold" id="Cosh-fold-content"><label for="Cosh-fold-content"> func <a href="../../src/math/cmplx/sin.go.html#line-156">Cosh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Cosh-fold-content-docs' class="fold-docs">
+		Cosh returns the hyperbolic cosine of x.
+
+</span></div><div class="anchor value-res" id="name-Cot">	<input type='checkbox' class="fold" id="Cot-fold-content"><label for="Cot-fold-content"> func <a href="../../src/math/cmplx/tan.go.html#line-288">Cot</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Cot-fold-content-docs' class="fold-docs">
+		Cot returns the cotangent of x.
+
+</span></div><div class="anchor value-res" id="name-Exp">	<input type='checkbox' class="fold" id="Exp-fold-content"><label for="Exp-fold-content"> func <a href="../../src/math/cmplx/exp.go.html#line-51">Exp</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Exp-fold-content-docs' class="fold-docs">
+		Exp returns e**x, the base-e exponential of x.
+
+</span></div><div class="anchor value-res" id="name-Inf">	<input type='checkbox' class="fold" id="Inf-fold-content"><label for="Inf-fold-content"> func <a href="../../src/math/cmplx/isinf.go.html#line-18">Inf</a>() <a href="../builtin.html#name-complex128">complex128</a></label><span id='Inf-fold-content-docs' class="fold-docs">
+		Inf returns a complex infinity, complex(+Inf, +Inf).
+
+</span></div><div class="anchor value-res" id="name-IsInf">	<input type='checkbox' class="fold" id="IsInf-fold-content"><label for="IsInf-fold-content"> func <a href="../../src/math/cmplx/isinf.go.html#line-10">IsInf</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='IsInf-fold-content-docs' class="fold-docs">
+		IsInf reports whether either real(x) or imag(x) is an infinity.
+
+</span></div><div class="anchor value-res" id="name-IsNaN">	<input type='checkbox' class="fold" id="IsNaN-fold-content"><label for="IsNaN-fold-content"> func <a href="../../src/math/cmplx/isnan.go.html#line-11">IsNaN</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-bool">bool</a></label><span id='IsNaN-fold-content-docs' class="fold-docs">
+		IsNaN reports whether either real(x) or imag(x) is NaN
+		and neither is an infinity.
+
+</span></div><div class="anchor value-res" id="name-Log">	<input type='checkbox' class="fold" id="Log-fold-content"><label for="Log-fold-content"> func <a href="../../src/math/cmplx/log.go.html#line-57">Log</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Log-fold-content-docs' class="fold-docs">
+		Log returns the natural logarithm of x.
+
+</span></div><div class="anchor value-res" id="name-Log10">	<input type='checkbox' class="fold" id="Log10-fold-content"><label for="Log10-fold-content"> func <a href="../../src/math/cmplx/log.go.html#line-62">Log10</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Log10-fold-content-docs' class="fold-docs">
+		Log10 returns the decimal logarithm of x.
+
+</span></div><div class="anchor value-res" id="name-NaN">	<input type='checkbox' class="fold" id="NaN-fold-content"><label for="NaN-fold-content"> func <a href="../../src/math/cmplx/isnan.go.html#line-22">NaN</a>() <a href="../builtin.html#name-complex128">complex128</a></label><span id='NaN-fold-content-docs' class="fold-docs">
+		NaN returns a complex ``not-a-number'' value.
+
+</span></div><div class="anchor value-res" id="name-Phase">	<input type='checkbox' class="fold" id="Phase-fold-content"><label for="Phase-fold-content"> func <a href="../../src/math/cmplx/phase.go.html#line-11">Phase</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-float64">float64</a></label><span id='Phase-fold-content-docs' class="fold-docs">
+		Phase returns the phase (also called the argument) of x.
+		The returned value is in the range [-Pi, Pi].
+
+</span></div><div class="anchor value-res" id="name-Polar">	<input type='checkbox' class="fold" id="Polar-fold-content"><label for="Polar-fold-content"> func <a href="../../src/math/cmplx/polar.go.html#line-10">Polar</a>(x <a href="../builtin.html#name-complex128">complex128</a>) (r, θ <a href="../builtin.html#name-float64">float64</a>)</label><span id='Polar-fold-content-docs' class="fold-docs">
+		Polar returns the absolute value r and phase θ of x,
+		such that x = r * e**θi.
+		The phase is in the range [-Pi, Pi].
+
+</span></div><div class="anchor value-res" id="name-Pow">	<input type='checkbox' class="fold" id="Pow-fold-content"><label for="Pow-fold-content"> func <a href="../../src/math/cmplx/pow.go.html#line-49">Pow</a>(x, y <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Pow-fold-content-docs' class="fold-docs">
+		Pow returns x**y, the base-x exponential of y.
+		For generalized compatibility with math.Pow:
+			Pow(0, ±0) returns 1+0i
+			Pow(0, c) for real(c)&lt;0 returns Inf+0i if imag(c) is zero, otherwise Inf+Inf i.
+
+</span></div><div class="anchor value-res" id="name-Rect">	<input type='checkbox' class="fold" id="Rect-fold-content"><label for="Rect-fold-content"> func <a href="../../src/math/cmplx/rect.go.html#line-10">Rect</a>(r, θ <a href="../builtin.html#name-float64">float64</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Rect-fold-content-docs' class="fold-docs">
+		Rect returns the complex number x with polar coordinates r, θ.
+
+</span></div><div class="anchor value-res" id="name-Sin">	<input type='checkbox' class="fold" id="Sin-fold-content"><label for="Sin-fold-content"> func <a href="../../src/math/cmplx/sin.go.html#line-53">Sin</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Sin-fold-content-docs' class="fold-docs">
+		Sin returns the sine of x.
+
+</span></div><div class="anchor value-res" id="name-Sinh">	<input type='checkbox' class="fold" id="Sinh-fold-content"><label for="Sinh-fold-content"> func <a href="../../src/math/cmplx/sin.go.html#line-86">Sinh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Sinh-fold-content-docs' class="fold-docs">
+		Sinh returns the hyperbolic sine of x.
+
+</span></div><div class="anchor value-res" id="name-Sqrt">	<input type='checkbox' class="fold" id="Sqrt-fold-content"><label for="Sqrt-fold-content"> func <a href="../../src/math/cmplx/sqrt.go.html#line-58">Sqrt</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Sqrt-fold-content-docs' class="fold-docs">
+		Sqrt returns the square root of x.
+		The result r is chosen so that real(r) ≥ 0 and imag(r) has the same sign as imag(x).
+
+</span></div><div class="anchor value-res" id="name-Tan">	<input type='checkbox' class="fold" id="Tan-fold-content"><label for="Tan-fold-content"> func <a href="../../src/math/cmplx/tan.go.html#line-62">Tan</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Tan-fold-content-docs' class="fold-docs">
+		Tan returns the tangent of x.
+
+</span></div><div class="anchor value-res" id="name-Tanh">	<input type='checkbox' class="fold" id="Tanh-fold-content"><label for="Tanh-fold-content"> func <a href="../../src/math/cmplx/tan.go.html#line-96">Tanh</a>(x <a href="../builtin.html#name-complex128">complex128</a>) <a href="../builtin.html#name-complex128">complex128</a></label><span id='Tanh-fold-content-docs' class="fold-docs">
+		Tanh returns the hyperbolic tangent of x.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

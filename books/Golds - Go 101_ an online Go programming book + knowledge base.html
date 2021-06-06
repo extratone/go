@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://go101.org/article/tool-golds.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="https://go101.org/static/go101/images/101-v1.ico">
+		<link rel="apple-touch-icon" sizes="152x152" href="https://go101.org/static/go101/images/iphone-v1.jpeg">
+	
+		<title>Golds - Go 101: an online Go programming book + knowledge base</title><link href="./Golds - Go 101_ an online Go programming book + knowledge base_files/bootstrap.min.css" rel="stylesheet">
+		<link href="./Golds - Go 101_ an online Go programming book + knowledge base_files/v97-dark.css" rel="stylesheet">
+		<link href="./Golds - Go 101_ an online Go programming book + knowledge base_files/prism.css" rel="stylesheet">
+		<script src="./Golds - Go 101_ an online Go programming book + knowledge base_files/prism.js.download"></script><script src="./Golds - Go 101_ an online Go programming book + knowledge base_files/jquery.min-v1.11.2.js.download"></script>
+		
+		
+		<style>
+		div, p, ul, li, td, th {line-height: 1.55;}
+		</style>
+	</head>
+
+	<body style="">
+		<div class="container">
+
+		<div class="row nav-bar-with-borders"><div class="col-xs-6 col-sm-3 nav-item-active"><a href="https://go101.org/article/101.html">The Book</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/details.html">Go Details 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/unofficial-faq.html">Go FAQ 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/tips.html">Go Tips 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://github.com/go101/go101/wiki">Go 101 Wiki</a></div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go Practice 101</div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go 101 Tools</div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/quizzes.html">Go Quizzes 101</a></div></div>
+<h1>Golds</h1>
+
+
+
+<div>
+<p>
+<b><i>Golds</i></b> is an experimental Go local docs server, a Go docs generator, and a Go code reader.
+</p>
+
+<ul>
+<li>
+Demo: <a href="https://docs.go101.org/index.html" target="_blank">docs and source code of standard packages</a>
+(generated with <code>golds -gen -nouses -only-list-exporteds std</code>).
+</li>
+
+<li>
+Code is <a href="https://github.com/go101/golds">hosted on Github</a>. Any feedback, including PR and bug reports, are welcome.
+</li>
+
+<li>
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> to get the latest news of <b><i>Golds</i></b>
+(and all kinds of Go details/facts/tips/etc.).
+</li>
+</ul>
+
+<h3 id="faq">Features and Limitations</h3>
+
+Please read <a href="https://github.com/go101/golds">the project home page</a> for details.
+
+<h3 id="faq">Installation</h3>
+
+<ul>
+<li>With Go Toolchain 1.16+, run <code>go install go101.org/golds@latest</code></li>
+<li>With Go Toolchain 1.15-, run <code>go get -u go101.org/golds</code> (the <code>GO111MODULE</code> enviroment variable needs to be set as <code>on</code> temporarily to utilize the <code>GOPROXY</code> setting).</li>
+</ul>
+
+If the tool program name <code>golds</code> conflicts with another tool with the same name you are using, you can run any of the following commands to install <b><i>Golds</i></b> as a program with a different name:
+<ul>
+<li>
+Go docs generator<br>
+With Go Toolchain 1.16+, run <code>go install go101.org/golds/godoge@latest</code><br>
+With Go Toolchain 1.15-, run <code>go get -u go101.org/golds/godoge</code>
+</li>
+<li>
+Go code reader<br>
+With Go Toolchain 1.16+, run <code>go install go101.org/golds/gocore@latest</code><br>
+With Go Toolchain 1.15-, run <code>go get -u go101.org/golds/gocore</code>
+</li>
+<li>
+Go local docs (mainly for legacy. gold was the old default program name of <b><i>Golds</i></b>)<br>
+With Go Toolchain 1.16+, run <code>go install go101.org/golds/gold@latest</code><br>
+With Go Toolchain 1.15-, run <code>go get -u go101.org/golds/gold</code>
+</li>
+</ul>
+
+<p>
+You may also clone this project firstly, then run the <code>go install</code> command in the respective program folders to install <b><i>Golds</i></b> as <code>golds</code>, <code>godoge</code>, or <code>gocore</code>.
+</p>
+
+<p>
+(NOTE: Go commands will install output binaries into the Go binary installation path specified by the <code>GOBIN</code> environment variable, which defaults to the path of the <code>bin</code> subfolder under the first path specified in the <code>GOPATH</code> environment variable, which defaults to the path of the <code>go</code> subfolder under the path specified by the <code>HOME</code> environment variable. Please specify the Go binary installation path in the <code>PATH</code> environment variable to run <b><i>Golds</i></b> commands successfully.)
+</p>
+
+<h3>Usages</h3>
+
+The main usage of <b><i>Golds</i></b> is to start a local docs server for a project,
+to either read package docs or study source code of the project.
+We can
+<ul>
+<li>run <code>golds .</code> to show docs of the package in the current directory (and all its dependency packages).</li>
+<li>run <code>golds ./...</code> to show docs of all the package under the current directory (and all their dependency packages).</li>
+<li>run <code>golds toolchain</code> (or <code>golds cmd</code>) to show docs of official toolchain packages.</li>
+<li>run <code>golds std</code> to show docs of standard packages. <code>std</code> can be mixed with any one of the above three arguments.</li>
+<li>run <code>golds aPackage</code> in a module aware directory to show docs of the specified package (and all its dependency packages).</li>
+<li>run <code>golds foo.go bar.go baz.go</code> to show docs of the specified files (and all their dependency packages).</li>
+</ul>
+
+<p>
+Each of the above commands will open a browser window automatically.
+We can use the <code>-s</code> or <code>-silent</code> options to turn off the behavior.
+</p>
+
+The second usage of <b><i>Golds</i></b> is to generate static HTML doc pages for a project,
+with the <code>-gen</code> option:
+<ul>
+<li><code>golds -gen -dir=generated -nouses .</code></li>
+<li><code>golds -gen -dir=generated -nouses ./...</code></li>
+<li><code>golds -gen -dir=generated -nouses std</code></li>
+</ul>
+
+<p>
+The <code>-dir</code> option is optional and its default value is <code>.</code> (the working directory).
+The <code>-nouses</code> option used here is to generate docs with moderate sizes.
+</p>
+
+The option <code>-source-code-reading</code> is used to control how to generate source code pages. Available values:
+<ul>
+<li><code>plain</code>: generate simpler source code pages (no highlighting and no code navigations to reduce the total page size by 1/6 of the full docs size).</li>
+<li><code>highlight</code>: only hightlight keywords and basic literals (no code navigations).</li>
+<li><code>rich</code>: rich code reading experience.</li>
+<li><code>external</code>: link to external code host websites (try its best, use highlight when failed).</li>
+</ul>
+
+<p>
+The option <code>-allow-network-connection</code> specifies whether or not network connections are allowed in determining external code host websites.
+</p>
+
+Options to control generated docs sizes:
+<ul>
+<li><code>-nouses</code>: don't generate identifier-uses pages (identifier-uses pages will occupy about 9/10 of the total page count and 2/3 of the full docs size).</li>
+<li><code>-source-code-reading=plain</code></li>
+<li><code>-only-list-exporteds</code>: don't list unexported package-level resources in package-details pages.</li>
+<li><code>-compact</code> is a shortcut of the combination of the above compact docs generation options.</li>
+<li>Using <code>-source-code-reading=external</code> along with <code>-compact</code> will further reduce the generated docs size.</li>
+</ul>
+
+<p>
+The size of the docs generated by <code>golds -gen -compact ./...</code> is about 1/6 of <code>golds -gen ./...</code>
+and about 1/2 of <code>golds -gen -nouses ./...</code>. The size of the docs generated by <code>golds -gen -compact -source-code-reading=external ./...</code> is about 1/6 of <code>golds -gen -compact ./...</code>.
+</p>
+
+
+The <code>-wdpkgs-listing</code> option is used to specify how to list the packages in the working directory. Available values include
+<ul>
+<li><code>general</code> (the default, list them with others by alphabetical order)</li>
+<li><code>promoted</code> (list them before others)</li>
+<li><code>solo</code> (list them without others)</li>
+</ul>
+
+<p>
+The third usage of <b><i>Golds</i></b> is to serve files within a directory
+("Golds" also means Go local directory server).
+For example, we can run <code>golds -dir=.</code> (or simply <code>golds</code>)
+from the HTML docs generation directory to view the generated docs in browser.
+The <code>-s</code> and <code>-silent</code> options also work in this mode.
+</p>
+
+<p>
+The <code>golds</code> command recognizes the <code>GOOS</code> and <code>GOARCH</code> environment variables.
+</p>
+
+</div>
+
+<h3 id="faq">FAQ</h3>
+
+<h4>What does <b><i>Golds</i></b> mean?</h4>
+
+<p>
+"Golds" is an abbreviation of <b>Go</b> <b>l</b>ocal <b>d</b>ocs <b>s</b>erver.
+It also means <b>Go</b> <b>l</b>ocal <b>d</b>irectory <b>s</b>erver.
+</p>
+
+<h4>Why <b><i>Golds</i></b>?</h4>
+
+<p>
+I didn't find a Go tool showing type implementation relations, so I decided to write one.
+In doing this, I got many new ideas which form the tool to the final <b><i>Golds</i></b> design.
+</p>
+
+<h4>Is <b><i>Golds</i></b> recommended to run locally?</h4>
+
+<p>
+Yes. But if you do want to serve your package docs on Internet,
+it is best to serve the generated HTML static doc pages to lower the server cost.
+</p>
+
+<h4>What are the requirements to run <b><i>Golds</i></b>?</h4>
+
+<p>
+If a Go project needs cgo, then a proper C/C++ compiler is needed.
+</p>
+
+<p>
+Some projects might need large memory capacity to analyze.
+For example, the recommended memory capacity to analyze the Kubernetes project is 8G+.
+However, 500M to 2G memory is okay for most Go projects.
+</p>
+
+
+
+
+<hr>
+
+<div class="alert alert-info"><small>
+
+<p>
+If you would like to learn some Go details and facts every serveral days,
+please follow Go 101's official Twitter account: <a href="https://twitter.com/go100and1">@go100and1</a>.
+</p>
+
+</small></div>
+
+<div class="alert alert-success"><small>
+
+<p>
+The <b><i>Go 101</i></b> project is hosted on
+<a href="https://github.com/go101/go101">Github</a>.
+Welcome to improve <b><i>Go 101</i></b> articles
+by submitting corrections for all kinds of mistakes,
+such as typos, grammar errors, wording inaccuracies,
+description flaws, code bugs and broken links.
+</p>
+
+</small></div>
+
+<div class="alert alert-warning"><small>
+
+<div>The digital versions of this book are available at the following places:
+<ul>
+<li>
+	<a href="https://leanpub.com/go101">Leanpub store</a>,
+	<i>$19.99+</i>, Leanpub gets 20%, Tapir gets 80%.
+</li>
+<li>
+	<a href="https://books.apple.com/us/book/id1459984231">Apple Books store</a>,
+	<i>$19.99</i>, Apple gets 30%, Tapir gets 70%.
+</li>
+<li>
+	<a href="https://www.amazon.com/dp/B07Q3HWZ98">Amazon Kindle store</a>,
+	<i>$39.99</i>, Amazon gets 65%, Tapir gets 35%.
+</li>
+<li>
+	<a href="https://github.com/go101/go101/releases">Free ebooks</a>,
+	including pdf, epub and azw3 formats.
+</li>
+</ul>
+</div><div>
+
+Tapir, the author of Go 101, has spent 4+ years on writing the Go 101 book
+and maintaining the go101.org website.
+New contents will continue being added to the book and the website from time to time.
+Tapir is also an indie game developer.
+You can also support Go 101 by playing <a href="https://www.tapirgames.com/">Tapir's games</a>
+(made for both Android and iPhone/iPad):
+<ul>
+<li>
+	<a href="https://www.tapirgames.com/App/Color-Infection">Color Infection</a> (★★★★★), a physics based original casual puzzle game. 140+ levels. 
+</li>
+<li>
+	<a href="https://www.tapirgames.com/App/Rectangle-Pushers">Rectangle Pushers</a> (★★★★★), an original casual puzzle game. Two modes, 104+ levels. 
+</li>
+<li>
+	<a href="https://www.tapirgames.com/App/Let-Us-Play-With-Particles">Let's Play With Particles</a>, a casual action original game. Three mini games are included.
+</li>
+</ul>
+</div>
+
+Individual donations <a href="https://paypal.me/tapirliu">via PayPal</a> are also welcome.</small></div>
+
+<div class="row nav-bar-with-borders"><div class="col-xs-6 col-sm-3 nav-item-active"><a href="https://go101.org/article/101.html">The Book</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/details.html">Go Details 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/unofficial-faq.html">Go FAQ 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/tips.html">Go Tips 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://github.com/go101/go101/wiki">Go 101 Wiki</a></div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go Practice 101</div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go 101 Tools</div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://go101.org/article/quizzes.html">Go Quizzes 101</a></div></div></div>
+	
+</body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: net/http/pprof</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>pprof</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-net/http/pprof">net/http/pprof</a><i> (on <a href="https://golang.org/pkg/net/http/pprof/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/net/http/pprof" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/net/http/pprof.html">18 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../src/net/http/pprof/pprof.go.html#doc">d➜</a> <a href="../../../src/net/http/pprof/pprof.go.html">pprof.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package pprof serves via its HTTP server runtime profiling data
+		in the format expected by the pprof visualization tool.
+
+		The package is typically only imported for the side effect of
+		registering its HTTP handlers.
+		The handled paths all begin with /debug/pprof/.
+
+		To use pprof, link this package into your program:
+			import _ "net/http/pprof"
+
+		If your application is not already running an http server, you
+		need to start one. Add "net/http" and "log" to your imports and
+		the following code to your main function:
+
+			go func() {
+				log.Println(http.ListenAndServe("localhost:6060", nil))
+			}()
+
+		If you are not using DefaultServeMux, you will have to register handlers
+		with the mux you are using.
+
+		Then use the pprof tool to look at the heap profile:
+
+			go tool pprof http://localhost:6060/debug/pprof/heap
+
+		Or to look at a 30-second CPU profile:
+
+			go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
+
+		Or to look at the goroutine blocking profile, after calling
+		runtime.SetBlockProfileRate in your program:
+
+			go tool pprof http://localhost:6060/debug/pprof/block
+
+		Or to look at the holders of contended mutexes, after calling
+		runtime.SetMutexProfileFraction in your program:
+
+			go tool pprof http://localhost:6060/debug/pprof/mutex
+
+		The package also exports a handler that serves execution trace data
+		for the "go tool trace" command. To collect a 5-second execution trace:
+
+			wget -O trace.out http://localhost:6060/debug/pprof/trace?seconds=5
+			go tool trace trace.out
+
+		To view all available profiles, open http://localhost:6060/debug/pprof/
+		in your browser.
+
+		For a study of the facility in action, visit
+
+			https://blog.golang.org/2011/06/profiling-go-programs.html</span></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 6)</i></span></span>
+
+<div class="anchor value-res" id="name-Cmdline">	<input type='checkbox' class="fold" id="Cmdline-fold-content"><label for="Cmdline-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-91">Cmdline</a>(w <a href="../http.html">http</a>.<a href="../http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>)</label><span id='Cmdline-fold-content-docs' class="fold-docs">
+		Cmdline responds with the running program's
+		command line, with arguments separated by NUL bytes.
+		The package initialization registers it as /debug/pprof/cmdline.
+
+</span></div><div class="anchor value-res" id="name-Handler">	<input type='checkbox' class="fold" id="Handler-fold-content"><label for="Handler-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-225">Handler</a>(name <a href="../../builtin.html#name-string">string</a>) <a href="../http.html">http</a>.<a href="../http.html#name-Handler">Handler</a></label><span id='Handler-fold-content-docs' class="fold-docs">
+		Handler returns an HTTP handler that serves the named profile.
+
+</span></div><div class="anchor value-res" id="name-Index">	<input type='checkbox' class="fold" id="Index-fold-content"><label for="Index-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-367">Index</a>(w <a href="../http.html">http</a>.<a href="../http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>)</label><span id='Index-fold-content-docs' class="fold-docs">
+		Index responds with the pprof-formatted profile named by the request.
+		For example, "/debug/pprof/heap" serves the "heap" profile.
+		Index responds to a request for "/debug/pprof/" with an HTML page
+		listing the available profiles.
+
+</span></div><div class="anchor value-res" id="name-Profile">	<input type='checkbox' class="fold" id="Profile-fold-content"><label for="Profile-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-120">Profile</a>(w <a href="../http.html">http</a>.<a href="../http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>)</label><span id='Profile-fold-content-docs' class="fold-docs">
+		Profile responds with the pprof-formatted cpu profile.
+		Profiling lasts for duration specified in seconds GET parameter, or for 30 seconds if not specified.
+		The package initialization registers it as /debug/pprof/profile.
+
+</span></div><div class="anchor value-res" id="name-Symbol">	<input type='checkbox' class="fold" id="Symbol-fold-content"><label for="Symbol-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-178">Symbol</a>(w <a href="../http.html">http</a>.<a href="../http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>)</label><span id='Symbol-fold-content-docs' class="fold-docs">
+		Symbol looks up the program counters listed in the request,
+		responding with a table mapping program counters to function names.
+		The package initialization registers it as /debug/pprof/symbol.
+
+</span></div><div class="anchor value-res" id="name-Trace">	<input type='checkbox' class="fold" id="Trace-fold-content"><label for="Trace-fold-content"> func <a href="../../../src/net/http/pprof/pprof.go.html#line-149">Trace</a>(w <a href="../http.html">http</a>.<a href="../http.html#name-ResponseWriter">ResponseWriter</a>, r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>)</label><span id='Trace-fold-content-docs' class="fold-docs">
+		Trace responds with the execution trace in binary form.
+		Tracing lasts for duration specified in seconds GET parameter, or for 1 second if not specified.
+		The package initialization registers it as /debug/pprof/trace.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: archive/tar</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>tar</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-archive/tar">archive/tar</a><i> (on <a href="https://golang.org/pkg/archive/tar/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/archive/tar" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/archive/tar.html">16 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../src/archive/tar/common.go.html#doc">d➜</a> <a href="../../src/archive/tar/common.go.html">common.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package tar implements access to tar archives.
+
+		Tape archives (tar) are a file format for storing a sequence of files that
+		can be read and written in a streaming manner.
+		This package aims to cover most variations of the format,
+		including those produced by GNU and BSD tar tools.
+</span>
+	<span class="nodocs">      <a href="../../src/archive/tar/format.go.html">format.go</a></span>
+	<span class="nodocs">      <a href="../../src/archive/tar/reader.go.html">reader.go</a></span>
+	<span class="nodocs">      <a href="../../src/archive/tar/stat_actime1.go.html">stat_actime1.go</a></span>
+	<span class="nodocs">      <a href="../../src/archive/tar/stat_unix.go.html">stat_unix.go</a></span>
+	<span class="nodocs">      <a href="../../src/archive/tar/strconv.go.html">strconv.go</a></span>
+	<span class="nodocs">      <a href="../../src/archive/tar/writer.go.html">writer.go</a></span></div>
+<div id="examples"><span class="title">Code Examples</span>
+
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">_minimal</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"archive/tar"
+			"bytes"
+			"fmt"
+			"io"
+			"log"
+			"os"
+		)
+		
+		func main() {
+			// Create and add some files to the archive.
+			var buf bytes.Buffer
+			tw := tar.NewWriter(&buf)
+			var files = []struct {
+				Name, Body string
+			}{
+				{"readme.txt", "This archive contains some text files."},
+				{"gopher.txt", "Gopher names:\nGeorge\nGeoffrey\nGonzo"},
+				{"todo.txt", "Get animal handling license."},
+			}
+			for _, file := range files {
+				hdr := &tar.Header{
+					Name: file.Name,
+					Mode: 0600,
+					Size: int64(len(file.Body)),
+				}
+				if err := tw.WriteHeader(hdr); err != nil {
+					log.Fatal(err)
+				}
+				if _, err := tw.Write([]byte(file.Body)); err != nil {
+					log.Fatal(err)
+				}
+			}
+			if err := tw.Close(); err != nil {
+				log.Fatal(err)
+			}
+		
+			// Open and iterate through the files in the archive.
+			tr := tar.NewReader(&buf)
+			for {
+				hdr, err := tr.Next()
+				if err == io.EOF {
+					break // End of archive
+				}
+				if err != nil {
+					log.Fatal(err)
+				}
+				fmt.Printf("Contents of %s:\n", hdr.Name)
+				if _, err := io.Copy(os.Stdout, tr); err != nil {
+					log.Fatal(err)
+				}
+				fmt.Println()
+			}
+		
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 4)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Format" data-popularity="165">	<input type='checkbox' class="fold" id="Format-fold-content"><label for="Format-fold-content"> type <a href="../../src/archive/tar/format.go.html#line-46">Format</a> <a href="../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='Format-fold-content-docs' class="fold-docs">
+		Format represents the tar archive format.
+
+		The original tar format was introduced in Unix V7.
+		Since then, there have been multiple competing formats attempting to
+		standardize or extend the V7 format to overcome its limitations.
+		The most common formats are the USTAR, PAX, and GNU formats,
+		each with their own advantages and limitations.
+
+		The following table captures the capabilities of each format:
+
+			                  |  USTAR |       PAX |       GNU
+			------------------+--------+-----------+----------
+			Name              |   256B | unlimited | unlimited
+			Linkname          |   100B | unlimited | unlimited
+			Size              | uint33 | unlimited |    uint89
+			Mode              | uint21 |    uint21 |    uint57
+			Uid/Gid           | uint21 | unlimited |    uint57
+			Uname/Gname       |    32B | unlimited |       32B
+			ModTime           | uint33 | unlimited |     int89
+			AccessTime        |    n/a | unlimited |     int89
+			ChangeTime        |    n/a | unlimited |     int89
+			Devmajor/Devminor | uint21 |    uint21 |    uint57
+			------------------+--------+-----------+----------
+			string encoding   |  ASCII |     UTF-8 |    binary
+			sub-second times  |     no |       yes |        no
+			sparse files      |     no |       yes |       yes
+
+		The table's upper portion shows the Header fields, where each format reports
+		the maximum number of bytes allowed for each string field and
+		the integer type used to store each numeric field
+		(where timestamps are stored as the number of seconds since the Unix epoch).
+
+		The table's lower portion shows specialized features of each format,
+		such as supported string encodings, support for sub-second timestamps,
+		or support for sparse files.
+
+		The Writer currently provides no support for sparse files.
+
+		<input type='checkbox' class="fold" id="Format-fold-methods"><label for="Format-fold-methods">Methods (<i>only one</i>)</label><span id='Format-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../src/archive/tar/format.go.html#line-117">String</a>() <a href="../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Format-fold-impls"><label for="Format-fold-impls">Implements (<i>at least 2</i>)</label><span id='Format-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Format-fold-values"><label for="Format-fold-values">As Types Of (<i>total 4</i>)</label><span id='Format-fold-values-items' class="fold-items"><span>
+			const <a href="tar.html#name-FormatGNU">FormatGNU</a></span><span>
+			const <a href="tar.html#name-FormatPAX">FormatPAX</a></span><span>
+			const <a href="tar.html#name-FormatUnknown">FormatUnknown</a></span><span>
+			const <a href="tar.html#name-FormatUSTAR">FormatUSTAR</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Header" data-popularity="235">	<input type='checkbox' class="fold" id="Header-fold-content"><label for="Header-fold-content"> type <a href="../../src/archive/tar/common.go.html#line-140">Header</a> <i>(struct)</i></label><span id='Header-fold-content-docs' class="fold-docs">
+		A Header represents a single header in a tar archive.
+		Some fields may not be populated.
+
+		For forward compatibility, users that retrieve a Header from Reader.Next,
+		mutate it in some ways, and then pass it back to Writer.WriteHeader
+		should do so by creating a new Header and copying the fields
+		that they are interested in preserving.
+
+		<input type='checkbox' class="fold" id="Header-fold-fields"><label for="Header-fold-fields">Fields (<i>total 17</i>)</label><span id='Header-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-AccessTime"><label for="Header-fold-field-AccessTime"><a href="../../src/archive/tar/common.go.html#line-162">AccessTime</a> <i><a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a></i></label><span id='Header-fold-field-AccessTime-docs' class="fold-docs">
+				// Access time (requires either PAX or GNU support)
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-ChangeTime"><label for="Header-fold-field-ChangeTime"><a href="../../src/archive/tar/common.go.html#line-163">ChangeTime</a> <i><a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a></i></label><span id='Header-fold-field-ChangeTime-docs' class="fold-docs">
+				// Change time (requires either PAX or GNU support)
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Devmajor"><label for="Header-fold-field-Devmajor"><a href="../../src/archive/tar/common.go.html#line-165">Devmajor</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='Header-fold-field-Devmajor-docs' class="fold-docs">
+				// Major device number (valid for TypeChar or TypeBlock)
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Devminor"><label for="Header-fold-field-Devminor"><a href="../../src/archive/tar/common.go.html#line-166">Devminor</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='Header-fold-field-Devminor-docs' class="fold-docs">
+				// Minor device number (valid for TypeChar or TypeBlock)
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Format"><label for="Header-fold-field-Format"><a href="../../src/archive/tar/common.go.html#line-202">Format</a> <i><a href="tar.html#name-Format">Format</a></i></label><span id='Header-fold-field-Format-docs' class="fold-docs">
+				Format specifies the format of the tar header.
+
+				This is set by Reader.Next as a best-effort guess at the format.
+				Since the Reader liberally reads some non-compliant files,
+				it is possible for this to be FormatUnknown.
+
+				If the format is unspecified when Writer.WriteHeader is called,
+				then it uses the first format (in the order of USTAR, PAX, GNU)
+				capable of encoding this Header (see Format).
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Gid"><label for="Header-fold-field-Gid"><a href="../../src/archive/tar/common.go.html#line-152">Gid</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='Header-fold-field-Gid-docs' class="fold-docs">
+				// Group ID of owner
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Gname"><label for="Header-fold-field-Gname"><a href="../../src/archive/tar/common.go.html#line-154">Gname</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-Gname-docs' class="fold-docs">
+				// Group name of owner
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Linkname"><label for="Header-fold-field-Linkname"><a href="../../src/archive/tar/common.go.html#line-147">Linkname</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-Linkname-docs' class="fold-docs">
+				// Target name of link (valid for TypeLink or TypeSymlink)
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-ModTime"><label for="Header-fold-field-ModTime"><a href="../../src/archive/tar/common.go.html#line-161">ModTime</a> <i><a href="../time.html">time</a>.<a href="../time.html#name-Time">Time</a></i></label><span id='Header-fold-field-ModTime-docs' class="fold-docs">
+				If the Format is unspecified, then Writer.WriteHeader rounds ModTime
+				to the nearest second and ignores the AccessTime and ChangeTime fields.
+
+				To use AccessTime or ChangeTime, specify the Format as PAX or GNU.
+				To use sub-second resolution, specify the Format as PAX.
+				// Modification time
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Mode"><label for="Header-fold-field-Mode"><a href="../../src/archive/tar/common.go.html#line-150">Mode</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='Header-fold-field-Mode-docs' class="fold-docs">
+				// Permission and mode bits
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Name"><label for="Header-fold-field-Name"><a href="../../src/archive/tar/common.go.html#line-146">Name</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-Name-docs' class="fold-docs">
+				// Name of file entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-PAXRecords"><label for="Header-fold-field-PAXRecords"><a href="../../src/archive/tar/common.go.html#line-191">PAXRecords</a> <i>map[<a href="../builtin.html#name-string">string</a>]<a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-PAXRecords-docs' class="fold-docs">
+				PAXRecords is a map of PAX extended header records.
+
+				User-defined records should have keys of the following form:
+					VENDOR.keyword
+				Where VENDOR is some namespace in all uppercase, and keyword may
+				not contain the '=' character (e.g., "GOLANG.pkg.version").
+				The key and value should be non-empty UTF-8 strings.
+
+				When Writer.WriteHeader is called, PAX records derived from the
+				other fields in Header take precedence over PAXRecords.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Size"><label for="Header-fold-field-Size"><a href="../../src/archive/tar/common.go.html#line-149">Size</a> <i><a href="../builtin.html#name-int64">int64</a></i></label><span id='Header-fold-field-Size-docs' class="fold-docs">
+				// Logical file size in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Typeflag"><label for="Header-fold-field-Typeflag"><a href="../../src/archive/tar/common.go.html#line-144">Typeflag</a> <i><a href="../builtin.html#name-byte">byte</a></i></label><span id='Header-fold-field-Typeflag-docs' class="fold-docs">
+				Typeflag is the type of header entry.
+				The zero value is automatically promoted to either TypeReg or TypeDir
+				depending on the presence of a trailing slash in Name.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Uid"><label for="Header-fold-field-Uid"><a href="../../src/archive/tar/common.go.html#line-151">Uid</a> <i><a href="../builtin.html#name-int">int</a></i></label><span id='Header-fold-field-Uid-docs' class="fold-docs">
+				// User ID of owner
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Uname"><label for="Header-fold-field-Uname"><a href="../../src/archive/tar/common.go.html#line-153">Uname</a> <i><a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-Uname-docs' class="fold-docs">
+				// User name of owner
+</span></span><span>
+			<input type='checkbox' class="fold" id="Header-fold-field-Xattrs"><label for="Header-fold-field-Xattrs"><a href="../../src/archive/tar/common.go.html#line-179">Xattrs</a> <i>map[<a href="../builtin.html#name-string">string</a>]<a href="../builtin.html#name-string">string</a></i></label><span id='Header-fold-field-Xattrs-docs' class="fold-docs">
+				Xattrs stores extended attributes as PAX records under the
+				"SCHILY.xattr." namespace.
+
+				The following are semantically equivalent:
+				 h.Xattrs[key] = value
+				 h.PAXRecords["SCHILY.xattr."+key] = value
+
+				When Writer.WriteHeader is called, the contents of Xattrs will take
+				precedence over those in PAXRecords.
+
+				Deprecated: Use PAXRecords instead.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Header-fold-methods"><label for="Header-fold-methods">Methods (<i>only one</i>)</label><span id='Header-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Header-fold-method-FileInfo"><label for="Header-fold-method-FileInfo">(*T) <a href="../../src/archive/tar/common.go.html#line-529">FileInfo</a>() <a href="../io/fs.html">fs</a>.<a href="../io/fs.html#name-FileInfo">FileInfo</a></label><span id='Header-fold-method-FileInfo-docs' class="fold-docs">
+				FileInfo returns an fs.FileInfo for the Header.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Header-fold-results"><label for="Header-fold-results">As Outputs Of (<i>at least 2</i>)</label><span id='Header-fold-results-items' class="fold-items"><span>
+			func <a href="tar.html#name-FileInfoHeader">FileInfoHeader</a>(fi <a href="../io/fs.html">fs</a>.<a href="../io/fs.html#name-FileInfo">FileInfo</a>, link <a href="../builtin.html#name-string">string</a>) (*<b>Header</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="tar.html#name-Reader">Reader</a>).<a href="../../src/archive/tar/reader.go.html#line-47">Next</a>() (*<b>Header</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+		<input type='checkbox' class="fold" id="Header-fold-params"><label for="Header-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='Header-fold-params-items' class="fold-items"><span>
+			func (*<a href="tar.html#name-Writer">Writer</a>).<a href="../../src/archive/tar/writer.go.html#line-67">WriteHeader</a>(hdr *<b>Header</b>) <a href="../builtin.html#name-error">error</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Reader" data-popularity="225">	<input type='checkbox' class="fold" id="Reader-fold-content"><label for="Reader-fold-content"> type <a href="../../src/archive/tar/reader.go.html#line-18">Reader</a> <i>(struct)</i></label><span id='Reader-fold-content-docs' class="fold-docs">
+		Reader provides sequential access to the contents of a tar archive.
+		Reader.Next advances to the next file in the archive (including the first),
+		and then Reader can be treated as an io.Reader to access the file's data.
+
+		<input type='checkbox' class="fold" id="Reader-fold-methods"><label for="Reader-fold-methods">Methods (<i>total 2</i>)</label><span id='Reader-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-Next"><label for="Reader-fold-method-Next">(*T) <a href="../../src/archive/tar/reader.go.html#line-47">Next</a>() (*<a href="tar.html#name-Header">Header</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Reader-fold-method-Next-docs' class="fold-docs">
+				Next advances to the next entry in the tar archive.
+				The Header.Size determines how many bytes can be read for the next file.
+				Any remaining data in the current file is automatically discarded.
+
+				io.EOF is returned at the end of the input.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reader-fold-method-Read"><label for="Reader-fold-method-Read">(*T) <a href="../../src/archive/tar/reader.go.html#line-621">Read</a>(b []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Reader-fold-method-Read-docs' class="fold-docs">
+				Read reads from the current file in the tar archive.
+				It returns (0, io.EOF) when it reaches the end of that file,
+				until Next is called to advance to the next file.
+
+				If the current file is sparse, then the regions marked as a hole
+				are read back as NUL-bytes.
+
+				Calling Read on special types like TypeLink, TypeSymlink, TypeChar,
+				TypeBlock, TypeDir, and TypeFifo returns (0, io.EOF) regardless of what
+				the Header.Size claims.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Reader-fold-impls"><label for="Reader-fold-impls">Implements (<i>at least one exported</i>)</label><span id='Reader-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Reader">Reader</a></span></span>
+		<input type='checkbox' class="fold" id="Reader-fold-results"><label for="Reader-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Reader-fold-results-items' class="fold-items"><span>
+			func <a href="tar.html#name-NewReader">NewReader</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) *<b>Reader</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-Writer" data-popularity="425">	<input type='checkbox' class="fold" id="Writer-fold-content"><label for="Writer-fold-content"> type <a href="../../src/archive/tar/writer.go.html#line-19">Writer</a> <i>(struct)</i></label><span id='Writer-fold-content-docs' class="fold-docs">
+		Writer provides sequential writing of a tar archive.
+		Write.WriteHeader begins a new file with the provided Header,
+		and then Writer can be treated as an io.Writer to supply that file's data.
+
+		<input type='checkbox' class="fold" id="Writer-fold-methods"><label for="Writer-fold-methods">Methods (<i>total 4</i>)</label><span id='Writer-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Writer-fold-method-Close"><label for="Writer-fold-method-Close">(*T) <a href="../../src/archive/tar/writer.go.html#line-466">Close</a>() <a href="../builtin.html#name-error">error</a></label><span id='Writer-fold-method-Close-docs' class="fold-docs">
+				Close closes the tar archive by flushing the padding, and writing the footer.
+				If the current file (from a prior call to WriteHeader) is not fully written,
+				then this returns an error.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Writer-fold-method-Flush"><label for="Writer-fold-method-Flush">(*T) <a href="../../src/archive/tar/writer.go.html#line-49">Flush</a>() <a href="../builtin.html#name-error">error</a></label><span id='Writer-fold-method-Flush-docs' class="fold-docs">
+				Flush finishes writing the current file's block padding.
+				The current file must be fully written before Flush can be called.
+
+				This is unnecessary as the next call to WriteHeader or Close
+				will implicitly flush out the file's padding.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Writer-fold-method-Write"><label for="Writer-fold-method-Write">(*T) <a href="../../src/archive/tar/writer.go.html#line-431">Write</a>(b []<a href="../builtin.html#name-byte">byte</a>) (<a href="../builtin.html#name-int">int</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Writer-fold-method-Write-docs' class="fold-docs">
+				Write writes to the current file in the tar archive.
+				Write returns the error ErrWriteTooLong if more than
+				Header.Size bytes are written after WriteHeader.
+
+				Calling Write on special types like TypeLink, TypeSymlink, TypeChar,
+				TypeBlock, TypeDir, and TypeFifo returns (0, ErrWriteTooLong) regardless
+				of what the Header.Size claims.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Writer-fold-method-WriteHeader"><label for="Writer-fold-method-WriteHeader">(*T) <a href="../../src/archive/tar/writer.go.html#line-67">WriteHeader</a>(hdr *<a href="tar.html#name-Header">Header</a>) <a href="../builtin.html#name-error">error</a></label><span id='Writer-fold-method-WriteHeader-docs' class="fold-docs">
+				WriteHeader writes hdr and prepares to accept the file's contents.
+				The Header.Size determines how many bytes can be written for the next file.
+				If the current file is not fully written, then this returns an error.
+				This implicitly flushes any padding necessary before writing the header.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Writer-fold-impls"><label for="Writer-fold-impls">Implements (<i>at least 3</i>)</label><span id='Writer-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span><span>
+			*T : io.<a href="../io.html#name-WriteCloser">WriteCloser</a></span><span>
+			*T : io.<a href="../io.html#name-Writer">Writer</a></span></span>
+		<input type='checkbox' class="fold" id="Writer-fold-results"><label for="Writer-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Writer-fold-results-items' class="fold-items"><span>
+			func <a href="tar.html#name-NewWriter">NewWriter</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) *<b>Writer</b></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 3)</i></span></span>
+
+<div class="anchor value-res" id="name-FileInfoHeader">	<input type='checkbox' class="fold" id="FileInfoHeader-fold-content"><label for="FileInfoHeader-fold-content"> func <a href="../../src/archive/tar/common.go.html#line-629">FileInfoHeader</a>(fi <a href="../io/fs.html">fs</a>.<a href="../io/fs.html#name-FileInfo">FileInfo</a>, link <a href="../builtin.html#name-string">string</a>) (*<a href="tar.html#name-Header">Header</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='FileInfoHeader-fold-content-docs' class="fold-docs">
+		FileInfoHeader creates a partially-populated Header from fi.
+		If fi describes a symlink, FileInfoHeader records link as the link target.
+		If fi describes a directory, a slash is appended to the name.
+
+		Since fs.FileInfo's Name method only returns the base name of
+		the file it describes, it may be necessary to modify Header.Name
+		to provide the full path name of the file.
+
+</span></div><div class="anchor value-res" id="name-NewReader">	<input type='checkbox' class="fold" id="NewReader-fold-content"><label for="NewReader-fold-content"> func <a href="../../src/archive/tar/reader.go.html#line-38">NewReader</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-Reader">Reader</a>) *<a href="tar.html#name-Reader">Reader</a></label><span id='NewReader-fold-content-docs' class="fold-docs">
+		NewReader creates a new Reader reading from r.
+
+</span></div><div class="anchor value-res" id="name-NewWriter">	<input type='checkbox' class="fold" id="NewWriter-fold-content"><label for="NewWriter-fold-content"> func <a href="../../src/archive/tar/writer.go.html#line-33">NewWriter</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) *<a href="tar.html#name-Writer">Writer</a></label><span id='NewWriter-fold-content-docs' class="fold-docs">
+		NewWriter creates a new Writer writing to w.
+
+</span></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 4)</i></span></span>
+
+<div class="anchor value-res" id="name-ErrFieldTooLong">	<span class="nodocs">  var <a href="../../src/archive/tar/common.go.html#line-32">ErrFieldTooLong</a> <a href="../builtin.html#name-error">error</a></span></div><div class="anchor value-res" id="name-ErrHeader">	<span class="nodocs">  var <a href="../../src/archive/tar/common.go.html#line-30">ErrHeader</a> <a href="../builtin.html#name-error">error</a></span></div><div class="anchor value-res" id="name-ErrWriteAfterClose">	<span class="nodocs">  var <a href="../../src/archive/tar/common.go.html#line-33">ErrWriteAfterClose</a> <a href="../builtin.html#name-error">error</a></span></div><div class="anchor value-res" id="name-ErrWriteTooLong">	<span class="nodocs">  var <a href="../../src/archive/tar/common.go.html#line-31">ErrWriteTooLong</a> <a href="../builtin.html#name-error">error</a></span></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 18)</i></span></span>
+
+<div class="anchor value-res" id="name-FormatGNU">	<input type='checkbox' class="fold" id="FormatGNU-fold-content"><label for="FormatGNU-fold-content">const <a href="../../src/archive/tar/format.go.html#line-98">FormatGNU</a> <a href="tar.html#name-Format">Format</a> = 8</label><span id='FormatGNU-fold-content-docs' class="fold-docs">
+		FormatGNU represents the GNU header format.
+
+		The GNU header format is older than the USTAR and PAX standards and
+		is not compatible with them. The GNU format supports
+		arbitrary file sizes, filenames of arbitrary encoding and length,
+		sparse files, and other features.
+
+		It is recommended that PAX be chosen over GNU unless the target
+		application can only parse GNU formatted archives.
+
+		Reference:
+			https://www.gnu.org/software/tar/manual/html_node/Standard.html
+
+</span></div><div class="anchor value-res" id="name-FormatPAX">	<input type='checkbox' class="fold" id="FormatPAX-fold-content"><label for="FormatPAX-fold-content">const <a href="../../src/archive/tar/format.go.html#line-84">FormatPAX</a> <a href="tar.html#name-Format">Format</a> = 4</label><span id='FormatPAX-fold-content-docs' class="fold-docs">
+		FormatPAX represents the PAX header format defined in POSIX.1-2001.
+
+		PAX extends USTAR by writing a special file with Typeflag TypeXHeader
+		preceding the original header. This file contains a set of key-value
+		records, which are used to overcome USTAR's shortcomings, in addition to
+		providing the ability to have sub-second resolution for timestamps.
+
+		Some newer formats add their own extensions to PAX by defining their
+		own keys and assigning certain semantic meaning to the associated values.
+		For example, sparse file support in PAX is implemented using keys
+		defined by the GNU manual (e.g., "GNU.sparse.map").
+
+		Reference:
+			http://pubs.opengroup.org/onlinepubs/009695399/utilities/pax.html
+
+</span></div><div class="anchor value-res" id="name-FormatUnknown">	<input type='checkbox' class="fold" id="FormatUnknown-fold-content"><label for="FormatUnknown-fold-content">const <a href="../../src/archive/tar/format.go.html#line-54">FormatUnknown</a> <a href="tar.html#name-Format">Format</a> = 0</label><span id='FormatUnknown-fold-content-docs' class="fold-docs">
+		FormatUnknown indicates that the format is unknown.
+
+</span></div><div class="anchor value-res" id="name-FormatUSTAR">	<input type='checkbox' class="fold" id="FormatUSTAR-fold-content"><label for="FormatUSTAR-fold-content">const <a href="../../src/archive/tar/format.go.html#line-68">FormatUSTAR</a> <a href="tar.html#name-Format">Format</a> = 2</label><span id='FormatUSTAR-fold-content-docs' class="fold-docs">
+		FormatUSTAR represents the USTAR header format defined in POSIX.1-1988.
+
+		While this format is compatible with most tar readers,
+		the format has several limitations making it unsuitable for some usages.
+		Most notably, it cannot support sparse files, files larger than 8GiB,
+		filenames larger than 256 characters, and non-ASCII filenames.
+
+		Reference:
+			http://pubs.opengroup.org/onlinepubs/9699919799/utilities/pax.html#tag_20_92_13_06
+
+</span></div><div class="anchor value-res" id="name-TypeBlock">	<input type='checkbox' class="fold" id="TypeBlock-fold-content"><label for="TypeBlock-fold-content">const <a href="../../src/archive/tar/common.go.html#line-65">TypeBlock</a> = 52 // Block device node</label><span id='TypeBlock-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeChar">	<input type='checkbox' class="fold" id="TypeChar-fold-content"><label for="TypeChar-fold-content">const <a href="../../src/archive/tar/common.go.html#line-64">TypeChar</a> = 51 // Character device node</label><span id='TypeChar-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeCont">	<input type='checkbox' class="fold" id="TypeCont-fold-content"><label for="TypeCont-fold-content">const <a href="../../src/archive/tar/common.go.html#line-70">TypeCont</a> = 55</label><span id='TypeCont-fold-content-docs' class="fold-docs">
+		Type '7' is reserved.
+
+</span></div><div class="anchor value-res" id="name-TypeDir">	<input type='checkbox' class="fold" id="TypeDir-fold-content"><label for="TypeDir-fold-content">const <a href="../../src/archive/tar/common.go.html#line-66">TypeDir</a> = 53 // Directory</label><span id='TypeDir-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeFifo">	<input type='checkbox' class="fold" id="TypeFifo-fold-content"><label for="TypeFifo-fold-content">const <a href="../../src/archive/tar/common.go.html#line-67">TypeFifo</a> = 54 // FIFO node</label><span id='TypeFifo-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeGNULongLink">	<input type='checkbox' class="fold" id="TypeGNULongLink-fold-content"><label for="TypeGNULongLink-fold-content">const <a href="../../src/archive/tar/common.go.html#line-90">TypeGNULongLink</a> = 75</label><span id='TypeGNULongLink-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeGNULongName">	<input type='checkbox' class="fold" id="TypeGNULongName-fold-content"><label for="TypeGNULongName-fold-content">const <a href="../../src/archive/tar/common.go.html#line-89">TypeGNULongName</a> = 76</label><span id='TypeGNULongName-fold-content-docs' class="fold-docs">
+		Types 'L' and 'K' are used by the GNU format for a meta file
+		used to store the path or link name for the next file.
+		This package transparently handles these types.
+
+</span></div><div class="anchor value-res" id="name-TypeGNUSparse">	<input type='checkbox' class="fold" id="TypeGNUSparse-fold-content"><label for="TypeGNUSparse-fold-content">const <a href="../../src/archive/tar/common.go.html#line-84">TypeGNUSparse</a> = 83</label><span id='TypeGNUSparse-fold-content-docs' class="fold-docs">
+		Type 'S' indicates a sparse file in the GNU format.
+
+</span></div><div class="anchor value-res" id="name-TypeLink">	<input type='checkbox' class="fold" id="TypeLink-fold-content"><label for="TypeLink-fold-content">const <a href="../../src/archive/tar/common.go.html#line-62">TypeLink</a> = 49 // Hard link</label><span id='TypeLink-fold-content-docs' class="fold-docs">
+		Type '1' to '6' are header-only flags and may not have a data body.
+
+</span></div><div class="anchor value-res" id="name-TypeReg">	<input type='checkbox' class="fold" id="TypeReg-fold-content"><label for="TypeReg-fold-content">const <a href="../../src/archive/tar/common.go.html#line-58">TypeReg</a> = 48</label><span id='TypeReg-fold-content-docs' class="fold-docs">
+		Type '0' indicates a regular file.
+
+</span></div><div class="anchor value-res" id="name-TypeRegA">	<input type='checkbox' class="fold" id="TypeRegA-fold-content"><label for="TypeRegA-fold-content">const <a href="../../src/archive/tar/common.go.html#line-59">TypeRegA</a> = 0 // Deprecated: Use TypeReg instead.</label><span id='TypeRegA-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeSymlink">	<input type='checkbox' class="fold" id="TypeSymlink-fold-content"><label for="TypeSymlink-fold-content">const <a href="../../src/archive/tar/common.go.html#line-63">TypeSymlink</a> = 50 // Symbolic link</label><span id='TypeSymlink-fold-content-docs' class="fold-docs">
+		Type flags for Header.Typeflag.
+
+</span></div><div class="anchor value-res" id="name-TypeXGlobalHeader">	<input type='checkbox' class="fold" id="TypeXGlobalHeader-fold-content"><label for="TypeXGlobalHeader-fold-content">const <a href="../../src/archive/tar/common.go.html#line-81">TypeXGlobalHeader</a> = 103</label><span id='TypeXGlobalHeader-fold-content-docs' class="fold-docs">
+		Type 'g' is used by the PAX format to store key-value records that
+		are relevant to all subsequent files.
+		This package only supports parsing and composing such headers,
+		but does not currently support persisting the global state across files.
+
+</span></div><div class="anchor value-res" id="name-TypeXHeader">	<input type='checkbox' class="fold" id="TypeXHeader-fold-content"><label for="TypeXHeader-fold-content">const <a href="../../src/archive/tar/common.go.html#line-75">TypeXHeader</a> = 120</label><span id='TypeXHeader-fold-content-docs' class="fold-docs">
+		Type 'x' is used by the PAX format to store key-value records that
+		are only relevant to the next file.
+		This package transparently handles these types.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

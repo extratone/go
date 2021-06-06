@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: net/http/fcgi</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>fcgi</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-net/http/fcgi">net/http/fcgi</a><i> (on <a href="https://golang.org/pkg/net/http/fcgi/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/net/http/fcgi" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/net/http/fcgi.html">14 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../../src/net/http/fcgi/child.go.html">child.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../../src/net/http/fcgi/fcgi.go.html#doc">d➜</a> <a href="../../../src/net/http/fcgi/fcgi.go.html">fcgi.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package fcgi implements the FastCGI protocol.
+
+		See https://fast-cgi.github.io/ for an unofficial mirror of the
+		original documentation.
+
+		Currently only the responder role is supported.</span></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 2)</i></span></span>
+
+<div class="anchor value-res" id="name-ProcessEnv">	<input type='checkbox' class="fold" id="ProcessEnv-fold-content"><label for="ProcessEnv-fold-content"> func <a href="../../../src/net/http/fcgi/child.go.html#line-376">ProcessEnv</a>(r *<a href="../http.html">http</a>.<a href="../http.html#name-Request">Request</a>) map[<a href="../../builtin.html#name-string">string</a>]<a href="../../builtin.html#name-string">string</a></label><span id='ProcessEnv-fold-content-docs' class="fold-docs">
+		ProcessEnv returns FastCGI environment variables associated with the request r
+		for which no effort was made to be included in the request itself - the data
+		is hidden in the request's context. As an example, if REMOTE_USER is set for a
+		request, it will not be found anywhere in r, but it will be included in
+		ProcessEnv's response (via r's context).
+
+</span></div><div class="anchor value-res" id="name-Serve">	<input type='checkbox' class="fold" id="Serve-fold-content"><label for="Serve-fold-content"> func <a href="../../../src/net/http/fcgi/child.go.html#line-349">Serve</a>(l <a href="../../net.html">net</a>.<a href="../../net.html#name-Listener">Listener</a>, handler <a href="../http.html">http</a>.<a href="../http.html#name-Handler">Handler</a>) <a href="../../builtin.html#name-error">error</a></label><span id='Serve-fold-content-docs' class="fold-docs">
+		Serve accepts incoming FastCGI connections on the listener l, creating a new
+		goroutine for each. The goroutine reads requests and then calls handler
+		to reply to them.
+		If l is nil, Serve accepts connections from os.Stdin.
+		If handler is nil, http.DefaultServeMux is used.
+
+</span></div></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 2)</i></span></span>
+
+<div class="anchor value-res" id="name-ErrConnClosed">	<input type='checkbox' class="fold" id="ErrConnClosed-fold-content"><label for="ErrConnClosed-fold-content">  var <a href="../../../src/net/http/fcgi/child.go.html#line-193">ErrConnClosed</a> <a href="../../builtin.html#name-error">error</a></label><span id='ErrConnClosed-fold-content-docs' class="fold-docs">
+		ErrConnClosed is returned by Read when a handler attempts to read the body of
+		a request after the connection to the web server has been closed.
+
+</span></div><div class="anchor value-res" id="name-ErrRequestAborted">	<input type='checkbox' class="fold" id="ErrRequestAborted-fold-content"><label for="ErrRequestAborted-fold-content">  var <a href="../../../src/net/http/fcgi/child.go.html#line-189">ErrRequestAborted</a> <a href="../../builtin.html#name-error">error</a></label><span id='ErrRequestAborted-fold-content-docs' class="fold-docs">
+		ErrRequestAborted is returned by Read when a handler attempts to read the
+		body of a request that has been aborted by the web server.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

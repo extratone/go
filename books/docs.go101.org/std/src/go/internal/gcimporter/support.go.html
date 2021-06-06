@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: support.go in package go/internal/gcimporter</title>
+<link href="../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	support.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/go/internal/gcimporter.html">go/internal/gcimporter</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2015 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// This file implements support functionality for iimport.go.</span></code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">package</span> gcimporter</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-10"><code>	<label for="i0"><span class="lit-string i0">"fmt"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i1"><span class="lit-string i1">"go/token"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i2"><span class="lit-string i2">"go/types"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i3"><span class="lit-string i3">"sync"</span></label></code></span>
+<span class="codeline" id="line-14"><code>)</code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code><span class="keyword">func</span> errorf(<label for="r1" class="ident">format</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r2" class="ident">args</label> ...<span class="keyword">interface</span>{}) {</code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../../pkg/builtin.html#name-panic" class="ident">panic</a>(<a href="../../../../pkg/fmt.html" class="ident i0">fmt</a>.<a href="../../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<label for="r1" class="ident">format</label>, <label for="r2" class="ident">args</label>...))</code></span>
+<span class="codeline" id="line-18"><code>}</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// deltaNewFile is a magic line delta offset indicating a new file.</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// We use -64 because it is rare; see issue 20080 and CL 41619.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// -64 is the smallest int that fits in a single byte as a varint.</span></code></span>
+<span class="codeline" id="line-23"><code><span class="keyword">const</span> deltaNewFile = -<span class="lit-number">64</span></code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// Synthesize a token.Pos</span></code></span>
+<span class="codeline" id="line-26"><code><span class="keyword">type</span> fakeFileSet <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-27"><code>	fset  *<a href="../../../../pkg/go/token.html" class="ident i1">token</a>.<a href="../../token/position.go.html#line-386" class="ident">FileSet</a></code></span>
+<span class="codeline" id="line-28"><code>	files <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]*<a href="../../../../pkg/go/token.html" class="ident i1">token</a>.<a href="../../token/position.go.html#line-99" class="ident">File</a></code></span>
+<span class="codeline" id="line-29"><code>}</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> (<label for="r3" class="ident">s</label> *<a href="support.go.html#line-26" class="ident">fakeFileSet</a>) <label for="r4" class="ident">pos</label>(<label for="r5" class="ident">file</label> <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r6" class="ident">line</label>, <label for="r7" class="ident">column</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/go/token.html" class="ident i1">token</a>.<a href="../../token/position.go.html#line-79" class="ident">Pos</a> {</code></span>
+<span class="codeline" id="line-32"><code>	<span class="comment">// TODO(mdempsky): Make use of column.</span></code></span>
+<span class="codeline" id="line-33"><code></code></span>
+<span class="codeline" id="line-34"><code>	<span class="comment">// Since we don't know the set of needed file positions, we</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">	// reserve maxlines positions per file.</span></code></span>
+<span class="codeline" id="line-36"><code>	<span class="keyword">const</span> <label for="r8" class="ident">maxlines</label> = <span class="lit-number">64</span> * <span class="lit-number">1024</span></code></span>
+<span class="codeline" id="line-37"><code>	<label for="r9" class="ident">f</label> := <label for="r3" class="ident">s</label>.<a href="support.go.html#line-28" class="ident">files</a>[<label for="r5" class="ident">file</label>]</code></span>
+<span class="codeline" id="line-38"><code>	<span class="keyword">if</span> <label for="r9" class="ident">f</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-39"><code>		<label for="r9" class="ident">f</label> = <label for="r3" class="ident">s</label>.<a href="support.go.html#line-27" class="ident">fset</a>.<a href="../../token/position.go.html#line-427" class="ident">AddFile</a>(<label for="r5" class="ident">file</label>, -<span class="lit-number">1</span>, <label for="r8" class="ident">maxlines</label>)</code></span>
+<span class="codeline" id="line-40"><code>		<label for="r3" class="ident">s</label>.<a href="support.go.html#line-28" class="ident">files</a>[<label for="r5" class="ident">file</label>] = <label for="r9" class="ident">f</label></code></span>
+<span class="codeline" id="line-41"><code>		<span class="comment">// Allocate the fake linebreak indices on first use.</span></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">		// TODO(adonovan): opt: save ~512KB using a more complex scheme?</span></code></span>
+<span class="codeline" id="line-43"><code>		<a href="support.go.html#line-63" class="ident">fakeLinesOnce</a>.<a href="../../../sync/once.go.html#line-42" class="ident">Do</a>(<span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-44"><code>			<a href="support.go.html#line-62" class="ident">fakeLines</a> = <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r8" class="ident">maxlines</label>)</code></span>
+<span class="codeline" id="line-45"><code>			<span class="keyword">for</span> <label for="r10" class="ident">i</label> := <span class="keyword">range</span> <a href="support.go.html#line-62" class="ident">fakeLines</a> {</code></span>
+<span class="codeline" id="line-46"><code>				<a href="support.go.html#line-62" class="ident">fakeLines</a>[<label for="r10" class="ident">i</label>] = <label for="r10" class="ident">i</label></code></span>
+<span class="codeline" id="line-47"><code>			}</code></span>
+<span class="codeline" id="line-48"><code>		})</code></span>
+<span class="codeline" id="line-49"><code>		<label for="r9" class="ident">f</label>.<a href="../../token/position.go.html#line-178" class="ident">SetLines</a>(<a href="support.go.html#line-62" class="ident">fakeLines</a>)</code></span>
+<span class="codeline" id="line-50"><code>	}</code></span>
+<span class="codeline" id="line-51"><code></code></span>
+<span class="codeline" id="line-52"><code>	<span class="keyword">if</span> <label for="r6" class="ident">line</label> &gt; <label for="r8" class="ident">maxlines</label> {</code></span>
+<span class="codeline" id="line-53"><code>		<label for="r6" class="ident">line</label> = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-54"><code>	}</code></span>
+<span class="codeline" id="line-55"><code></code></span>
+<span class="codeline" id="line-56"><code>	<span class="comment">// Treat the file as if it contained only newlines</span></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">	// and column=1: use the line number as the offset.</span></code></span>
+<span class="codeline" id="line-58"><code>	<span class="keyword">return</span> <label for="r9" class="ident">f</label>.<a href="../../token/position.go.html#line-268" class="ident">Pos</a>(<label for="r6" class="ident">line</label> - <span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-59"><code>}</code></span>
+<span class="codeline" id="line-60"><code></code></span>
+<span class="codeline" id="line-61"><code><span class="keyword">var</span> (</code></span>
+<span class="codeline" id="line-62"><code>	fakeLines     []<a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-63"><code>	fakeLinesOnce <a href="../../../../pkg/sync.html" class="ident i3">sync</a>.<a href="../../../sync/once.go.html#line-14" class="ident">Once</a></code></span>
+<span class="codeline" id="line-64"><code>)</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="keyword">func</span> chanDir(<label for="r12" class="ident">d</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-429" class="ident">ChanDir</a> {</code></span>
+<span class="codeline" id="line-67"><code>	<span class="comment">// tag values must match the constants in cmd/compile/internal/gc/go.go</span></code></span>
+<span class="codeline" id="line-68"><code>	<span class="keyword">switch</span> <label for="r12" class="ident">d</label> {</code></span>
+<span class="codeline" id="line-69"><code>	<span class="keyword">case</span> <span class="lit-number">1</span> <span class="comment">/* Crecv */</span> :</code></span>
+<span class="codeline" id="line-70"><code>		<span class="keyword">return</span> <a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-435" class="ident">RecvOnly</a></code></span>
+<span class="codeline" id="line-71"><code>	<span class="keyword">case</span> <span class="lit-number">2</span> <span class="comment">/* Csend */</span> :</code></span>
+<span class="codeline" id="line-72"><code>		<span class="keyword">return</span> <a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-434" class="ident">SendOnly</a></code></span>
+<span class="codeline" id="line-73"><code>	<span class="keyword">case</span> <span class="lit-number">3</span> <span class="comment">/* Cboth */</span> :</code></span>
+<span class="codeline" id="line-74"><code>		<span class="keyword">return</span> <a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-433" class="ident">SendRecv</a></code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-76"><code>		<a href="support.go.html#line-16" class="ident">errorf</a>(<span class="lit-string">"unexpected channel dir %d"</span>, <label for="r12" class="ident">d</label>)</code></span>
+<span class="codeline" id="line-77"><code>		<span class="keyword">return</span> <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-78"><code>	}</code></span>
+<span class="codeline" id="line-79"><code>}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code><span class="keyword">var</span> predeclared = []<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-11" class="ident">Type</a>{</code></span>
+<span class="codeline" id="line-82"><code>	<span class="comment">// basic types</span></code></span>
+<span class="codeline" id="line-83"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-26" class="ident">Bool</a>],</code></span>
+<span class="codeline" id="line-84"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-27" class="ident">Int</a>],</code></span>
+<span class="codeline" id="line-85"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-28" class="ident">Int8</a>],</code></span>
+<span class="codeline" id="line-86"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-29" class="ident">Int16</a>],</code></span>
+<span class="codeline" id="line-87"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-30" class="ident">Int32</a>],</code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-31" class="ident">Int64</a>],</code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-32" class="ident">Uint</a>],</code></span>
+<span class="codeline" id="line-90"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-33" class="ident">Uint8</a>],</code></span>
+<span class="codeline" id="line-91"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-34" class="ident">Uint16</a>],</code></span>
+<span class="codeline" id="line-92"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-35" class="ident">Uint32</a>],</code></span>
+<span class="codeline" id="line-93"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-36" class="ident">Uint64</a>],</code></span>
+<span class="codeline" id="line-94"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-37" class="ident">Uintptr</a>],</code></span>
+<span class="codeline" id="line-95"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-38" class="ident">Float32</a>],</code></span>
+<span class="codeline" id="line-96"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-39" class="ident">Float64</a>],</code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-40" class="ident">Complex64</a>],</code></span>
+<span class="codeline" id="line-98"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-41" class="ident">Complex128</a>],</code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-42" class="ident">String</a>],</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>	<span class="comment">// basic type aliases</span></code></span>
+<span class="codeline" id="line-102"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-17" class="ident">Universe</a>.<a href="../../types/scope.go.html#line-68" class="ident">Lookup</a>(<span class="lit-string">"byte"</span>).<a href="../../types/object.go.html#line-23" class="ident">Type</a>(),</code></span>
+<span class="codeline" id="line-103"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-17" class="ident">Universe</a>.<a href="../../types/scope.go.html#line-68" class="ident">Lookup</a>(<span class="lit-string">"rune"</span>).<a href="../../types/object.go.html#line-23" class="ident">Type</a>(),</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code>	<span class="comment">// error</span></code></span>
+<span class="codeline" id="line-106"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-17" class="ident">Universe</a>.<a href="../../types/scope.go.html#line-68" class="ident">Lookup</a>(<span class="lit-string">"error"</span>).<a href="../../types/object.go.html#line-23" class="ident">Type</a>(),</code></span>
+<span class="codeline" id="line-107"><code></code></span>
+<span class="codeline" id="line-108"><code>	<span class="comment">// untyped types</span></code></span>
+<span class="codeline" id="line-109"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-46" class="ident">UntypedBool</a>],</code></span>
+<span class="codeline" id="line-110"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-47" class="ident">UntypedInt</a>],</code></span>
+<span class="codeline" id="line-111"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-48" class="ident">UntypedRune</a>],</code></span>
+<span class="codeline" id="line-112"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-49" class="ident">UntypedFloat</a>],</code></span>
+<span class="codeline" id="line-113"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-50" class="ident">UntypedComplex</a>],</code></span>
+<span class="codeline" id="line-114"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-51" class="ident">UntypedString</a>],</code></span>
+<span class="codeline" id="line-115"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-52" class="ident">UntypedNil</a>],</code></span>
+<span class="codeline" id="line-116"><code></code></span>
+<span class="codeline" id="line-117"><code>	<span class="comment">// package unsafe</span></code></span>
+<span class="codeline" id="line-118"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-43" class="ident">UnsafePointer</a>],</code></span>
+<span class="codeline" id="line-119"><code></code></span>
+<span class="codeline" id="line-120"><code>	<span class="comment">// invalid type</span></code></span>
+<span class="codeline" id="line-121"><code>	<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/universe.go.html#line-36" class="ident">Typ</a>[<a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-23" class="ident">Invalid</a>], <span class="comment">// only appears in packages with errors</span></code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code>	<span class="comment">// used internally by gc; never used by this package or in .a files</span></code></span>
+<span class="codeline" id="line-124"><code>	<a href="support.go.html#line-127" class="ident">anyType</a>{},</code></span>
+<span class="codeline" id="line-125"><code>}</code></span>
+<span class="codeline" id="line-126"><code></code></span>
+<span class="codeline" id="line-127"><code><span class="keyword">type</span> anyType <span class="keyword">struct</span>{}</code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code><span class="keyword">func</span> (<label for="r13" class="ident">t</label> <a href="support.go.html#line-127" class="ident">anyType</a>) <label for="r14" class="ident">Underlying</label>() <a href="../../../../pkg/go/types.html" class="ident i2">types</a>.<a href="../../types/type.go.html#line-11" class="ident">Type</a> { <span class="keyword">return</span> <label for="r13" class="ident">t</label> }</code></span>
+<span class="codeline" id="line-130"><code><span class="keyword">func</span> (<label for="r15" class="ident">t</label> <a href="support.go.html#line-127" class="ident">anyType</a>) <label for="r16" class="ident">String</label>() <a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>         { <span class="keyword">return</span> <span class="lit-string">"any"</span> }</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

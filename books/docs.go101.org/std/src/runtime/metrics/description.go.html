@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: description.go in package runtime/metrics</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	description.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/runtime/metrics.html">runtime/metrics</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0]
+{background: #226; color: #ff8;}
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2020 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> metrics</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">// Description describes a runtime metric.</span></code></span>
+<span class="codeline" id="line-8"><code><span class="keyword">type</span> <a href="../../../pkg/runtime/metrics.html#name-Description" class="ident">Description</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-9"><code>	<span class="comment">// Name is the full name of the metric which includes the unit.</span></code></span>
+<span class="codeline" id="line-10"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">	// The format of the metric may be described by the following regular expression.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">	// 	^(?P&lt;name&gt;/[^:]+):(?P&lt;unit&gt;[^:*/]+(?:[*/][^:*/]+)*)$</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-15"><code><span class="comment">	// The format splits the name into two components, separated by a colon: a path which always</span></code></span>
+<span class="codeline" id="line-16"><code><span class="comment">	// starts with a /, and a machine-parseable unit. The name may contain any valid Unicode</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">	// codepoint in between / characters, but by convention will try to stick to lowercase</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">	// characters and hyphens. An example of such a path might be "/memory/heap/free".</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">	// The unit is by convention a series of lowercase English unit names (singular or plural)</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">	// without prefixes delimited by '*' or '/'. The unit names may contain any valid Unicode</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">	// codepoint that is not a delimiter.</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">	// Examples of units might be "seconds", "bytes", "bytes/second", "cpu-seconds",</span></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">	// "byte*cpu-seconds", and "bytes/second/second".</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">	// For histograms, multiple units may apply. For instance, the units of the buckets and</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">	// the count. By convention, for histograms, the units of the count are always "samples"</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">	// with the type of sample evident by the metric's name, while the unit in the name</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">	// specifies the buckets' unit.</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-31"><code><span class="comment">	// A complete name might look like "/memory/heap/free:bytes".</span></code></span>
+<span class="codeline" id="line-32"><code>	Name <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-33"><code></code></span>
+<span class="codeline" id="line-34"><code>	<span class="comment">// Description is an English language sentence describing the metric.</span></code></span>
+<span class="codeline" id="line-35"><code>	Description <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-36"><code></code></span>
+<span class="codeline" id="line-37"><code>	<span class="comment">// Kind is the kind of value for this metric.</span></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">	// The purpose of this field is to allow users to filter out metrics whose values are</span></code></span>
+<span class="codeline" id="line-40"><code><span class="comment">	// types which their application may not understand.</span></code></span>
+<span class="codeline" id="line-41"><code>	Kind <a href="value.go.html#line-13" class="ident">ValueKind</a></code></span>
+<span class="codeline" id="line-42"><code></code></span>
+<span class="codeline" id="line-43"><code>	<span class="comment">// Cumulative is whether or not the metric is cumulative. If a cumulative metric is just</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">	// a single number, then it increases monotonically. If the metric is a distribution,</span></code></span>
+<span class="codeline" id="line-45"><code><span class="comment">	// then each bucket count increases monotonically.</span></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">	//</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">	// This flag thus indicates whether or not it's useful to compute a rate from this value.</span></code></span>
+<span class="codeline" id="line-48"><code>	Cumulative <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-49"><code>}</code></span>
+<span class="codeline" id="line-50"><code></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// The English language descriptions below must be kept in sync with the</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">// descriptions of each metric in doc.go.</span></code></span>
+<span class="codeline" id="line-53"><code><span class="keyword">var</span> allDesc = []<a href="description.go.html#line-8" class="ident">Description</a>{</code></span>
+<span class="codeline" id="line-54"><code>	{</code></span>
+<span class="codeline" id="line-55"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/cycles/automatic:gc-cycles"</span>,</code></span>
+<span class="codeline" id="line-56"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Count of completed GC cycles generated by the Go runtime."</span>,</code></span>
+<span class="codeline" id="line-57"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-58"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-59"><code>	},</code></span>
+<span class="codeline" id="line-60"><code>	{</code></span>
+<span class="codeline" id="line-61"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/cycles/forced:gc-cycles"</span>,</code></span>
+<span class="codeline" id="line-62"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Count of completed GC cycles forced by the application."</span>,</code></span>
+<span class="codeline" id="line-63"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-64"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-65"><code>	},</code></span>
+<span class="codeline" id="line-66"><code>	{</code></span>
+<span class="codeline" id="line-67"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/cycles/total:gc-cycles"</span>,</code></span>
+<span class="codeline" id="line-68"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Count of all completed GC cycles."</span>,</code></span>
+<span class="codeline" id="line-69"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-70"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-71"><code>	},</code></span>
+<span class="codeline" id="line-72"><code>	{</code></span>
+<span class="codeline" id="line-73"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/heap/allocs-by-size:bytes"</span>,</code></span>
+<span class="codeline" id="line-74"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Distribution of all objects allocated by approximate size."</span>,</code></span>
+<span class="codeline" id="line-75"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-26" class="ident">KindFloat64Histogram</a>,</code></span>
+<span class="codeline" id="line-76"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-77"><code>	},</code></span>
+<span class="codeline" id="line-78"><code>	{</code></span>
+<span class="codeline" id="line-79"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/heap/frees-by-size:bytes"</span>,</code></span>
+<span class="codeline" id="line-80"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Distribution of all objects freed by approximate size."</span>,</code></span>
+<span class="codeline" id="line-81"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-26" class="ident">KindFloat64Histogram</a>,</code></span>
+<span class="codeline" id="line-82"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-83"><code>	},</code></span>
+<span class="codeline" id="line-84"><code>	{</code></span>
+<span class="codeline" id="line-85"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/heap/goal:bytes"</span>,</code></span>
+<span class="codeline" id="line-86"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Heap size target for the end of the GC cycle."</span>,</code></span>
+<span class="codeline" id="line-87"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-88"><code>	},</code></span>
+<span class="codeline" id="line-89"><code>	{</code></span>
+<span class="codeline" id="line-90"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/heap/objects:objects"</span>,</code></span>
+<span class="codeline" id="line-91"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Number of objects, live or unswept, occupying heap memory."</span>,</code></span>
+<span class="codeline" id="line-92"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-93"><code>	},</code></span>
+<span class="codeline" id="line-94"><code>	{</code></span>
+<span class="codeline" id="line-95"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/gc/pauses:seconds"</span>,</code></span>
+<span class="codeline" id="line-96"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Distribution individual GC-related stop-the-world pause latencies."</span>,</code></span>
+<span class="codeline" id="line-97"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-26" class="ident">KindFloat64Histogram</a>,</code></span>
+<span class="codeline" id="line-98"><code>		<a href="description.go.html#line-48" class="ident">Cumulative</a>:  <a href="../../../pkg/builtin.html#name-true" class="ident">true</a>,</code></span>
+<span class="codeline" id="line-99"><code>	},</code></span>
+<span class="codeline" id="line-100"><code>	{</code></span>
+<span class="codeline" id="line-101"><code>		<a href="description.go.html#line-32" class="ident">Name</a>: <span class="lit-string">"/memory/classes/heap/free:bytes"</span>,</code></span>
+<span class="codeline" id="line-102"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is completely free and eligible to be returned to the underlying system, "</span> +</code></span>
+<span class="codeline" id="line-103"><code>			<span class="lit-string">"but has not been. This metric is the runtime's estimate of free address space that is backed by "</span> +</code></span>
+<span class="codeline" id="line-104"><code>			<span class="lit-string">"physical memory."</span>,</code></span>
+<span class="codeline" id="line-105"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>: <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-106"><code>	},</code></span>
+<span class="codeline" id="line-107"><code>	{</code></span>
+<span class="codeline" id="line-108"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/heap/objects:bytes"</span>,</code></span>
+<span class="codeline" id="line-109"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory occupied by live objects and dead objects that have not yet been marked free by the garbage collector."</span>,</code></span>
+<span class="codeline" id="line-110"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-111"><code>	},</code></span>
+<span class="codeline" id="line-112"><code>	{</code></span>
+<span class="codeline" id="line-113"><code>		<a href="description.go.html#line-32" class="ident">Name</a>: <span class="lit-string">"/memory/classes/heap/released:bytes"</span>,</code></span>
+<span class="codeline" id="line-114"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is completely free and has been returned to the underlying system. This "</span> +</code></span>
+<span class="codeline" id="line-115"><code>			<span class="lit-string">"metric is the runtime's estimate of free address space that is still mapped into the process, "</span> +</code></span>
+<span class="codeline" id="line-116"><code>			<span class="lit-string">"but is not backed by physical memory."</span>,</code></span>
+<span class="codeline" id="line-117"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>: <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-118"><code>	},</code></span>
+<span class="codeline" id="line-119"><code>	{</code></span>
+<span class="codeline" id="line-120"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/heap/stacks:bytes"</span>,</code></span>
+<span class="codeline" id="line-121"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory allocated from the heap that is reserved for stack space, whether or not it is currently in-use."</span>,</code></span>
+<span class="codeline" id="line-122"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-123"><code>	},</code></span>
+<span class="codeline" id="line-124"><code>	{</code></span>
+<span class="codeline" id="line-125"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/heap/unused:bytes"</span>,</code></span>
+<span class="codeline" id="line-126"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is reserved for heap objects but is not currently used to hold heap objects."</span>,</code></span>
+<span class="codeline" id="line-127"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-128"><code>	},</code></span>
+<span class="codeline" id="line-129"><code>	{</code></span>
+<span class="codeline" id="line-130"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/metadata/mcache/free:bytes"</span>,</code></span>
+<span class="codeline" id="line-131"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is reserved for runtime mcache structures, but not in-use."</span>,</code></span>
+<span class="codeline" id="line-132"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-133"><code>	},</code></span>
+<span class="codeline" id="line-134"><code>	{</code></span>
+<span class="codeline" id="line-135"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/metadata/mcache/inuse:bytes"</span>,</code></span>
+<span class="codeline" id="line-136"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is occupied by runtime mcache structures that are currently being used."</span>,</code></span>
+<span class="codeline" id="line-137"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-138"><code>	},</code></span>
+<span class="codeline" id="line-139"><code>	{</code></span>
+<span class="codeline" id="line-140"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/metadata/mspan/free:bytes"</span>,</code></span>
+<span class="codeline" id="line-141"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is reserved for runtime mspan structures, but not in-use."</span>,</code></span>
+<span class="codeline" id="line-142"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-143"><code>	},</code></span>
+<span class="codeline" id="line-144"><code>	{</code></span>
+<span class="codeline" id="line-145"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/metadata/mspan/inuse:bytes"</span>,</code></span>
+<span class="codeline" id="line-146"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is occupied by runtime mspan structures that are currently being used."</span>,</code></span>
+<span class="codeline" id="line-147"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-148"><code>	},</code></span>
+<span class="codeline" id="line-149"><code>	{</code></span>
+<span class="codeline" id="line-150"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/metadata/other:bytes"</span>,</code></span>
+<span class="codeline" id="line-151"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is reserved for or used to hold runtime metadata."</span>,</code></span>
+<span class="codeline" id="line-152"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-153"><code>	},</code></span>
+<span class="codeline" id="line-154"><code>	{</code></span>
+<span class="codeline" id="line-155"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/os-stacks:bytes"</span>,</code></span>
+<span class="codeline" id="line-156"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Stack memory allocated by the underlying operating system."</span>,</code></span>
+<span class="codeline" id="line-157"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-158"><code>	},</code></span>
+<span class="codeline" id="line-159"><code>	{</code></span>
+<span class="codeline" id="line-160"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/other:bytes"</span>,</code></span>
+<span class="codeline" id="line-161"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory used by execution trace buffers, structures for debugging the runtime, finalizer and profiler specials, and more."</span>,</code></span>
+<span class="codeline" id="line-162"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-163"><code>	},</code></span>
+<span class="codeline" id="line-164"><code>	{</code></span>
+<span class="codeline" id="line-165"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/profiling/buckets:bytes"</span>,</code></span>
+<span class="codeline" id="line-166"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Memory that is used by the stack trace hash map used for profiling."</span>,</code></span>
+<span class="codeline" id="line-167"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-168"><code>	},</code></span>
+<span class="codeline" id="line-169"><code>	{</code></span>
+<span class="codeline" id="line-170"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/memory/classes/total:bytes"</span>,</code></span>
+<span class="codeline" id="line-171"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"All memory mapped by the Go runtime into the current process as read-write. Note that this does not include memory mapped by code called via cgo or via the syscall package. Sum of all metrics in /memory/classes."</span>,</code></span>
+<span class="codeline" id="line-172"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-173"><code>	},</code></span>
+<span class="codeline" id="line-174"><code>	{</code></span>
+<span class="codeline" id="line-175"><code>		<a href="description.go.html#line-32" class="ident">Name</a>:        <span class="lit-string">"/sched/goroutines:goroutines"</span>,</code></span>
+<span class="codeline" id="line-176"><code>		<a href="description.go.html#line-35" class="ident">Description</a>: <span class="lit-string">"Count of live goroutines."</span>,</code></span>
+<span class="codeline" id="line-177"><code>		<a href="description.go.html#line-41" class="ident">Kind</a>:        <a href="value.go.html#line-20" class="ident">KindUint64</a>,</code></span>
+<span class="codeline" id="line-178"><code>	},</code></span>
+<span class="codeline" id="line-179"><code>}</code></span>
+<span class="codeline" id="line-180"><code></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">// All returns a slice of containing metric descriptions for all supported metrics.</span></code></span>
+<span class="codeline" id="line-182"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/runtime/metrics.html#name-All" class="ident">All</a></label>() []<a href="description.go.html#line-8" class="ident">Description</a> {</code></span>
+<span class="codeline" id="line-183"><code>	<span class="keyword">return</span> <a href="description.go.html#line-53" class="ident">allDesc</a></code></span>
+<span class="codeline" id="line-184"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

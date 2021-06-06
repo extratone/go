@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: type.go in package debug/dwarf</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	type.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/debug/dwarf.html">debug/dwarf</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50],
+input[id=r51]:checked ~pre label[for=r51],
+input[id=r52]:checked ~pre label[for=r52],
+input[id=r53]:checked ~pre label[for=r53],
+input[id=r54]:checked ~pre label[for=r54],
+input[id=r55]:checked ~pre label[for=r55],
+input[id=r56]:checked ~pre label[for=r56],
+input[id=r57]:checked ~pre label[for=r57],
+input[id=r58]:checked ~pre label[for=r58],
+input[id=r59]:checked ~pre label[for=r59],
+input[id=r60]:checked ~pre label[for=r60],
+input[id=r61]:checked ~pre label[for=r61],
+input[id=r62]:checked ~pre label[for=r62],
+input[id=r63]:checked ~pre label[for=r63],
+input[id=r64]:checked ~pre label[for=r64],
+input[id=r65]:checked ~pre label[for=r65],
+input[id=r66]:checked ~pre label[for=r66],
+input[id=r67]:checked ~pre label[for=r67],
+input[id=r68]:checked ~pre label[for=r68],
+input[id=r69]:checked ~pre label[for=r69],
+input[id=r70]:checked ~pre label[for=r70],
+input[id=r71]:checked ~pre label[for=r71],
+input[id=r72]:checked ~pre label[for=r72],
+input[id=r73]:checked ~pre label[for=r73],
+input[id=r74]:checked ~pre label[for=r74],
+input[id=r75]:checked ~pre label[for=r75],
+input[id=r76]:checked ~pre label[for=r76],
+input[id=r77]:checked ~pre label[for=r77],
+input[id=r78]:checked ~pre label[for=r78],
+input[id=r79]:checked ~pre label[for=r79],
+input[id=r80]:checked ~pre label[for=r80],
+input[id=r81]:checked ~pre label[for=r81],
+input[id=r82]:checked ~pre label[for=r82],
+input[id=r83]:checked ~pre label[for=r83],
+input[id=r84]:checked ~pre label[for=r84],
+input[id=r85]:checked ~pre label[for=r85],
+input[id=r86]:checked ~pre label[for=r86],
+input[id=r87]:checked ~pre label[for=r87],
+input[id=r88]:checked ~pre label[for=r88],
+input[id=r89]:checked ~pre label[for=r89],
+input[id=r90]:checked ~pre label[for=r90],
+input[id=r91]:checked ~pre label[for=r91],
+input[id=r92]:checked ~pre label[for=r92],
+input[id=r93]:checked ~pre label[for=r93],
+input[id=r94]:checked ~pre label[for=r94],
+input[id=r95]:checked ~pre label[for=r95],
+input[id=r96]:checked ~pre label[for=r96],
+input[id=r97]:checked ~pre label[for=r97],
+input[id=r98]:checked ~pre label[for=r98],
+input[id=r99]:checked ~pre label[for=r99],
+input[id=r100]:checked ~pre label[for=r100],
+input[id=r101]:checked ~pre label[for=r101],
+input[id=r102]:checked ~pre label[for=r102],
+input[id=r103]:checked ~pre label[for=r103],
+input[id=r104]:checked ~pre label[for=r104],
+input[id=r105]:checked ~pre label[for=r105],
+input[id=r106]:checked ~pre label[for=r106],
+input[id=r107]:checked ~pre label[for=r107],
+input[id=r108]:checked ~pre label[for=r108],
+input[id=r109]:checked ~pre label[for=r109],
+input[id=r110]:checked ~pre label[for=r110],
+input[id=r111]:checked ~pre label[for=r111],
+input[id=r112]:checked ~pre label[for=r112],
+input[id=r113]:checked ~pre label[for=r113],
+input[id=r114]:checked ~pre label[for=r114],
+input[id=r115]:checked ~pre label[for=r115],
+input[id=r116]:checked ~pre label[for=r116],
+input[id=r117]:checked ~pre label[for=r117],
+input[id=r118]:checked ~pre label[for=r118],
+input[id=r119]:checked ~pre label[for=r119],
+input[id=r120]:checked ~pre label[for=r120],
+input[id=r121]:checked ~pre label[for=r121]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="r51" type="radio" name="g"/>
+<input id="r52" type="radio" name="g"/>
+<input id="r53" type="radio" name="g"/>
+<input id="r54" type="radio" name="g"/>
+<input id="r55" type="radio" name="g"/>
+<input id="r56" type="radio" name="g"/>
+<input id="r57" type="radio" name="g"/>
+<input id="r58" type="radio" name="g"/>
+<input id="r59" type="radio" name="g"/>
+<input id="r60" type="radio" name="g"/>
+<input id="r61" type="radio" name="g"/>
+<input id="r62" type="radio" name="g"/>
+<input id="r63" type="radio" name="g"/>
+<input id="r64" type="radio" name="g"/>
+<input id="r65" type="radio" name="g"/>
+<input id="r66" type="radio" name="g"/>
+<input id="r67" type="radio" name="g"/>
+<input id="r68" type="radio" name="g"/>
+<input id="r69" type="radio" name="g"/>
+<input id="r70" type="radio" name="g"/>
+<input id="r71" type="radio" name="g"/>
+<input id="r72" type="radio" name="g"/>
+<input id="r73" type="radio" name="g"/>
+<input id="r74" type="radio" name="g"/>
+<input id="r75" type="radio" name="g"/>
+<input id="r76" type="radio" name="g"/>
+<input id="r77" type="radio" name="g"/>
+<input id="r78" type="radio" name="g"/>
+<input id="r79" type="radio" name="g"/>
+<input id="r80" type="radio" name="g"/>
+<input id="r81" type="radio" name="g"/>
+<input id="r82" type="radio" name="g"/>
+<input id="r83" type="radio" name="g"/>
+<input id="r84" type="radio" name="g"/>
+<input id="r85" type="radio" name="g"/>
+<input id="r86" type="radio" name="g"/>
+<input id="r87" type="radio" name="g"/>
+<input id="r88" type="radio" name="g"/>
+<input id="r89" type="radio" name="g"/>
+<input id="r90" type="radio" name="g"/>
+<input id="r91" type="radio" name="g"/>
+<input id="r92" type="radio" name="g"/>
+<input id="r93" type="radio" name="g"/>
+<input id="r94" type="radio" name="g"/>
+<input id="r95" type="radio" name="g"/>
+<input id="r96" type="radio" name="g"/>
+<input id="r97" type="radio" name="g"/>
+<input id="r98" type="radio" name="g"/>
+<input id="r99" type="radio" name="g"/>
+<input id="r100" type="radio" name="g"/>
+<input id="r101" type="radio" name="g"/>
+<input id="r102" type="radio" name="g"/>
+<input id="r103" type="radio" name="g"/>
+<input id="r104" type="radio" name="g"/>
+<input id="r105" type="radio" name="g"/>
+<input id="r106" type="radio" name="g"/>
+<input id="r107" type="radio" name="g"/>
+<input id="r108" type="radio" name="g"/>
+<input id="r109" type="radio" name="g"/>
+<input id="r110" type="radio" name="g"/>
+<input id="r111" type="radio" name="g"/>
+<input id="r112" type="radio" name="g"/>
+<input id="r113" type="radio" name="g"/>
+<input id="r114" type="radio" name="g"/>
+<input id="r115" type="radio" name="g"/>
+<input id="r116" type="radio" name="g"/>
+<input id="r117" type="radio" name="g"/>
+<input id="r118" type="radio" name="g"/>
+<input id="r119" type="radio" name="g"/>
+<input id="r120" type="radio" name="g"/>
+<input id="r121" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2009 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// DWARF type information structures.</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment">// The format is heavily biased toward C, but for simplicity</span></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">// the String methods use a pseudo-Go syntax.</span></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">package</span> dwarf</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="keyword">import</span> <label for="i0"><span class="lit-string i0">"strconv"</span></label></code></span>
+<span class="codeline" id="line-12"><code></code></span>
+<span class="codeline" id="line-13"><code><span class="comment">// A Type conventionally represents a pointer to any of the</span></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// specific Type structures (CharType, StructType, etc.).</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-Type" class="ident">Type</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-16"><code>	<a href="https://docs.go101.org/std/imp/debug/dwarf.Type.html#name-Common" class="ident">Common</a>() *<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-17"><code>	<a href="https://docs.go101.org/std/imp/debug/dwarf.Type.html#name-String" class="ident">String</a>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-18"><code>	<a href="https://docs.go101.org/std/imp/debug/dwarf.Type.html#name-Size" class="ident">Size</a>() <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-19"><code>}</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// A CommonType holds fields common to multiple types.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">// If a field is not known or not applicable for a given type,</span></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// the zero value is used.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-CommonType" class="ident">CommonType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-25"><code>	ByteSize <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>  <span class="comment">// size of value of this type, in bytes</span></code></span>
+<span class="codeline" id="line-26"><code>	Name     <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// name that can be used to refer to type</span></code></span>
+<span class="codeline" id="line-27"><code>}</code></span>
+<span class="codeline" id="line-28"><code></code></span>
+<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r0" class="ident">c</label> *<a href="type.go.html#line-24" class="ident">CommonType</a>) <label for="r1" class="ident">Common</label>() *<a href="type.go.html#line-24" class="ident">CommonType</a> { <span class="keyword">return</span> <label for="r0" class="ident">c</label> }</code></span>
+<span class="codeline" id="line-30"><code></code></span>
+<span class="codeline" id="line-31"><code><span class="keyword">func</span> (<label for="r2" class="ident">c</label> *<a href="type.go.html#line-24" class="ident">CommonType</a>) <label for="r3" class="ident">Size</label>() <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> { <span class="keyword">return</span> <label for="r2" class="ident">c</label>.<a href="type.go.html#line-25" class="ident">ByteSize</a> }</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="comment">// Basic types</span></code></span>
+<span class="codeline" id="line-34"><code></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">// A BasicType holds fields common to all basic types.</span></code></span>
+<span class="codeline" id="line-36"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-BasicType" class="ident">BasicType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-37"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-38"><code>	BitSize   <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-39"><code>	BitOffset <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-40"><code>}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code><span class="keyword">func</span> (<label for="r4" class="ident">b</label> *<a href="type.go.html#line-36" class="ident">BasicType</a>) <label for="r5" class="ident">Basic</label>() *<a href="type.go.html#line-36" class="ident">BasicType</a> { <span class="keyword">return</span> <label for="r4" class="ident">b</label> }</code></span>
+<span class="codeline" id="line-43"><code></code></span>
+<span class="codeline" id="line-44"><code><span class="keyword">func</span> (<label for="r6" class="ident">t</label> *<a href="type.go.html#line-36" class="ident">BasicType</a>) <label for="r7" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-45"><code>	<span class="keyword">if</span> <label for="r6" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-46"><code>		<span class="keyword">return</span> <label for="r6" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a></code></span>
+<span class="codeline" id="line-47"><code>	}</code></span>
+<span class="codeline" id="line-48"><code>	<span class="keyword">return</span> <span class="lit-string">"?"</span></code></span>
+<span class="codeline" id="line-49"><code>}</code></span>
+<span class="codeline" id="line-50"><code></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// A CharType represents a signed character type.</span></code></span>
+<span class="codeline" id="line-52"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-CharType" class="ident">CharType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-53"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-54"><code>}</code></span>
+<span class="codeline" id="line-55"><code></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">// A UcharType represents an unsigned character type.</span></code></span>
+<span class="codeline" id="line-57"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-UcharType" class="ident">UcharType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-58"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-59"><code>}</code></span>
+<span class="codeline" id="line-60"><code></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">// An IntType represents a signed integer type.</span></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-IntType" class="ident">IntType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-63"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-64"><code>}</code></span>
+<span class="codeline" id="line-65"><code></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">// A UintType represents an unsigned integer type.</span></code></span>
+<span class="codeline" id="line-67"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-UintType" class="ident">UintType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-68"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-69"><code>}</code></span>
+<span class="codeline" id="line-70"><code></code></span>
+<span class="codeline" id="line-71"><code><span class="comment">// A FloatType represents a floating point type.</span></code></span>
+<span class="codeline" id="line-72"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-FloatType" class="ident">FloatType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-73"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-74"><code>}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// A ComplexType represents a complex floating point type.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-ComplexType" class="ident">ComplexType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-78"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-79"><code>}</code></span>
+<span class="codeline" id="line-80"><code></code></span>
+<span class="codeline" id="line-81"><code><span class="comment">// A BoolType represents a boolean type.</span></code></span>
+<span class="codeline" id="line-82"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-BoolType" class="ident">BoolType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-83"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-84"><code>}</code></span>
+<span class="codeline" id="line-85"><code></code></span>
+<span class="codeline" id="line-86"><code><span class="comment">// An AddrType represents a machine address type.</span></code></span>
+<span class="codeline" id="line-87"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-AddrType" class="ident">AddrType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-88"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-89"><code>}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code><span class="comment">// An UnspecifiedType represents an implicit, unknown, ambiguous or nonexistent type.</span></code></span>
+<span class="codeline" id="line-92"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-UnspecifiedType" class="ident">UnspecifiedType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-93"><code>	<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-94"><code>}</code></span>
+<span class="codeline" id="line-95"><code></code></span>
+<span class="codeline" id="line-96"><code><span class="comment">// qualifiers</span></code></span>
+<span class="codeline" id="line-97"><code></code></span>
+<span class="codeline" id="line-98"><code><span class="comment">// A QualType represents a type that has the C/C++ "const", "restrict", or "volatile" qualifier.</span></code></span>
+<span class="codeline" id="line-99"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-QualType" class="ident">QualType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-100"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-101"><code>	Qual <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-102"><code>	Type <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-103"><code>}</code></span>
+<span class="codeline" id="line-104"><code></code></span>
+<span class="codeline" id="line-105"><code><span class="keyword">func</span> (<label for="r8" class="ident">t</label> *<a href="type.go.html#line-99" class="ident">QualType</a>) <label for="r9" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> { <span class="keyword">return</span> <label for="r8" class="ident">t</label>.<a href="type.go.html#line-101" class="ident">Qual</a> + <span class="lit-string">" "</span> + <label for="r8" class="ident">t</label>.<a href="type.go.html#line-102" class="ident">Type</a>.<a href="type.go.html#line-17" class="ident">String</a>() }</code></span>
+<span class="codeline" id="line-106"><code></code></span>
+<span class="codeline" id="line-107"><code><span class="keyword">func</span> (<label for="r10" class="ident">t</label> *<a href="type.go.html#line-99" class="ident">QualType</a>) <label for="r11" class="ident">Size</label>() <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> { <span class="keyword">return</span> <label for="r10" class="ident">t</label>.<a href="type.go.html#line-102" class="ident">Type</a>.<a href="type.go.html#line-18" class="ident">Size</a>() }</code></span>
+<span class="codeline" id="line-108"><code></code></span>
+<span class="codeline" id="line-109"><code><span class="comment">// An ArrayType represents a fixed size array type.</span></code></span>
+<span class="codeline" id="line-110"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-ArrayType" class="ident">ArrayType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-111"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-112"><code>	Type          <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-113"><code>	StrideBitSize <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> <span class="comment">// if &gt; 0, number of bits to hold each element</span></code></span>
+<span class="codeline" id="line-114"><code>	Count         <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> <span class="comment">// if == -1, an incomplete array, like char x[].</span></code></span>
+<span class="codeline" id="line-115"><code>}</code></span>
+<span class="codeline" id="line-116"><code></code></span>
+<span class="codeline" id="line-117"><code><span class="keyword">func</span> (<label for="r12" class="ident">t</label> *<a href="type.go.html#line-110" class="ident">ArrayType</a>) <label for="r13" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-118"><code>	<span class="keyword">return</span> <span class="lit-string">"["</span> + <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/itoa.go.html#line-25" class="ident">FormatInt</a>(<label for="r12" class="ident">t</label>.<a href="type.go.html#line-114" class="ident">Count</a>, <span class="lit-number">10</span>) + <span class="lit-string">"]"</span> + <label for="r12" class="ident">t</label>.<a href="type.go.html#line-112" class="ident">Type</a>.<a href="type.go.html#line-17" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-119"><code>}</code></span>
+<span class="codeline" id="line-120"><code></code></span>
+<span class="codeline" id="line-121"><code><span class="keyword">func</span> (<label for="r14" class="ident">t</label> *<a href="type.go.html#line-110" class="ident">ArrayType</a>) <label for="r15" class="ident">Size</label>() <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> {</code></span>
+<span class="codeline" id="line-122"><code>	<span class="keyword">if</span> <label for="r14" class="ident">t</label>.<a href="type.go.html#line-114" class="ident">Count</a> == -<span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-123"><code>		<span class="keyword">return</span> <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-124"><code>	}</code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">return</span> <label for="r14" class="ident">t</label>.<a href="type.go.html#line-114" class="ident">Count</a> * <label for="r14" class="ident">t</label>.<a href="type.go.html#line-112" class="ident">Type</a>.<a href="type.go.html#line-18" class="ident">Size</a>()</code></span>
+<span class="codeline" id="line-126"><code>}</code></span>
+<span class="codeline" id="line-127"><code></code></span>
+<span class="codeline" id="line-128"><code><span class="comment">// A VoidType represents the C void type.</span></code></span>
+<span class="codeline" id="line-129"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-VoidType" class="ident">VoidType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-130"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-131"><code>}</code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code><span class="keyword">func</span> (<label for="r16" class="ident">t</label> *<a href="type.go.html#line-129" class="ident">VoidType</a>) <label for="r17" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> { <span class="keyword">return</span> <span class="lit-string">"void"</span> }</code></span>
+<span class="codeline" id="line-134"><code></code></span>
+<span class="codeline" id="line-135"><code><span class="comment">// A PtrType represents a pointer type.</span></code></span>
+<span class="codeline" id="line-136"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-PtrType" class="ident">PtrType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-137"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-138"><code>	Type <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-139"><code>}</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code><span class="keyword">func</span> (<label for="r18" class="ident">t</label> *<a href="type.go.html#line-136" class="ident">PtrType</a>) <label for="r19" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> { <span class="keyword">return</span> <span class="lit-string">"*"</span> + <label for="r18" class="ident">t</label>.<a href="type.go.html#line-138" class="ident">Type</a>.<a href="type.go.html#line-17" class="ident">String</a>() }</code></span>
+<span class="codeline" id="line-142"><code></code></span>
+<span class="codeline" id="line-143"><code><span class="comment">// A StructType represents a struct, union, or C++ class type.</span></code></span>
+<span class="codeline" id="line-144"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-StructType" class="ident">StructType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-145"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-146"><code>	StructName <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-147"><code>	Kind       <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// "struct", "union", or "class".</span></code></span>
+<span class="codeline" id="line-148"><code>	Field      []*<a href="type.go.html#line-153" class="ident">StructField</a></code></span>
+<span class="codeline" id="line-149"><code>	Incomplete <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> <span class="comment">// if true, struct, union, class is declared but not defined</span></code></span>
+<span class="codeline" id="line-150"><code>}</code></span>
+<span class="codeline" id="line-151"><code></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">// A StructField represents a field in a struct, union, or C++ class type.</span></code></span>
+<span class="codeline" id="line-153"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-StructField" class="ident">StructField</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-154"><code>	Name       <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-155"><code>	Type       <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-156"><code>	ByteOffset <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-157"><code>	ByteSize   <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> <span class="comment">// usually zero; use Type.Size() for normal fields</span></code></span>
+<span class="codeline" id="line-158"><code>	BitOffset  <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> <span class="comment">// within the ByteSize bytes at ByteOffset</span></code></span>
+<span class="codeline" id="line-159"><code>	BitSize    <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> <span class="comment">// zero if not a bit field</span></code></span>
+<span class="codeline" id="line-160"><code>}</code></span>
+<span class="codeline" id="line-161"><code></code></span>
+<span class="codeline" id="line-162"><code><span class="keyword">func</span> (<label for="r20" class="ident">t</label> *<a href="type.go.html#line-144" class="ident">StructType</a>) <label for="r21" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-163"><code>	<span class="keyword">if</span> <label for="r20" class="ident">t</label>.<a href="type.go.html#line-146" class="ident">StructName</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-164"><code>		<span class="keyword">return</span> <label for="r20" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> + <span class="lit-string">" "</span> + <label for="r20" class="ident">t</label>.<a href="type.go.html#line-146" class="ident">StructName</a></code></span>
+<span class="codeline" id="line-165"><code>	}</code></span>
+<span class="codeline" id="line-166"><code>	<span class="keyword">return</span> <label for="r20" class="ident">t</label>.<a href="type.go.html#line-169" class="ident">Defn</a>()</code></span>
+<span class="codeline" id="line-167"><code>}</code></span>
+<span class="codeline" id="line-168"><code></code></span>
+<span class="codeline" id="line-169"><code><span class="keyword">func</span> (<label for="r22" class="ident">t</label> *<a href="type.go.html#line-144" class="ident">StructType</a>) <label for="r23" class="ident">Defn</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-170"><code>	<label for="r24" class="ident">s</label> := <label for="r22" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a></code></span>
+<span class="codeline" id="line-171"><code>	<span class="keyword">if</span> <label for="r22" class="ident">t</label>.<a href="type.go.html#line-146" class="ident">StructName</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-172"><code>		<label for="r24" class="ident">s</label> += <span class="lit-string">" "</span> + <label for="r22" class="ident">t</label>.<a href="type.go.html#line-146" class="ident">StructName</a></code></span>
+<span class="codeline" id="line-173"><code>	}</code></span>
+<span class="codeline" id="line-174"><code>	<span class="keyword">if</span> <label for="r22" class="ident">t</label>.<a href="type.go.html#line-149" class="ident">Incomplete</a> {</code></span>
+<span class="codeline" id="line-175"><code>		<label for="r24" class="ident">s</label> += <span class="lit-string">" /*incomplete*/"</span></code></span>
+<span class="codeline" id="line-176"><code>		<span class="keyword">return</span> <label for="r24" class="ident">s</label></code></span>
+<span class="codeline" id="line-177"><code>	}</code></span>
+<span class="codeline" id="line-178"><code>	<label for="r24" class="ident">s</label> += <span class="lit-string">" {"</span></code></span>
+<span class="codeline" id="line-179"><code>	<span class="keyword">for</span> <label for="r25" class="ident">i</label>, <label for="r26" class="ident">f</label> := <span class="keyword">range</span> <label for="r22" class="ident">t</label>.<a href="type.go.html#line-148" class="ident">Field</a> {</code></span>
+<span class="codeline" id="line-180"><code>		<span class="keyword">if</span> <label for="r25" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-181"><code>			<label for="r24" class="ident">s</label> += <span class="lit-string">"; "</span></code></span>
+<span class="codeline" id="line-182"><code>		}</code></span>
+<span class="codeline" id="line-183"><code>		<label for="r24" class="ident">s</label> += <label for="r26" class="ident">f</label>.<a href="type.go.html#line-154" class="ident">Name</a> + <span class="lit-string">" "</span> + <label for="r26" class="ident">f</label>.<a href="type.go.html#line-155" class="ident">Type</a>.<a href="type.go.html#line-17" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-184"><code>		<label for="r24" class="ident">s</label> += <span class="lit-string">"@"</span> + <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/itoa.go.html#line-25" class="ident">FormatInt</a>(<label for="r26" class="ident">f</label>.<a href="type.go.html#line-156" class="ident">ByteOffset</a>, <span class="lit-number">10</span>)</code></span>
+<span class="codeline" id="line-185"><code>		<span class="keyword">if</span> <label for="r26" class="ident">f</label>.<a href="type.go.html#line-159" class="ident">BitSize</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-186"><code>			<label for="r24" class="ident">s</label> += <span class="lit-string">" : "</span> + <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/itoa.go.html#line-25" class="ident">FormatInt</a>(<label for="r26" class="ident">f</label>.<a href="type.go.html#line-159" class="ident">BitSize</a>, <span class="lit-number">10</span>)</code></span>
+<span class="codeline" id="line-187"><code>			<label for="r24" class="ident">s</label> += <span class="lit-string">"@"</span> + <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/itoa.go.html#line-25" class="ident">FormatInt</a>(<label for="r26" class="ident">f</label>.<a href="type.go.html#line-158" class="ident">BitOffset</a>, <span class="lit-number">10</span>)</code></span>
+<span class="codeline" id="line-188"><code>		}</code></span>
+<span class="codeline" id="line-189"><code>	}</code></span>
+<span class="codeline" id="line-190"><code>	<label for="r24" class="ident">s</label> += <span class="lit-string">"}"</span></code></span>
+<span class="codeline" id="line-191"><code>	<span class="keyword">return</span> <label for="r24" class="ident">s</label></code></span>
+<span class="codeline" id="line-192"><code>}</code></span>
+<span class="codeline" id="line-193"><code></code></span>
+<span class="codeline" id="line-194"><code><span class="comment">// An EnumType represents an enumerated type.</span></code></span>
+<span class="codeline" id="line-195"><code><span class="comment">// The only indication of its native integer type is its ByteSize</span></code></span>
+<span class="codeline" id="line-196"><code><span class="comment">// (inside CommonType).</span></code></span>
+<span class="codeline" id="line-197"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-EnumType" class="ident">EnumType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-198"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-199"><code>	EnumName <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-200"><code>	Val      []*<a href="type.go.html#line-204" class="ident">EnumValue</a></code></span>
+<span class="codeline" id="line-201"><code>}</code></span>
+<span class="codeline" id="line-202"><code></code></span>
+<span class="codeline" id="line-203"><code><span class="comment">// An EnumValue represents a single enumeration value.</span></code></span>
+<span class="codeline" id="line-204"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-EnumValue" class="ident">EnumValue</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-205"><code>	Name <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-206"><code>	Val  <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-207"><code>}</code></span>
+<span class="codeline" id="line-208"><code></code></span>
+<span class="codeline" id="line-209"><code><span class="keyword">func</span> (<label for="r27" class="ident">t</label> *<a href="type.go.html#line-197" class="ident">EnumType</a>) <label for="r28" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-210"><code>	<label for="r29" class="ident">s</label> := <span class="lit-string">"enum"</span></code></span>
+<span class="codeline" id="line-211"><code>	<span class="keyword">if</span> <label for="r27" class="ident">t</label>.<a href="type.go.html#line-199" class="ident">EnumName</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-212"><code>		<label for="r29" class="ident">s</label> += <span class="lit-string">" "</span> + <label for="r27" class="ident">t</label>.<a href="type.go.html#line-199" class="ident">EnumName</a></code></span>
+<span class="codeline" id="line-213"><code>	}</code></span>
+<span class="codeline" id="line-214"><code>	<label for="r29" class="ident">s</label> += <span class="lit-string">" {"</span></code></span>
+<span class="codeline" id="line-215"><code>	<span class="keyword">for</span> <label for="r30" class="ident">i</label>, <label for="r31" class="ident">v</label> := <span class="keyword">range</span> <label for="r27" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a> {</code></span>
+<span class="codeline" id="line-216"><code>		<span class="keyword">if</span> <label for="r30" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-217"><code>			<label for="r29" class="ident">s</label> += <span class="lit-string">"; "</span></code></span>
+<span class="codeline" id="line-218"><code>		}</code></span>
+<span class="codeline" id="line-219"><code>		<label for="r29" class="ident">s</label> += <label for="r31" class="ident">v</label>.<a href="type.go.html#line-205" class="ident">Name</a> + <span class="lit-string">"="</span> + <a href="../../../pkg/strconv.html" class="ident i0">strconv</a>.<a href="../../strconv/itoa.go.html#line-25" class="ident">FormatInt</a>(<label for="r31" class="ident">v</label>.<a href="type.go.html#line-206" class="ident">Val</a>, <span class="lit-number">10</span>)</code></span>
+<span class="codeline" id="line-220"><code>	}</code></span>
+<span class="codeline" id="line-221"><code>	<label for="r29" class="ident">s</label> += <span class="lit-string">"}"</span></code></span>
+<span class="codeline" id="line-222"><code>	<span class="keyword">return</span> <label for="r29" class="ident">s</label></code></span>
+<span class="codeline" id="line-223"><code>}</code></span>
+<span class="codeline" id="line-224"><code></code></span>
+<span class="codeline" id="line-225"><code><span class="comment">// A FuncType represents a function type.</span></code></span>
+<span class="codeline" id="line-226"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-FuncType" class="ident">FuncType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-227"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-228"><code>	ReturnType <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-229"><code>	ParamType  []<a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-230"><code>}</code></span>
+<span class="codeline" id="line-231"><code></code></span>
+<span class="codeline" id="line-232"><code><span class="keyword">func</span> (<label for="r32" class="ident">t</label> *<a href="type.go.html#line-226" class="ident">FuncType</a>) <label for="r33" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-233"><code>	<label for="r34" class="ident">s</label> := <span class="lit-string">"func("</span></code></span>
+<span class="codeline" id="line-234"><code>	<span class="keyword">for</span> <label for="r35" class="ident">i</label>, <label for="r36" class="ident">t</label> := <span class="keyword">range</span> <label for="r32" class="ident">t</label>.<a href="type.go.html#line-229" class="ident">ParamType</a> {</code></span>
+<span class="codeline" id="line-235"><code>		<span class="keyword">if</span> <label for="r35" class="ident">i</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-236"><code>			<label for="r34" class="ident">s</label> += <span class="lit-string">", "</span></code></span>
+<span class="codeline" id="line-237"><code>		}</code></span>
+<span class="codeline" id="line-238"><code>		<label for="r34" class="ident">s</label> += <label for="r36" class="ident">t</label>.<a href="type.go.html#line-17" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-239"><code>	}</code></span>
+<span class="codeline" id="line-240"><code>	<label for="r34" class="ident">s</label> += <span class="lit-string">")"</span></code></span>
+<span class="codeline" id="line-241"><code>	<span class="keyword">if</span> <label for="r32" class="ident">t</label>.<a href="type.go.html#line-228" class="ident">ReturnType</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-242"><code>		<label for="r34" class="ident">s</label> += <span class="lit-string">" "</span> + <label for="r32" class="ident">t</label>.<a href="type.go.html#line-228" class="ident">ReturnType</a>.<a href="type.go.html#line-17" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-243"><code>	}</code></span>
+<span class="codeline" id="line-244"><code>	<span class="keyword">return</span> <label for="r34" class="ident">s</label></code></span>
+<span class="codeline" id="line-245"><code>}</code></span>
+<span class="codeline" id="line-246"><code></code></span>
+<span class="codeline" id="line-247"><code><span class="comment">// A DotDotDotType represents the variadic ... function parameter.</span></code></span>
+<span class="codeline" id="line-248"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-DotDotDotType" class="ident">DotDotDotType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-249"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-250"><code>}</code></span>
+<span class="codeline" id="line-251"><code></code></span>
+<span class="codeline" id="line-252"><code><span class="keyword">func</span> (<label for="r37" class="ident">t</label> *<a href="type.go.html#line-248" class="ident">DotDotDotType</a>) <label for="r38" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> { <span class="keyword">return</span> <span class="lit-string">"..."</span> }</code></span>
+<span class="codeline" id="line-253"><code></code></span>
+<span class="codeline" id="line-254"><code><span class="comment">// A TypedefType represents a named type.</span></code></span>
+<span class="codeline" id="line-255"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-TypedefType" class="ident">TypedefType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-256"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-257"><code>	Type <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-258"><code>}</code></span>
+<span class="codeline" id="line-259"><code></code></span>
+<span class="codeline" id="line-260"><code><span class="keyword">func</span> (<label for="r39" class="ident">t</label> *<a href="type.go.html#line-255" class="ident">TypedefType</a>) <label for="r40" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> { <span class="keyword">return</span> <label for="r39" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a> }</code></span>
+<span class="codeline" id="line-261"><code></code></span>
+<span class="codeline" id="line-262"><code><span class="keyword">func</span> (<label for="r41" class="ident">t</label> *<a href="type.go.html#line-255" class="ident">TypedefType</a>) <label for="r42" class="ident">Size</label>() <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a> { <span class="keyword">return</span> <label for="r41" class="ident">t</label>.<a href="type.go.html#line-257" class="ident">Type</a>.<a href="type.go.html#line-18" class="ident">Size</a>() }</code></span>
+<span class="codeline" id="line-263"><code></code></span>
+<span class="codeline" id="line-264"><code><span class="comment">// An UnsupportedType is a placeholder returned in situations where we</span></code></span>
+<span class="codeline" id="line-265"><code><span class="comment">// encounter a type that isn't supported.</span></code></span>
+<span class="codeline" id="line-266"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-UnsupportedType" class="ident">UnsupportedType</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-267"><code>	<a href="type.go.html#line-24" class="ident">CommonType</a></code></span>
+<span class="codeline" id="line-268"><code>	Tag <a href="const.go.html#line-207" class="ident">Tag</a></code></span>
+<span class="codeline" id="line-269"><code>}</code></span>
+<span class="codeline" id="line-270"><code></code></span>
+<span class="codeline" id="line-271"><code><span class="keyword">func</span> (<label for="r43" class="ident">t</label> *<a href="type.go.html#line-266" class="ident">UnsupportedType</a>) <label for="r44" class="ident">String</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-272"><code>	<span class="keyword">if</span> <label for="r43" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-273"><code>		<span class="keyword">return</span> <label for="r43" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a></code></span>
+<span class="codeline" id="line-274"><code>	}</code></span>
+<span class="codeline" id="line-275"><code>	<span class="keyword">return</span> <label for="r43" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a> + <span class="lit-string">"(unsupported type "</span> + <label for="r43" class="ident">t</label>.<a href="type.go.html#line-268" class="ident">Tag</a>.<a href="tag_string.go.html#line-98" class="ident">String</a>() + <span class="lit-string">")"</span></code></span>
+<span class="codeline" id="line-276"><code>}</code></span>
+<span class="codeline" id="line-277"><code></code></span>
+<span class="codeline" id="line-278"><code><span class="comment">// typeReader is used to read from either the info section or the</span></code></span>
+<span class="codeline" id="line-279"><code><span class="comment">// types section.</span></code></span>
+<span class="codeline" id="line-280"><code><span class="keyword">type</span> typeReader <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-281"><code>	Seek(<a href="entry.go.html#line-405" class="ident">Offset</a>)</code></span>
+<span class="codeline" id="line-282"><code>	Next() (*<a href="entry.go.html#line-232" class="ident">Entry</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>)</code></span>
+<span class="codeline" id="line-283"><code>	clone() <a href="type.go.html#line-280" class="ident">typeReader</a></code></span>
+<span class="codeline" id="line-284"><code>	offset() <a href="entry.go.html#line-405" class="ident">Offset</a></code></span>
+<span class="codeline" id="line-285"><code>	<span class="comment">// AddressSize returns the size in bytes of addresses in the current</span></code></span>
+<span class="codeline" id="line-286"><code><span class="comment">	// compilation unit.</span></code></span>
+<span class="codeline" id="line-287"><code>	AddressSize() <a href="../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-288"><code>}</code></span>
+<span class="codeline" id="line-289"><code></code></span>
+<span class="codeline" id="line-290"><code><span class="comment">// Type reads the type at off in the DWARF ``info'' section.</span></code></span>
+<span class="codeline" id="line-291"><code><span class="keyword">func</span> (<label for="r45" class="ident">d</label> *<a href="open.go.html#line-17" class="ident">Data</a>) <label for="r46" class="ident">Type</label>(<label for="r47" class="ident">off</label> <a href="entry.go.html#line-405" class="ident">Offset</a>) (<a href="type.go.html#line-15" class="ident">Type</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-292"><code>	<span class="keyword">return</span> <label for="r45" class="ident">d</label>.<a href="type.go.html#line-299" class="ident">readType</a>(<span class="lit-string">"info"</span>, <label for="r45" class="ident">d</label>.<a href="entry.go.html#line-761" class="ident">Reader</a>(), <label for="r47" class="ident">off</label>, <label for="r45" class="ident">d</label>.<a href="open.go.html#line-38" class="ident">typeCache</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>)</code></span>
+<span class="codeline" id="line-293"><code>}</code></span>
+<span class="codeline" id="line-294"><code></code></span>
+<span class="codeline" id="line-295"><code><span class="comment">// readType reads a type from r at off of name. It adds types to the</span></code></span>
+<span class="codeline" id="line-296"><code><span class="comment">// type cache, appends new typedef types to typedefs, and computes the</span></code></span>
+<span class="codeline" id="line-297"><code><span class="comment">// sizes of types. Callers should pass nil for typedefs; this is used</span></code></span>
+<span class="codeline" id="line-298"><code><span class="comment">// for internal recursion.</span></code></span>
+<span class="codeline" id="line-299"><code><span class="keyword">func</span> (<label for="r48" class="ident">d</label> *<a href="open.go.html#line-17" class="ident">Data</a>) <label for="r49" class="ident">readType</label>(<label for="r50" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, <label for="r51" class="ident">r</label> <a href="type.go.html#line-280" class="ident">typeReader</a>, <label for="r52" class="ident">off</label> <a href="entry.go.html#line-405" class="ident">Offset</a>, <label for="r53" class="ident">typeCache</label> <span class="keyword">map</span>[<a href="entry.go.html#line-405" class="ident">Offset</a>]<a href="type.go.html#line-15" class="ident">Type</a>, <label for="r54" class="ident">typedefs</label> *[]*<a href="type.go.html#line-255" class="ident">TypedefType</a>) (<a href="type.go.html#line-15" class="ident">Type</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-300"><code>	<span class="keyword">if</span> <label for="r55" class="ident">t</label>, <label for="r56" class="ident">ok</label> := <label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>]; <label for="r56" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-301"><code>		<span class="keyword">return</span> <label for="r55" class="ident">t</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-302"><code>	}</code></span>
+<span class="codeline" id="line-303"><code>	<label for="r51" class="ident">r</label>.<a href="type.go.html#line-281" class="ident">Seek</a>(<label for="r52" class="ident">off</label>)</code></span>
+<span class="codeline" id="line-304"><code>	<label for="r57" class="ident">e</label>, <label for="r58" class="ident">err</label> := <label for="r51" class="ident">r</label>.<a href="type.go.html#line-282" class="ident">Next</a>()</code></span>
+<span class="codeline" id="line-305"><code>	<span class="keyword">if</span> <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-306"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r58" class="ident">err</label></code></span>
+<span class="codeline" id="line-307"><code>	}</code></span>
+<span class="codeline" id="line-308"><code>	<label for="r59" class="ident">addressSize</label> := <label for="r51" class="ident">r</label>.<a href="type.go.html#line-287" class="ident">AddressSize</a>()</code></span>
+<span class="codeline" id="line-309"><code>	<span class="keyword">if</span> <label for="r57" class="ident">e</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> || <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-233" class="ident">Offset</a> != <label for="r52" class="ident">off</label> {</code></span>
+<span class="codeline" id="line-310"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r50" class="ident">name</label>, <label for="r52" class="ident">off</label>, <span class="lit-string">"no type at offset"</span>}</code></span>
+<span class="codeline" id="line-311"><code>	}</code></span>
+<span class="codeline" id="line-312"><code></code></span>
+<span class="codeline" id="line-313"><code>	<span class="comment">// If this is the root of the recursion, prepare to resolve</span></code></span>
+<span class="codeline" id="line-314"><code><span class="comment">	// typedef sizes once the recursion is done. This must be done</span></code></span>
+<span class="codeline" id="line-315"><code><span class="comment">	// after the type graph is constructed because it may need to</span></code></span>
+<span class="codeline" id="line-316"><code><span class="comment">	// resolve cycles in a different order than readType</span></code></span>
+<span class="codeline" id="line-317"><code><span class="comment">	// encounters them.</span></code></span>
+<span class="codeline" id="line-318"><code>	<span class="keyword">if</span> <label for="r54" class="ident">typedefs</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-319"><code>		<span class="keyword">var</span> <label for="r60" class="ident">typedefList</label> []*<a href="type.go.html#line-255" class="ident">TypedefType</a></code></span>
+<span class="codeline" id="line-320"><code>		<span class="keyword">defer</span> <span class="keyword">func</span>() {</code></span>
+<span class="codeline" id="line-321"><code>			<span class="keyword">for</span> <label for="r61" class="ident">_</label>, <label for="r62" class="ident">t</label> := <span class="keyword">range</span> <label for="r60" class="ident">typedefList</label> {</code></span>
+<span class="codeline" id="line-322"><code>				<label for="r62" class="ident">t</label>.<a href="type.go.html#line-29" class="ident">Common</a>().<a href="type.go.html#line-25" class="ident">ByteSize</a> = <label for="r62" class="ident">t</label>.<a href="type.go.html#line-257" class="ident">Type</a>.<a href="type.go.html#line-18" class="ident">Size</a>()</code></span>
+<span class="codeline" id="line-323"><code>			}</code></span>
+<span class="codeline" id="line-324"><code>		}()</code></span>
+<span class="codeline" id="line-325"><code>		<label for="r54" class="ident">typedefs</label> = &amp;<label for="r60" class="ident">typedefList</label></code></span>
+<span class="codeline" id="line-326"><code>	}</code></span>
+<span class="codeline" id="line-327"><code></code></span>
+<span class="codeline" id="line-328"><code>	<span class="comment">// Parse type from Entry.</span></code></span>
+<span class="codeline" id="line-329"><code><span class="comment">	// Must always set typeCache[off] before calling</span></code></span>
+<span class="codeline" id="line-330"><code><span class="comment">	// d.readType recursively, to handle circular types correctly.</span></code></span>
+<span class="codeline" id="line-331"><code>	<span class="keyword">var</span> <label for="r63" class="ident">typ</label> <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-332"><code></code></span>
+<span class="codeline" id="line-333"><code>	<label for="r64" class="ident">nextDepth</label> := <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-334"><code></code></span>
+<span class="codeline" id="line-335"><code>	<span class="comment">// Get next child; set err if error happens.</span></code></span>
+<span class="codeline" id="line-336"><code>	<label for="r65" class="ident">next</label> := <span class="keyword">func</span>() *<a href="entry.go.html#line-232" class="ident">Entry</a> {</code></span>
+<span class="codeline" id="line-337"><code>		<span class="keyword">if</span> !<label for="r57" class="ident">e</label>.<a href="entry.go.html#line-235" class="ident">Children</a> {</code></span>
+<span class="codeline" id="line-338"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-339"><code>		}</code></span>
+<span class="codeline" id="line-340"><code>		<span class="comment">// Only return direct children.</span></code></span>
+<span class="codeline" id="line-341"><code><span class="comment">		// Skip over composite entries that happen to be nested</span></code></span>
+<span class="codeline" id="line-342"><code><span class="comment">		// inside this one. Most DWARF generators wouldn't generate</span></code></span>
+<span class="codeline" id="line-343"><code><span class="comment">		// such a thing, but clang does.</span></code></span>
+<span class="codeline" id="line-344"><code><span class="comment">		// See golang.org/issue/6472.</span></code></span>
+<span class="codeline" id="line-345"><code>		<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-346"><code>			<label for="r66" class="ident">kid</label>, <label for="r67" class="ident">err1</label> := <label for="r51" class="ident">r</label>.<a href="type.go.html#line-282" class="ident">Next</a>()</code></span>
+<span class="codeline" id="line-347"><code>			<span class="keyword">if</span> <label for="r67" class="ident">err1</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-348"><code>				<label for="r58" class="ident">err</label> = <label for="r67" class="ident">err1</label></code></span>
+<span class="codeline" id="line-349"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-350"><code>			}</code></span>
+<span class="codeline" id="line-351"><code>			<span class="keyword">if</span> <label for="r66" class="ident">kid</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-352"><code>				<label for="r58" class="ident">err</label> = <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r50" class="ident">name</label>, <label for="r51" class="ident">r</label>.<a href="type.go.html#line-284" class="ident">offset</a>(), <span class="lit-string">"unexpected end of DWARF entries"</span>}</code></span>
+<span class="codeline" id="line-353"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-354"><code>			}</code></span>
+<span class="codeline" id="line-355"><code>			<span class="keyword">if</span> <label for="r66" class="ident">kid</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-356"><code>				<span class="keyword">if</span> <label for="r64" class="ident">nextDepth</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-357"><code>					<label for="r64" class="ident">nextDepth</label>--</code></span>
+<span class="codeline" id="line-358"><code>					<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-359"><code>				}</code></span>
+<span class="codeline" id="line-360"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-361"><code>			}</code></span>
+<span class="codeline" id="line-362"><code>			<span class="keyword">if</span> <label for="r66" class="ident">kid</label>.<a href="entry.go.html#line-235" class="ident">Children</a> {</code></span>
+<span class="codeline" id="line-363"><code>				<label for="r64" class="ident">nextDepth</label>++</code></span>
+<span class="codeline" id="line-364"><code>			}</code></span>
+<span class="codeline" id="line-365"><code>			<span class="keyword">if</span> <label for="r64" class="ident">nextDepth</label> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-366"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-367"><code>			}</code></span>
+<span class="codeline" id="line-368"><code>			<span class="keyword">return</span> <label for="r66" class="ident">kid</label></code></span>
+<span class="codeline" id="line-369"><code>		}</code></span>
+<span class="codeline" id="line-370"><code>	}</code></span>
+<span class="codeline" id="line-371"><code></code></span>
+<span class="codeline" id="line-372"><code>	<span class="comment">// Get Type referred to by Entry's AttrType field.</span></code></span>
+<span class="codeline" id="line-373"><code><span class="comment">	// Set err if error happens. Not having a type is an error.</span></code></span>
+<span class="codeline" id="line-374"><code>	<label for="r68" class="ident">typeOf</label> := <span class="keyword">func</span>(<label for="r69" class="ident">e</label> *<a href="entry.go.html#line-232" class="ident">Entry</a>) <a href="type.go.html#line-15" class="ident">Type</a> {</code></span>
+<span class="codeline" id="line-375"><code>		<label for="r70" class="ident">tval</label> := <label for="r69" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-69" class="ident">AttrType</a>)</code></span>
+<span class="codeline" id="line-376"><code>		<span class="keyword">var</span> <label for="r71" class="ident">t</label> <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-377"><code>		<span class="keyword">switch</span> toff := <label for="r70" class="ident">tval</label>.(<span class="keyword">type</span>) {</code></span>
+<span class="codeline" id="line-378"><code>		<span class="keyword">case</span> <a href="entry.go.html#line-405" class="ident">Offset</a>:</code></span>
+<span class="codeline" id="line-379"><code>			<span class="keyword">if</span> <label for="r71" class="ident">t</label>, <label for="r58" class="ident">err</label> = <label for="r48" class="ident">d</label>.<label for="r49" class="ident">readType</label>(<label for="r50" class="ident">name</label>, <label for="r51" class="ident">r</label>.<a href="type.go.html#line-283" class="ident">clone</a>(), <label for="r72" class="ident">toff</label>, <label for="r53" class="ident">typeCache</label>, <label for="r54" class="ident">typedefs</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-380"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-381"><code>			}</code></span>
+<span class="codeline" id="line-382"><code>		<span class="keyword">case</span> <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>:</code></span>
+<span class="codeline" id="line-383"><code>			<span class="keyword">if</span> <label for="r71" class="ident">t</label>, <label for="r58" class="ident">err</label> = <label for="r48" class="ident">d</label>.<a href="typeunit.go.html#line-88" class="ident">sigToType</a>(<label for="r73" class="ident">toff</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-384"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-385"><code>			}</code></span>
+<span class="codeline" id="line-386"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-387"><code>			<span class="comment">// It appears that no Type means "void".</span></code></span>
+<span class="codeline" id="line-388"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-129" class="ident">VoidType</a>)</code></span>
+<span class="codeline" id="line-389"><code>		}</code></span>
+<span class="codeline" id="line-390"><code>		<span class="keyword">return</span> <label for="r71" class="ident">t</label></code></span>
+<span class="codeline" id="line-391"><code>	}</code></span>
+<span class="codeline" id="line-392"><code></code></span>
+<span class="codeline" id="line-393"><code>	<span class="keyword">switch</span> <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> {</code></span>
+<span class="codeline" id="line-394"><code>	<span class="keyword">case</span> <a href="const.go.html#line-210" class="ident">TagArrayType</a>:</code></span>
+<span class="codeline" id="line-395"><code>		<span class="comment">// Multi-dimensional array.  (DWARF v2 §5.4)</span></code></span>
+<span class="codeline" id="line-396"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-397"><code><span class="comment">		//	AttrType:subtype [required]</span></code></span>
+<span class="codeline" id="line-398"><code><span class="comment">		//	AttrStrideSize: size in bits of each element of the array</span></code></span>
+<span class="codeline" id="line-399"><code><span class="comment">		//	AttrByteSize: size of entire array</span></code></span>
+<span class="codeline" id="line-400"><code><span class="comment">		// Children:</span></code></span>
+<span class="codeline" id="line-401"><code><span class="comment">		//	TagSubrangeType or TagEnumerationType giving one dimension.</span></code></span>
+<span class="codeline" id="line-402"><code><span class="comment">		//	dimensions are in left to right order.</span></code></span>
+<span class="codeline" id="line-403"><code>		<label for="r74" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-110" class="ident">ArrayType</a>)</code></span>
+<span class="codeline" id="line-404"><code>		<label for="r63" class="ident">typ</label> = <label for="r74" class="ident">t</label></code></span>
+<span class="codeline" id="line-405"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r74" class="ident">t</label></code></span>
+<span class="codeline" id="line-406"><code>		<span class="keyword">if</span> <label for="r74" class="ident">t</label>.<a href="type.go.html#line-112" class="ident">Type</a> = <label for="r68" class="ident">typeOf</label>(<label for="r57" class="ident">e</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-407"><code>			<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-408"><code>		}</code></span>
+<span class="codeline" id="line-409"><code>		<label for="r74" class="ident">t</label>.<a href="type.go.html#line-113" class="ident">StrideBitSize</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-43" class="ident">AttrStrideSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-410"><code></code></span>
+<span class="codeline" id="line-411"><code>		<span class="comment">// Accumulate dimensions,</span></code></span>
+<span class="codeline" id="line-412"><code>		<span class="keyword">var</span> <label for="r76" class="ident">dims</label> []<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-413"><code>		<span class="keyword">for</span> <label for="r77" class="ident">kid</label> := <label for="r65" class="ident">next</label>(); <label for="r77" class="ident">kid</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r77" class="ident">kid</label> = <label for="r65" class="ident">next</label>() {</code></span>
+<span class="codeline" id="line-414"><code>			<span class="comment">// TODO(rsc): Can also be TagEnumerationType</span></code></span>
+<span class="codeline" id="line-415"><code><span class="comment">			// but haven't seen that in the wild yet.</span></code></span>
+<span class="codeline" id="line-416"><code>			<span class="keyword">switch</span> <label for="r77" class="ident">kid</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> {</code></span>
+<span class="codeline" id="line-417"><code>			<span class="keyword">case</span> <a href="const.go.html#line-236" class="ident">TagSubrangeType</a>:</code></span>
+<span class="codeline" id="line-418"><code>				<label for="r78" class="ident">count</label>, <label for="r79" class="ident">ok</label> := <label for="r77" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-51" class="ident">AttrCount</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-419"><code>				<span class="keyword">if</span> !<label for="r79" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-420"><code>					<span class="comment">// Old binaries may have an upper bound instead.</span></code></span>
+<span class="codeline" id="line-421"><code>					<label for="r78" class="ident">count</label>, <label for="r79" class="ident">ok</label> = <label for="r77" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-44" class="ident">AttrUpperBound</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-422"><code>					<span class="keyword">if</span> <label for="r79" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-423"><code>						<label for="r78" class="ident">count</label>++ <span class="comment">// Length is one more than upper bound.</span></code></span>
+<span class="codeline" id="line-424"><code>					} <span class="keyword">else</span> <span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r76" class="ident">dims</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-425"><code>						<label for="r78" class="ident">count</label> = -<span class="lit-number">1</span> <span class="comment">// As in x[].</span></code></span>
+<span class="codeline" id="line-426"><code>					}</code></span>
+<span class="codeline" id="line-427"><code>				}</code></span>
+<span class="codeline" id="line-428"><code>				<label for="r76" class="ident">dims</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r76" class="ident">dims</label>, <label for="r78" class="ident">count</label>)</code></span>
+<span class="codeline" id="line-429"><code>			<span class="keyword">case</span> <a href="const.go.html#line-213" class="ident">TagEnumerationType</a>:</code></span>
+<span class="codeline" id="line-430"><code>				<label for="r58" class="ident">err</label> = <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r50" class="ident">name</label>, <label for="r77" class="ident">kid</label>.<a href="entry.go.html#line-233" class="ident">Offset</a>, <span class="lit-string">"cannot handle enumeration type as array bound"</span>}</code></span>
+<span class="codeline" id="line-431"><code>				<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-432"><code>			}</code></span>
+<span class="codeline" id="line-433"><code>		}</code></span>
+<span class="codeline" id="line-434"><code>		<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r76" class="ident">dims</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-435"><code>			<span class="comment">// LLVM generates this for x[].</span></code></span>
+<span class="codeline" id="line-436"><code>			<label for="r76" class="ident">dims</label> = []<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>{-<span class="lit-number">1</span>}</code></span>
+<span class="codeline" id="line-437"><code>		}</code></span>
+<span class="codeline" id="line-438"><code></code></span>
+<span class="codeline" id="line-439"><code>		<label for="r74" class="ident">t</label>.<a href="type.go.html#line-114" class="ident">Count</a> = <label for="r76" class="ident">dims</label>[<span class="lit-number">0</span>]</code></span>
+<span class="codeline" id="line-440"><code>		<span class="keyword">for</span> <label for="r80" class="ident">i</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r76" class="ident">dims</label>) - <span class="lit-number">1</span>; <label for="r80" class="ident">i</label> &gt;= <span class="lit-number">1</span>; <label for="r80" class="ident">i</label>-- {</code></span>
+<span class="codeline" id="line-441"><code>			<label for="r74" class="ident">t</label>.<a href="type.go.html#line-112" class="ident">Type</a> = &amp;<a href="type.go.html#line-110" class="ident">ArrayType</a>{<a href="type.go.html#line-112" class="ident">Type</a>: <label for="r74" class="ident">t</label>.<a href="type.go.html#line-112" class="ident">Type</a>, <a href="type.go.html#line-114" class="ident">Count</a>: <label for="r76" class="ident">dims</label>[<label for="r80" class="ident">i</label>]}</code></span>
+<span class="codeline" id="line-442"><code>		}</code></span>
+<span class="codeline" id="line-443"><code></code></span>
+<span class="codeline" id="line-444"><code>	<span class="keyword">case</span> <a href="const.go.html#line-239" class="ident">TagBaseType</a>:</code></span>
+<span class="codeline" id="line-445"><code>		<span class="comment">// Basic type.  (DWARF v2 §5.1)</span></code></span>
+<span class="codeline" id="line-446"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-447"><code><span class="comment">		//	AttrName: name of base type in programming language of the compilation unit [required]</span></code></span>
+<span class="codeline" id="line-448"><code><span class="comment">		//	AttrEncoding: encoding value for type (encFloat etc) [required]</span></code></span>
+<span class="codeline" id="line-449"><code><span class="comment">		//	AttrByteSize: size of type in bytes [required]</span></code></span>
+<span class="codeline" id="line-450"><code><span class="comment">		//	AttrBitOffset: for sub-byte types, size in bits</span></code></span>
+<span class="codeline" id="line-451"><code><span class="comment">		//	AttrBitSize: for sub-byte types, bit offset of high order bit in the AttrByteSize bytes</span></code></span>
+<span class="codeline" id="line-452"><code>		<label for="r81" class="ident">name</label>, <label for="r82" class="ident">_</label> := <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-453"><code>		<label for="r83" class="ident">enc</label>, <label for="r84" class="ident">ok</label> := <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-58" class="ident">AttrEncoding</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-454"><code>		<span class="keyword">if</span> !<label for="r84" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-455"><code>			<label for="r58" class="ident">err</label> = <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r81" class="ident">name</label>, <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-233" class="ident">Offset</a>, <span class="lit-string">"missing encoding attribute for "</span> + <label for="r81" class="ident">name</label>}</code></span>
+<span class="codeline" id="line-456"><code>			<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-457"><code>		}</code></span>
+<span class="codeline" id="line-458"><code>		<span class="keyword">switch</span> <label for="r83" class="ident">enc</label> {</code></span>
+<span class="codeline" id="line-459"><code>		<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-460"><code>			<label for="r58" class="ident">err</label> = <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r81" class="ident">name</label>, <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-233" class="ident">Offset</a>, <span class="lit-string">"unrecognized encoding attribute value"</span>}</code></span>
+<span class="codeline" id="line-461"><code>			<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-462"><code></code></span>
+<span class="codeline" id="line-463"><code>		<span class="keyword">case</span> <a href="const.go.html#line-379" class="ident">encAddress</a>:</code></span>
+<span class="codeline" id="line-464"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-87" class="ident">AddrType</a>)</code></span>
+<span class="codeline" id="line-465"><code>		<span class="keyword">case</span> <a href="const.go.html#line-380" class="ident">encBoolean</a>:</code></span>
+<span class="codeline" id="line-466"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-82" class="ident">BoolType</a>)</code></span>
+<span class="codeline" id="line-467"><code>		<span class="keyword">case</span> <a href="const.go.html#line-381" class="ident">encComplexFloat</a>:</code></span>
+<span class="codeline" id="line-468"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-77" class="ident">ComplexType</a>)</code></span>
+<span class="codeline" id="line-469"><code>			<span class="keyword">if</span> <label for="r81" class="ident">name</label> == <span class="lit-string">"complex"</span> {</code></span>
+<span class="codeline" id="line-470"><code>				<span class="comment">// clang writes out 'complex' instead of 'complex float' or 'complex double'.</span></code></span>
+<span class="codeline" id="line-471"><code><span class="comment">				// clang also writes out a byte size that we can use to distinguish.</span></code></span>
+<span class="codeline" id="line-472"><code><span class="comment">				// See issue 8694.</span></code></span>
+<span class="codeline" id="line-473"><code>				<span class="keyword">switch</span> <label for="r85" class="ident">byteSize</label>, <label for="r86" class="ident">_</label> := <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-19" class="ident">AttrByteSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>); <label for="r85" class="ident">byteSize</label> {</code></span>
+<span class="codeline" id="line-474"><code>				<span class="keyword">case</span> <span class="lit-number">8</span>:</code></span>
+<span class="codeline" id="line-475"><code>					<label for="r81" class="ident">name</label> = <span class="lit-string">"complex float"</span></code></span>
+<span class="codeline" id="line-476"><code>				<span class="keyword">case</span> <span class="lit-number">16</span>:</code></span>
+<span class="codeline" id="line-477"><code>					<label for="r81" class="ident">name</label> = <span class="lit-string">"complex double"</span></code></span>
+<span class="codeline" id="line-478"><code>				}</code></span>
+<span class="codeline" id="line-479"><code>			}</code></span>
+<span class="codeline" id="line-480"><code>		<span class="keyword">case</span> <a href="const.go.html#line-382" class="ident">encFloat</a>:</code></span>
+<span class="codeline" id="line-481"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-72" class="ident">FloatType</a>)</code></span>
+<span class="codeline" id="line-482"><code>		<span class="keyword">case</span> <a href="const.go.html#line-383" class="ident">encSigned</a>:</code></span>
+<span class="codeline" id="line-483"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-62" class="ident">IntType</a>)</code></span>
+<span class="codeline" id="line-484"><code>		<span class="keyword">case</span> <a href="const.go.html#line-385" class="ident">encUnsigned</a>:</code></span>
+<span class="codeline" id="line-485"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-67" class="ident">UintType</a>)</code></span>
+<span class="codeline" id="line-486"><code>		<span class="keyword">case</span> <a href="const.go.html#line-384" class="ident">encSignedChar</a>:</code></span>
+<span class="codeline" id="line-487"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-52" class="ident">CharType</a>)</code></span>
+<span class="codeline" id="line-488"><code>		<span class="keyword">case</span> <a href="const.go.html#line-386" class="ident">encUnsignedChar</a>:</code></span>
+<span class="codeline" id="line-489"><code>			<label for="r63" class="ident">typ</label> = <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-57" class="ident">UcharType</a>)</code></span>
+<span class="codeline" id="line-490"><code>		}</code></span>
+<span class="codeline" id="line-491"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r63" class="ident">typ</label></code></span>
+<span class="codeline" id="line-492"><code>		<label for="r87" class="ident">t</label> := <label for="r63" class="ident">typ</label>.(<span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-493"><code>			<label for="r88" class="ident">Basic</label>() *<a href="type.go.html#line-36" class="ident">BasicType</a></code></span>
+<span class="codeline" id="line-494"><code>		}).<label for="r88" class="ident">Basic</label>()</code></span>
+<span class="codeline" id="line-495"><code>		<label for="r87" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a> = <label for="r81" class="ident">name</label></code></span>
+<span class="codeline" id="line-496"><code>		<label for="r87" class="ident">t</label>.<a href="type.go.html#line-38" class="ident">BitSize</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-21" class="ident">AttrBitSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-497"><code>		<label for="r87" class="ident">t</label>.<a href="type.go.html#line-39" class="ident">BitOffset</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-20" class="ident">AttrBitOffset</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-498"><code></code></span>
+<span class="codeline" id="line-499"><code>	<span class="keyword">case</span> <a href="const.go.html#line-211" class="ident">TagClassType</a>, <a href="const.go.html#line-223" class="ident">TagStructType</a>, <a href="const.go.html#line-226" class="ident">TagUnionType</a>:</code></span>
+<span class="codeline" id="line-500"><code>		<span class="comment">// Structure, union, or class type.  (DWARF v2 §5.5)</span></code></span>
+<span class="codeline" id="line-501"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-502"><code><span class="comment">		//	AttrName: name of struct, union, or class</span></code></span>
+<span class="codeline" id="line-503"><code><span class="comment">		//	AttrByteSize: byte size [required]</span></code></span>
+<span class="codeline" id="line-504"><code><span class="comment">		//	AttrDeclaration: if true, struct/union/class is incomplete</span></code></span>
+<span class="codeline" id="line-505"><code><span class="comment">		// Children:</span></code></span>
+<span class="codeline" id="line-506"><code><span class="comment">		//	TagMember to describe one member.</span></code></span>
+<span class="codeline" id="line-507"><code><span class="comment">		//		AttrName: name of member [required]</span></code></span>
+<span class="codeline" id="line-508"><code><span class="comment">		//		AttrType: type of member [required]</span></code></span>
+<span class="codeline" id="line-509"><code><span class="comment">		//		AttrByteSize: size in bytes</span></code></span>
+<span class="codeline" id="line-510"><code><span class="comment">		//		AttrBitOffset: bit offset within bytes for bit fields</span></code></span>
+<span class="codeline" id="line-511"><code><span class="comment">		//		AttrBitSize: bit size for bit fields</span></code></span>
+<span class="codeline" id="line-512"><code><span class="comment">		//		AttrDataMemberLoc: location within struct [required for struct, class]</span></code></span>
+<span class="codeline" id="line-513"><code><span class="comment">		// There is much more to handle C++, all ignored for now.</span></code></span>
+<span class="codeline" id="line-514"><code>		<label for="r89" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-144" class="ident">StructType</a>)</code></span>
+<span class="codeline" id="line-515"><code>		<label for="r63" class="ident">typ</label> = <label for="r89" class="ident">t</label></code></span>
+<span class="codeline" id="line-516"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r89" class="ident">t</label></code></span>
+<span class="codeline" id="line-517"><code>		<span class="keyword">switch</span> <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> {</code></span>
+<span class="codeline" id="line-518"><code>		<span class="keyword">case</span> <a href="const.go.html#line-211" class="ident">TagClassType</a>:</code></span>
+<span class="codeline" id="line-519"><code>			<label for="r89" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> = <span class="lit-string">"class"</span></code></span>
+<span class="codeline" id="line-520"><code>		<span class="keyword">case</span> <a href="const.go.html#line-223" class="ident">TagStructType</a>:</code></span>
+<span class="codeline" id="line-521"><code>			<label for="r89" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> = <span class="lit-string">"struct"</span></code></span>
+<span class="codeline" id="line-522"><code>		<span class="keyword">case</span> <a href="const.go.html#line-226" class="ident">TagUnionType</a>:</code></span>
+<span class="codeline" id="line-523"><code>			<label for="r89" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> = <span class="lit-string">"union"</span></code></span>
+<span class="codeline" id="line-524"><code>		}</code></span>
+<span class="codeline" id="line-525"><code>		<label for="r89" class="ident">t</label>.<a href="type.go.html#line-146" class="ident">StructName</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-526"><code>		<label for="r89" class="ident">t</label>.<a href="type.go.html#line-149" class="ident">Incomplete</a> = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-56" class="ident">AttrDeclaration</a>) != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-527"><code>		<label for="r89" class="ident">t</label>.<a href="type.go.html#line-148" class="ident">Field</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]*<a href="type.go.html#line-153" class="ident">StructField</a>, <span class="lit-number">0</span>, <span class="lit-number">8</span>)</code></span>
+<span class="codeline" id="line-528"><code>		<span class="keyword">var</span> <label for="r90" class="ident">lastFieldType</label> *<a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-529"><code>		<span class="keyword">var</span> <label for="r91" class="ident">lastFieldBitOffset</label> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a></code></span>
+<span class="codeline" id="line-530"><code>		<span class="keyword">for</span> <label for="r92" class="ident">kid</label> := <label for="r65" class="ident">next</label>(); <label for="r92" class="ident">kid</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r92" class="ident">kid</label> = <label for="r65" class="ident">next</label>() {</code></span>
+<span class="codeline" id="line-531"><code>			<span class="keyword">if</span> <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> != <a href="const.go.html#line-218" class="ident">TagMember</a> {</code></span>
+<span class="codeline" id="line-532"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-533"><code>			}</code></span>
+<span class="codeline" id="line-534"><code>			<label for="r93" class="ident">f</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-153" class="ident">StructField</a>)</code></span>
+<span class="codeline" id="line-535"><code>			<span class="keyword">if</span> <label for="r93" class="ident">f</label>.<a href="type.go.html#line-155" class="ident">Type</a> = <label for="r68" class="ident">typeOf</label>(<label for="r92" class="ident">kid</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-536"><code>				<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-537"><code>			}</code></span>
+<span class="codeline" id="line-538"><code>			<span class="keyword">switch</span> loc := <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-52" class="ident">AttrDataMemberLoc</a>).(<span class="keyword">type</span>) {</code></span>
+<span class="codeline" id="line-539"><code>			<span class="keyword">case</span> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>:</code></span>
+<span class="codeline" id="line-540"><code>				<span class="comment">// TODO: Should have original compilation</span></code></span>
+<span class="codeline" id="line-541"><code><span class="comment">				// unit here, not unknownFormat.</span></code></span>
+<span class="codeline" id="line-542"><code>				<label for="r94" class="ident">b</label> := <a href="buf.go.html#line-54" class="ident">makeBuf</a>(<label for="r48" class="ident">d</label>, <a href="buf.go.html#line-40" class="ident">unknownFormat</a>{}, <span class="lit-string">"location"</span>, <span class="lit-number">0</span>, <label for="r95" class="ident">loc</label>)</code></span>
+<span class="codeline" id="line-543"><code>				<span class="keyword">if</span> <label for="r94" class="ident">b</label>.<a href="buf.go.html#line-58" class="ident">uint8</a>() != <a href="const.go.html#line-326" class="ident">opPlusUconst</a> {</code></span>
+<span class="codeline" id="line-544"><code>					<label for="r58" class="ident">err</label> = <a href="buf.go.html#line-197" class="ident">DecodeError</a>{<label for="r50" class="ident">name</label>, <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-233" class="ident">Offset</a>, <span class="lit-string">"unexpected opcode"</span>}</code></span>
+<span class="codeline" id="line-545"><code>					<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-546"><code>				}</code></span>
+<span class="codeline" id="line-547"><code>				<label for="r93" class="ident">f</label>.<a href="type.go.html#line-156" class="ident">ByteOffset</a> = <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r94" class="ident">b</label>.<a href="buf.go.html#line-148" class="ident">uint</a>())</code></span>
+<span class="codeline" id="line-548"><code>				<span class="keyword">if</span> <label for="r94" class="ident">b</label>.<a href="buf.go.html#line-23" class="ident">err</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-549"><code>					<label for="r58" class="ident">err</label> = <label for="r94" class="ident">b</label>.<a href="buf.go.html#line-23" class="ident">err</a></code></span>
+<span class="codeline" id="line-550"><code>					<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-551"><code>				}</code></span>
+<span class="codeline" id="line-552"><code>			<span class="keyword">case</span> <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>:</code></span>
+<span class="codeline" id="line-553"><code>				<label for="r93" class="ident">f</label>.<a href="type.go.html#line-156" class="ident">ByteOffset</a> = <label for="r96" class="ident">loc</label></code></span>
+<span class="codeline" id="line-554"><code>			}</code></span>
+<span class="codeline" id="line-555"><code></code></span>
+<span class="codeline" id="line-556"><code>			<label for="r97" class="ident">haveBitOffset</label> := <a href="../../../pkg/builtin.html#name-false" class="ident">false</a></code></span>
+<span class="codeline" id="line-557"><code>			<label for="r93" class="ident">f</label>.<a href="type.go.html#line-154" class="ident">Name</a>, _ = <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-558"><code>			<label for="r93" class="ident">f</label>.<a href="type.go.html#line-157" class="ident">ByteSize</a>, _ = <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-19" class="ident">AttrByteSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-559"><code>			<label for="r93" class="ident">f</label>.<a href="type.go.html#line-158" class="ident">BitOffset</a>, <label for="r97" class="ident">haveBitOffset</label> = <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-20" class="ident">AttrBitOffset</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-560"><code>			<label for="r93" class="ident">f</label>.<a href="type.go.html#line-159" class="ident">BitSize</a>, _ = <label for="r92" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-21" class="ident">AttrBitSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-561"><code>			<label for="r89" class="ident">t</label>.<a href="type.go.html#line-148" class="ident">Field</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r89" class="ident">t</label>.<a href="type.go.html#line-148" class="ident">Field</a>, <label for="r93" class="ident">f</label>)</code></span>
+<span class="codeline" id="line-562"><code></code></span>
+<span class="codeline" id="line-563"><code>			<label for="r98" class="ident">bito</label> := <label for="r93" class="ident">f</label>.<a href="type.go.html#line-158" class="ident">BitOffset</a></code></span>
+<span class="codeline" id="line-564"><code>			<span class="keyword">if</span> !<label for="r97" class="ident">haveBitOffset</label> {</code></span>
+<span class="codeline" id="line-565"><code>				<label for="r98" class="ident">bito</label> = <label for="r93" class="ident">f</label>.<a href="type.go.html#line-156" class="ident">ByteOffset</a> * <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-566"><code>			}</code></span>
+<span class="codeline" id="line-567"><code>			<span class="keyword">if</span> <label for="r98" class="ident">bito</label> == <label for="r91" class="ident">lastFieldBitOffset</label> &amp;&amp; <label for="r89" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> != <span class="lit-string">"union"</span> {</code></span>
+<span class="codeline" id="line-568"><code>				<span class="comment">// Last field was zero width. Fix array length.</span></code></span>
+<span class="codeline" id="line-569"><code><span class="comment">				// (DWARF writes out 0-length arrays as if they were 1-length arrays.)</span></code></span>
+<span class="codeline" id="line-570"><code>				<a href="type.go.html#line-739" class="ident">zeroArray</a>(<label for="r90" class="ident">lastFieldType</label>)</code></span>
+<span class="codeline" id="line-571"><code>			}</code></span>
+<span class="codeline" id="line-572"><code>			<label for="r90" class="ident">lastFieldType</label> = &amp;<label for="r93" class="ident">f</label>.<a href="type.go.html#line-155" class="ident">Type</a></code></span>
+<span class="codeline" id="line-573"><code>			<label for="r91" class="ident">lastFieldBitOffset</label> = <label for="r98" class="ident">bito</label></code></span>
+<span class="codeline" id="line-574"><code>		}</code></span>
+<span class="codeline" id="line-575"><code>		<span class="keyword">if</span> <label for="r89" class="ident">t</label>.<a href="type.go.html#line-147" class="ident">Kind</a> != <span class="lit-string">"union"</span> {</code></span>
+<span class="codeline" id="line-576"><code>			<label for="r99" class="ident">b</label>, <label for="r100" class="ident">ok</label> := <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-19" class="ident">AttrByteSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-577"><code>			<span class="keyword">if</span> <label for="r100" class="ident">ok</label> &amp;&amp; <label for="r99" class="ident">b</label>*<span class="lit-number">8</span> == <label for="r91" class="ident">lastFieldBitOffset</label> {</code></span>
+<span class="codeline" id="line-578"><code>				<span class="comment">// Final field must be zero width. Fix array length.</span></code></span>
+<span class="codeline" id="line-579"><code>				<a href="type.go.html#line-739" class="ident">zeroArray</a>(<label for="r90" class="ident">lastFieldType</label>)</code></span>
+<span class="codeline" id="line-580"><code>			}</code></span>
+<span class="codeline" id="line-581"><code>		}</code></span>
+<span class="codeline" id="line-582"><code></code></span>
+<span class="codeline" id="line-583"><code>	<span class="keyword">case</span> <a href="const.go.html#line-241" class="ident">TagConstType</a>, <a href="const.go.html#line-256" class="ident">TagVolatileType</a>, <a href="const.go.html#line-259" class="ident">TagRestrictType</a>:</code></span>
+<span class="codeline" id="line-584"><code>		<span class="comment">// Type modifier (DWARF v2 §5.2)</span></code></span>
+<span class="codeline" id="line-585"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-586"><code><span class="comment">		//	AttrType: subtype</span></code></span>
+<span class="codeline" id="line-587"><code>		<label for="r101" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-99" class="ident">QualType</a>)</code></span>
+<span class="codeline" id="line-588"><code>		<label for="r63" class="ident">typ</label> = <label for="r101" class="ident">t</label></code></span>
+<span class="codeline" id="line-589"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r101" class="ident">t</label></code></span>
+<span class="codeline" id="line-590"><code>		<span class="keyword">if</span> <label for="r101" class="ident">t</label>.<a href="type.go.html#line-102" class="ident">Type</a> = <label for="r68" class="ident">typeOf</label>(<label for="r57" class="ident">e</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-591"><code>			<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-592"><code>		}</code></span>
+<span class="codeline" id="line-593"><code>		<span class="keyword">switch</span> <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> {</code></span>
+<span class="codeline" id="line-594"><code>		<span class="keyword">case</span> <a href="const.go.html#line-241" class="ident">TagConstType</a>:</code></span>
+<span class="codeline" id="line-595"><code>			<label for="r101" class="ident">t</label>.<a href="type.go.html#line-101" class="ident">Qual</a> = <span class="lit-string">"const"</span></code></span>
+<span class="codeline" id="line-596"><code>		<span class="keyword">case</span> <a href="const.go.html#line-259" class="ident">TagRestrictType</a>:</code></span>
+<span class="codeline" id="line-597"><code>			<label for="r101" class="ident">t</label>.<a href="type.go.html#line-101" class="ident">Qual</a> = <span class="lit-string">"restrict"</span></code></span>
+<span class="codeline" id="line-598"><code>		<span class="keyword">case</span> <a href="const.go.html#line-256" class="ident">TagVolatileType</a>:</code></span>
+<span class="codeline" id="line-599"><code>			<label for="r101" class="ident">t</label>.<a href="type.go.html#line-101" class="ident">Qual</a> = <span class="lit-string">"volatile"</span></code></span>
+<span class="codeline" id="line-600"><code>		}</code></span>
+<span class="codeline" id="line-601"><code></code></span>
+<span class="codeline" id="line-602"><code>	<span class="keyword">case</span> <a href="const.go.html#line-213" class="ident">TagEnumerationType</a>:</code></span>
+<span class="codeline" id="line-603"><code>		<span class="comment">// Enumeration type (DWARF v2 §5.6)</span></code></span>
+<span class="codeline" id="line-604"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-605"><code><span class="comment">		//	AttrName: enum name if any</span></code></span>
+<span class="codeline" id="line-606"><code><span class="comment">		//	AttrByteSize: bytes required to represent largest value</span></code></span>
+<span class="codeline" id="line-607"><code><span class="comment">		// Children:</span></code></span>
+<span class="codeline" id="line-608"><code><span class="comment">		//	TagEnumerator:</span></code></span>
+<span class="codeline" id="line-609"><code><span class="comment">		//		AttrName: name of constant</span></code></span>
+<span class="codeline" id="line-610"><code><span class="comment">		//		AttrConstValue: value of constant</span></code></span>
+<span class="codeline" id="line-611"><code>		<label for="r102" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-197" class="ident">EnumType</a>)</code></span>
+<span class="codeline" id="line-612"><code>		<label for="r63" class="ident">typ</label> = <label for="r102" class="ident">t</label></code></span>
+<span class="codeline" id="line-613"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r102" class="ident">t</label></code></span>
+<span class="codeline" id="line-614"><code>		<label for="r102" class="ident">t</label>.<a href="type.go.html#line-199" class="ident">EnumName</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-615"><code>		<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]*<a href="type.go.html#line-204" class="ident">EnumValue</a>, <span class="lit-number">0</span>, <span class="lit-number">8</span>)</code></span>
+<span class="codeline" id="line-616"><code>		<span class="keyword">for</span> <label for="r103" class="ident">kid</label> := <label for="r65" class="ident">next</label>(); <label for="r103" class="ident">kid</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r103" class="ident">kid</label> = <label for="r65" class="ident">next</label>() {</code></span>
+<span class="codeline" id="line-617"><code>			<span class="keyword">if</span> <label for="r103" class="ident">kid</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> == <a href="const.go.html#line-243" class="ident">TagEnumerator</a> {</code></span>
+<span class="codeline" id="line-618"><code>				<label for="r104" class="ident">f</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-204" class="ident">EnumValue</a>)</code></span>
+<span class="codeline" id="line-619"><code>				<label for="r104" class="ident">f</label>.<a href="type.go.html#line-205" class="ident">Name</a>, _ = <label for="r103" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-620"><code>				<label for="r104" class="ident">f</label>.<a href="type.go.html#line-206" class="ident">Val</a>, _ = <label for="r103" class="ident">kid</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-33" class="ident">AttrConstValue</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-621"><code>				<label for="r105" class="ident">n</label> := <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a>)</code></span>
+<span class="codeline" id="line-622"><code>				<span class="keyword">if</span> <label for="r105" class="ident">n</label> &gt;= <a href="../../../pkg/builtin.html#name-cap" class="ident">cap</a>(<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a>) {</code></span>
+<span class="codeline" id="line-623"><code>					<label for="r106" class="ident">val</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]*<a href="type.go.html#line-204" class="ident">EnumValue</a>, <label for="r105" class="ident">n</label>, <label for="r105" class="ident">n</label>*<span class="lit-number">2</span>)</code></span>
+<span class="codeline" id="line-624"><code>					<a href="../../../pkg/builtin.html#name-copy" class="ident">copy</a>(<label for="r106" class="ident">val</label>, <label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a>)</code></span>
+<span class="codeline" id="line-625"><code>					<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a> = <label for="r106" class="ident">val</label></code></span>
+<span class="codeline" id="line-626"><code>				}</code></span>
+<span class="codeline" id="line-627"><code>				<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a> = <label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a>[<span class="lit-number">0</span> : <label for="r105" class="ident">n</label>+<span class="lit-number">1</span>]</code></span>
+<span class="codeline" id="line-628"><code>				<label for="r102" class="ident">t</label>.<a href="type.go.html#line-200" class="ident">Val</a>[<label for="r105" class="ident">n</label>] = <label for="r104" class="ident">f</label></code></span>
+<span class="codeline" id="line-629"><code>			}</code></span>
+<span class="codeline" id="line-630"><code>		}</code></span>
+<span class="codeline" id="line-631"><code></code></span>
+<span class="codeline" id="line-632"><code>	<span class="keyword">case</span> <a href="const.go.html#line-219" class="ident">TagPointerType</a>:</code></span>
+<span class="codeline" id="line-633"><code>		<span class="comment">// Type modifier (DWARF v2 §5.2)</span></code></span>
+<span class="codeline" id="line-634"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-635"><code><span class="comment">		//	AttrType: subtype [not required!  void* has no AttrType]</span></code></span>
+<span class="codeline" id="line-636"><code><span class="comment">		//	AttrAddrClass: address class [ignored]</span></code></span>
+<span class="codeline" id="line-637"><code>		<label for="r107" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-136" class="ident">PtrType</a>)</code></span>
+<span class="codeline" id="line-638"><code>		<label for="r63" class="ident">typ</label> = <label for="r107" class="ident">t</label></code></span>
+<span class="codeline" id="line-639"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r107" class="ident">t</label></code></span>
+<span class="codeline" id="line-640"><code>		<span class="keyword">if</span> <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-69" class="ident">AttrType</a>) == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-641"><code>			<label for="r107" class="ident">t</label>.<a href="type.go.html#line-138" class="ident">Type</a> = &amp;<a href="type.go.html#line-129" class="ident">VoidType</a>{}</code></span>
+<span class="codeline" id="line-642"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-643"><code>		}</code></span>
+<span class="codeline" id="line-644"><code>		<label for="r107" class="ident">t</label>.<a href="type.go.html#line-138" class="ident">Type</a> = <label for="r68" class="ident">typeOf</label>(<label for="r57" class="ident">e</label>)</code></span>
+<span class="codeline" id="line-645"><code></code></span>
+<span class="codeline" id="line-646"><code>	<span class="keyword">case</span> <a href="const.go.html#line-224" class="ident">TagSubroutineType</a>:</code></span>
+<span class="codeline" id="line-647"><code>		<span class="comment">// Subroutine type.  (DWARF v2 §5.7)</span></code></span>
+<span class="codeline" id="line-648"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-649"><code><span class="comment">		//	AttrType: type of return value if any</span></code></span>
+<span class="codeline" id="line-650"><code><span class="comment">		//	AttrName: possible name of type [ignored]</span></code></span>
+<span class="codeline" id="line-651"><code><span class="comment">		//	AttrPrototyped: whether used ANSI C prototype [ignored]</span></code></span>
+<span class="codeline" id="line-652"><code><span class="comment">		// Children:</span></code></span>
+<span class="codeline" id="line-653"><code><span class="comment">		//	TagFormalParameter: typed parameter</span></code></span>
+<span class="codeline" id="line-654"><code><span class="comment">		//		AttrType: type of parameter</span></code></span>
+<span class="codeline" id="line-655"><code><span class="comment">		//	TagUnspecifiedParameter: final ...</span></code></span>
+<span class="codeline" id="line-656"><code>		<label for="r108" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-226" class="ident">FuncType</a>)</code></span>
+<span class="codeline" id="line-657"><code>		<label for="r63" class="ident">typ</label> = <label for="r108" class="ident">t</label></code></span>
+<span class="codeline" id="line-658"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r108" class="ident">t</label></code></span>
+<span class="codeline" id="line-659"><code>		<span class="keyword">if</span> <label for="r108" class="ident">t</label>.<a href="type.go.html#line-228" class="ident">ReturnType</a> = <label for="r68" class="ident">typeOf</label>(<label for="r57" class="ident">e</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-660"><code>			<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-661"><code>		}</code></span>
+<span class="codeline" id="line-662"><code>		<label for="r108" class="ident">t</label>.<a href="type.go.html#line-229" class="ident">ParamType</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="type.go.html#line-15" class="ident">Type</a>, <span class="lit-number">0</span>, <span class="lit-number">8</span>)</code></span>
+<span class="codeline" id="line-663"><code>		<span class="keyword">for</span> <label for="r109" class="ident">kid</label> := <label for="r65" class="ident">next</label>(); <label for="r109" class="ident">kid</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>; <label for="r109" class="ident">kid</label> = <label for="r65" class="ident">next</label>() {</code></span>
+<span class="codeline" id="line-664"><code>			<span class="keyword">var</span> <label for="r110" class="ident">tkid</label> <a href="type.go.html#line-15" class="ident">Type</a></code></span>
+<span class="codeline" id="line-665"><code>			<span class="keyword">switch</span> <label for="r109" class="ident">kid</label>.<a href="entry.go.html#line-234" class="ident">Tag</a> {</code></span>
+<span class="codeline" id="line-666"><code>			<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-667"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-668"><code>			<span class="keyword">case</span> <a href="const.go.html#line-214" class="ident">TagFormalParameter</a>:</code></span>
+<span class="codeline" id="line-669"><code>				<span class="keyword">if</span> <label for="r110" class="ident">tkid</label> = <label for="r68" class="ident">typeOf</label>(<label for="r109" class="ident">kid</label>); <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-670"><code>					<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-671"><code>				}</code></span>
+<span class="codeline" id="line-672"><code>			<span class="keyword">case</span> <a href="const.go.html#line-227" class="ident">TagUnspecifiedParameters</a>:</code></span>
+<span class="codeline" id="line-673"><code>				<label for="r110" class="ident">tkid</label> = &amp;<a href="type.go.html#line-248" class="ident">DotDotDotType</a>{}</code></span>
+<span class="codeline" id="line-674"><code>			}</code></span>
+<span class="codeline" id="line-675"><code>			<label for="r108" class="ident">t</label>.<a href="type.go.html#line-229" class="ident">ParamType</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r108" class="ident">t</label>.<a href="type.go.html#line-229" class="ident">ParamType</a>, <label for="r110" class="ident">tkid</label>)</code></span>
+<span class="codeline" id="line-676"><code>		}</code></span>
+<span class="codeline" id="line-677"><code></code></span>
+<span class="codeline" id="line-678"><code>	<span class="keyword">case</span> <a href="const.go.html#line-225" class="ident">TagTypedef</a>:</code></span>
+<span class="codeline" id="line-679"><code>		<span class="comment">// Typedef (DWARF v2 §5.3)</span></code></span>
+<span class="codeline" id="line-680"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-681"><code><span class="comment">		//	AttrName: name [required]</span></code></span>
+<span class="codeline" id="line-682"><code><span class="comment">		//	AttrType: type definition [required]</span></code></span>
+<span class="codeline" id="line-683"><code>		<label for="r111" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-255" class="ident">TypedefType</a>)</code></span>
+<span class="codeline" id="line-684"><code>		<label for="r63" class="ident">typ</label> = <label for="r111" class="ident">t</label></code></span>
+<span class="codeline" id="line-685"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r111" class="ident">t</label></code></span>
+<span class="codeline" id="line-686"><code>		<label for="r111" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-687"><code>		<label for="r111" class="ident">t</label>.<a href="type.go.html#line-257" class="ident">Type</a> = <label for="r68" class="ident">typeOf</label>(<label for="r57" class="ident">e</label>)</code></span>
+<span class="codeline" id="line-688"><code></code></span>
+<span class="codeline" id="line-689"><code>	<span class="keyword">case</span> <a href="const.go.html#line-263" class="ident">TagUnspecifiedType</a>:</code></span>
+<span class="codeline" id="line-690"><code>		<span class="comment">// Unspecified type (DWARF v3 §5.2)</span></code></span>
+<span class="codeline" id="line-691"><code><span class="comment">		// Attributes:</span></code></span>
+<span class="codeline" id="line-692"><code><span class="comment">		//	AttrName: name</span></code></span>
+<span class="codeline" id="line-693"><code>		<label for="r112" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-92" class="ident">UnspecifiedType</a>)</code></span>
+<span class="codeline" id="line-694"><code>		<label for="r63" class="ident">typ</label> = <label for="r112" class="ident">t</label></code></span>
+<span class="codeline" id="line-695"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r112" class="ident">t</label></code></span>
+<span class="codeline" id="line-696"><code>		<label for="r112" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-697"><code></code></span>
+<span class="codeline" id="line-698"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-699"><code>		<span class="comment">// This is some other type DIE that we're currently not</span></code></span>
+<span class="codeline" id="line-700"><code><span class="comment">		// equipped to handle. Return an abstract "unsupported type"</span></code></span>
+<span class="codeline" id="line-701"><code><span class="comment">		// object in such cases.</span></code></span>
+<span class="codeline" id="line-702"><code>		<label for="r113" class="ident">t</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="type.go.html#line-266" class="ident">UnsupportedType</a>)</code></span>
+<span class="codeline" id="line-703"><code>		<label for="r63" class="ident">typ</label> = <label for="r113" class="ident">t</label></code></span>
+<span class="codeline" id="line-704"><code>		<label for="r53" class="ident">typeCache</label>[<label for="r52" class="ident">off</label>] = <label for="r113" class="ident">t</label></code></span>
+<span class="codeline" id="line-705"><code>		<label for="r113" class="ident">t</label>.<a href="type.go.html#line-268" class="ident">Tag</a> = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-234" class="ident">Tag</a></code></span>
+<span class="codeline" id="line-706"><code>		<label for="r113" class="ident">t</label>.<a href="type.go.html#line-26" class="ident">Name</a>, _ = <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-17" class="ident">AttrName</a>).(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-707"><code>	}</code></span>
+<span class="codeline" id="line-708"><code></code></span>
+<span class="codeline" id="line-709"><code>	<span class="keyword">if</span> <label for="r58" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-710"><code>		<span class="keyword">goto</span> <label for="r75" class="ident">Error</label></code></span>
+<span class="codeline" id="line-711"><code>	}</code></span>
+<span class="codeline" id="line-712"><code></code></span>
+<span class="codeline" id="line-713"><code>	{</code></span>
+<span class="codeline" id="line-714"><code>		<label for="r114" class="ident">b</label>, <label for="r115" class="ident">ok</label> := <label for="r57" class="ident">e</label>.<a href="entry.go.html#line-385" class="ident">Val</a>(<a href="const.go.html#line-19" class="ident">AttrByteSize</a>).(<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>)</code></span>
+<span class="codeline" id="line-715"><code>		<span class="keyword">if</span> !<label for="r115" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-716"><code>			<label for="r114" class="ident">b</label> = -<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-717"><code>			<span class="keyword">switch</span> t := <label for="r63" class="ident">typ</label>.(<span class="keyword">type</span>) {</code></span>
+<span class="codeline" id="line-718"><code>			<span class="keyword">case</span> *<a href="type.go.html#line-255" class="ident">TypedefType</a>:</code></span>
+<span class="codeline" id="line-719"><code>				<span class="comment">// Record that we need to resolve this</span></code></span>
+<span class="codeline" id="line-720"><code><span class="comment">				// type's size once the type graph is</span></code></span>
+<span class="codeline" id="line-721"><code><span class="comment">				// constructed.</span></code></span>
+<span class="codeline" id="line-722"><code>				*<label for="r54" class="ident">typedefs</label> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(*<label for="r54" class="ident">typedefs</label>, <label for="r116" class="ident">t</label>)</code></span>
+<span class="codeline" id="line-723"><code>			<span class="keyword">case</span> *<a href="type.go.html#line-136" class="ident">PtrType</a>:</code></span>
+<span class="codeline" id="line-724"><code>				<label for="r114" class="ident">b</label> = <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r59" class="ident">addressSize</label>)</code></span>
+<span class="codeline" id="line-725"><code>			}</code></span>
+<span class="codeline" id="line-726"><code>		}</code></span>
+<span class="codeline" id="line-727"><code>		<label for="r63" class="ident">typ</label>.<a href="type.go.html#line-16" class="ident">Common</a>().<a href="type.go.html#line-25" class="ident">ByteSize</a> = <label for="r114" class="ident">b</label></code></span>
+<span class="codeline" id="line-728"><code>	}</code></span>
+<span class="codeline" id="line-729"><code>	<span class="keyword">return</span> <label for="r63" class="ident">typ</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-730"><code></code></span>
+<span class="codeline" id="line-731"><code><label for="r75" class="ident">Error</label>:</code></span>
+<span class="codeline" id="line-732"><code>	<span class="comment">// If the parse fails, take the type out of the cache</span></code></span>
+<span class="codeline" id="line-733"><code><span class="comment">	// so that the next call with this offset doesn't hit</span></code></span>
+<span class="codeline" id="line-734"><code><span class="comment">	// the cache and return success.</span></code></span>
+<span class="codeline" id="line-735"><code>	<a href="../../../pkg/builtin.html#name-delete" class="ident">delete</a>(<label for="r53" class="ident">typeCache</label>, <label for="r52" class="ident">off</label>)</code></span>
+<span class="codeline" id="line-736"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r58" class="ident">err</label></code></span>
+<span class="codeline" id="line-737"><code>}</code></span>
+<span class="codeline" id="line-738"><code></code></span>
+<span class="codeline" id="line-739"><code><span class="keyword">func</span> zeroArray(<label for="r118" class="ident">t</label> *<a href="type.go.html#line-15" class="ident">Type</a>) {</code></span>
+<span class="codeline" id="line-740"><code>	<span class="keyword">if</span> <label for="r118" class="ident">t</label> == <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-741"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-742"><code>	}</code></span>
+<span class="codeline" id="line-743"><code>	<label for="r119" class="ident">at</label>, <label for="r120" class="ident">ok</label> := (*<label for="r118" class="ident">t</label>).(*<a href="type.go.html#line-110" class="ident">ArrayType</a>)</code></span>
+<span class="codeline" id="line-744"><code>	<span class="keyword">if</span> !<label for="r120" class="ident">ok</label> || <label for="r119" class="ident">at</label>.<a href="type.go.html#line-112" class="ident">Type</a>.<a href="type.go.html#line-18" class="ident">Size</a>() == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-745"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-746"><code>	}</code></span>
+<span class="codeline" id="line-747"><code>	<span class="comment">// Make a copy to avoid invalidating typeCache.</span></code></span>
+<span class="codeline" id="line-748"><code>	<label for="r121" class="ident">tt</label> := *<label for="r119" class="ident">at</label></code></span>
+<span class="codeline" id="line-749"><code>	<label for="r121" class="ident">tt</label>.<a href="type.go.html#line-114" class="ident">Count</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-750"><code>	*<label for="r118" class="ident">t</label> = &amp;<label for="r121" class="ident">tt</label></code></span>
+<span class="codeline" id="line-751"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

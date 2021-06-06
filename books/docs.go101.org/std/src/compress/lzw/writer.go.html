@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: writer.go in package compress/lzw</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	writer.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/compress/lzw.html">compress/lzw</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2011 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> lzw</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"bufio"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"errors"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"fmt"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i3"><span class="lit-string i3">"io"</span></label></code></span>
+<span class="codeline" id="line-12"><code>)</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// A writer is a buffered, flushable writer.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> writer <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../pkg/io.html" class="ident i3">io</a>.<a href="../../io/io.go.html#line-274" class="ident">ByteWriter</a></code></span>
+<span class="codeline" id="line-17"><code>	Flush() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-18"><code>}</code></span>
+<span class="codeline" id="line-19"><code></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">// An errWriteCloser is an io.WriteCloser that always returns a given error.</span></code></span>
+<span class="codeline" id="line-21"><code><span class="keyword">type</span> errWriteCloser <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-22"><code>	err <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-23"><code>}</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code><span class="keyword">func</span> (<label for="r0" class="ident">e</label> *<a href="writer.go.html#line-21" class="ident">errWriteCloser</a>) <label for="r1" class="ident">Write</label>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-26"><code>	<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r0" class="ident">e</label>.<a href="writer.go.html#line-22" class="ident">err</a></code></span>
+<span class="codeline" id="line-27"><code>}</code></span>
+<span class="codeline" id="line-28"><code></code></span>
+<span class="codeline" id="line-29"><code><span class="keyword">func</span> (<label for="r2" class="ident">e</label> *<a href="writer.go.html#line-21" class="ident">errWriteCloser</a>) <label for="r3" class="ident">Close</label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-30"><code>	<span class="keyword">return</span> <label for="r2" class="ident">e</label>.<a href="writer.go.html#line-22" class="ident">err</a></code></span>
+<span class="codeline" id="line-31"><code>}</code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-34"><code>	<span class="comment">// A code is a 12 bit value, stored as a uint32 when encoding to avoid</span></code></span>
+<span class="codeline" id="line-35"><code><span class="comment">	// type conversions when shifting bits.</span></code></span>
+<span class="codeline" id="line-36"><code>	maxCode     = <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">12</span> - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-37"><code>	invalidCode = <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">32</span> - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-38"><code>	<span class="comment">// There are 1&lt;&lt;12 possible codes, which is an upper bound on the number of</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">	// valid hash table entries at any given point in time. tableSize is 4x that.</span></code></span>
+<span class="codeline" id="line-40"><code>	tableSize = <span class="lit-number">4</span> * <span class="lit-number">1</span> &lt;&lt; <span class="lit-number">12</span></code></span>
+<span class="codeline" id="line-41"><code>	tableMask = <a href="writer.go.html#line-40" class="ident">tableSize</a> - <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-42"><code>	<span class="comment">// A hash table entry is a uint32. Zero is an invalid entry since the</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">	// lower 12 bits of a valid entry must be a non-literal code.</span></code></span>
+<span class="codeline" id="line-44"><code>	invalidEntry = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-45"><code>)</code></span>
+<span class="codeline" id="line-46"><code></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">// encoder is LZW compressor.</span></code></span>
+<span class="codeline" id="line-48"><code><span class="keyword">type</span> encoder <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-49"><code>	<span class="comment">// w is the writer that compressed bytes are written to.</span></code></span>
+<span class="codeline" id="line-50"><code>	w <a href="writer.go.html#line-15" class="ident">writer</a></code></span>
+<span class="codeline" id="line-51"><code>	<span class="comment">// order, write, bits, nBits and width are the state for</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">	// converting a code stream into a byte stream.</span></code></span>
+<span class="codeline" id="line-53"><code>	order <a href="reader.go.html#line-29" class="ident">Order</a></code></span>
+<span class="codeline" id="line-54"><code>	write <span class="keyword">func</span>(*<a href="writer.go.html#line-48" class="ident">encoder</a>, <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-55"><code>	bits  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-56"><code>	nBits <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a></code></span>
+<span class="codeline" id="line-57"><code>	width <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a></code></span>
+<span class="codeline" id="line-58"><code>	<span class="comment">// litWidth is the width in bits of literal codes.</span></code></span>
+<span class="codeline" id="line-59"><code>	litWidth <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a></code></span>
+<span class="codeline" id="line-60"><code>	<span class="comment">// hi is the code implied by the next code emission.</span></code></span>
+<span class="codeline" id="line-61"><code><span class="comment">	// overflow is the code at which hi overflows the code width.</span></code></span>
+<span class="codeline" id="line-62"><code>	hi, overflow <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-63"><code>	<span class="comment">// savedCode is the accumulated code at the end of the most recent Write</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	// call. It is equal to invalidCode if there was no such call.</span></code></span>
+<span class="codeline" id="line-65"><code>	savedCode <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-66"><code>	<span class="comment">// err is the first error encountered during writing. Closing the encoder</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">	// will make any future Write calls return errClosed</span></code></span>
+<span class="codeline" id="line-68"><code>	err <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-69"><code>	<span class="comment">// table is the hash table from 20-bit keys to 12-bit values. Each table</span></code></span>
+<span class="codeline" id="line-70"><code><span class="comment">	// entry contains key&lt;&lt;12|val and collisions resolve by linear probing.</span></code></span>
+<span class="codeline" id="line-71"><code><span class="comment">	// The keys consist of a 12-bit code prefix and an 8-bit byte suffix.</span></code></span>
+<span class="codeline" id="line-72"><code><span class="comment">	// The values are a 12-bit code.</span></code></span>
+<span class="codeline" id="line-73"><code>	table [<a href="writer.go.html#line-40" class="ident">tableSize</a>]<a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-74"><code>}</code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code><span class="comment">// writeLSB writes the code c for "Least Significant Bits first" data.</span></code></span>
+<span class="codeline" id="line-77"><code><span class="keyword">func</span> (<label for="r4" class="ident">e</label> *<a href="writer.go.html#line-48" class="ident">encoder</a>) <label for="r5" class="ident">writeLSB</label>(<label for="r6" class="ident">c</label> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-78"><code>	<label for="r4" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> |= <label for="r6" class="ident">c</label> &lt;&lt; <label for="r4" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a></code></span>
+<span class="codeline" id="line-79"><code>	<label for="r4" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> += <label for="r4" class="ident">e</label>.<a href="writer.go.html#line-57" class="ident">width</a></code></span>
+<span class="codeline" id="line-80"><code>	<span class="keyword">for</span> <label for="r4" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> &gt;= <span class="lit-number">8</span> {</code></span>
+<span class="codeline" id="line-81"><code>		<span class="keyword">if</span> <label for="r7" class="ident">err</label> := <label for="r4" class="ident">e</label>.<a href="writer.go.html#line-50" class="ident">w</a>.<a href="../../io/io.go.html#line-275" class="ident">WriteByte</a>(<a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>(<label for="r4" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a>)); <label for="r7" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-82"><code>			<span class="keyword">return</span> <label for="r7" class="ident">err</label></code></span>
+<span class="codeline" id="line-83"><code>		}</code></span>
+<span class="codeline" id="line-84"><code>		<label for="r4" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> &gt;&gt;= <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-85"><code>		<label for="r4" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> -= <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-86"><code>	}</code></span>
+<span class="codeline" id="line-87"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-88"><code>}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// writeMSB writes the code c for "Most Significant Bits first" data.</span></code></span>
+<span class="codeline" id="line-91"><code><span class="keyword">func</span> (<label for="r8" class="ident">e</label> *<a href="writer.go.html#line-48" class="ident">encoder</a>) <label for="r9" class="ident">writeMSB</label>(<label for="r10" class="ident">c</label> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-92"><code>	<label for="r8" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> |= <label for="r10" class="ident">c</label> &lt;&lt; (<span class="lit-number">32</span> - <label for="r8" class="ident">e</label>.<a href="writer.go.html#line-57" class="ident">width</a> - <label for="r8" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a>)</code></span>
+<span class="codeline" id="line-93"><code>	<label for="r8" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> += <label for="r8" class="ident">e</label>.<a href="writer.go.html#line-57" class="ident">width</a></code></span>
+<span class="codeline" id="line-94"><code>	<span class="keyword">for</span> <label for="r8" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> &gt;= <span class="lit-number">8</span> {</code></span>
+<span class="codeline" id="line-95"><code>		<span class="keyword">if</span> <label for="r11" class="ident">err</label> := <label for="r8" class="ident">e</label>.<a href="writer.go.html#line-50" class="ident">w</a>.<a href="../../io/io.go.html#line-275" class="ident">WriteByte</a>(<a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>(<label for="r8" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> &gt;&gt; <span class="lit-number">24</span>)); <label for="r11" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-96"><code>			<span class="keyword">return</span> <label for="r11" class="ident">err</label></code></span>
+<span class="codeline" id="line-97"><code>		}</code></span>
+<span class="codeline" id="line-98"><code>		<label for="r8" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> &lt;&lt;= <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-99"><code>		<label for="r8" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> -= <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-100"><code>	}</code></span>
+<span class="codeline" id="line-101"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-102"><code>}</code></span>
+<span class="codeline" id="line-103"><code></code></span>
+<span class="codeline" id="line-104"><code><span class="comment">// errOutOfCodes is an internal error that means that the encoder has run out</span></code></span>
+<span class="codeline" id="line-105"><code><span class="comment">// of unused codes and a clear code needs to be sent next.</span></code></span>
+<span class="codeline" id="line-106"><code><span class="keyword">var</span> errOutOfCodes = <a href="../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"lzw: out of codes"</span>)</code></span>
+<span class="codeline" id="line-107"><code></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">// incHi increments e.hi and checks for both overflow and running out of</span></code></span>
+<span class="codeline" id="line-109"><code><span class="comment">// unused codes. In the latter case, incHi sends a clear code, resets the</span></code></span>
+<span class="codeline" id="line-110"><code><span class="comment">// encoder state and returns errOutOfCodes.</span></code></span>
+<span class="codeline" id="line-111"><code><span class="keyword">func</span> (<label for="r12" class="ident">e</label> *<a href="writer.go.html#line-48" class="ident">encoder</a>) <label for="r13" class="ident">incHi</label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-112"><code>	<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">hi</a>++</code></span>
+<span class="codeline" id="line-113"><code>	<span class="keyword">if</span> <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">hi</a> == <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">overflow</a> {</code></span>
+<span class="codeline" id="line-114"><code>		<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-57" class="ident">width</a>++</code></span>
+<span class="codeline" id="line-115"><code>		<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">overflow</a> &lt;&lt;= <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-116"><code>	}</code></span>
+<span class="codeline" id="line-117"><code>	<span class="keyword">if</span> <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">hi</a> == <a href="writer.go.html#line-36" class="ident">maxCode</a> {</code></span>
+<span class="codeline" id="line-118"><code>		<label for="r14" class="ident">clear</label> := <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<span class="lit-number">1</span>) &lt;&lt; <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-59" class="ident">litWidth</a></code></span>
+<span class="codeline" id="line-119"><code>		<span class="keyword">if</span> <label for="r15" class="ident">err</label> := <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-54" class="ident">write</a>(<label for="r12" class="ident">e</label>, <label for="r14" class="ident">clear</label>); <label for="r15" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-120"><code>			<span class="keyword">return</span> <label for="r15" class="ident">err</label></code></span>
+<span class="codeline" id="line-121"><code>		}</code></span>
+<span class="codeline" id="line-122"><code>		<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-57" class="ident">width</a> = <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-59" class="ident">litWidth</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-123"><code>		<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">hi</a> = <label for="r14" class="ident">clear</label> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-124"><code>		<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">overflow</a> = <label for="r14" class="ident">clear</label> &lt;&lt; <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-125"><code>		<span class="keyword">for</span> <label for="r16" class="ident">i</label> := <span class="keyword">range</span> <label for="r12" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a> {</code></span>
+<span class="codeline" id="line-126"><code>			<label for="r12" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a>[<label for="r16" class="ident">i</label>] = <a href="writer.go.html#line-44" class="ident">invalidEntry</a></code></span>
+<span class="codeline" id="line-127"><code>		}</code></span>
+<span class="codeline" id="line-128"><code>		<span class="keyword">return</span> <a href="writer.go.html#line-106" class="ident">errOutOfCodes</a></code></span>
+<span class="codeline" id="line-129"><code>	}</code></span>
+<span class="codeline" id="line-130"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-131"><code>}</code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code><span class="comment">// Write writes a compressed representation of p to e's underlying writer.</span></code></span>
+<span class="codeline" id="line-134"><code><span class="keyword">func</span> (<label for="r17" class="ident">e</label> *<a href="writer.go.html#line-48" class="ident">encoder</a>) <label for="r18" class="ident">Write</label>(<label for="r19" class="ident">p</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r20" class="ident">n</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r21" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-135"><code>	<span class="keyword">if</span> <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-136"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a></code></span>
+<span class="codeline" id="line-137"><code>	}</code></span>
+<span class="codeline" id="line-138"><code>	<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r19" class="ident">p</label>) == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-139"><code>		<span class="keyword">return</span> <span class="lit-number">0</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-140"><code>	}</code></span>
+<span class="codeline" id="line-141"><code>	<span class="keyword">if</span> <label for="r22" class="ident">maxLit</label> := <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>(<span class="lit-number">1</span>&lt;&lt;<label for="r17" class="ident">e</label>.<a href="writer.go.html#line-59" class="ident">litWidth</a> - <span class="lit-number">1</span>); <label for="r22" class="ident">maxLit</label> != <span class="lit-number">0xff</span> {</code></span>
+<span class="codeline" id="line-142"><code>		<span class="keyword">for</span> <label for="r23" class="ident">_</label>, <label for="r24" class="ident">x</label> := <span class="keyword">range</span> <label for="r19" class="ident">p</label> {</code></span>
+<span class="codeline" id="line-143"><code>			<span class="keyword">if</span> <label for="r24" class="ident">x</label> &gt; <label for="r22" class="ident">maxLit</label> {</code></span>
+<span class="codeline" id="line-144"><code>				<label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> = <a href="../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"lzw: input byte too large for the litWidth"</span>)</code></span>
+<span class="codeline" id="line-145"><code>				<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a></code></span>
+<span class="codeline" id="line-146"><code>			}</code></span>
+<span class="codeline" id="line-147"><code>		}</code></span>
+<span class="codeline" id="line-148"><code>	}</code></span>
+<span class="codeline" id="line-149"><code>	<label for="r20" class="ident">n</label> = <a href="../../../pkg/builtin.html#name-len" class="ident">len</a>(<label for="r19" class="ident">p</label>)</code></span>
+<span class="codeline" id="line-150"><code>	<label for="r25" class="ident">code</label> := <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-65" class="ident">savedCode</a></code></span>
+<span class="codeline" id="line-151"><code>	<span class="keyword">if</span> <label for="r25" class="ident">code</label> == <a href="writer.go.html#line-37" class="ident">invalidCode</a> {</code></span>
+<span class="codeline" id="line-152"><code>		<span class="comment">// The first code sent is always a literal code.</span></code></span>
+<span class="codeline" id="line-153"><code>		<label for="r25" class="ident">code</label>, <label for="r19" class="ident">p</label> = <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r19" class="ident">p</label>[<span class="lit-number">0</span>]), <label for="r19" class="ident">p</label>[<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-154"><code>	}</code></span>
+<span class="codeline" id="line-155"><code><label for="r26" class="ident">loop</label>:</code></span>
+<span class="codeline" id="line-156"><code>	<span class="keyword">for</span> <label for="r27" class="ident">_</label>, <label for="r28" class="ident">x</label> := <span class="keyword">range</span> <label for="r19" class="ident">p</label> {</code></span>
+<span class="codeline" id="line-157"><code>		<label for="r29" class="ident">literal</label> := <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<label for="r28" class="ident">x</label>)</code></span>
+<span class="codeline" id="line-158"><code>		<label for="r30" class="ident">key</label> := <label for="r25" class="ident">code</label>&lt;&lt;<span class="lit-number">8</span> | <label for="r29" class="ident">literal</label></code></span>
+<span class="codeline" id="line-159"><code>		<span class="comment">// If there is a hash table hit for this key then we continue the loop</span></code></span>
+<span class="codeline" id="line-160"><code><span class="comment">		// and do not emit a code yet.</span></code></span>
+<span class="codeline" id="line-161"><code>		<label for="r31" class="ident">hash</label> := (<label for="r30" class="ident">key</label>&gt;&gt;<span class="lit-number">12</span> ^ <label for="r30" class="ident">key</label>) &amp; <a href="writer.go.html#line-41" class="ident">tableMask</a></code></span>
+<span class="codeline" id="line-162"><code>		<span class="keyword">for</span> <label for="r32" class="ident">h</label>, <label for="r33" class="ident">t</label> := <label for="r31" class="ident">hash</label>, <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a>[<label for="r31" class="ident">hash</label>]; <label for="r33" class="ident">t</label> != <a href="writer.go.html#line-44" class="ident">invalidEntry</a>; {</code></span>
+<span class="codeline" id="line-163"><code>			<span class="keyword">if</span> <label for="r30" class="ident">key</label> == <label for="r33" class="ident">t</label>&gt;&gt;<span class="lit-number">12</span> {</code></span>
+<span class="codeline" id="line-164"><code>				<label for="r25" class="ident">code</label> = <label for="r33" class="ident">t</label> &amp; <a href="writer.go.html#line-36" class="ident">maxCode</a></code></span>
+<span class="codeline" id="line-165"><code>				<span class="keyword">continue</span> <label for="r26" class="ident">loop</label></code></span>
+<span class="codeline" id="line-166"><code>			}</code></span>
+<span class="codeline" id="line-167"><code>			<label for="r32" class="ident">h</label> = (<label for="r32" class="ident">h</label> + <span class="lit-number">1</span>) &amp; <a href="writer.go.html#line-41" class="ident">tableMask</a></code></span>
+<span class="codeline" id="line-168"><code>			<label for="r33" class="ident">t</label> = <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a>[<label for="r32" class="ident">h</label>]</code></span>
+<span class="codeline" id="line-169"><code>		}</code></span>
+<span class="codeline" id="line-170"><code>		<span class="comment">// Otherwise, write the current code, and literal becomes the start of</span></code></span>
+<span class="codeline" id="line-171"><code><span class="comment">		// the next emitted code.</span></code></span>
+<span class="codeline" id="line-172"><code>		<span class="keyword">if</span> <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> = <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-54" class="ident">write</a>(<label for="r17" class="ident">e</label>, <label for="r25" class="ident">code</label>); <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-173"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a></code></span>
+<span class="codeline" id="line-174"><code>		}</code></span>
+<span class="codeline" id="line-175"><code>		<label for="r25" class="ident">code</label> = <label for="r29" class="ident">literal</label></code></span>
+<span class="codeline" id="line-176"><code>		<span class="comment">// Increment e.hi, the next implied code. If we run out of codes, reset</span></code></span>
+<span class="codeline" id="line-177"><code><span class="comment">		// the encoder state (including clearing the hash table) and continue.</span></code></span>
+<span class="codeline" id="line-178"><code>		<span class="keyword">if</span> <label for="r34" class="ident">err1</label> := <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-111" class="ident">incHi</a>(); <label for="r34" class="ident">err1</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-179"><code>			<span class="keyword">if</span> <label for="r34" class="ident">err1</label> == <a href="writer.go.html#line-106" class="ident">errOutOfCodes</a> {</code></span>
+<span class="codeline" id="line-180"><code>				<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-181"><code>			}</code></span>
+<span class="codeline" id="line-182"><code>			<label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> = <label for="r34" class="ident">err1</label></code></span>
+<span class="codeline" id="line-183"><code>			<span class="keyword">return</span> <span class="lit-number">0</span>, <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a></code></span>
+<span class="codeline" id="line-184"><code>		}</code></span>
+<span class="codeline" id="line-185"><code>		<span class="comment">// Otherwise, insert key -&gt; e.hi into the map that e.table represents.</span></code></span>
+<span class="codeline" id="line-186"><code>		<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-187"><code>			<span class="keyword">if</span> <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a>[<label for="r31" class="ident">hash</label>] == <a href="writer.go.html#line-44" class="ident">invalidEntry</a> {</code></span>
+<span class="codeline" id="line-188"><code>				<label for="r17" class="ident">e</label>.<a href="writer.go.html#line-73" class="ident">table</a>[<label for="r31" class="ident">hash</label>] = (<label for="r30" class="ident">key</label> &lt;&lt; <span class="lit-number">12</span>) | <label for="r17" class="ident">e</label>.<a href="writer.go.html#line-62" class="ident">hi</a></code></span>
+<span class="codeline" id="line-189"><code>				<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-190"><code>			}</code></span>
+<span class="codeline" id="line-191"><code>			<label for="r31" class="ident">hash</label> = (<label for="r31" class="ident">hash</label> + <span class="lit-number">1</span>) &amp; <a href="writer.go.html#line-41" class="ident">tableMask</a></code></span>
+<span class="codeline" id="line-192"><code>		}</code></span>
+<span class="codeline" id="line-193"><code>	}</code></span>
+<span class="codeline" id="line-194"><code>	<label for="r17" class="ident">e</label>.<a href="writer.go.html#line-65" class="ident">savedCode</a> = <label for="r25" class="ident">code</label></code></span>
+<span class="codeline" id="line-195"><code>	<span class="keyword">return</span> <label for="r20" class="ident">n</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-196"><code>}</code></span>
+<span class="codeline" id="line-197"><code></code></span>
+<span class="codeline" id="line-198"><code><span class="comment">// Close closes the encoder, flushing any pending output. It does not close or</span></code></span>
+<span class="codeline" id="line-199"><code><span class="comment">// flush e's underlying writer.</span></code></span>
+<span class="codeline" id="line-200"><code><span class="keyword">func</span> (<label for="r35" class="ident">e</label> *<a href="writer.go.html#line-48" class="ident">encoder</a>) <label for="r36" class="ident">Close</label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-201"><code>	<span class="keyword">if</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-202"><code>		<span class="keyword">if</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> == <a href="reader.go.html#line-225" class="ident">errClosed</a> {</code></span>
+<span class="codeline" id="line-203"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-204"><code>		}</code></span>
+<span class="codeline" id="line-205"><code>		<span class="keyword">return</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a></code></span>
+<span class="codeline" id="line-206"><code>	}</code></span>
+<span class="codeline" id="line-207"><code>	<span class="comment">// Make any future calls to Write return errClosed.</span></code></span>
+<span class="codeline" id="line-208"><code>	<label for="r35" class="ident">e</label>.<a href="writer.go.html#line-68" class="ident">err</a> = <a href="reader.go.html#line-225" class="ident">errClosed</a></code></span>
+<span class="codeline" id="line-209"><code>	<span class="comment">// Write the savedCode if valid.</span></code></span>
+<span class="codeline" id="line-210"><code>	<span class="keyword">if</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-65" class="ident">savedCode</a> != <a href="writer.go.html#line-37" class="ident">invalidCode</a> {</code></span>
+<span class="codeline" id="line-211"><code>		<span class="keyword">if</span> <label for="r37" class="ident">err</label> := <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-54" class="ident">write</a>(<label for="r35" class="ident">e</label>, <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-65" class="ident">savedCode</a>); <label for="r37" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-212"><code>			<span class="keyword">return</span> <label for="r37" class="ident">err</label></code></span>
+<span class="codeline" id="line-213"><code>		}</code></span>
+<span class="codeline" id="line-214"><code>		<span class="keyword">if</span> <label for="r38" class="ident">err</label> := <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-111" class="ident">incHi</a>(); <label for="r38" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> &amp;&amp; <label for="r38" class="ident">err</label> != <a href="writer.go.html#line-106" class="ident">errOutOfCodes</a> {</code></span>
+<span class="codeline" id="line-215"><code>			<span class="keyword">return</span> <label for="r38" class="ident">err</label></code></span>
+<span class="codeline" id="line-216"><code>		}</code></span>
+<span class="codeline" id="line-217"><code>	}</code></span>
+<span class="codeline" id="line-218"><code>	<span class="comment">// Write the eof code.</span></code></span>
+<span class="codeline" id="line-219"><code>	<label for="r39" class="ident">eof</label> := <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<span class="lit-number">1</span>)&lt;&lt;<label for="r35" class="ident">e</label>.<a href="writer.go.html#line-59" class="ident">litWidth</a> + <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-220"><code>	<span class="keyword">if</span> <label for="r40" class="ident">err</label> := <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-54" class="ident">write</a>(<label for="r35" class="ident">e</label>, <label for="r39" class="ident">eof</label>); <label for="r40" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-221"><code>		<span class="keyword">return</span> <label for="r40" class="ident">err</label></code></span>
+<span class="codeline" id="line-222"><code>	}</code></span>
+<span class="codeline" id="line-223"><code>	<span class="comment">// Write the final bits.</span></code></span>
+<span class="codeline" id="line-224"><code>	<span class="keyword">if</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-56" class="ident">nBits</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-225"><code>		<span class="keyword">if</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-53" class="ident">order</a> == <a href="reader.go.html#line-36" class="ident">MSB</a> {</code></span>
+<span class="codeline" id="line-226"><code>			<label for="r35" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a> &gt;&gt;= <span class="lit-number">24</span></code></span>
+<span class="codeline" id="line-227"><code>		}</code></span>
+<span class="codeline" id="line-228"><code>		<span class="keyword">if</span> <label for="r41" class="ident">err</label> := <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-50" class="ident">w</a>.<a href="../../io/io.go.html#line-275" class="ident">WriteByte</a>(<a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>(<label for="r35" class="ident">e</label>.<a href="writer.go.html#line-55" class="ident">bits</a>)); <label for="r41" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-229"><code>			<span class="keyword">return</span> <label for="r41" class="ident">err</label></code></span>
+<span class="codeline" id="line-230"><code>		}</code></span>
+<span class="codeline" id="line-231"><code>	}</code></span>
+<span class="codeline" id="line-232"><code>	<span class="keyword">return</span> <label for="r35" class="ident">e</label>.<a href="writer.go.html#line-50" class="ident">w</a>.<a href="writer.go.html#line-17" class="ident">Flush</a>()</code></span>
+<span class="codeline" id="line-233"><code>}</code></span>
+<span class="codeline" id="line-234"><code></code></span>
+<span class="codeline" id="line-235"><code><span class="comment">// NewWriter creates a new io.WriteCloser.</span></code></span>
+<span class="codeline" id="line-236"><code><span class="comment">// Writes to the returned io.WriteCloser are compressed and written to w.</span></code></span>
+<span class="codeline" id="line-237"><code><span class="comment">// It is the caller's responsibility to call Close on the WriteCloser when</span></code></span>
+<span class="codeline" id="line-238"><code><span class="comment">// finished writing.</span></code></span>
+<span class="codeline" id="line-239"><code><span class="comment">// The number of bits to use for literal codes, litWidth, must be in the</span></code></span>
+<span class="codeline" id="line-240"><code><span class="comment">// range [2,8] and is typically 8. Input bytes must be less than 1&lt;&lt;litWidth.</span></code></span>
+<span class="codeline" id="line-241"><code><span class="keyword">func</span> <label for="r42" class="ident"><a href="../../../pkg/compress/lzw.html#name-NewWriter" class="ident">NewWriter</a></label>(<label for="r43" class="ident">w</label> <a href="../../../pkg/io.html" class="ident i3">io</a>.<a href="../../io/io.go.html#line-96" class="ident">Writer</a>, <label for="r44" class="ident">order</label> <a href="reader.go.html#line-29" class="ident">Order</a>, <label for="r45" class="ident">litWidth</label> <a href="../../../pkg/builtin.html#name-int" class="ident">int</a>) <a href="../../../pkg/io.html" class="ident i3">io</a>.<a href="../../io/io.go.html#line-138" class="ident">WriteCloser</a> {</code></span>
+<span class="codeline" id="line-242"><code>	<span class="keyword">var</span> <label for="r46" class="ident">write</label> <span class="keyword">func</span>(*<a href="writer.go.html#line-48" class="ident">encoder</a>, <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>) <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-243"><code>	<span class="keyword">switch</span> <label for="r44" class="ident">order</label> {</code></span>
+<span class="codeline" id="line-244"><code>	<span class="keyword">case</span> <a href="reader.go.html#line-33" class="ident">LSB</a>:</code></span>
+<span class="codeline" id="line-245"><code>		<label for="r46" class="ident">write</label> = (*<a href="writer.go.html#line-48" class="ident">encoder</a>).<a href="writer.go.html#line-77" class="ident">writeLSB</a></code></span>
+<span class="codeline" id="line-246"><code>	<span class="keyword">case</span> <a href="reader.go.html#line-36" class="ident">MSB</a>:</code></span>
+<span class="codeline" id="line-247"><code>		<label for="r46" class="ident">write</label> = (*<a href="writer.go.html#line-48" class="ident">encoder</a>).<a href="writer.go.html#line-91" class="ident">writeMSB</a></code></span>
+<span class="codeline" id="line-248"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-249"><code>		<span class="keyword">return</span> &amp;<a href="writer.go.html#line-21" class="ident">errWriteCloser</a>{<a href="../../../pkg/errors.html" class="ident i1">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"lzw: unknown order"</span>)}</code></span>
+<span class="codeline" id="line-250"><code>	}</code></span>
+<span class="codeline" id="line-251"><code>	<span class="keyword">if</span> <label for="r45" class="ident">litWidth</label> &lt; <span class="lit-number">2</span> || <span class="lit-number">8</span> &lt; <label for="r45" class="ident">litWidth</label> {</code></span>
+<span class="codeline" id="line-252"><code>		<span class="keyword">return</span> &amp;<a href="writer.go.html#line-21" class="ident">errWriteCloser</a>{<a href="../../../pkg/fmt.html" class="ident i2">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"lzw: litWidth %d out of range"</span>, <label for="r45" class="ident">litWidth</label>)}</code></span>
+<span class="codeline" id="line-253"><code>	}</code></span>
+<span class="codeline" id="line-254"><code>	<label for="r47" class="ident">bw</label>, <label for="r48" class="ident">ok</label> := <label for="r43" class="ident">w</label>.(<a href="writer.go.html#line-15" class="ident">writer</a>)</code></span>
+<span class="codeline" id="line-255"><code>	<span class="keyword">if</span> !<label for="r48" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-256"><code>		<label for="r47" class="ident">bw</label> = <a href="../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../bufio/bufio.go.html#line-584" class="ident">NewWriter</a>(<label for="r43" class="ident">w</label>)</code></span>
+<span class="codeline" id="line-257"><code>	}</code></span>
+<span class="codeline" id="line-258"><code>	<label for="r49" class="ident">lw</label> := <a href="../../../pkg/builtin.html#name-uint" class="ident">uint</a>(<label for="r45" class="ident">litWidth</label>)</code></span>
+<span class="codeline" id="line-259"><code>	<span class="keyword">return</span> &amp;<a href="writer.go.html#line-48" class="ident">encoder</a>{</code></span>
+<span class="codeline" id="line-260"><code>		<a href="writer.go.html#line-50" class="ident">w</a>:         <label for="r47" class="ident">bw</label>,</code></span>
+<span class="codeline" id="line-261"><code>		<a href="writer.go.html#line-53" class="ident">order</a>:     <label for="r44" class="ident">order</label>,</code></span>
+<span class="codeline" id="line-262"><code>		<a href="writer.go.html#line-54" class="ident">write</a>:     <label for="r46" class="ident">write</label>,</code></span>
+<span class="codeline" id="line-263"><code>		<a href="writer.go.html#line-57" class="ident">width</a>:     <span class="lit-number">1</span> + <label for="r49" class="ident">lw</label>,</code></span>
+<span class="codeline" id="line-264"><code>		<a href="writer.go.html#line-59" class="ident">litWidth</a>:  <label for="r49" class="ident">lw</label>,</code></span>
+<span class="codeline" id="line-265"><code>		<a href="writer.go.html#line-62" class="ident">hi</a>:        <span class="lit-number">1</span>&lt;&lt;<label for="r49" class="ident">lw</label> + <span class="lit-number">1</span>,</code></span>
+<span class="codeline" id="line-266"><code>		<a href="writer.go.html#line-62" class="ident">overflow</a>:  <span class="lit-number">1</span> &lt;&lt; (<label for="r49" class="ident">lw</label> + <span class="lit-number">1</span>),</code></span>
+<span class="codeline" id="line-267"><code>		<a href="writer.go.html#line-65" class="ident">savedCode</a>: <a href="writer.go.html#line-37" class="ident">invalidCode</a>,</code></span>
+<span class="codeline" id="line-268"><code>	}</code></span>
+<span class="codeline" id="line-269"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

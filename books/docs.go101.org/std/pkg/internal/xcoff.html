@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: internal/xcoff</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>xcoff</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-internal/xcoff">internal/xcoff</a><i> (on <a href="https://golang.org/pkg/internal/xcoff/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/internal/xcoff" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/internal/xcoff.html">7 packages</a>, and imported by <a href="../../dep/internal/xcoff.html#imported-by">one package</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/internal/xcoff/ar.go.html">ar.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../src/internal/xcoff/file.go.html#doc">d➜</a> <a href="../../src/internal/xcoff/file.go.html">file.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package xcoff implements access to XCOFF (Extended Common Object File Format) files.
+</span>
+	<span class="nodocs">      <a href="../../src/internal/xcoff/xcoff.go.html">xcoff.go</a></span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 31)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Archive" data-popularity="300">	<input type='checkbox' class="fold" id="Archive-fold-content"><label for="Archive-fold-content"> type <a href="../../src/internal/xcoff/ar.go.html#line-50">Archive</a> <i>(struct)</i></label><span id='Archive-fold-content-docs' class="fold-docs">
+		Archive represents an open AIX big archive.
+
+		<input type='checkbox' class="fold" id="Archive-fold-fields"><label for="Archive-fold-fields">Fields (<i>total 2</i>)</label><span id='Archive-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-51">ArchiveHeader</a> <i><a href="xcoff.html#name-ArchiveHeader">ArchiveHeader</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-52">Members</a> <i>[]*<a href="xcoff.html#name-Member">Member</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="Archive-fold-methods"><label for="Archive-fold-methods">Methods (<i>total 2</i>)</label><span id='Archive-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Archive-fold-method-Close"><label for="Archive-fold-method-Close">(*T) <a href="../../src/internal/xcoff/ar.go.html#line-93">Close</a>() <a href="../builtin.html#name-error">error</a></label><span id='Archive-fold-method-Close-docs' class="fold-docs">
+				Close closes the Archive.
+				If the Archive was created using NewArchive directly instead of OpenArchive,
+				Close has no effect.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Archive-fold-method-GetFile"><label for="Archive-fold-method-GetFile">(*T) <a href="../../src/internal/xcoff/ar.go.html#line-220">GetFile</a>(name <a href="../builtin.html#name-string">string</a>) (*<a href="xcoff.html#name-File">File</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Archive-fold-method-GetFile-docs' class="fold-docs">
+				GetFile returns the XCOFF file defined by member name.
+				FIXME: This doesn't work if an archive has two members with the same
+				name which can occur if a archive has both 32-bits and 64-bits files.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Archive-fold-impls"><label for="Archive-fold-impls">Implements (<i>at least one exported</i>)</label><span id='Archive-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span></span>
+		<input type='checkbox' class="fold" id="Archive-fold-results"><label for="Archive-fold-results">As Outputs Of (<i>at least 2</i>)</label><span id='Archive-fold-results-items' class="fold-items"><span>
+			func <a href="xcoff.html#name-NewArchive">NewArchive</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-ReaderAt">ReaderAt</a>) (*<b>Archive</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func <a href="xcoff.html#name-OpenArchive">OpenArchive</a>(name <a href="../builtin.html#name-string">string</a>) (*<b>Archive</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-ArchiveHeader" data-popularity="0">	<input type='checkbox' class="fold" id="ArchiveHeader-fold-content"><label for="ArchiveHeader-fold-content"> type <a href="../../src/internal/xcoff/ar.go.html#line-58">ArchiveHeader</a> <i>(struct)</i></label><span id='ArchiveHeader-fold-content-docs' class="fold-docs">
+		MemberHeader holds information about a big archive file header
+
+
+</span></div><div class="anchor type-res" id="name-AuxCSect32" data-popularity="0">	<input type='checkbox' class="fold" id="AuxCSect32-fold-content"><label for="AuxCSect32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-205">AuxCSect32</a> <i>(struct)</i></label><span id='AuxCSect32-fold-content-docs' class="fold-docs">
+		csect Auxiliary Entry.
+
+		<input type='checkbox' class="fold" id="AuxCSect32-fold-fields"><label for="AuxCSect32-fold-fields">Fields (<i>total 7</i>)</label><span id='AuxCSect32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xparmhash"><label for="AuxCSect32-fold-field-Xparmhash"><a href="../../src/internal/xcoff/xcoff.go.html#line-207">Xparmhash</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxCSect32-fold-field-Xparmhash-docs' class="fold-docs">
+				// Offset of parameter type-check string
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xscnlen"><label for="AuxCSect32-fold-field-Xscnlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-206">Xscnlen</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='AuxCSect32-fold-field-Xscnlen-docs' class="fold-docs">
+				// Length or symbol table index
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xsmclas"><label for="AuxCSect32-fold-field-Xsmclas"><a href="../../src/internal/xcoff/xcoff.go.html#line-210">Xsmclas</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect32-fold-field-Xsmclas-docs' class="fold-docs">
+				// Storage-mapping class
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xsmtyp"><label for="AuxCSect32-fold-field-Xsmtyp"><a href="../../src/internal/xcoff/xcoff.go.html#line-209">Xsmtyp</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect32-fold-field-Xsmtyp-docs' class="fold-docs">
+				// Symbol alignment and type
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xsnhash"><label for="AuxCSect32-fold-field-Xsnhash"><a href="../../src/internal/xcoff/xcoff.go.html#line-208">Xsnhash</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='AuxCSect32-fold-field-Xsnhash-docs' class="fold-docs">
+				// .typchk section number
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xsnstab"><label for="AuxCSect32-fold-field-Xsnstab"><a href="../../src/internal/xcoff/xcoff.go.html#line-212">Xsnstab</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='AuxCSect32-fold-field-Xsnstab-docs' class="fold-docs">
+				// Reserved
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect32-fold-field-Xstab"><label for="AuxCSect32-fold-field-Xstab"><a href="../../src/internal/xcoff/xcoff.go.html#line-211">Xstab</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxCSect32-fold-field-Xstab-docs' class="fold-docs">
+				// Reserved
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxCSect64" data-popularity="0">	<input type='checkbox' class="fold" id="AuxCSect64-fold-content"><label for="AuxCSect64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-215">AuxCSect64</a> <i>(struct)</i></label><span id='AuxCSect64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="AuxCSect64-fold-fields"><label for="AuxCSect64-fold-fields">Fields (<i>total 8</i>)</label><span id='AuxCSect64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xauxtype"><label for="AuxCSect64-fold-field-Xauxtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-223">Xauxtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect64-fold-field-Xauxtype-docs' class="fold-docs">
+				// Type of auxiliary entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xpad"><label for="AuxCSect64-fold-field-Xpad"><a href="../../src/internal/xcoff/xcoff.go.html#line-222">Xpad</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect64-fold-field-Xpad-docs' class="fold-docs">
+				// Unused
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xparmhash"><label for="AuxCSect64-fold-field-Xparmhash"><a href="../../src/internal/xcoff/xcoff.go.html#line-217">Xparmhash</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxCSect64-fold-field-Xparmhash-docs' class="fold-docs">
+				// Offset of parameter type-check string
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xscnlenhi"><label for="AuxCSect64-fold-field-Xscnlenhi"><a href="../../src/internal/xcoff/xcoff.go.html#line-221">Xscnlenhi</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='AuxCSect64-fold-field-Xscnlenhi-docs' class="fold-docs">
+				// Upper 4 bytes of length or symbol table index
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xscnlenlo"><label for="AuxCSect64-fold-field-Xscnlenlo"><a href="../../src/internal/xcoff/xcoff.go.html#line-216">Xscnlenlo</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxCSect64-fold-field-Xscnlenlo-docs' class="fold-docs">
+				// Lower 4 bytes of length or symbol table index
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xsmclas"><label for="AuxCSect64-fold-field-Xsmclas"><a href="../../src/internal/xcoff/xcoff.go.html#line-220">Xsmclas</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect64-fold-field-Xsmclas-docs' class="fold-docs">
+				// Storage-mapping class
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xsmtyp"><label for="AuxCSect64-fold-field-Xsmtyp"><a href="../../src/internal/xcoff/xcoff.go.html#line-219">Xsmtyp</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxCSect64-fold-field-Xsmtyp-docs' class="fold-docs">
+				// Symbol alignment and type
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxCSect64-fold-field-Xsnhash"><label for="AuxCSect64-fold-field-Xsnhash"><a href="../../src/internal/xcoff/xcoff.go.html#line-218">Xsnhash</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='AuxCSect64-fold-field-Xsnhash-docs' class="fold-docs">
+				// .typchk section number
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxFcn32" data-popularity="0">	<input type='checkbox' class="fold" id="AuxFcn32-fold-content"><label for="AuxFcn32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-182">AuxFcn32</a> <i>(struct)</i></label><span id='AuxFcn32-fold-content-docs' class="fold-docs">
+		Function Auxiliary Entry
+
+		<input type='checkbox' class="fold" id="AuxFcn32-fold-fields"><label for="AuxFcn32-fold-fields">Fields (<i>total 5</i>)</label><span id='AuxFcn32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxFcn32-fold-field-Xendndx"><label for="AuxFcn32-fold-field-Xendndx"><a href="../../src/internal/xcoff/xcoff.go.html#line-186">Xendndx</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn32-fold-field-Xendndx-docs' class="fold-docs">
+				// Symbol table index of next entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn32-fold-field-Xexptr"><label for="AuxFcn32-fold-field-Xexptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-183">Xexptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn32-fold-field-Xexptr-docs' class="fold-docs">
+				// File offset to exception table entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn32-fold-field-Xfsize"><label for="AuxFcn32-fold-field-Xfsize"><a href="../../src/internal/xcoff/xcoff.go.html#line-184">Xfsize</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn32-fold-field-Xfsize-docs' class="fold-docs">
+				// Size of function in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn32-fold-field-Xlnnoptr"><label for="AuxFcn32-fold-field-Xlnnoptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-185">Xlnnoptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn32-fold-field-Xlnnoptr-docs' class="fold-docs">
+				// File pointer to line number
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn32-fold-field-Xpad"><label for="AuxFcn32-fold-field-Xpad"><a href="../../src/internal/xcoff/xcoff.go.html#line-187">Xpad</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='AuxFcn32-fold-field-Xpad-docs' class="fold-docs">
+				// Unused
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxFcn64" data-popularity="0">	<input type='checkbox' class="fold" id="AuxFcn64-fold-content"><label for="AuxFcn64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-189">AuxFcn64</a> <i>(struct)</i></label><span id='AuxFcn64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="AuxFcn64-fold-fields"><label for="AuxFcn64-fold-fields">Fields (<i>total 5</i>)</label><span id='AuxFcn64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxFcn64-fold-field-Xauxtype"><label for="AuxFcn64-fold-field-Xauxtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-194">Xauxtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxFcn64-fold-field-Xauxtype-docs' class="fold-docs">
+				// Type of auxiliary entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn64-fold-field-Xendndx"><label for="AuxFcn64-fold-field-Xendndx"><a href="../../src/internal/xcoff/xcoff.go.html#line-192">Xendndx</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn64-fold-field-Xendndx-docs' class="fold-docs">
+				// Symbol table index of next entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn64-fold-field-Xfsize"><label for="AuxFcn64-fold-field-Xfsize"><a href="../../src/internal/xcoff/xcoff.go.html#line-191">Xfsize</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='AuxFcn64-fold-field-Xfsize-docs' class="fold-docs">
+				// Size of function in bytes
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn64-fold-field-Xlnnoptr"><label for="AuxFcn64-fold-field-Xlnnoptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-190">Xlnnoptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='AuxFcn64-fold-field-Xlnnoptr-docs' class="fold-docs">
+				// File pointer to line number
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFcn64-fold-field-Xpad"><label for="AuxFcn64-fold-field-Xpad"><a href="../../src/internal/xcoff/xcoff.go.html#line-193">Xpad</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxFcn64-fold-field-Xpad-docs' class="fold-docs">
+				// Unused
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxFile64" data-popularity="0">	<input type='checkbox' class="fold" id="AuxFile64-fold-content"><label for="AuxFile64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-175">AuxFile64</a> <i>(struct)</i></label><span id='AuxFile64-fold-content-docs' class="fold-docs">
+		File Auxiliary Entry
+
+		<input type='checkbox' class="fold" id="AuxFile64-fold-fields"><label for="AuxFile64-fold-fields">Fields (<i>total 3</i>)</label><span id='AuxFile64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxFile64-fold-field-Xauxtype"><label for="AuxFile64-fold-field-Xauxtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-178">Xauxtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxFile64-fold-field-Xauxtype-docs' class="fold-docs">
+				// Type of auxiliary entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFile64-fold-field-Xfname"><label for="AuxFile64-fold-field-Xfname"><a href="../../src/internal/xcoff/xcoff.go.html#line-176">Xfname</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></label><span id='AuxFile64-fold-field-Xfname-docs' class="fold-docs">
+				// Name or offset inside string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxFile64-fold-field-Xftype"><label for="AuxFile64-fold-field-Xftype"><a href="../../src/internal/xcoff/xcoff.go.html#line-177">Xftype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxFile64-fold-field-Xftype-docs' class="fold-docs">
+				// Source file string type
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxiliaryCSect" data-popularity="0">	<input type='checkbox' class="fold" id="AuxiliaryCSect-fold-content"><label for="AuxiliaryCSect-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-35">AuxiliaryCSect</a> <i>(struct)</i></label><span id='AuxiliaryCSect-fold-content-docs' class="fold-docs">
+		AuxiliaryCSect holds information about an XCOFF symbol in an AUX_CSECT entry.
+
+		<input type='checkbox' class="fold" id="AuxiliaryCSect-fold-fields"><label for="AuxiliaryCSect-fold-fields">Fields (<i>total 3</i>)</label><span id='AuxiliaryCSect-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-36">Length</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-37">StorageMappingClass</a> <i><a href="../builtin.html#name-int">int</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-38">SymbolType</a> <i><a href="../builtin.html#name-int">int</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxiliaryFcn" data-popularity="0">	<input type='checkbox' class="fold" id="AuxiliaryFcn-fold-content"><label for="AuxiliaryFcn-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-42">AuxiliaryFcn</a> <i>(struct)</i></label><span id='AuxiliaryFcn-fold-content-docs' class="fold-docs">
+		AuxiliaryFcn holds information about an XCOFF symbol in an AUX_FCN entry.
+
+		<input type='checkbox' class="fold" id="AuxiliaryFcn-fold-fields"><label for="AuxiliaryFcn-fold-fields">Fields (<i>only one</i>)</label><span id='AuxiliaryFcn-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-43">Size</a> <i><a href="../builtin.html#name-int64">int64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-AuxSect64" data-popularity="0">	<input type='checkbox' class="fold" id="AuxSect64-fold-content"><label for="AuxSect64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-197">AuxSect64</a> <i>(struct)</i></label><span id='AuxSect64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="AuxSect64-fold-fields"><label for="AuxSect64-fold-fields">Fields (<i>total 3</i>)</label><span id='AuxSect64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="AuxSect64-fold-field-Xauxtype"><label for="AuxSect64-fold-field-Xauxtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-201">Xauxtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='AuxSect64-fold-field-Xauxtype-docs' class="fold-docs">
+				// Type of auxiliary entry
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxSect64-fold-field-Xnreloc"><label for="AuxSect64-fold-field-Xnreloc"><a href="../../src/internal/xcoff/xcoff.go.html#line-199">Xnreloc</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='AuxSect64-fold-field-Xnreloc-docs' class="fold-docs">
+				// Num RLDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="AuxSect64-fold-field-Xscnlen"><label for="AuxSect64-fold-field-Xscnlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-198">Xscnlen</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='AuxSect64-fold-field-Xscnlen-docs' class="fold-docs">
+				// section length
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-File" data-popularity="625">	<input type='checkbox' class="fold" id="File-fold-content"><label for="File-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-76">File</a> <i>(struct)</i></label><span id='File-fold-content-docs' class="fold-docs">
+		A File represents an open XCOFF file.
+
+		<input type='checkbox' class="fold" id="File-fold-fields"><label for="File-fold-fields">Fields (<i>total 6</i>)</label><span id='File-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-77">FileHeader</a> <i><a href="xcoff.html#name-FileHeader">FileHeader</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-77" class="path-duplicate">FileHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-72">TargetMachine</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-81">LibraryPaths</a> <i>[]<a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-78">Sections</a> <i>[]*<a href="xcoff.html#name-Section">Section</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-80">StringTable</a> <i>[]<a href="../builtin.html#name-byte">byte</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-79">Symbols</a> <i>[]*<a href="xcoff.html#name-Symbol">Symbol</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="File-fold-methods"><label for="File-fold-methods">Methods (<i>total 7</i>)</label><span id='File-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="File-fold-method-CSect"><label for="File-fold-method-CSect">(*T) <a href="../../src/internal/xcoff/file.go.html#line-466">CSect</a>(name <a href="../builtin.html#name-string">string</a>) []<a href="../builtin.html#name-byte">byte</a></label><span id='File-fold-method-CSect-docs' class="fold-docs">
+				CSect reads and returns the contents of a csect.
+</span></span><span>
+			<input type='checkbox' class="fold" id="File-fold-method-Close"><label for="File-fold-method-Close">(*T) <a href="../../src/internal/xcoff/file.go.html#line-104">Close</a>() <a href="../builtin.html#name-error">error</a></label><span id='File-fold-method-Close-docs' class="fold-docs">
+				Close closes the File.
+				If the File was created using NewFile directly instead of Open,
+				Close has no effect.
+</span></span><span>
+			<span class="nodocs">(*T) <a href="../../src/internal/xcoff/file.go.html#line-486">DWARF</a>() (*<a href="../debug/dwarf.html">dwarf</a>.<a href="../debug/dwarf.html#name-Data">Data</a>, <a href="../builtin.html#name-error">error</a>)</span></span><span>
+			<input type='checkbox' class="fold" id="File-fold-method-ImportedLibraries"><label for="File-fold-method-ImportedLibraries">(*T) <a href="../../src/internal/xcoff/file.go.html#line-680">ImportedLibraries</a>() ([]<a href="../builtin.html#name-string">string</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='File-fold-method-ImportedLibraries-docs' class="fold-docs">
+				ImportedLibraries returns the names of all libraries
+				referred to by the binary f that are expected to be
+				linked with the binary at dynamic link time.
+</span></span><span>
+			<input type='checkbox' class="fold" id="File-fold-method-ImportedSymbols"><label for="File-fold-method-ImportedSymbols">(*T) <a href="../../src/internal/xcoff/file.go.html#line-574">ImportedSymbols</a>() ([]<a href="xcoff.html#name-ImportedSymbol">ImportedSymbol</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='File-fold-method-ImportedSymbols-docs' class="fold-docs">
+				ImportedSymbols returns the names of all symbols
+				referred to by the binary f that are expected to be
+				satisfied by other libraries at dynamic load time.
+				It does not return weak symbols.
+</span></span><span>
+			<input type='checkbox' class="fold" id="File-fold-method-Section"><label for="File-fold-method-Section">(*T) <a href="../../src/internal/xcoff/file.go.html#line-117">Section</a>(name <a href="../builtin.html#name-string">string</a>) *<a href="xcoff.html#name-Section">Section</a></label><span id='File-fold-method-Section-docs' class="fold-docs">
+				Section returns the first section with the given name, or nil if no such
+				section exists.
+				Xcoff have section's name limited to 8 bytes. Some sections like .gosymtab
+				can be trunked but this method will still find them.
+</span></span><span>
+			<input type='checkbox' class="fold" id="File-fold-method-SectionByType"><label for="File-fold-method-SectionByType">(*T) <a href="../../src/internal/xcoff/file.go.html#line-128">SectionByType</a>(typ <a href="../builtin.html#name-uint32">uint32</a>) *<a href="xcoff.html#name-Section">Section</a></label><span id='File-fold-method-SectionByType-docs' class="fold-docs">
+				SectionByType returns the first section in f with the
+				given type, or nil if there is no such section.
+</span></span></span>
+		<input type='checkbox' class="fold" id="File-fold-impls"><label for="File-fold-impls">Implements (<i>at least one exported</i>)</label><span id='File-fold-impls-items' class="fold-items"><span>
+			*T : io.<a href="../io.html#name-Closer">Closer</a></span></span>
+		<input type='checkbox' class="fold" id="File-fold-results"><label for="File-fold-results">As Outputs Of (<i>at least 3</i>)</label><span id='File-fold-results-items' class="fold-items"><span>
+			func <a href="xcoff.html#name-NewFile">NewFile</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-ReaderAt">ReaderAt</a>) (*<b>File</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func <a href="xcoff.html#name-Open">Open</a>(name <a href="../builtin.html#name-string">string</a>) (*<b>File</b>, <a href="../builtin.html#name-error">error</a>)</span><span>
+			func (*<a href="xcoff.html#name-Archive">Archive</a>).<a href="../../src/internal/xcoff/ar.go.html#line-220">GetFile</a>(name <a href="../builtin.html#name-string">string</a>) (*<b>File</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-FileHeader" data-popularity="0">	<input type='checkbox' class="fold" id="FileHeader-fold-content"><label for="FileHeader-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-71">FileHeader</a> <i>(struct)</i></label><span id='FileHeader-fold-content-docs' class="fold-docs">
+		FileHeader holds information about an XCOFF file header.
+
+		<input type='checkbox' class="fold" id="FileHeader-fold-fields"><label for="FileHeader-fold-fields">Fields (<i>only one</i>)</label><span id='FileHeader-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-72">TargetMachine</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-FileHeader32" data-popularity="0">	<input type='checkbox' class="fold" id="FileHeader32-fold-content"><label for="FileHeader32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-8">FileHeader32</a> <i>(struct)</i></label><span id='FileHeader32-fold-content-docs' class="fold-docs">
+		File Header.
+
+		<input type='checkbox' class="fold" id="FileHeader32-fold-fields"><label for="FileHeader32-fold-fields">Fields (<i>total 7</i>)</label><span id='FileHeader32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fflags"><label for="FileHeader32-fold-field-Fflags"><a href="../../src/internal/xcoff/xcoff.go.html#line-15">Fflags</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader32-fold-field-Fflags-docs' class="fold-docs">
+				// Flags
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fmagic"><label for="FileHeader32-fold-field-Fmagic"><a href="../../src/internal/xcoff/xcoff.go.html#line-9">Fmagic</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader32-fold-field-Fmagic-docs' class="fold-docs">
+				// Target machine
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fnscns"><label for="FileHeader32-fold-field-Fnscns"><a href="../../src/internal/xcoff/xcoff.go.html#line-10">Fnscns</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader32-fold-field-Fnscns-docs' class="fold-docs">
+				// Number of sections
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fnsyms"><label for="FileHeader32-fold-field-Fnsyms"><a href="../../src/internal/xcoff/xcoff.go.html#line-13">Fnsyms</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='FileHeader32-fold-field-Fnsyms-docs' class="fold-docs">
+				// Number of entries in symbol table
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fopthdr"><label for="FileHeader32-fold-field-Fopthdr"><a href="../../src/internal/xcoff/xcoff.go.html#line-14">Fopthdr</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader32-fold-field-Fopthdr-docs' class="fold-docs">
+				// Number of bytes in optional header
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Fsymptr"><label for="FileHeader32-fold-field-Fsymptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-12">Fsymptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='FileHeader32-fold-field-Fsymptr-docs' class="fold-docs">
+				// Byte offset to symbol table start
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader32-fold-field-Ftimedat"><label for="FileHeader32-fold-field-Ftimedat"><a href="../../src/internal/xcoff/xcoff.go.html#line-11">Ftimedat</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='FileHeader32-fold-field-Ftimedat-docs' class="fold-docs">
+				// Time and date of file creation
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-FileHeader64" data-popularity="0">	<input type='checkbox' class="fold" id="FileHeader64-fold-content"><label for="FileHeader64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-18">FileHeader64</a> <i>(struct)</i></label><span id='FileHeader64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="FileHeader64-fold-fields"><label for="FileHeader64-fold-fields">Fields (<i>total 7</i>)</label><span id='FileHeader64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fflags"><label for="FileHeader64-fold-field-Fflags"><a href="../../src/internal/xcoff/xcoff.go.html#line-24">Fflags</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader64-fold-field-Fflags-docs' class="fold-docs">
+				// Flags
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fmagic"><label for="FileHeader64-fold-field-Fmagic"><a href="../../src/internal/xcoff/xcoff.go.html#line-19">Fmagic</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader64-fold-field-Fmagic-docs' class="fold-docs">
+				// Target machine
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fnscns"><label for="FileHeader64-fold-field-Fnscns"><a href="../../src/internal/xcoff/xcoff.go.html#line-20">Fnscns</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader64-fold-field-Fnscns-docs' class="fold-docs">
+				// Number of sections
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fnsyms"><label for="FileHeader64-fold-field-Fnsyms"><a href="../../src/internal/xcoff/xcoff.go.html#line-25">Fnsyms</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='FileHeader64-fold-field-Fnsyms-docs' class="fold-docs">
+				// Number of entries in symbol table
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fopthdr"><label for="FileHeader64-fold-field-Fopthdr"><a href="../../src/internal/xcoff/xcoff.go.html#line-23">Fopthdr</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='FileHeader64-fold-field-Fopthdr-docs' class="fold-docs">
+				// Number of bytes in optional header
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Fsymptr"><label for="FileHeader64-fold-field-Fsymptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-22">Fsymptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='FileHeader64-fold-field-Fsymptr-docs' class="fold-docs">
+				// Byte offset to symbol table start
+</span></span><span>
+			<input type='checkbox' class="fold" id="FileHeader64-fold-field-Ftimedat"><label for="FileHeader64-fold-field-Ftimedat"><a href="../../src/internal/xcoff/xcoff.go.html#line-21">Ftimedat</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='FileHeader64-fold-field-Ftimedat-docs' class="fold-docs">
+				// Time and date of file creation
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-ImportedSymbol" data-popularity="75">	<input type='checkbox' class="fold" id="ImportedSymbol-fold-content"><label for="ImportedSymbol-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-65">ImportedSymbol</a> <i>(struct)</i></label><span id='ImportedSymbol-fold-content-docs' class="fold-docs">
+		ImportedSymbol holds information about an imported XCOFF symbol.
+
+		<input type='checkbox' class="fold" id="ImportedSymbol-fold-fields"><label for="ImportedSymbol-fold-fields">Fields (<i>total 2</i>)</label><span id='ImportedSymbol-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-67">Library</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-66">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="ImportedSymbol-fold-results"><label for="ImportedSymbol-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='ImportedSymbol-fold-results-items' class="fold-items"><span>
+			func (*<a href="xcoff.html#name-File">File</a>).<a href="../../src/internal/xcoff/file.go.html#line-574">ImportedSymbols</a>() ([]<b>ImportedSymbol</b>, <a href="../builtin.html#name-error">error</a>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-LoaderHeader32" data-popularity="0">	<input type='checkbox' class="fold" id="LoaderHeader32-fold-content"><label for="LoaderHeader32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-276">LoaderHeader32</a> <i>(struct)</i></label><span id='LoaderHeader32-fold-content-docs' class="fold-docs">
+		Loader Header.
+
+		<input type='checkbox' class="fold" id="LoaderHeader32-fold-fields"><label for="LoaderHeader32-fold-fields">Fields (<i>total 8</i>)</label><span id='LoaderHeader32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Limpoff"><label for="LoaderHeader32-fold-field-Limpoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-282">Limpoff</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader32-fold-field-Limpoff-docs' class="fold-docs">
+				// Offset to start of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Listlen"><label for="LoaderHeader32-fold-field-Listlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-280">Listlen</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader32-fold-field-Listlen-docs' class="fold-docs">
+				// Length of import file ID string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lnimpid"><label for="LoaderHeader32-fold-field-Lnimpid"><a href="../../src/internal/xcoff/xcoff.go.html#line-281">Lnimpid</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader32-fold-field-Lnimpid-docs' class="fold-docs">
+				// Number of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lnreloc"><label for="LoaderHeader32-fold-field-Lnreloc"><a href="../../src/internal/xcoff/xcoff.go.html#line-279">Lnreloc</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader32-fold-field-Lnreloc-docs' class="fold-docs">
+				// Number of relocation table entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lnsyms"><label for="LoaderHeader32-fold-field-Lnsyms"><a href="../../src/internal/xcoff/xcoff.go.html#line-278">Lnsyms</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader32-fold-field-Lnsyms-docs' class="fold-docs">
+				// Number of symbol table entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lstlen"><label for="LoaderHeader32-fold-field-Lstlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-283">Lstlen</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader32-fold-field-Lstlen-docs' class="fold-docs">
+				// Length of string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lstoff"><label for="LoaderHeader32-fold-field-Lstoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-284">Lstoff</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader32-fold-field-Lstoff-docs' class="fold-docs">
+				// Offset to start of string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader32-fold-field-Lversion"><label for="LoaderHeader32-fold-field-Lversion"><a href="../../src/internal/xcoff/xcoff.go.html#line-277">Lversion</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader32-fold-field-Lversion-docs' class="fold-docs">
+				// Loader section version number
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-LoaderHeader64" data-popularity="0">	<input type='checkbox' class="fold" id="LoaderHeader64-fold-content"><label for="LoaderHeader64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-287">LoaderHeader64</a> <i>(struct)</i></label><span id='LoaderHeader64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="LoaderHeader64-fold-fields"><label for="LoaderHeader64-fold-fields">Fields (<i>total 10</i>)</label><span id='LoaderHeader64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Limpoff"><label for="LoaderHeader64-fold-field-Limpoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-294">Limpoff</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LoaderHeader64-fold-field-Limpoff-docs' class="fold-docs">
+				// Offset to start of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Listlen"><label for="LoaderHeader64-fold-field-Listlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-291">Listlen</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader64-fold-field-Listlen-docs' class="fold-docs">
+				// Length of import file ID string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lnimpid"><label for="LoaderHeader64-fold-field-Lnimpid"><a href="../../src/internal/xcoff/xcoff.go.html#line-292">Lnimpid</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader64-fold-field-Lnimpid-docs' class="fold-docs">
+				// Number of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lnreloc"><label for="LoaderHeader64-fold-field-Lnreloc"><a href="../../src/internal/xcoff/xcoff.go.html#line-290">Lnreloc</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader64-fold-field-Lnreloc-docs' class="fold-docs">
+				// Number of relocation table entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lnsyms"><label for="LoaderHeader64-fold-field-Lnsyms"><a href="../../src/internal/xcoff/xcoff.go.html#line-289">Lnsyms</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader64-fold-field-Lnsyms-docs' class="fold-docs">
+				// Number of symbol table entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lrldoff"><label for="LoaderHeader64-fold-field-Lrldoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-297">Lrldoff</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LoaderHeader64-fold-field-Lrldoff-docs' class="fold-docs">
+				// Offset to start of relocation entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lstlen"><label for="LoaderHeader64-fold-field-Lstlen"><a href="../../src/internal/xcoff/xcoff.go.html#line-293">Lstlen</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderHeader64-fold-field-Lstlen-docs' class="fold-docs">
+				// Length of string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lstoff"><label for="LoaderHeader64-fold-field-Lstoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-295">Lstoff</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LoaderHeader64-fold-field-Lstoff-docs' class="fold-docs">
+				// Offset to start of string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lsymoff"><label for="LoaderHeader64-fold-field-Lsymoff"><a href="../../src/internal/xcoff/xcoff.go.html#line-296">Lsymoff</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LoaderHeader64-fold-field-Lsymoff-docs' class="fold-docs">
+				// Offset to start of symbol table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderHeader64-fold-field-Lversion"><label for="LoaderHeader64-fold-field-Lversion"><a href="../../src/internal/xcoff/xcoff.go.html#line-288">Lversion</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderHeader64-fold-field-Lversion-docs' class="fold-docs">
+				// Loader section version number
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-LoaderSymbol32" data-popularity="0">	<input type='checkbox' class="fold" id="LoaderSymbol32-fold-content"><label for="LoaderSymbol32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-306">LoaderSymbol32</a> <i>(struct)</i></label><span id='LoaderSymbol32-fold-content-docs' class="fold-docs">
+		Loader Symbol.
+
+		<input type='checkbox' class="fold" id="LoaderSymbol32-fold-fields"><label for="LoaderSymbol32-fold-fields">Fields (<i>total 7</i>)</label><span id='LoaderSymbol32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lifile"><label for="LoaderSymbol32-fold-field-Lifile"><a href="../../src/internal/xcoff/xcoff.go.html#line-312">Lifile</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderSymbol32-fold-field-Lifile-docs' class="fold-docs">
+				// Import file ID; ordinal of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lname"><label for="LoaderSymbol32-fold-field-Lname"><a href="../../src/internal/xcoff/xcoff.go.html#line-307">Lname</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></label><span id='LoaderSymbol32-fold-field-Lname-docs' class="fold-docs">
+				// Symbol name or byte offset into string table
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lparm"><label for="LoaderSymbol32-fold-field-Lparm"><a href="../../src/internal/xcoff/xcoff.go.html#line-313">Lparm</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderSymbol32-fold-field-Lparm-docs' class="fold-docs">
+				// Parameter type-check field
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lscnum"><label for="LoaderSymbol32-fold-field-Lscnum"><a href="../../src/internal/xcoff/xcoff.go.html#line-309">Lscnum</a> <i><a href="../builtin.html#name-int16">int16</a></i></label><span id='LoaderSymbol32-fold-field-Lscnum-docs' class="fold-docs">
+				// Section number containing symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lsmclas"><label for="LoaderSymbol32-fold-field-Lsmclas"><a href="../../src/internal/xcoff/xcoff.go.html#line-311">Lsmclas</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='LoaderSymbol32-fold-field-Lsmclas-docs' class="fold-docs">
+				// Symbol storage class
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lsmtype"><label for="LoaderSymbol32-fold-field-Lsmtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-310">Lsmtype</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='LoaderSymbol32-fold-field-Lsmtype-docs' class="fold-docs">
+				// Symbol type, export, import flags
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol32-fold-field-Lvalue"><label for="LoaderSymbol32-fold-field-Lvalue"><a href="../../src/internal/xcoff/xcoff.go.html#line-308">Lvalue</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderSymbol32-fold-field-Lvalue-docs' class="fold-docs">
+				// Address field
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-LoaderSymbol64" data-popularity="0">	<input type='checkbox' class="fold" id="LoaderSymbol64-fold-content"><label for="LoaderSymbol64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-316">LoaderSymbol64</a> <i>(struct)</i></label><span id='LoaderSymbol64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="LoaderSymbol64-fold-fields"><label for="LoaderSymbol64-fold-fields">Fields (<i>total 7</i>)</label><span id='LoaderSymbol64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lifile"><label for="LoaderSymbol64-fold-field-Lifile"><a href="../../src/internal/xcoff/xcoff.go.html#line-322">Lifile</a> <i><a href="../builtin.html#name-int32">int32</a></i></label><span id='LoaderSymbol64-fold-field-Lifile-docs' class="fold-docs">
+				// Import file ID; ordinal of import file IDs
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Loffset"><label for="LoaderSymbol64-fold-field-Loffset"><a href="../../src/internal/xcoff/xcoff.go.html#line-318">Loffset</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderSymbol64-fold-field-Loffset-docs' class="fold-docs">
+				// Byte offset into string table of symbol name
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lparm"><label for="LoaderSymbol64-fold-field-Lparm"><a href="../../src/internal/xcoff/xcoff.go.html#line-323">Lparm</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='LoaderSymbol64-fold-field-Lparm-docs' class="fold-docs">
+				// Parameter type-check field
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lscnum"><label for="LoaderSymbol64-fold-field-Lscnum"><a href="../../src/internal/xcoff/xcoff.go.html#line-319">Lscnum</a> <i><a href="../builtin.html#name-int16">int16</a></i></label><span id='LoaderSymbol64-fold-field-Lscnum-docs' class="fold-docs">
+				// Section number containing symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lsmclas"><label for="LoaderSymbol64-fold-field-Lsmclas"><a href="../../src/internal/xcoff/xcoff.go.html#line-321">Lsmclas</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='LoaderSymbol64-fold-field-Lsmclas-docs' class="fold-docs">
+				// Symbol storage class
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lsmtype"><label for="LoaderSymbol64-fold-field-Lsmtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-320">Lsmtype</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='LoaderSymbol64-fold-field-Lsmtype-docs' class="fold-docs">
+				// Symbol type, export, import flags
+</span></span><span>
+			<input type='checkbox' class="fold" id="LoaderSymbol64-fold-field-Lvalue"><label for="LoaderSymbol64-fold-field-Lvalue"><a href="../../src/internal/xcoff/xcoff.go.html#line-317">Lvalue</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='LoaderSymbol64-fold-field-Lvalue-docs' class="fold-docs">
+				// Address field
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Member" data-popularity="0">	<input type='checkbox' class="fold" id="Member-fold-content"><label for="Member-fold-content"> type <a href="../../src/internal/xcoff/ar.go.html#line-63">Member</a> <i>(struct)</i></label><span id='Member-fold-content-docs' class="fold-docs">
+		Member represents a member of an AIX big archive.
+
+		<input type='checkbox' class="fold" id="Member-fold-fields"><label for="Member-fold-fields">Fields (<i>total 3</i>)</label><span id='Member-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-64">MemberHeader</a> <i><a href="xcoff.html#name-MemberHeader">MemberHeader</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-64" class="path-duplicate">MemberHeader</a>.<a href="../../src/internal/xcoff/ar.go.html#line-70">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-64" class="path-duplicate">MemberHeader</a>.<a href="../../src/internal/xcoff/ar.go.html#line-71">Size</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-MemberHeader" data-popularity="0">	<input type='checkbox' class="fold" id="MemberHeader-fold-content"><label for="MemberHeader-fold-content"> type <a href="../../src/internal/xcoff/ar.go.html#line-69">MemberHeader</a> <i>(struct)</i></label><span id='MemberHeader-fold-content-docs' class="fold-docs">
+		MemberHeader holds information about a big archive member
+
+		<input type='checkbox' class="fold" id="MemberHeader-fold-fields"><label for="MemberHeader-fold-fields">Fields (<i>total 2</i>)</label><span id='MemberHeader-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-70">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/ar.go.html#line-71">Size</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Reloc" data-popularity="0">	<input type='checkbox' class="fold" id="Reloc-fold-content"><label for="Reloc-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-55">Reloc</a> <i>(struct)</i></label><span id='Reloc-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="Reloc-fold-fields"><label for="Reloc-fold-fields">Fields (<i>total 6</i>)</label><span id='Reloc-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-59">InstructionFixed</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-60">Length</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-58">Signed</a> <i><a href="../builtin.html#name-bool">bool</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-57">Symbol</a> <i>*<a href="xcoff.html#name-Symbol">Symbol</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-61">Type</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-56">VirtualAddress</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Reloc32" data-popularity="0">	<input type='checkbox' class="fold" id="Reloc32-fold-content"><label for="Reloc32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-326">Reloc32</a> <i>(struct)</i></label><span id='Reloc32-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="Reloc32-fold-fields"><label for="Reloc32-fold-fields">Fields (<i>total 4</i>)</label><span id='Reloc32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Reloc32-fold-field-Rsize"><label for="Reloc32-fold-field-Rsize"><a href="../../src/internal/xcoff/xcoff.go.html#line-329">Rsize</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='Reloc32-fold-field-Rsize-docs' class="fold-docs">
+				// Sign and reloc bit len
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc32-fold-field-Rsymndx"><label for="Reloc32-fold-field-Rsymndx"><a href="../../src/internal/xcoff/xcoff.go.html#line-328">Rsymndx</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='Reloc32-fold-field-Rsymndx-docs' class="fold-docs">
+				// Index into symbol table
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc32-fold-field-Rtype"><label for="Reloc32-fold-field-Rtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-330">Rtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='Reloc32-fold-field-Rtype-docs' class="fold-docs">
+				// Toc relocation type
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc32-fold-field-Rvaddr"><label for="Reloc32-fold-field-Rvaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-327">Rvaddr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='Reloc32-fold-field-Rvaddr-docs' class="fold-docs">
+				// (virtual) address of reference
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Reloc64" data-popularity="0">	<input type='checkbox' class="fold" id="Reloc64-fold-content"><label for="Reloc64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-333">Reloc64</a> <i>(struct)</i></label><span id='Reloc64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="Reloc64-fold-fields"><label for="Reloc64-fold-fields">Fields (<i>total 4</i>)</label><span id='Reloc64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Reloc64-fold-field-Rsize"><label for="Reloc64-fold-field-Rsize"><a href="../../src/internal/xcoff/xcoff.go.html#line-336">Rsize</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='Reloc64-fold-field-Rsize-docs' class="fold-docs">
+				// Sign and reloc bit len
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc64-fold-field-Rsymndx"><label for="Reloc64-fold-field-Rsymndx"><a href="../../src/internal/xcoff/xcoff.go.html#line-335">Rsymndx</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='Reloc64-fold-field-Rsymndx-docs' class="fold-docs">
+				// Index into symbol table
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc64-fold-field-Rtype"><label for="Reloc64-fold-field-Rtype"><a href="../../src/internal/xcoff/xcoff.go.html#line-337">Rtype</a> <i><a href="../builtin.html#name-uint8">uint8</a></i></label><span id='Reloc64-fold-field-Rtype-docs' class="fold-docs">
+				// Toc relocation type
+</span></span><span>
+			<input type='checkbox' class="fold" id="Reloc64-fold-field-Rvaddr"><label for="Reloc64-fold-field-Rvaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-334">Rvaddr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='Reloc64-fold-field-Rvaddr-docs' class="fold-docs">
+				// (virtual) address of reference
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Section" data-popularity="300">	<input type='checkbox' class="fold" id="Section-fold-content"><label for="Section-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-27">Section</a> <i>(struct)</i></label><span id='Section-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="Section-fold-fields"><label for="Section-fold-fields">Fields (<i>total 9</i>)</label><span id='Section-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-30">ReaderAt</a> <i><a href="../io.html">io</a>.<a href="../io.html#name-ReaderAt">ReaderAt</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-29">Relocs</a> <i>[]<a href="xcoff.html#name-Reloc">Reloc</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28">SectionHeader</a> <i><a href="xcoff.html#name-SectionHeader">SectionHeader</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-19">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-24">Nreloc</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-23">Relptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-21">Size</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-22">Type</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-28" class="path-duplicate">SectionHeader</a>.<a href="../../src/internal/xcoff/file.go.html#line-20">VirtualAddress</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+		<input type='checkbox' class="fold" id="Section-fold-methods"><label for="Section-fold-methods">Methods (<i>total 2</i>)</label><span id='Section-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Section-fold-method-Data"><label for="Section-fold-method-Data">(*T) <a href="../../src/internal/xcoff/file.go.html#line-456">Data</a>() ([]<a href="../builtin.html#name-byte">byte</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Section-fold-method-Data-docs' class="fold-docs">
+				Data reads and returns the contents of the XCOFF section s.
+</span></span><span>
+			<span class="nodocs">( T) <a href="../../src/io/io.go.html#line-226">ReadAt</a>(p []<a href="../builtin.html#name-byte">byte</a>, off <a href="../builtin.html#name-int64">int64</a>) (n <a href="../builtin.html#name-int">int</a>, err <a href="../builtin.html#name-error">error</a>)</span></span></span>
+		<input type='checkbox' class="fold" id="Section-fold-impls"><label for="Section-fold-impls">Implements (<i>at least one exported</i>)</label><span id='Section-fold-impls-items' class="fold-items"><span>
+			 T : io.<a href="../io.html#name-ReaderAt">ReaderAt</a></span></span>
+		<input type='checkbox' class="fold" id="Section-fold-results"><label for="Section-fold-results">As Outputs Of (<i>at least 2</i>)</label><span id='Section-fold-results-items' class="fold-items"><span>
+			func (*<a href="xcoff.html#name-File">File</a>).<a href="../../src/internal/xcoff/file.go.html#line-117">Section</a>(name <a href="../builtin.html#name-string">string</a>) *<b>Section</b></span><span>
+			func (*<a href="xcoff.html#name-File">File</a>).<a href="../../src/internal/xcoff/file.go.html#line-128">SectionByType</a>(typ <a href="../builtin.html#name-uint32">uint32</a>) *<b>Section</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-SectionHeader" data-popularity="0">	<input type='checkbox' class="fold" id="SectionHeader-fold-content"><label for="SectionHeader-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-18">SectionHeader</a> <i>(struct)</i></label><span id='SectionHeader-fold-content-docs' class="fold-docs">
+		SectionHeader holds information about an XCOFF section header.
+
+		<input type='checkbox' class="fold" id="SectionHeader-fold-fields"><label for="SectionHeader-fold-fields">Fields (<i>total 6</i>)</label><span id='SectionHeader-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-19">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-24">Nreloc</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-23">Relptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-21">Size</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-22">Type</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-20">VirtualAddress</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-SectionHeader32" data-popularity="0">	<input type='checkbox' class="fold" id="SectionHeader32-fold-content"><label for="SectionHeader32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-52">SectionHeader32</a> <i>(struct)</i></label><span id='SectionHeader32-fold-content-docs' class="fold-docs">
+		Section Header.
+
+		<input type='checkbox' class="fold" id="SectionHeader32-fold-fields"><label for="SectionHeader32-fold-fields">Fields (<i>total 10</i>)</label><span id='SectionHeader32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Sflags"><label for="SectionHeader32-fold-field-Sflags"><a href="../../src/internal/xcoff/xcoff.go.html#line-62">Sflags</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Sflags-docs' class="fold-docs">
+				// Flags to define the section type
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Slnnoptr"><label for="SectionHeader32-fold-field-Slnnoptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-59">Slnnoptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Slnnoptr-docs' class="fold-docs">
+				// Offset in file to line number entries for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Sname"><label for="SectionHeader32-fold-field-Sname"><a href="../../src/internal/xcoff/xcoff.go.html#line-53">Sname</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></label><span id='SectionHeader32-fold-field-Sname-docs' class="fold-docs">
+				// Section name
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Snlnno"><label for="SectionHeader32-fold-field-Snlnno"><a href="../../src/internal/xcoff/xcoff.go.html#line-61">Snlnno</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='SectionHeader32-fold-field-Snlnno-docs' class="fold-docs">
+				// Number of line number entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Snreloc"><label for="SectionHeader32-fold-field-Snreloc"><a href="../../src/internal/xcoff/xcoff.go.html#line-60">Snreloc</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='SectionHeader32-fold-field-Snreloc-docs' class="fold-docs">
+				// Number of relocation entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Spaddr"><label for="SectionHeader32-fold-field-Spaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-54">Spaddr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Spaddr-docs' class="fold-docs">
+				// Physical address
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Srelptr"><label for="SectionHeader32-fold-field-Srelptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-58">Srelptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Srelptr-docs' class="fold-docs">
+				// Offset in file to relocation entries for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Sscnptr"><label for="SectionHeader32-fold-field-Sscnptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-57">Sscnptr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Sscnptr-docs' class="fold-docs">
+				// Offset in file to raw data for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Ssize"><label for="SectionHeader32-fold-field-Ssize"><a href="../../src/internal/xcoff/xcoff.go.html#line-56">Ssize</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Ssize-docs' class="fold-docs">
+				// Section size
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader32-fold-field-Svaddr"><label for="SectionHeader32-fold-field-Svaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-55">Svaddr</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader32-fold-field-Svaddr-docs' class="fold-docs">
+				// Virtual address
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-SectionHeader64" data-popularity="0">	<input type='checkbox' class="fold" id="SectionHeader64-fold-content"><label for="SectionHeader64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-65">SectionHeader64</a> <i>(struct)</i></label><span id='SectionHeader64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="SectionHeader64-fold-fields"><label for="SectionHeader64-fold-fields">Fields (<i>total 11</i>)</label><span id='SectionHeader64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Sflags"><label for="SectionHeader64-fold-field-Sflags"><a href="../../src/internal/xcoff/xcoff.go.html#line-75">Sflags</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader64-fold-field-Sflags-docs' class="fold-docs">
+				// Flags to define the section type
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Slnnoptr"><label for="SectionHeader64-fold-field-Slnnoptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-72">Slnnoptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Slnnoptr-docs' class="fold-docs">
+				// Offset in file to line number entries for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Sname"><label for="SectionHeader64-fold-field-Sname"><a href="../../src/internal/xcoff/xcoff.go.html#line-66">Sname</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></label><span id='SectionHeader64-fold-field-Sname-docs' class="fold-docs">
+				// Section name
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Snlnno"><label for="SectionHeader64-fold-field-Snlnno"><a href="../../src/internal/xcoff/xcoff.go.html#line-74">Snlnno</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader64-fold-field-Snlnno-docs' class="fold-docs">
+				// Number of line number entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Snreloc"><label for="SectionHeader64-fold-field-Snreloc"><a href="../../src/internal/xcoff/xcoff.go.html#line-73">Snreloc</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader64-fold-field-Snreloc-docs' class="fold-docs">
+				// Number of relocation entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Spad"><label for="SectionHeader64-fold-field-Spad"><a href="../../src/internal/xcoff/xcoff.go.html#line-76">Spad</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SectionHeader64-fold-field-Spad-docs' class="fold-docs">
+				// Needs to be 72 bytes long
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Spaddr"><label for="SectionHeader64-fold-field-Spaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-67">Spaddr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Spaddr-docs' class="fold-docs">
+				// Physical address
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Srelptr"><label for="SectionHeader64-fold-field-Srelptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-71">Srelptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Srelptr-docs' class="fold-docs">
+				// Offset in file to relocation entries for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Sscnptr"><label for="SectionHeader64-fold-field-Sscnptr"><a href="../../src/internal/xcoff/xcoff.go.html#line-70">Sscnptr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Sscnptr-docs' class="fold-docs">
+				// Offset in file to raw data for section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Ssize"><label for="SectionHeader64-fold-field-Ssize"><a href="../../src/internal/xcoff/xcoff.go.html#line-69">Ssize</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Ssize-docs' class="fold-docs">
+				// Section size
+</span></span><span>
+			<input type='checkbox' class="fold" id="SectionHeader64-fold-field-Svaddr"><label for="SectionHeader64-fold-field-Svaddr"><a href="../../src/internal/xcoff/xcoff.go.html#line-68">Svaddr</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SectionHeader64-fold-field-Svaddr-docs' class="fold-docs">
+				// Virtual address
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Symbol" data-popularity="0">	<input type='checkbox' class="fold" id="Symbol-fold-content"><label for="Symbol-fold-content"> type <a href="../../src/internal/xcoff/file.go.html#line-46">Symbol</a> <i>(struct)</i></label><span id='Symbol-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="Symbol-fold-fields"><label for="Symbol-fold-fields">Fields (<i>total 6</i>)</label><span id='Symbol-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-52">AuxCSect</a> <i><a href="xcoff.html#name-AuxiliaryCSect">AuxiliaryCSect</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-51">AuxFcn</a> <i><a href="xcoff.html#name-AuxiliaryFcn">AuxiliaryFcn</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-47">Name</a> <i><a href="../builtin.html#name-string">string</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-49">SectionNumber</a> <i><a href="../builtin.html#name-int">int</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-50">StorageClass</a> <i><a href="../builtin.html#name-int">int</a></i></span></span><span>
+			<span class="nodocs"><a href="../../src/internal/xcoff/file.go.html#line-48">Value</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></span></span></span>
+
+</span></div><div class="anchor type-res" id="name-SymEnt32" data-popularity="0">	<input type='checkbox' class="fold" id="SymEnt32-fold-content"><label for="SymEnt32-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-109">SymEnt32</a> <i>(struct)</i></label><span id='SymEnt32-fold-content-docs' class="fold-docs">
+		Symbol Table Entry.
+
+		<input type='checkbox' class="fold" id="SymEnt32-fold-fields"><label for="SymEnt32-fold-fields">Fields (<i>total 6</i>)</label><span id='SymEnt32-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Nname"><label for="SymEnt32-fold-field-Nname"><a href="../../src/internal/xcoff/xcoff.go.html#line-110">Nname</a> <i>[8]<a href="../builtin.html#name-byte">byte</a></i></label><span id='SymEnt32-fold-field-Nname-docs' class="fold-docs">
+				// Symbol name
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Nnumaux"><label for="SymEnt32-fold-field-Nnumaux"><a href="../../src/internal/xcoff/xcoff.go.html#line-115">Nnumaux</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='SymEnt32-fold-field-Nnumaux-docs' class="fold-docs">
+				// Number of auxiliary entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Nsclass"><label for="SymEnt32-fold-field-Nsclass"><a href="../../src/internal/xcoff/xcoff.go.html#line-114">Nsclass</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='SymEnt32-fold-field-Nsclass-docs' class="fold-docs">
+				// Storage class of symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Nscnum"><label for="SymEnt32-fold-field-Nscnum"><a href="../../src/internal/xcoff/xcoff.go.html#line-112">Nscnum</a> <i><a href="../builtin.html#name-int16">int16</a></i></label><span id='SymEnt32-fold-field-Nscnum-docs' class="fold-docs">
+				// Section number of symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Ntype"><label for="SymEnt32-fold-field-Ntype"><a href="../../src/internal/xcoff/xcoff.go.html#line-113">Ntype</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='SymEnt32-fold-field-Ntype-docs' class="fold-docs">
+				// Basic and derived type specification
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt32-fold-field-Nvalue"><label for="SymEnt32-fold-field-Nvalue"><a href="../../src/internal/xcoff/xcoff.go.html#line-111">Nvalue</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SymEnt32-fold-field-Nvalue-docs' class="fold-docs">
+				// Symbol value
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-SymEnt64" data-popularity="0">	<input type='checkbox' class="fold" id="SymEnt64-fold-content"><label for="SymEnt64-fold-content"> type <a href="../../src/internal/xcoff/xcoff.go.html#line-118">SymEnt64</a> <i>(struct)</i></label><span id='SymEnt64-fold-content-docs' class="fold-docs">
+
+		<input type='checkbox' class="fold" id="SymEnt64-fold-fields"><label for="SymEnt64-fold-fields">Fields (<i>total 6</i>)</label><span id='SymEnt64-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Nnumaux"><label for="SymEnt64-fold-field-Nnumaux"><a href="../../src/internal/xcoff/xcoff.go.html#line-124">Nnumaux</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='SymEnt64-fold-field-Nnumaux-docs' class="fold-docs">
+				// Number of auxiliary entries
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Noffset"><label for="SymEnt64-fold-field-Noffset"><a href="../../src/internal/xcoff/xcoff.go.html#line-120">Noffset</a> <i><a href="../builtin.html#name-uint32">uint32</a></i></label><span id='SymEnt64-fold-field-Noffset-docs' class="fold-docs">
+				// Offset of the name in string table or .debug section
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Nsclass"><label for="SymEnt64-fold-field-Nsclass"><a href="../../src/internal/xcoff/xcoff.go.html#line-123">Nsclass</a> <i><a href="../builtin.html#name-int8">int8</a></i></label><span id='SymEnt64-fold-field-Nsclass-docs' class="fold-docs">
+				// Storage class of symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Nscnum"><label for="SymEnt64-fold-field-Nscnum"><a href="../../src/internal/xcoff/xcoff.go.html#line-121">Nscnum</a> <i><a href="../builtin.html#name-int16">int16</a></i></label><span id='SymEnt64-fold-field-Nscnum-docs' class="fold-docs">
+				// Section number of symbol
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Ntype"><label for="SymEnt64-fold-field-Ntype"><a href="../../src/internal/xcoff/xcoff.go.html#line-122">Ntype</a> <i><a href="../builtin.html#name-uint16">uint16</a></i></label><span id='SymEnt64-fold-field-Ntype-docs' class="fold-docs">
+				// Basic and derived type specification
+</span></span><span>
+			<input type='checkbox' class="fold" id="SymEnt64-fold-field-Nvalue"><label for="SymEnt64-fold-field-Nvalue"><a href="../../src/internal/xcoff/xcoff.go.html#line-119">Nvalue</a> <i><a href="../builtin.html#name-uint64">uint64</a></i></label><span id='SymEnt64-fold-field-Nvalue-docs' class="fold-docs">
+				// Symbol value
+</span></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 4)</i></span></span>
+
+<div class="anchor value-res" id="name-NewArchive">	<input type='checkbox' class="fold" id="NewArchive-fold-content"><label for="NewArchive-fold-content"> func <a href="../../src/internal/xcoff/ar.go.html#line-103">NewArchive</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-ReaderAt">ReaderAt</a>) (*<a href="xcoff.html#name-Archive">Archive</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='NewArchive-fold-content-docs' class="fold-docs">
+		NewArchive creates a new Archive for accessing an AIX big archive in an underlying reader.
+
+</span></div><div class="anchor value-res" id="name-NewFile">	<input type='checkbox' class="fold" id="NewFile-fold-content"><label for="NewFile-fold-content"> func <a href="../../src/internal/xcoff/file.go.html#line-155">NewFile</a>(r <a href="../io.html">io</a>.<a href="../io.html#name-ReaderAt">ReaderAt</a>) (*<a href="xcoff.html#name-File">File</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='NewFile-fold-content-docs' class="fold-docs">
+		NewFile creates a new File for accessing an XCOFF binary in an underlying reader.
+
+</span></div><div class="anchor value-res" id="name-Open">	<input type='checkbox' class="fold" id="Open-fold-content"><label for="Open-fold-content"> func <a href="../../src/internal/xcoff/file.go.html#line-87">Open</a>(name <a href="../builtin.html#name-string">string</a>) (*<a href="xcoff.html#name-File">File</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='Open-fold-content-docs' class="fold-docs">
+		Open opens the named file using os.Open and prepares it for use as an XCOFF binary.
+
+</span></div><div class="anchor value-res" id="name-OpenArchive">	<input type='checkbox' class="fold" id="OpenArchive-fold-content"><label for="OpenArchive-fold-content"> func <a href="../../src/internal/xcoff/ar.go.html#line-76">OpenArchive</a>(name <a href="../builtin.html#name-string">string</a>) (*<a href="xcoff.html#name-Archive">Archive</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='OpenArchive-fold-content-docs' class="fold-docs">
+		OpenArchive opens the named archive using os.Open and prepares it for use
+		as an AIX big archive.
+
+</span></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 131)</i></span></span>
+
+<div class="anchor value-res" id="name-AIAFMAG">	<span class="nodocs">const <a href="../../src/internal/xcoff/ar.go.html#line-18">AIAFMAG</a> = "`\n"</span></div><div class="anchor value-res" id="name-AIAMAG">	<span class="nodocs">const <a href="../../src/internal/xcoff/ar.go.html#line-19">AIAMAG</a> = "<aiaff>\n"</span></div><div class="anchor value-res" id="name-AIAMAGBIG">	<span class="nodocs">const <a href="../../src/internal/xcoff/ar.go.html#line-20">AIAMAGBIG</a> = "<bigaf>\n"</span></div><div class="anchor value-res" id="name-AR_HSZ_BIG">	<span class="nodocs">const <a href="../../src/internal/xcoff/ar.go.html#line-24">AR_HSZ_BIG</a> = 112</span></div><div class="anchor value-res" id="name-C_BCOMM">	<input type='checkbox' class="fold" id="C_BCOMM-fold-content"><label for="C_BCOMM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-162">C_BCOMM</a> = 135 // Beginning of common block</label><span id='C_BCOMM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_BINCL">	<input type='checkbox' class="fold" id="C_BINCL-fold-content"><label for="C_BINCL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-152">C_BINCL</a> = 108 // Beginning of include file</label><span id='C_BINCL-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_BLOCK">	<input type='checkbox' class="fold" id="C_BLOCK-fold-content"><label for="C_BLOCK-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-148">C_BLOCK</a> = 100 // Beginning or end of inner block</label><span id='C_BLOCK-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_BSTAT">	<input type='checkbox' class="fold" id="C_BSTAT-fold-content"><label for="C_BSTAT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-168">C_BSTAT</a> = 143 // Beginning of static block</label><span id='C_BSTAT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_DECL">	<input type='checkbox' class="fold" id="C_DECL-fold-content"><label for="C_DECL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-165">C_DECL</a> = 140 // Declaration of object</label><span id='C_DECL-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_DWARF">	<input type='checkbox' class="fold" id="C_DWARF-fold-content"><label for="C_DWARF-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-155">C_DWARF</a> = 112 // DWARF symbol</label><span id='C_DWARF-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_ECOML">	<input type='checkbox' class="fold" id="C_ECOML-fold-content"><label for="C_ECOML-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-163">C_ECOML</a> = 136 // Local member of common block</label><span id='C_ECOML-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_ECOMM">	<input type='checkbox' class="fold" id="C_ECOMM-fold-content"><label for="C_ECOMM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-164">C_ECOMM</a> = 137 // End of common block</label><span id='C_ECOMM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_EINCL">	<input type='checkbox' class="fold" id="C_EINCL-fold-content"><label for="C_EINCL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-153">C_EINCL</a> = 109 // End of include file</label><span id='C_EINCL-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_ENTRY">	<input type='checkbox' class="fold" id="C_ENTRY-fold-content"><label for="C_ENTRY-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-166">C_ENTRY</a> = 141 // Alternate entry</label><span id='C_ENTRY-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_ESTAT">	<input type='checkbox' class="fold" id="C_ESTAT-fold-content"><label for="C_ESTAT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-169">C_ESTAT</a> = 144 // End of static block</label><span id='C_ESTAT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_EXT">	<input type='checkbox' class="fold" id="C_EXT-fold-content"><label for="C_EXT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-146">C_EXT</a> = 2 // External symbol</label><span id='C_EXT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_FCN">	<input type='checkbox' class="fold" id="C_FCN-fold-content"><label for="C_FCN-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-149">C_FCN</a> = 101 // Beginning or end of function</label><span id='C_FCN-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_FILE">	<input type='checkbox' class="fold" id="C_FILE-fold-content"><label for="C_FILE-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-150">C_FILE</a> = 103 // Source file name and compiler information</label><span id='C_FILE-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_FUN">	<input type='checkbox' class="fold" id="C_FUN-fold-content"><label for="C_FUN-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-167">C_FUN</a> = 142 // Function or procedure</label><span id='C_FUN-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_GSYM">	<input type='checkbox' class="fold" id="C_GSYM-fold-content"><label for="C_GSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-156">C_GSYM</a> = 128 // Global variable</label><span id='C_GSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_GTLS">	<input type='checkbox' class="fold" id="C_GTLS-fold-content"><label for="C_GTLS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-170">C_GTLS</a> = 145 // Global thread-local variable</label><span id='C_GTLS-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_HIDEXT">	<input type='checkbox' class="fold" id="C_HIDEXT-fold-content"><label for="C_HIDEXT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-151">C_HIDEXT</a> = 107 // Unnamed external symbol</label><span id='C_HIDEXT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_LSYM">	<input type='checkbox' class="fold" id="C_LSYM-fold-content"><label for="C_LSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-157">C_LSYM</a> = 129 // Automatic variable allocated on stack</label><span id='C_LSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_NULL">	<input type='checkbox' class="fold" id="C_NULL-fold-content"><label for="C_NULL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-145">C_NULL</a> = 0 // Symbol table entry marked for deletion</label><span id='C_NULL-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_PSYM">	<input type='checkbox' class="fold" id="C_PSYM-fold-content"><label for="C_PSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-158">C_PSYM</a> = 130 // Argument to subroutine allocated on stack</label><span id='C_PSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_RPSYM">	<input type='checkbox' class="fold" id="C_RPSYM-fold-content"><label for="C_RPSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-160">C_RPSYM</a> = 132 // Argument to function or procedure stored in register</label><span id='C_RPSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_RSYM">	<input type='checkbox' class="fold" id="C_RSYM-fold-content"><label for="C_RSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-159">C_RSYM</a> = 131 // Register variable</label><span id='C_RSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_STAT">	<input type='checkbox' class="fold" id="C_STAT-fold-content"><label for="C_STAT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-147">C_STAT</a> = 3 // Static symbol</label><span id='C_STAT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_STSYM">	<input type='checkbox' class="fold" id="C_STSYM-fold-content"><label for="C_STSYM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-161">C_STSYM</a> = 133 // Statically allocated symbol</label><span id='C_STSYM-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_STTLS">	<input type='checkbox' class="fold" id="C_STTLS-fold-content"><label for="C_STTLS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-171">C_STTLS</a> = 146 // Static thread-local variable</label><span id='C_STTLS-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-C_WEAKEXT">	<input type='checkbox' class="fold" id="C_WEAKEXT-fold-content"><label for="C_WEAKEXT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-154">C_WEAKEXT</a> = 111 // Weak external symbol</label><span id='C_WEAKEXT-fold-content-docs' class="fold-docs">
+		Storage Class.
+
+</span></div><div class="anchor value-res" id="name-F_DSA">	<input type='checkbox' class="fold" id="F_DSA-fold-content"><label for="F_DSA-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-44">F_DSA</a> = 64</label><span id='F_DSA-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_DYNLOAD">	<input type='checkbox' class="fold" id="F_DYNLOAD-fold-content"><label for="F_DYNLOAD-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-46">F_DYNLOAD</a> = 4096</label><span id='F_DYNLOAD-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_EXEC">	<input type='checkbox' class="fold" id="F_EXEC-fold-content"><label for="F_EXEC-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-40">F_EXEC</a> = 2</label><span id='F_EXEC-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_FDPR_OPTI">	<input type='checkbox' class="fold" id="F_FDPR_OPTI-fold-content"><label for="F_FDPR_OPTI-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-43">F_FDPR_OPTI</a> = 32</label><span id='F_FDPR_OPTI-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_FDPR_PROF">	<input type='checkbox' class="fold" id="F_FDPR_PROF-fold-content"><label for="F_FDPR_PROF-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-42">F_FDPR_PROF</a> = 16</label><span id='F_FDPR_PROF-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_LNNO">	<input type='checkbox' class="fold" id="F_LNNO-fold-content"><label for="F_LNNO-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-41">F_LNNO</a> = 4</label><span id='F_LNNO-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_LOADONLY">	<input type='checkbox' class="fold" id="F_LOADONLY-fold-content"><label for="F_LOADONLY-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-48">F_LOADONLY</a> = 16384</label><span id='F_LOADONLY-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_RELFLG">	<input type='checkbox' class="fold" id="F_RELFLG-fold-content"><label for="F_RELFLG-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-39">F_RELFLG</a> = 1</label><span id='F_RELFLG-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_SHROBJ">	<input type='checkbox' class="fold" id="F_SHROBJ-fold-content"><label for="F_SHROBJ-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-47">F_SHROBJ</a> = 8192</label><span id='F_SHROBJ-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-F_VARPG">	<input type='checkbox' class="fold" id="F_VARPG-fold-content"><label for="F_VARPG-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-45">F_VARPG</a> = 256</label><span id='F_VARPG-fold-content-docs' class="fold-docs">
+		Flags that describe the type of the object file.
+
+</span></div><div class="anchor value-res" id="name-FILHSZ_32">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-29">FILHSZ_32</a> = 20</span></div><div class="anchor value-res" id="name-FILHSZ_64">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-30">FILHSZ_64</a> = 24</span></div><div class="anchor value-res" id="name-FL_HSZ_BIG">	<input type='checkbox' class="fold" id="FL_HSZ_BIG-fold-content"><label for="FL_HSZ_BIG-fold-content">const <a href="../../src/internal/xcoff/ar.go.html#line-23">FL_HSZ_BIG</a> = 128</label><span id='FL_HSZ_BIG-fold-content-docs' class="fold-docs">
+		Sizeof
+
+</span></div><div class="anchor value-res" id="name-LDHDRSZ_32">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-301">LDHDRSZ_32</a> = 32</span></div><div class="anchor value-res" id="name-LDHDRSZ_64">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-302">LDHDRSZ_64</a> = 56</span></div><div class="anchor value-res" id="name-N_ABS">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-132">N_ABS</a> = -1</span></div><div class="anchor value-res" id="name-N_DEBUG">	<input type='checkbox' class="fold" id="N_DEBUG-fold-content"><label for="N_DEBUG-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-131">N_DEBUG</a> = -2</label><span id='N_DEBUG-fold-content-docs' class="fold-docs">
+		Nscnum
+
+</span></div><div class="anchor value-res" id="name-N_UNDEF">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-133">N_UNDEF</a> = 0</span></div><div class="anchor value-res" id="name-R_BA">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-353">R_BA</a> = 8 // A(sym) Branch absolute. Cannot modify instruction</span></div><div class="anchor value-res" id="name-R_BR">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-355">R_BR</a> = 10 // A(sym-*) Branch rel to self. non modifiable</span></div><div class="anchor value-res" id="name-R_GL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-348">R_GL</a> = 5 // A(external TOC of sym) Global Linkage</span></div><div class="anchor value-res" id="name-R_NEG">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-342">R_NEG</a> = 1 // -A(sym) Negative Relocation</span></div><div class="anchor value-res" id="name-R_POS">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-341">R_POS</a> = 0 // A(sym) Positive Relocation</span></div><div class="anchor value-res" id="name-R_RBA">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-354">R_RBA</a> = 24 // A(sym) Branch absolute. modifiable instruction</span></div><div class="anchor value-res" id="name-R_RBR">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-356">R_RBR</a> = 26 // A(sym-*) Branch rel to self. modifiable instr</span></div><div class="anchor value-res" id="name-R_REF">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-352">R_REF</a> = 15 // AL0(sym) Non relocating ref. No garbage collect</span></div><div class="anchor value-res" id="name-R_REL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-343">R_REL</a> = 2 // A(sym-*) Relative to self</span></div><div class="anchor value-res" id="name-R_RL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-350">R_RL</a> = 12 // A(sym) Pos indirect load. modifiable instruction</span></div><div class="anchor value-res" id="name-R_RLA">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-351">R_RLA</a> = 13 // A(sym) Pos Load Address. modifiable instruction</span></div><div class="anchor value-res" id="name-R_TCL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-349">R_TCL</a> = 6 // A(local TOC of sym) Local object TOC address</span></div><div class="anchor value-res" id="name-R_TLS">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-358">R_TLS</a> = 32 // General-dynamic reference to TLS symbol</span></div><div class="anchor value-res" id="name-R_TLS_IE">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-359">R_TLS_IE</a> = 33 // Initial-exec reference to TLS symbol</span></div><div class="anchor value-res" id="name-R_TLS_LD">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-360">R_TLS_LD</a> = 34 // Local-dynamic reference to TLS symbol</span></div><div class="anchor value-res" id="name-R_TLS_LE">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-361">R_TLS_LE</a> = 35 // Local-exec reference to TLS symbol</span></div><div class="anchor value-res" id="name-R_TLSM">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-362">R_TLSM</a> = 36 // Module reference to TLS symbol</span></div><div class="anchor value-res" id="name-R_TLSML">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-363">R_TLSML</a> = 37 // Module reference to local (own) module</span></div><div class="anchor value-res" id="name-R_TOC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-344">R_TOC</a> = 3 // A(sym-TOC) Relative to TOC</span></div><div class="anchor value-res" id="name-R_TOCL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-366">R_TOCL</a> = 49 // Relative to TOC - low order bits</span></div><div class="anchor value-res" id="name-R_TOCU">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-365">R_TOCU</a> = 48 // Relative to TOC - high order bits</span></div><div class="anchor value-res" id="name-R_TRL">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-345">R_TRL</a> = 18 // A(sym-TOC) TOC Relative indirect load.</span></div><div class="anchor value-res" id="name-R_TRLA">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-347">R_TRLA</a> = 19 // A(sym-TOC) TOC Rel load address. modifiable inst</span></div><div class="anchor value-res" id="name-SAIAMAG">	<span class="nodocs">const <a href="../../src/internal/xcoff/ar.go.html#line-17">SAIAMAG</a> = 8</span></div><div class="anchor value-res" id="name-SSUBTYP_DWABREV">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-100">SSUBTYP_DWABREV</a> = 393216 // DWARF abbreviation section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWARNGE">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-99">SSUBTYP_DWARNGE</a> = 327680 // DWARF aranges section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWFRAME">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-104">SSUBTYP_DWFRAME</a> = 655360 // DWARF frames section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWINFO">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-95">SSUBTYP_DWINFO</a> = 65536 // DWARF info section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWLINE">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-96">SSUBTYP_DWLINE</a> = 131072 // DWARF line-number section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWLOC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-103">SSUBTYP_DWLOC</a> = 589824 // DWARF location lists section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWMAC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-105">SSUBTYP_DWMAC</a> = 720896 // DWARF macros section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWPBNMS">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-97">SSUBTYP_DWPBNMS</a> = 196608 // DWARF public names section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWPBTYP">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-98">SSUBTYP_DWPBTYP</a> = 262144 // DWARF public types section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWRNGES">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-102">SSUBTYP_DWRNGES</a> = 524288 // DWARF ranges section</span></div><div class="anchor value-res" id="name-SSUBTYP_DWSTR">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-101">SSUBTYP_DWSTR</a> = 458752 // DWARF strings section</span></div><div class="anchor value-res" id="name-STYP_BSS">	<input type='checkbox' class="fold" id="STYP_BSS-fold-content"><label for="STYP_BSS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-84">STYP_BSS</a> = 128</label><span id='STYP_BSS-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_DATA">	<input type='checkbox' class="fold" id="STYP_DATA-fold-content"><label for="STYP_DATA-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-83">STYP_DATA</a> = 64</label><span id='STYP_DATA-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_DEBUG">	<input type='checkbox' class="fold" id="STYP_DEBUG-fold-content"><label for="STYP_DEBUG-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-90">STYP_DEBUG</a> = 8192</label><span id='STYP_DEBUG-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_DWARF">	<input type='checkbox' class="fold" id="STYP_DWARF-fold-content"><label for="STYP_DWARF-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-81">STYP_DWARF</a> = 16</label><span id='STYP_DWARF-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_EXCEPT">	<input type='checkbox' class="fold" id="STYP_EXCEPT-fold-content"><label for="STYP_EXCEPT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-85">STYP_EXCEPT</a> = 256</label><span id='STYP_EXCEPT-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_INFO">	<input type='checkbox' class="fold" id="STYP_INFO-fold-content"><label for="STYP_INFO-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-86">STYP_INFO</a> = 512</label><span id='STYP_INFO-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_LOADER">	<input type='checkbox' class="fold" id="STYP_LOADER-fold-content"><label for="STYP_LOADER-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-89">STYP_LOADER</a> = 4096</label><span id='STYP_LOADER-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_OVRFLO">	<input type='checkbox' class="fold" id="STYP_OVRFLO-fold-content"><label for="STYP_OVRFLO-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-92">STYP_OVRFLO</a> = 32768</label><span id='STYP_OVRFLO-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_TBSS">	<input type='checkbox' class="fold" id="STYP_TBSS-fold-content"><label for="STYP_TBSS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-88">STYP_TBSS</a> = 2048</label><span id='STYP_TBSS-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_TDATA">	<input type='checkbox' class="fold" id="STYP_TDATA-fold-content"><label for="STYP_TDATA-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-87">STYP_TDATA</a> = 1024</label><span id='STYP_TDATA-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_TEXT">	<input type='checkbox' class="fold" id="STYP_TEXT-fold-content"><label for="STYP_TEXT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-82">STYP_TEXT</a> = 32</label><span id='STYP_TEXT-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-STYP_TYPCHK">	<input type='checkbox' class="fold" id="STYP_TYPCHK-fold-content"><label for="STYP_TYPCHK-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-91">STYP_TYPCHK</a> = 16384</label><span id='STYP_TYPCHK-fold-content-docs' class="fold-docs">
+		Flags defining the section type.
+
+</span></div><div class="anchor value-res" id="name-SYM_TYPE_FUNC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-140">SYM_TYPE_FUNC</a> = 32 // is function</span></div><div class="anchor value-res" id="name-SYM_V_EXPORTED">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-139">SYM_V_EXPORTED</a> = 16384</span></div><div class="anchor value-res" id="name-SYM_V_HIDDEN">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-137">SYM_V_HIDDEN</a> = 8192</span></div><div class="anchor value-res" id="name-SYM_V_INTERNAL">	<input type='checkbox' class="fold" id="SYM_V_INTERNAL-fold-content"><label for="SYM_V_INTERNAL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-136">SYM_V_INTERNAL</a> = 4096</label><span id='SYM_V_INTERNAL-fold-content-docs' class="fold-docs">
+		Ntype
+
+</span></div><div class="anchor value-res" id="name-SYM_V_PROTECTED">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-138">SYM_V_PROTECTED</a> = 12288</span></div><div class="anchor value-res" id="name-SYMESZ">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-127">SYMESZ</a> = 18</span></div><div class="anchor value-res" id="name-U64_TOCMAGIC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-34">U64_TOCMAGIC</a> = 503 // AIX 64-bit XCOFF</span></div><div class="anchor value-res" id="name-U802TOCMAGIC">	<span class="nodocs">const <a href="../../src/internal/xcoff/xcoff.go.html#line-33">U802TOCMAGIC</a> = 479 // AIX 32-bit XCOFF</span></div><div class="anchor value-res" id="name-XFT_CD">	<input type='checkbox' class="fold" id="XFT_CD-fold-content"><label for="XFT_CD-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-249">XFT_CD</a> = 128 // Compiler Defined Information</label><span id='XFT_CD-fold-content-docs' class="fold-docs">
+		Defines for File auxiliary definitions: x_ftype field of x_file
+
+</span></div><div class="anchor value-res" id="name-XFT_CT">	<input type='checkbox' class="fold" id="XFT_CT-fold-content"><label for="XFT_CT-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-247">XFT_CT</a> = 1 // Compile Time Stamp</label><span id='XFT_CT-fold-content-docs' class="fold-docs">
+		Defines for File auxiliary definitions: x_ftype field of x_file
+
+</span></div><div class="anchor value-res" id="name-XFT_CV">	<input type='checkbox' class="fold" id="XFT_CV-fold-content"><label for="XFT_CV-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-248">XFT_CV</a> = 2 // Compiler Version Number</label><span id='XFT_CV-fold-content-docs' class="fold-docs">
+		Defines for File auxiliary definitions: x_ftype field of x_file
+
+</span></div><div class="anchor value-res" id="name-XFT_FN">	<input type='checkbox' class="fold" id="XFT_FN-fold-content"><label for="XFT_FN-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-246">XFT_FN</a> = 0 // Source File Name</label><span id='XFT_FN-fold-content-docs' class="fold-docs">
+		Defines for File auxiliary definitions: x_ftype field of x_file
+
+</span></div><div class="anchor value-res" id="name-XMC_BS">	<input type='checkbox' class="fold" id="XMC_BS-fold-content"><label for="XMC_BS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-263">XMC_BS</a> = 9 // BSS class</label><span id='XMC_BS-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_DB">	<input type='checkbox' class="fold" id="XMC_DB-fold-content"><label for="XMC_DB-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-256">XMC_DB</a> = 2 // Debug dictionary table</label><span id='XMC_DB-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_DS">	<input type='checkbox' class="fold" id="XMC_DS-fold-content"><label for="XMC_DS-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-264">XMC_DS</a> = 10 // Function descriptor</label><span id='XMC_DS-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_GL">	<input type='checkbox' class="fold" id="XMC_GL-fold-content"><label for="XMC_GL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-260">XMC_GL</a> = 6 // Global linkage</label><span id='XMC_GL-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_PR">	<input type='checkbox' class="fold" id="XMC_PR-fold-content"><label for="XMC_PR-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-254">XMC_PR</a> = 0 // Program code</label><span id='XMC_PR-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_RO">	<input type='checkbox' class="fold" id="XMC_RO-fold-content"><label for="XMC_RO-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-255">XMC_RO</a> = 1 // Read-only constant</label><span id='XMC_RO-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_RW">	<input type='checkbox' class="fold" id="XMC_RW-fold-content"><label for="XMC_RW-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-259">XMC_RW</a> = 5 // Read/Write data</label><span id='XMC_RW-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_SV">	<input type='checkbox' class="fold" id="XMC_SV-fold-content"><label for="XMC_SV-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-262">XMC_SV</a> = 8 // 32-bit supervisor call descriptor</label><span id='XMC_SV-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_SV3264">	<input type='checkbox' class="fold" id="XMC_SV3264-fold-content"><label for="XMC_SV3264-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-269">XMC_SV3264</a> = 18 // Supervisor call descriptor for both 32-bit and 64-bit</label><span id='XMC_SV3264-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_SV64">	<input type='checkbox' class="fold" id="XMC_SV64-fold-content"><label for="XMC_SV64-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-268">XMC_SV64</a> = 17 // 64-bit supervisor call descriptor</label><span id='XMC_SV64-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_TC">	<input type='checkbox' class="fold" id="XMC_TC-fold-content"><label for="XMC_TC-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-257">XMC_TC</a> = 3 // TOC entry</label><span id='XMC_TC-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_TC0">	<input type='checkbox' class="fold" id="XMC_TC0-fold-content"><label for="XMC_TC0-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-266">XMC_TC0</a> = 15 // TOC anchor</label><span id='XMC_TC0-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_TD">	<input type='checkbox' class="fold" id="XMC_TD-fold-content"><label for="XMC_TD-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-267">XMC_TD</a> = 16 // Scalar data entry in the TOC</label><span id='XMC_TD-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_TE">	<input type='checkbox' class="fold" id="XMC_TE-fold-content"><label for="XMC_TE-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-272">XMC_TE</a> = 22 // TOC entry</label><span id='XMC_TE-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_TL">	<input type='checkbox' class="fold" id="XMC_TL-fold-content"><label for="XMC_TL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-270">XMC_TL</a> = 20 // Read/Write thread-local data</label><span id='XMC_TL-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_UA">	<input type='checkbox' class="fold" id="XMC_UA-fold-content"><label for="XMC_UA-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-258">XMC_UA</a> = 4 // Unclassified</label><span id='XMC_UA-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_UC">	<input type='checkbox' class="fold" id="XMC_UC-fold-content"><label for="XMC_UC-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-265">XMC_UC</a> = 11 // Unnamed FORTRAN common</label><span id='XMC_UC-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_UL">	<input type='checkbox' class="fold" id="XMC_UL-fold-content"><label for="XMC_UL-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-271">XMC_UL</a> = 21 // Read/Write thread-local data (.tbss)</label><span id='XMC_UL-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XMC_XO">	<input type='checkbox' class="fold" id="XMC_XO-fold-content"><label for="XMC_XO-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-261">XMC_XO</a> = 7 // Extended operation</label><span id='XMC_XO-fold-content-docs' class="fold-docs">
+		Storage-mapping class.
+
+</span></div><div class="anchor value-res" id="name-XTY_CM">	<input type='checkbox' class="fold" id="XTY_CM-fold-content"><label for="XTY_CM-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-241">XTY_CM</a> = 3 // Common csect definition</label><span id='XTY_CM-fold-content-docs' class="fold-docs">
+		Symbol type field.
+
+</span></div><div class="anchor value-res" id="name-XTY_ER">	<input type='checkbox' class="fold" id="XTY_ER-fold-content"><label for="XTY_ER-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-238">XTY_ER</a> = 0 // External reference</label><span id='XTY_ER-fold-content-docs' class="fold-docs">
+		Symbol type field.
+
+</span></div><div class="anchor value-res" id="name-XTY_LD">	<input type='checkbox' class="fold" id="XTY_LD-fold-content"><label for="XTY_LD-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-240">XTY_LD</a> = 2 // Label definition</label><span id='XTY_LD-fold-content-docs' class="fold-docs">
+		Symbol type field.
+
+</span></div><div class="anchor value-res" id="name-XTY_SD">	<input type='checkbox' class="fold" id="XTY_SD-fold-content"><label for="XTY_SD-fold-content">const <a href="../../src/internal/xcoff/xcoff.go.html#line-239">XTY_SD</a> = 1 // Section definition</label><span id='XTY_SD-fold-content-docs' class="fold-docs">
+		Symbol type field.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

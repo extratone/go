@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: image/color/palette</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>palette</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-image/color/palette">image/color/palette</a><i> (on <a href="https://golang.org/pkg/image/color/palette/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/image/color/palette" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/image/color/palette.html">one package</a>, and imported by <a href="../../../dep/image/color/palette.html#imported-by">one package</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../src/image/color/palette/generate.go.html#doc">d➜</a> <a href="../../../src/image/color/palette/generate.go.html">generate.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package palette provides standard color palettes.
+</span>
+	<span class="nodocs">      <a href="../../../src/image/color/palette/palette.go.html">palette.go</a></span></div>
+<div id="exported-variables"><span class="title">Package-Level Variables<span class="title-stat"><i> (total 2)</i></span></span>
+
+<div class="anchor value-res" id="name-Plan9">	<input type='checkbox' class="fold" id="Plan9-fold-content"><label for="Plan9-fold-content">  var <a href="../../../src/image/color/palette/palette.go.html#line-23">Plan9</a> []<a href="../color.html">color</a>.<a href="../color.html#name-Color">Color</a></label><span id='Plan9-fold-content-docs' class="fold-docs">
+		Plan9 is a 256-color palette that partitions the 24-bit RGB space
+		into 4×4×4 subdivision, with 4 shades in each subcube. Compared to the
+		WebSafe, the idea is to reduce the color resolution by dicing the
+		color cube into fewer cells, and to use the extra space to increase the
+		intensity resolution. This results in 16 gray shades (4 gray subcubes with
+		4 samples in each), 13 shades of each primary and secondary color (3
+		subcubes with 4 samples plus black) and a reasonable selection of colors
+		covering the rest of the color cube. The advantage is better representation
+		of continuous tones.
+
+		This palette was used in the Plan 9 Operating System, described at
+		https://9p.io/magic/man2html/6/color
+
+</span></div><div class="anchor value-res" id="name-WebSafe">	<input type='checkbox' class="fold" id="WebSafe-fold-content"><label for="WebSafe-fold-content">  var <a href="../../../src/image/color/palette/palette.go.html#line-286">WebSafe</a> []<a href="../color.html">color</a>.<a href="../color.html#name-Color">Color</a></label><span id='WebSafe-fold-content-docs' class="fold-docs">
+		WebSafe is a 216-color palette that was popularized by early versions
+		of Netscape Navigator. It is also known as the Netscape Color Cube.
+
+		See https://en.wikipedia.org/wiki/Web_colors#Web-safe_colors for details.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

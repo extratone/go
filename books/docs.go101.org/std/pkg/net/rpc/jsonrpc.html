@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: net/rpc/jsonrpc</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>jsonrpc</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-net/rpc/jsonrpc">net/rpc/jsonrpc</a><i> (on <a href="https://golang.org/pkg/net/rpc/jsonrpc/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/net/rpc/jsonrpc" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/net/rpc/jsonrpc.html">7 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../src/net/rpc/jsonrpc/client.go.html#doc">d➜</a> <a href="../../../src/net/rpc/jsonrpc/client.go.html">client.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package jsonrpc implements a JSON-RPC 1.0 ClientCodec and ServerCodec
+		for the rpc package.
+		For JSON-RPC 2.0 support, see https://godoc.org/?q=json-rpc+2.0
+</span>
+	<span class="nodocs">      <a href="../../../src/net/rpc/jsonrpc/server.go.html">server.go</a></span></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 5)</i></span></span>
+
+<div class="anchor value-res" id="name-Dial">	<input type='checkbox' class="fold" id="Dial-fold-content"><label for="Dial-fold-content"> func <a href="../../../src/net/rpc/jsonrpc/client.go.html#line-118">Dial</a>(network, address <a href="../../builtin.html#name-string">string</a>) (*<a href="../rpc.html">rpc</a>.<a href="../rpc.html#name-Client">Client</a>, <a href="../../builtin.html#name-error">error</a>)</label><span id='Dial-fold-content-docs' class="fold-docs">
+		Dial connects to a JSON-RPC server at the specified network address.
+
+</span></div><div class="anchor value-res" id="name-NewClient">	<input type='checkbox' class="fold" id="NewClient-fold-content"><label for="NewClient-fold-content"> func <a href="../../../src/net/rpc/jsonrpc/client.go.html#line-113">NewClient</a>(conn <a href="../../io.html">io</a>.<a href="../../io.html#name-ReadWriteCloser">ReadWriteCloser</a>) *<a href="../rpc.html">rpc</a>.<a href="../rpc.html#name-Client">Client</a></label><span id='NewClient-fold-content-docs' class="fold-docs">
+		NewClient returns a new rpc.Client to handle requests to the
+		set of services at the other end of the connection.
+
+</span></div><div class="anchor value-res" id="name-NewClientCodec">	<input type='checkbox' class="fold" id="NewClientCodec-fold-content"><label for="NewClientCodec-fold-content"> func <a href="../../../src/net/rpc/jsonrpc/client.go.html#line-37">NewClientCodec</a>(conn <a href="../../io.html">io</a>.<a href="../../io.html#name-ReadWriteCloser">ReadWriteCloser</a>) <a href="../rpc.html">rpc</a>.<a href="../rpc.html#name-ClientCodec">ClientCodec</a></label><span id='NewClientCodec-fold-content-docs' class="fold-docs">
+		NewClientCodec returns a new rpc.ClientCodec using JSON-RPC on conn.
+
+</span></div><div class="anchor value-res" id="name-NewServerCodec">	<input type='checkbox' class="fold" id="NewServerCodec-fold-content"><label for="NewServerCodec-fold-content"> func <a href="../../../src/net/rpc/jsonrpc/server.go.html#line-37">NewServerCodec</a>(conn <a href="../../io.html">io</a>.<a href="../../io.html#name-ReadWriteCloser">ReadWriteCloser</a>) <a href="../rpc.html">rpc</a>.<a href="../rpc.html#name-ServerCodec">ServerCodec</a></label><span id='NewServerCodec-fold-content-docs' class="fold-docs">
+		NewServerCodec returns a new rpc.ServerCodec using JSON-RPC on conn.
+
+</span></div><div class="anchor value-res" id="name-ServeConn">	<input type='checkbox' class="fold" id="ServeConn-fold-content"><label for="ServeConn-fold-content"> func <a href="../../../src/net/rpc/jsonrpc/server.go.html#line-132">ServeConn</a>(conn <a href="../../io.html">io</a>.<a href="../../io.html#name-ReadWriteCloser">ReadWriteCloser</a>)</label><span id='ServeConn-fold-content-docs' class="fold-docs">
+		ServeConn runs the JSON-RPC server on a single connection.
+		ServeConn blocks, serving the connection until the client hangs up.
+		The caller typically invokes ServeConn in a go statement.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: const.go in package debug/dwarf</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	const.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/debug/dwarf.html">debug/dwarf</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5]
+{background: #226; color: #ff8;}
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2009 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// Constants</span></code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">package</span> dwarf</code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="comment">//go:generate stringer -type Attr -trimprefix=Attr</span></code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// An Attr identifies the attribute type in a DWARF Entry's Field.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-Attr" class="ident">Attr</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-15"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrSibling" class="ident">AttrSibling</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-16"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLocation" class="ident">AttrLocation</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrName" class="ident">AttrName</a>           <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrOrdering" class="ident">AttrOrdering</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x09</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrByteSize" class="ident">AttrByteSize</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x0B</span></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrBitOffset" class="ident">AttrBitOffset</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x0C</span></code></span>
+<span class="codeline" id="line-21"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrBitSize" class="ident">AttrBitSize</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x0D</span></code></span>
+<span class="codeline" id="line-22"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStmtList" class="ident">AttrStmtList</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x10</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLowpc" class="ident">AttrLowpc</a>          <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x11</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrHighpc" class="ident">AttrHighpc</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x12</span></code></span>
+<span class="codeline" id="line-25"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLanguage" class="ident">AttrLanguage</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x13</span></code></span>
+<span class="codeline" id="line-26"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDiscr" class="ident">AttrDiscr</a>          <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x15</span></code></span>
+<span class="codeline" id="line-27"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDiscrValue" class="ident">AttrDiscrValue</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x16</span></code></span>
+<span class="codeline" id="line-28"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrVisibility" class="ident">AttrVisibility</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x17</span></code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrImport" class="ident">AttrImport</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x18</span></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStringLength" class="ident">AttrStringLength</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x19</span></code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCommonRef" class="ident">AttrCommonRef</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-32"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCompDir" class="ident">AttrCompDir</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x1B</span></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrConstValue" class="ident">AttrConstValue</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x1C</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrContainingType" class="ident">AttrContainingType</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x1D</span></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDefaultValue" class="ident">AttrDefaultValue</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x1E</span></code></span>
+<span class="codeline" id="line-36"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrInline" class="ident">AttrInline</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x20</span></code></span>
+<span class="codeline" id="line-37"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrIsOptional" class="ident">AttrIsOptional</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x21</span></code></span>
+<span class="codeline" id="line-38"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLowerBound" class="ident">AttrLowerBound</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x22</span></code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrProducer" class="ident">AttrProducer</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x25</span></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrPrototyped" class="ident">AttrPrototyped</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x27</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrReturnAddr" class="ident">AttrReturnAddr</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x2A</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStartScope" class="ident">AttrStartScope</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x2C</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStrideSize" class="ident">AttrStrideSize</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x2E</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrUpperBound" class="ident">AttrUpperBound</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x2F</span></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAbstractOrigin" class="ident">AttrAbstractOrigin</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x31</span></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAccessibility" class="ident">AttrAccessibility</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x32</span></code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAddrClass" class="ident">AttrAddrClass</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x33</span></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrArtificial" class="ident">AttrArtificial</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x34</span></code></span>
+<span class="codeline" id="line-49"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrBaseTypes" class="ident">AttrBaseTypes</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x35</span></code></span>
+<span class="codeline" id="line-50"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCalling" class="ident">AttrCalling</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x36</span></code></span>
+<span class="codeline" id="line-51"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCount" class="ident">AttrCount</a>          <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x37</span></code></span>
+<span class="codeline" id="line-52"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDataMemberLoc" class="ident">AttrDataMemberLoc</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x38</span></code></span>
+<span class="codeline" id="line-53"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDeclColumn" class="ident">AttrDeclColumn</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x39</span></code></span>
+<span class="codeline" id="line-54"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDeclFile" class="ident">AttrDeclFile</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3A</span></code></span>
+<span class="codeline" id="line-55"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDeclLine" class="ident">AttrDeclLine</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3B</span></code></span>
+<span class="codeline" id="line-56"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDeclaration" class="ident">AttrDeclaration</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3C</span></code></span>
+<span class="codeline" id="line-57"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDiscrList" class="ident">AttrDiscrList</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3D</span></code></span>
+<span class="codeline" id="line-58"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrEncoding" class="ident">AttrEncoding</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3E</span></code></span>
+<span class="codeline" id="line-59"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrExternal" class="ident">AttrExternal</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x3F</span></code></span>
+<span class="codeline" id="line-60"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrFrameBase" class="ident">AttrFrameBase</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x40</span></code></span>
+<span class="codeline" id="line-61"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrFriend" class="ident">AttrFriend</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x41</span></code></span>
+<span class="codeline" id="line-62"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrIdentifierCase" class="ident">AttrIdentifierCase</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x42</span></code></span>
+<span class="codeline" id="line-63"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrMacroInfo" class="ident">AttrMacroInfo</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x43</span></code></span>
+<span class="codeline" id="line-64"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrNamelistItem" class="ident">AttrNamelistItem</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x44</span></code></span>
+<span class="codeline" id="line-65"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrPriority" class="ident">AttrPriority</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x45</span></code></span>
+<span class="codeline" id="line-66"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrSegment" class="ident">AttrSegment</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x46</span></code></span>
+<span class="codeline" id="line-67"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrSpecification" class="ident">AttrSpecification</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x47</span></code></span>
+<span class="codeline" id="line-68"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStaticLink" class="ident">AttrStaticLink</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x48</span></code></span>
+<span class="codeline" id="line-69"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrType" class="ident">AttrType</a>           <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x49</span></code></span>
+<span class="codeline" id="line-70"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrUseLocation" class="ident">AttrUseLocation</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4A</span></code></span>
+<span class="codeline" id="line-71"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrVarParam" class="ident">AttrVarParam</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4B</span></code></span>
+<span class="codeline" id="line-72"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrVirtuality" class="ident">AttrVirtuality</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4C</span></code></span>
+<span class="codeline" id="line-73"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrVtableElemLoc" class="ident">AttrVtableElemLoc</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4D</span></code></span>
+<span class="codeline" id="line-74"><code>	<span class="comment">// The following are new in DWARF 3.</span></code></span>
+<span class="codeline" id="line-75"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAllocated" class="ident">AttrAllocated</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4E</span></code></span>
+<span class="codeline" id="line-76"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAssociated" class="ident">AttrAssociated</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x4F</span></code></span>
+<span class="codeline" id="line-77"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDataLocation" class="ident">AttrDataLocation</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x50</span></code></span>
+<span class="codeline" id="line-78"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStride" class="ident">AttrStride</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x51</span></code></span>
+<span class="codeline" id="line-79"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrEntrypc" class="ident">AttrEntrypc</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x52</span></code></span>
+<span class="codeline" id="line-80"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrUseUTF8" class="ident">AttrUseUTF8</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x53</span></code></span>
+<span class="codeline" id="line-81"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrExtension" class="ident">AttrExtension</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x54</span></code></span>
+<span class="codeline" id="line-82"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrRanges" class="ident">AttrRanges</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x55</span></code></span>
+<span class="codeline" id="line-83"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrTrampoline" class="ident">AttrTrampoline</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x56</span></code></span>
+<span class="codeline" id="line-84"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallColumn" class="ident">AttrCallColumn</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x57</span></code></span>
+<span class="codeline" id="line-85"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallFile" class="ident">AttrCallFile</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x58</span></code></span>
+<span class="codeline" id="line-86"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallLine" class="ident">AttrCallLine</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x59</span></code></span>
+<span class="codeline" id="line-87"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDescription" class="ident">AttrDescription</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5A</span></code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrBinaryScale" class="ident">AttrBinaryScale</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5B</span></code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDecimalScale" class="ident">AttrDecimalScale</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5C</span></code></span>
+<span class="codeline" id="line-90"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrSmall" class="ident">AttrSmall</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5D</span></code></span>
+<span class="codeline" id="line-91"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDecimalSign" class="ident">AttrDecimalSign</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5E</span></code></span>
+<span class="codeline" id="line-92"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDigitCount" class="ident">AttrDigitCount</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x5F</span></code></span>
+<span class="codeline" id="line-93"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrPictureString" class="ident">AttrPictureString</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x60</span></code></span>
+<span class="codeline" id="line-94"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrMutable" class="ident">AttrMutable</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x61</span></code></span>
+<span class="codeline" id="line-95"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrThreadsScaled" class="ident">AttrThreadsScaled</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x62</span></code></span>
+<span class="codeline" id="line-96"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrExplicit" class="ident">AttrExplicit</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x63</span></code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrObjectPointer" class="ident">AttrObjectPointer</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x64</span></code></span>
+<span class="codeline" id="line-98"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrEndianity" class="ident">AttrEndianity</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x65</span></code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrElemental" class="ident">AttrElemental</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x66</span></code></span>
+<span class="codeline" id="line-100"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrPure" class="ident">AttrPure</a>          <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x67</span></code></span>
+<span class="codeline" id="line-101"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrRecursive" class="ident">AttrRecursive</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x68</span></code></span>
+<span class="codeline" id="line-102"><code>	<span class="comment">// The following are new in DWARF 4.</span></code></span>
+<span class="codeline" id="line-103"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrSignature" class="ident">AttrSignature</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x69</span></code></span>
+<span class="codeline" id="line-104"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrMainSubprogram" class="ident">AttrMainSubprogram</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6A</span></code></span>
+<span class="codeline" id="line-105"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDataBitOffset" class="ident">AttrDataBitOffset</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6B</span></code></span>
+<span class="codeline" id="line-106"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrConstExpr" class="ident">AttrConstExpr</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6C</span></code></span>
+<span class="codeline" id="line-107"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrEnumClass" class="ident">AttrEnumClass</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6D</span></code></span>
+<span class="codeline" id="line-108"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLinkageName" class="ident">AttrLinkageName</a>    <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6E</span></code></span>
+<span class="codeline" id="line-109"><code>	<span class="comment">// The following are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-110"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStringLengthBitSize" class="ident">AttrStringLengthBitSize</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x6F</span></code></span>
+<span class="codeline" id="line-111"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStringLengthByteSize" class="ident">AttrStringLengthByteSize</a> <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x70</span></code></span>
+<span class="codeline" id="line-112"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrRank" class="ident">AttrRank</a>                 <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x71</span></code></span>
+<span class="codeline" id="line-113"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrStrOffsetsBase" class="ident">AttrStrOffsetsBase</a>       <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x72</span></code></span>
+<span class="codeline" id="line-114"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAddrBase" class="ident">AttrAddrBase</a>             <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x73</span></code></span>
+<span class="codeline" id="line-115"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrRnglistsBase" class="ident">AttrRnglistsBase</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x74</span></code></span>
+<span class="codeline" id="line-116"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDwoName" class="ident">AttrDwoName</a>              <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x76</span></code></span>
+<span class="codeline" id="line-117"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrReference" class="ident">AttrReference</a>            <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x77</span></code></span>
+<span class="codeline" id="line-118"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrRvalueReference" class="ident">AttrRvalueReference</a>      <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x78</span></code></span>
+<span class="codeline" id="line-119"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrMacros" class="ident">AttrMacros</a>               <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x79</span></code></span>
+<span class="codeline" id="line-120"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallAllCalls" class="ident">AttrCallAllCalls</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7A</span></code></span>
+<span class="codeline" id="line-121"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallAllSourceCalls" class="ident">AttrCallAllSourceCalls</a>   <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7B</span></code></span>
+<span class="codeline" id="line-122"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallAllTailCalls" class="ident">AttrCallAllTailCalls</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7C</span></code></span>
+<span class="codeline" id="line-123"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallReturnPC" class="ident">AttrCallReturnPC</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7D</span></code></span>
+<span class="codeline" id="line-124"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallValue" class="ident">AttrCallValue</a>            <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7E</span></code></span>
+<span class="codeline" id="line-125"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallOrigin" class="ident">AttrCallOrigin</a>           <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x7F</span></code></span>
+<span class="codeline" id="line-126"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallParameter" class="ident">AttrCallParameter</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x80</span></code></span>
+<span class="codeline" id="line-127"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallPC" class="ident">AttrCallPC</a>               <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x81</span></code></span>
+<span class="codeline" id="line-128"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallTailCall" class="ident">AttrCallTailCall</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x82</span></code></span>
+<span class="codeline" id="line-129"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallTarget" class="ident">AttrCallTarget</a>           <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x83</span></code></span>
+<span class="codeline" id="line-130"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallTargetClobbered" class="ident">AttrCallTargetClobbered</a>  <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x84</span></code></span>
+<span class="codeline" id="line-131"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallDataLocation" class="ident">AttrCallDataLocation</a>     <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x85</span></code></span>
+<span class="codeline" id="line-132"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrCallDataValue" class="ident">AttrCallDataValue</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x86</span></code></span>
+<span class="codeline" id="line-133"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrNoreturn" class="ident">AttrNoreturn</a>             <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x87</span></code></span>
+<span class="codeline" id="line-134"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrAlignment" class="ident">AttrAlignment</a>            <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x88</span></code></span>
+<span class="codeline" id="line-135"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrExportSymbols" class="ident">AttrExportSymbols</a>        <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x89</span></code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDeleted" class="ident">AttrDeleted</a>              <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x8A</span></code></span>
+<span class="codeline" id="line-137"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrDefaulted" class="ident">AttrDefaulted</a>            <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x8B</span></code></span>
+<span class="codeline" id="line-138"><code>	<a href="../../../pkg/debug/dwarf.html#name-AttrLoclistsBase" class="ident">AttrLoclistsBase</a>         <a href="const.go.html#line-12" class="ident">Attr</a> = <span class="lit-number">0x8C</span></code></span>
+<span class="codeline" id="line-139"><code>)</code></span>
+<span class="codeline" id="line-140"><code></code></span>
+<span class="codeline" id="line-141"><code><span class="keyword">func</span> (<label for="r0" class="ident">a</label> <a href="const.go.html#line-12" class="ident">Attr</a>) <label for="r1" class="ident">GoString</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-142"><code>	<span class="keyword">if</span> <label for="r2" class="ident">str</label>, <label for="r3" class="ident">ok</label> := <a href="attr_string.go.html#line-136" class="ident">_Attr_map</a>[<label for="r0" class="ident">a</label>]; <label for="r3" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-143"><code>		<span class="keyword">return</span> <span class="lit-string">"dwarf.Attr"</span> + <label for="r2" class="ident">str</label></code></span>
+<span class="codeline" id="line-144"><code>	}</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">return</span> <span class="lit-string">"dwarf."</span> + <label for="r0" class="ident">a</label>.<a href="attr_string.go.html#line-260" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-146"><code>}</code></span>
+<span class="codeline" id="line-147"><code></code></span>
+<span class="codeline" id="line-148"><code><span class="comment">// A format is a DWARF data encoding format.</span></code></span>
+<span class="codeline" id="line-149"><code><span class="keyword">type</span> format <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-150"><code></code></span>
+<span class="codeline" id="line-151"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-152"><code>	<span class="comment">// value formats</span></code></span>
+<span class="codeline" id="line-153"><code>	formAddr        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-154"><code>	formDwarfBlock2 <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-155"><code>	formDwarfBlock4 <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-156"><code>	formData2       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-157"><code>	formData4       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x06</span></code></span>
+<span class="codeline" id="line-158"><code>	formData8       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x07</span></code></span>
+<span class="codeline" id="line-159"><code>	formString      <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x08</span></code></span>
+<span class="codeline" id="line-160"><code>	formDwarfBlock  <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x09</span></code></span>
+<span class="codeline" id="line-161"><code>	formDwarfBlock1 <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0A</span></code></span>
+<span class="codeline" id="line-162"><code>	formData1       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0B</span></code></span>
+<span class="codeline" id="line-163"><code>	formFlag        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0C</span></code></span>
+<span class="codeline" id="line-164"><code>	formSdata       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0D</span></code></span>
+<span class="codeline" id="line-165"><code>	formStrp        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0E</span></code></span>
+<span class="codeline" id="line-166"><code>	formUdata       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x0F</span></code></span>
+<span class="codeline" id="line-167"><code>	formRefAddr     <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x10</span></code></span>
+<span class="codeline" id="line-168"><code>	formRef1        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x11</span></code></span>
+<span class="codeline" id="line-169"><code>	formRef2        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x12</span></code></span>
+<span class="codeline" id="line-170"><code>	formRef4        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x13</span></code></span>
+<span class="codeline" id="line-171"><code>	formRef8        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x14</span></code></span>
+<span class="codeline" id="line-172"><code>	formRefUdata    <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x15</span></code></span>
+<span class="codeline" id="line-173"><code>	formIndirect    <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x16</span></code></span>
+<span class="codeline" id="line-174"><code>	<span class="comment">// The following are new in DWARF 4.</span></code></span>
+<span class="codeline" id="line-175"><code>	formSecOffset   <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x17</span></code></span>
+<span class="codeline" id="line-176"><code>	formExprloc     <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x18</span></code></span>
+<span class="codeline" id="line-177"><code>	formFlagPresent <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x19</span></code></span>
+<span class="codeline" id="line-178"><code>	formRefSig8     <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x20</span></code></span>
+<span class="codeline" id="line-179"><code>	<span class="comment">// The following are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-180"><code>	formStrx          <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-181"><code>	formAddrx         <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1B</span></code></span>
+<span class="codeline" id="line-182"><code>	formRefSup4       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1C</span></code></span>
+<span class="codeline" id="line-183"><code>	formStrpSup       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1D</span></code></span>
+<span class="codeline" id="line-184"><code>	formData16        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1E</span></code></span>
+<span class="codeline" id="line-185"><code>	formLineStrp      <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1F</span></code></span>
+<span class="codeline" id="line-186"><code>	formImplicitConst <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x21</span></code></span>
+<span class="codeline" id="line-187"><code>	formLoclistx      <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x22</span></code></span>
+<span class="codeline" id="line-188"><code>	formRnglistx      <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x23</span></code></span>
+<span class="codeline" id="line-189"><code>	formRefSup8       <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x24</span></code></span>
+<span class="codeline" id="line-190"><code>	formStrx1         <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x25</span></code></span>
+<span class="codeline" id="line-191"><code>	formStrx2         <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x26</span></code></span>
+<span class="codeline" id="line-192"><code>	formStrx3         <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x27</span></code></span>
+<span class="codeline" id="line-193"><code>	formStrx4         <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x28</span></code></span>
+<span class="codeline" id="line-194"><code>	formAddrx1        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x29</span></code></span>
+<span class="codeline" id="line-195"><code>	formAddrx2        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x2A</span></code></span>
+<span class="codeline" id="line-196"><code>	formAddrx3        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x2B</span></code></span>
+<span class="codeline" id="line-197"><code>	formAddrx4        <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x2C</span></code></span>
+<span class="codeline" id="line-198"><code>	<span class="comment">// Extensions for multi-file compression (.dwz)</span></code></span>
+<span class="codeline" id="line-199"><code><span class="comment">	// http://www.dwarfstd.org/ShowIssue.php?issue=120604.1</span></code></span>
+<span class="codeline" id="line-200"><code>	formGnuRefAlt  <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1f20</span></code></span>
+<span class="codeline" id="line-201"><code>	formGnuStrpAlt <a href="const.go.html#line-149" class="ident">format</a> = <span class="lit-number">0x1f21</span></code></span>
+<span class="codeline" id="line-202"><code>)</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">//go:generate stringer -type Tag -trimprefix=Tag</span></code></span>
+<span class="codeline" id="line-205"><code></code></span>
+<span class="codeline" id="line-206"><code><span class="comment">// A Tag is the classification (the type) of an Entry.</span></code></span>
+<span class="codeline" id="line-207"><code><span class="keyword">type</span> <a href="../../../pkg/debug/dwarf.html#name-Tag" class="ident">Tag</a> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-208"><code></code></span>
+<span class="codeline" id="line-209"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-210"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagArrayType" class="ident">TagArrayType</a>              <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-211"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagClassType" class="ident">TagClassType</a>              <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-212"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagEntryPoint" class="ident">TagEntryPoint</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-213"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagEnumerationType" class="ident">TagEnumerationType</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-214"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagFormalParameter" class="ident">TagFormalParameter</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-215"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagImportedDeclaration" class="ident">TagImportedDeclaration</a>    <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x08</span></code></span>
+<span class="codeline" id="line-216"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagLabel" class="ident">TagLabel</a>                  <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x0A</span></code></span>
+<span class="codeline" id="line-217"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagLexDwarfBlock" class="ident">TagLexDwarfBlock</a>          <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x0B</span></code></span>
+<span class="codeline" id="line-218"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagMember" class="ident">TagMember</a>                 <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x0D</span></code></span>
+<span class="codeline" id="line-219"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagPointerType" class="ident">TagPointerType</a>            <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x0F</span></code></span>
+<span class="codeline" id="line-220"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagReferenceType" class="ident">TagReferenceType</a>          <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x10</span></code></span>
+<span class="codeline" id="line-221"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCompileUnit" class="ident">TagCompileUnit</a>            <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x11</span></code></span>
+<span class="codeline" id="line-222"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagStringType" class="ident">TagStringType</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x12</span></code></span>
+<span class="codeline" id="line-223"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagStructType" class="ident">TagStructType</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x13</span></code></span>
+<span class="codeline" id="line-224"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSubroutineType" class="ident">TagSubroutineType</a>         <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x15</span></code></span>
+<span class="codeline" id="line-225"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTypedef" class="ident">TagTypedef</a>                <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x16</span></code></span>
+<span class="codeline" id="line-226"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagUnionType" class="ident">TagUnionType</a>              <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x17</span></code></span>
+<span class="codeline" id="line-227"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagUnspecifiedParameters" class="ident">TagUnspecifiedParameters</a>  <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x18</span></code></span>
+<span class="codeline" id="line-228"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagVariant" class="ident">TagVariant</a>                <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x19</span></code></span>
+<span class="codeline" id="line-229"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCommonDwarfBlock" class="ident">TagCommonDwarfBlock</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-230"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCommonInclusion" class="ident">TagCommonInclusion</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1B</span></code></span>
+<span class="codeline" id="line-231"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagInheritance" class="ident">TagInheritance</a>            <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1C</span></code></span>
+<span class="codeline" id="line-232"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagInlinedSubroutine" class="ident">TagInlinedSubroutine</a>      <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1D</span></code></span>
+<span class="codeline" id="line-233"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagModule" class="ident">TagModule</a>                 <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1E</span></code></span>
+<span class="codeline" id="line-234"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagPtrToMemberType" class="ident">TagPtrToMemberType</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x1F</span></code></span>
+<span class="codeline" id="line-235"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSetType" class="ident">TagSetType</a>                <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x20</span></code></span>
+<span class="codeline" id="line-236"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSubrangeType" class="ident">TagSubrangeType</a>           <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x21</span></code></span>
+<span class="codeline" id="line-237"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagWithStmt" class="ident">TagWithStmt</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x22</span></code></span>
+<span class="codeline" id="line-238"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagAccessDeclaration" class="ident">TagAccessDeclaration</a>      <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x23</span></code></span>
+<span class="codeline" id="line-239"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagBaseType" class="ident">TagBaseType</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x24</span></code></span>
+<span class="codeline" id="line-240"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCatchDwarfBlock" class="ident">TagCatchDwarfBlock</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x25</span></code></span>
+<span class="codeline" id="line-241"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagConstType" class="ident">TagConstType</a>              <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x26</span></code></span>
+<span class="codeline" id="line-242"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagConstant" class="ident">TagConstant</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x27</span></code></span>
+<span class="codeline" id="line-243"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagEnumerator" class="ident">TagEnumerator</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x28</span></code></span>
+<span class="codeline" id="line-244"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagFileType" class="ident">TagFileType</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x29</span></code></span>
+<span class="codeline" id="line-245"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagFriend" class="ident">TagFriend</a>                 <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2A</span></code></span>
+<span class="codeline" id="line-246"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagNamelist" class="ident">TagNamelist</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2B</span></code></span>
+<span class="codeline" id="line-247"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagNamelistItem" class="ident">TagNamelistItem</a>           <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2C</span></code></span>
+<span class="codeline" id="line-248"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagPackedType" class="ident">TagPackedType</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2D</span></code></span>
+<span class="codeline" id="line-249"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSubprogram" class="ident">TagSubprogram</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2E</span></code></span>
+<span class="codeline" id="line-250"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTemplateTypeParameter" class="ident">TagTemplateTypeParameter</a>  <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x2F</span></code></span>
+<span class="codeline" id="line-251"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTemplateValueParameter" class="ident">TagTemplateValueParameter</a> <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x30</span></code></span>
+<span class="codeline" id="line-252"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagThrownType" class="ident">TagThrownType</a>             <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x31</span></code></span>
+<span class="codeline" id="line-253"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTryDwarfBlock" class="ident">TagTryDwarfBlock</a>          <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x32</span></code></span>
+<span class="codeline" id="line-254"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagVariantPart" class="ident">TagVariantPart</a>            <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x33</span></code></span>
+<span class="codeline" id="line-255"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagVariable" class="ident">TagVariable</a>               <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x34</span></code></span>
+<span class="codeline" id="line-256"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagVolatileType" class="ident">TagVolatileType</a>           <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x35</span></code></span>
+<span class="codeline" id="line-257"><code>	<span class="comment">// The following are new in DWARF 3.</span></code></span>
+<span class="codeline" id="line-258"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagDwarfProcedure" class="ident">TagDwarfProcedure</a>  <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x36</span></code></span>
+<span class="codeline" id="line-259"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagRestrictType" class="ident">TagRestrictType</a>    <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x37</span></code></span>
+<span class="codeline" id="line-260"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagInterfaceType" class="ident">TagInterfaceType</a>   <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x38</span></code></span>
+<span class="codeline" id="line-261"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagNamespace" class="ident">TagNamespace</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x39</span></code></span>
+<span class="codeline" id="line-262"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagImportedModule" class="ident">TagImportedModule</a>  <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3A</span></code></span>
+<span class="codeline" id="line-263"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagUnspecifiedType" class="ident">TagUnspecifiedType</a> <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3B</span></code></span>
+<span class="codeline" id="line-264"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagPartialUnit" class="ident">TagPartialUnit</a>     <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3C</span></code></span>
+<span class="codeline" id="line-265"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagImportedUnit" class="ident">TagImportedUnit</a>    <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3D</span></code></span>
+<span class="codeline" id="line-266"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagMutableType" class="ident">TagMutableType</a>     <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3E</span> <span class="comment">// Later removed from DWARF.</span></code></span>
+<span class="codeline" id="line-267"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCondition" class="ident">TagCondition</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x3F</span></code></span>
+<span class="codeline" id="line-268"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSharedType" class="ident">TagSharedType</a>      <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x40</span></code></span>
+<span class="codeline" id="line-269"><code>	<span class="comment">// The following are new in DWARF 4.</span></code></span>
+<span class="codeline" id="line-270"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTypeUnit" class="ident">TagTypeUnit</a>            <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x41</span></code></span>
+<span class="codeline" id="line-271"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagRvalueReferenceType" class="ident">TagRvalueReferenceType</a> <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x42</span></code></span>
+<span class="codeline" id="line-272"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagTemplateAlias" class="ident">TagTemplateAlias</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x43</span></code></span>
+<span class="codeline" id="line-273"><code>	<span class="comment">// The following are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-274"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCoarrayType" class="ident">TagCoarrayType</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x44</span></code></span>
+<span class="codeline" id="line-275"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagGenericSubrange" class="ident">TagGenericSubrange</a>   <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x45</span></code></span>
+<span class="codeline" id="line-276"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagDynamicType" class="ident">TagDynamicType</a>       <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x46</span></code></span>
+<span class="codeline" id="line-277"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagAtomicType" class="ident">TagAtomicType</a>        <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x47</span></code></span>
+<span class="codeline" id="line-278"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCallSite" class="ident">TagCallSite</a>          <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x48</span></code></span>
+<span class="codeline" id="line-279"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagCallSiteParameter" class="ident">TagCallSiteParameter</a> <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x49</span></code></span>
+<span class="codeline" id="line-280"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagSkeletonUnit" class="ident">TagSkeletonUnit</a>      <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x4A</span></code></span>
+<span class="codeline" id="line-281"><code>	<a href="../../../pkg/debug/dwarf.html#name-TagImmutableType" class="ident">TagImmutableType</a>     <a href="const.go.html#line-207" class="ident">Tag</a> = <span class="lit-number">0x4B</span></code></span>
+<span class="codeline" id="line-282"><code>)</code></span>
+<span class="codeline" id="line-283"><code></code></span>
+<span class="codeline" id="line-284"><code><span class="keyword">func</span> (<label for="r4" class="ident">t</label> <a href="const.go.html#line-207" class="ident">Tag</a>) <label for="r5" class="ident">GoString</label>() <a href="../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-285"><code>	<span class="keyword">if</span> <label for="r4" class="ident">t</label> &lt;= <a href="const.go.html#line-272" class="ident">TagTemplateAlias</a> {</code></span>
+<span class="codeline" id="line-286"><code>		<span class="keyword">return</span> <span class="lit-string">"dwarf.Tag"</span> + <label for="r4" class="ident">t</label>.<a href="tag_string.go.html#line-98" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-287"><code>	}</code></span>
+<span class="codeline" id="line-288"><code>	<span class="keyword">return</span> <span class="lit-string">"dwarf."</span> + <label for="r4" class="ident">t</label>.<a href="tag_string.go.html#line-98" class="ident">String</a>()</code></span>
+<span class="codeline" id="line-289"><code>}</code></span>
+<span class="codeline" id="line-290"><code></code></span>
+<span class="codeline" id="line-291"><code><span class="comment">// Location expression operators.</span></code></span>
+<span class="codeline" id="line-292"><code><span class="comment">// The debug info encodes value locations like 8(R3)</span></code></span>
+<span class="codeline" id="line-293"><code><span class="comment">// as a sequence of these op codes.</span></code></span>
+<span class="codeline" id="line-294"><code><span class="comment">// This package does not implement full expressions;</span></code></span>
+<span class="codeline" id="line-295"><code><span class="comment">// the opPlusUconst operator is expected by the type parser.</span></code></span>
+<span class="codeline" id="line-296"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-297"><code>	opAddr       = <span class="lit-number">0x03</span> <span class="comment">/* 1 op, const addr */</span></code></span>
+<span class="codeline" id="line-298"><code>	opDeref      = <span class="lit-number">0x06</span></code></span>
+<span class="codeline" id="line-299"><code>	opConst1u    = <span class="lit-number">0x08</span> <span class="comment">/* 1 op, 1 byte const */</span></code></span>
+<span class="codeline" id="line-300"><code>	opConst1s    = <span class="lit-number">0x09</span> <span class="comment">/*	" signed */</span></code></span>
+<span class="codeline" id="line-301"><code>	opConst2u    = <span class="lit-number">0x0A</span> <span class="comment">/* 1 op, 2 byte const  */</span></code></span>
+<span class="codeline" id="line-302"><code>	opConst2s    = <span class="lit-number">0x0B</span> <span class="comment">/*	" signed */</span></code></span>
+<span class="codeline" id="line-303"><code>	opConst4u    = <span class="lit-number">0x0C</span> <span class="comment">/* 1 op, 4 byte const */</span></code></span>
+<span class="codeline" id="line-304"><code>	opConst4s    = <span class="lit-number">0x0D</span> <span class="comment">/*	" signed */</span></code></span>
+<span class="codeline" id="line-305"><code>	opConst8u    = <span class="lit-number">0x0E</span> <span class="comment">/* 1 op, 8 byte const */</span></code></span>
+<span class="codeline" id="line-306"><code>	opConst8s    = <span class="lit-number">0x0F</span> <span class="comment">/*	" signed */</span></code></span>
+<span class="codeline" id="line-307"><code>	opConstu     = <span class="lit-number">0x10</span> <span class="comment">/* 1 op, LEB128 const */</span></code></span>
+<span class="codeline" id="line-308"><code>	opConsts     = <span class="lit-number">0x11</span> <span class="comment">/*	" signed */</span></code></span>
+<span class="codeline" id="line-309"><code>	opDup        = <span class="lit-number">0x12</span></code></span>
+<span class="codeline" id="line-310"><code>	opDrop       = <span class="lit-number">0x13</span></code></span>
+<span class="codeline" id="line-311"><code>	opOver       = <span class="lit-number">0x14</span></code></span>
+<span class="codeline" id="line-312"><code>	opPick       = <span class="lit-number">0x15</span> <span class="comment">/* 1 op, 1 byte stack index */</span></code></span>
+<span class="codeline" id="line-313"><code>	opSwap       = <span class="lit-number">0x16</span></code></span>
+<span class="codeline" id="line-314"><code>	opRot        = <span class="lit-number">0x17</span></code></span>
+<span class="codeline" id="line-315"><code>	opXderef     = <span class="lit-number">0x18</span></code></span>
+<span class="codeline" id="line-316"><code>	opAbs        = <span class="lit-number">0x19</span></code></span>
+<span class="codeline" id="line-317"><code>	opAnd        = <span class="lit-number">0x1A</span></code></span>
+<span class="codeline" id="line-318"><code>	opDiv        = <span class="lit-number">0x1B</span></code></span>
+<span class="codeline" id="line-319"><code>	opMinus      = <span class="lit-number">0x1C</span></code></span>
+<span class="codeline" id="line-320"><code>	opMod        = <span class="lit-number">0x1D</span></code></span>
+<span class="codeline" id="line-321"><code>	opMul        = <span class="lit-number">0x1E</span></code></span>
+<span class="codeline" id="line-322"><code>	opNeg        = <span class="lit-number">0x1F</span></code></span>
+<span class="codeline" id="line-323"><code>	opNot        = <span class="lit-number">0x20</span></code></span>
+<span class="codeline" id="line-324"><code>	opOr         = <span class="lit-number">0x21</span></code></span>
+<span class="codeline" id="line-325"><code>	opPlus       = <span class="lit-number">0x22</span></code></span>
+<span class="codeline" id="line-326"><code>	opPlusUconst = <span class="lit-number">0x23</span> <span class="comment">/* 1 op, ULEB128 addend */</span></code></span>
+<span class="codeline" id="line-327"><code>	opShl        = <span class="lit-number">0x24</span></code></span>
+<span class="codeline" id="line-328"><code>	opShr        = <span class="lit-number">0x25</span></code></span>
+<span class="codeline" id="line-329"><code>	opShra       = <span class="lit-number">0x26</span></code></span>
+<span class="codeline" id="line-330"><code>	opXor        = <span class="lit-number">0x27</span></code></span>
+<span class="codeline" id="line-331"><code>	opSkip       = <span class="lit-number">0x2F</span> <span class="comment">/* 1 op, signed 2-byte constant */</span></code></span>
+<span class="codeline" id="line-332"><code>	opBra        = <span class="lit-number">0x28</span> <span class="comment">/* 1 op, signed 2-byte constant */</span></code></span>
+<span class="codeline" id="line-333"><code>	opEq         = <span class="lit-number">0x29</span></code></span>
+<span class="codeline" id="line-334"><code>	opGe         = <span class="lit-number">0x2A</span></code></span>
+<span class="codeline" id="line-335"><code>	opGt         = <span class="lit-number">0x2B</span></code></span>
+<span class="codeline" id="line-336"><code>	opLe         = <span class="lit-number">0x2C</span></code></span>
+<span class="codeline" id="line-337"><code>	opLt         = <span class="lit-number">0x2D</span></code></span>
+<span class="codeline" id="line-338"><code>	opNe         = <span class="lit-number">0x2E</span></code></span>
+<span class="codeline" id="line-339"><code>	opLit0       = <span class="lit-number">0x30</span></code></span>
+<span class="codeline" id="line-340"><code>	<span class="comment">/* OpLitN = OpLit0 + N for N = 0..31 */</span></code></span>
+<span class="codeline" id="line-341"><code>	opReg0 = <span class="lit-number">0x50</span></code></span>
+<span class="codeline" id="line-342"><code>	<span class="comment">/* OpRegN = OpReg0 + N for N = 0..31 */</span></code></span>
+<span class="codeline" id="line-343"><code>	opBreg0 = <span class="lit-number">0x70</span> <span class="comment">/* 1 op, signed LEB128 constant */</span></code></span>
+<span class="codeline" id="line-344"><code>	<span class="comment">/* OpBregN = OpBreg0 + N for N = 0..31 */</span></code></span>
+<span class="codeline" id="line-345"><code>	opRegx       = <span class="lit-number">0x90</span> <span class="comment">/* 1 op, ULEB128 register */</span></code></span>
+<span class="codeline" id="line-346"><code>	opFbreg      = <span class="lit-number">0x91</span> <span class="comment">/* 1 op, SLEB128 offset */</span></code></span>
+<span class="codeline" id="line-347"><code>	opBregx      = <span class="lit-number">0x92</span> <span class="comment">/* 2 op, ULEB128 reg; SLEB128 off */</span></code></span>
+<span class="codeline" id="line-348"><code>	opPiece      = <span class="lit-number">0x93</span> <span class="comment">/* 1 op, ULEB128 size of piece */</span></code></span>
+<span class="codeline" id="line-349"><code>	opDerefSize  = <span class="lit-number">0x94</span> <span class="comment">/* 1-byte size of data retrieved */</span></code></span>
+<span class="codeline" id="line-350"><code>	opXderefSize = <span class="lit-number">0x95</span> <span class="comment">/* 1-byte size of data retrieved */</span></code></span>
+<span class="codeline" id="line-351"><code>	opNop        = <span class="lit-number">0x96</span></code></span>
+<span class="codeline" id="line-352"><code>	<span class="comment">// The following are new in DWARF 3.</span></code></span>
+<span class="codeline" id="line-353"><code>	opPushObjAddr    = <span class="lit-number">0x97</span></code></span>
+<span class="codeline" id="line-354"><code>	opCall2          = <span class="lit-number">0x98</span> <span class="comment">/* 2-byte offset of DIE */</span></code></span>
+<span class="codeline" id="line-355"><code>	opCall4          = <span class="lit-number">0x99</span> <span class="comment">/* 4-byte offset of DIE */</span></code></span>
+<span class="codeline" id="line-356"><code>	opCallRef        = <span class="lit-number">0x9A</span> <span class="comment">/* 4- or 8- byte offset of DIE */</span></code></span>
+<span class="codeline" id="line-357"><code>	opFormTLSAddress = <span class="lit-number">0x9B</span></code></span>
+<span class="codeline" id="line-358"><code>	opCallFrameCFA   = <span class="lit-number">0x9C</span></code></span>
+<span class="codeline" id="line-359"><code>	opBitPiece       = <span class="lit-number">0x9D</span></code></span>
+<span class="codeline" id="line-360"><code>	<span class="comment">// The following are new in DWARF 4.</span></code></span>
+<span class="codeline" id="line-361"><code>	opImplicitValue = <span class="lit-number">0x9E</span></code></span>
+<span class="codeline" id="line-362"><code>	opStackValue    = <span class="lit-number">0x9F</span></code></span>
+<span class="codeline" id="line-363"><code>	<span class="comment">// The following a new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-364"><code>	opImplicitPointer = <span class="lit-number">0xA0</span></code></span>
+<span class="codeline" id="line-365"><code>	opAddrx           = <span class="lit-number">0xA1</span></code></span>
+<span class="codeline" id="line-366"><code>	opConstx          = <span class="lit-number">0xA2</span></code></span>
+<span class="codeline" id="line-367"><code>	opEntryValue      = <span class="lit-number">0xA3</span></code></span>
+<span class="codeline" id="line-368"><code>	opConstType       = <span class="lit-number">0xA4</span></code></span>
+<span class="codeline" id="line-369"><code>	opRegvalType      = <span class="lit-number">0xA5</span></code></span>
+<span class="codeline" id="line-370"><code>	opDerefType       = <span class="lit-number">0xA6</span></code></span>
+<span class="codeline" id="line-371"><code>	opXderefType      = <span class="lit-number">0xA7</span></code></span>
+<span class="codeline" id="line-372"><code>	opConvert         = <span class="lit-number">0xA8</span></code></span>
+<span class="codeline" id="line-373"><code>	opReinterpret     = <span class="lit-number">0xA9</span></code></span>
+<span class="codeline" id="line-374"><code>	<span class="comment">/* 0xE0-0xFF reserved for user-specific */</span></code></span>
+<span class="codeline" id="line-375"><code>)</code></span>
+<span class="codeline" id="line-376"><code></code></span>
+<span class="codeline" id="line-377"><code><span class="comment">// Basic type encodings -- the value for AttrEncoding in a TagBaseType Entry.</span></code></span>
+<span class="codeline" id="line-378"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-379"><code>	encAddress      = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-380"><code>	encBoolean      = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-381"><code>	encComplexFloat = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-382"><code>	encFloat        = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-383"><code>	encSigned       = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-384"><code>	encSignedChar   = <span class="lit-number">0x06</span></code></span>
+<span class="codeline" id="line-385"><code>	encUnsigned     = <span class="lit-number">0x07</span></code></span>
+<span class="codeline" id="line-386"><code>	encUnsignedChar = <span class="lit-number">0x08</span></code></span>
+<span class="codeline" id="line-387"><code>	<span class="comment">// The following are new in DWARF 3.</span></code></span>
+<span class="codeline" id="line-388"><code>	encImaginaryFloat = <span class="lit-number">0x09</span></code></span>
+<span class="codeline" id="line-389"><code>	encPackedDecimal  = <span class="lit-number">0x0A</span></code></span>
+<span class="codeline" id="line-390"><code>	encNumericString  = <span class="lit-number">0x0B</span></code></span>
+<span class="codeline" id="line-391"><code>	encEdited         = <span class="lit-number">0x0C</span></code></span>
+<span class="codeline" id="line-392"><code>	encSignedFixed    = <span class="lit-number">0x0D</span></code></span>
+<span class="codeline" id="line-393"><code>	encUnsignedFixed  = <span class="lit-number">0x0E</span></code></span>
+<span class="codeline" id="line-394"><code>	encDecimalFloat   = <span class="lit-number">0x0F</span></code></span>
+<span class="codeline" id="line-395"><code>	<span class="comment">// The following are new in DWARF 4.</span></code></span>
+<span class="codeline" id="line-396"><code>	encUTF = <span class="lit-number">0x10</span></code></span>
+<span class="codeline" id="line-397"><code>	<span class="comment">// The following are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-398"><code>	encUCS   = <span class="lit-number">0x11</span></code></span>
+<span class="codeline" id="line-399"><code>	encASCII = <span class="lit-number">0x12</span></code></span>
+<span class="codeline" id="line-400"><code>)</code></span>
+<span class="codeline" id="line-401"><code></code></span>
+<span class="codeline" id="line-402"><code><span class="comment">// Statement program standard opcode encodings.</span></code></span>
+<span class="codeline" id="line-403"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-404"><code>	lnsCopy           = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-405"><code>	lnsAdvancePC      = <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-406"><code>	lnsAdvanceLine    = <span class="lit-number">3</span></code></span>
+<span class="codeline" id="line-407"><code>	lnsSetFile        = <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-408"><code>	lnsSetColumn      = <span class="lit-number">5</span></code></span>
+<span class="codeline" id="line-409"><code>	lnsNegateStmt     = <span class="lit-number">6</span></code></span>
+<span class="codeline" id="line-410"><code>	lnsSetBasicBlock  = <span class="lit-number">7</span></code></span>
+<span class="codeline" id="line-411"><code>	lnsConstAddPC     = <span class="lit-number">8</span></code></span>
+<span class="codeline" id="line-412"><code>	lnsFixedAdvancePC = <span class="lit-number">9</span></code></span>
+<span class="codeline" id="line-413"><code></code></span>
+<span class="codeline" id="line-414"><code>	<span class="comment">// DWARF 3</span></code></span>
+<span class="codeline" id="line-415"><code>	lnsSetPrologueEnd   = <span class="lit-number">10</span></code></span>
+<span class="codeline" id="line-416"><code>	lnsSetEpilogueBegin = <span class="lit-number">11</span></code></span>
+<span class="codeline" id="line-417"><code>	lnsSetISA           = <span class="lit-number">12</span></code></span>
+<span class="codeline" id="line-418"><code>)</code></span>
+<span class="codeline" id="line-419"><code></code></span>
+<span class="codeline" id="line-420"><code><span class="comment">// Statement program extended opcode encodings.</span></code></span>
+<span class="codeline" id="line-421"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-422"><code>	lneEndSequence = <span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-423"><code>	lneSetAddress  = <span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-424"><code>	lneDefineFile  = <span class="lit-number">3</span></code></span>
+<span class="codeline" id="line-425"><code></code></span>
+<span class="codeline" id="line-426"><code>	<span class="comment">// DWARF 4</span></code></span>
+<span class="codeline" id="line-427"><code>	lneSetDiscriminator = <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-428"><code>)</code></span>
+<span class="codeline" id="line-429"><code></code></span>
+<span class="codeline" id="line-430"><code><span class="comment">// Line table directory directory and file name entry formats.</span></code></span>
+<span class="codeline" id="line-431"><code><span class="comment">// These are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-432"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-433"><code>	lnctPath           = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-434"><code>	lnctDirectoryIndex = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-435"><code>	lnctTimestamp      = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-436"><code>	lnctSize           = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-437"><code>	lnctMD5            = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-438"><code>)</code></span>
+<span class="codeline" id="line-439"><code></code></span>
+<span class="codeline" id="line-440"><code><span class="comment">// Location list entry codes.</span></code></span>
+<span class="codeline" id="line-441"><code><span class="comment">// These are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-442"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-443"><code>	lleEndOfList       = <span class="lit-number">0x00</span></code></span>
+<span class="codeline" id="line-444"><code>	lleBaseAddressx    = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-445"><code>	lleStartxEndx      = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-446"><code>	lleStartxLength    = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-447"><code>	lleOffsetPair      = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-448"><code>	lleDefaultLocation = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-449"><code>	lleBaseAddress     = <span class="lit-number">0x06</span></code></span>
+<span class="codeline" id="line-450"><code>	lleStartEnd        = <span class="lit-number">0x07</span></code></span>
+<span class="codeline" id="line-451"><code>	lleStartLength     = <span class="lit-number">0x08</span></code></span>
+<span class="codeline" id="line-452"><code>)</code></span>
+<span class="codeline" id="line-453"><code></code></span>
+<span class="codeline" id="line-454"><code><span class="comment">// Unit header unit type encodings.</span></code></span>
+<span class="codeline" id="line-455"><code><span class="comment">// These are new in DWARF 5.</span></code></span>
+<span class="codeline" id="line-456"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-457"><code>	utCompile      = <span class="lit-number">0x01</span></code></span>
+<span class="codeline" id="line-458"><code>	utType         = <span class="lit-number">0x02</span></code></span>
+<span class="codeline" id="line-459"><code>	utPartial      = <span class="lit-number">0x03</span></code></span>
+<span class="codeline" id="line-460"><code>	utSkeleton     = <span class="lit-number">0x04</span></code></span>
+<span class="codeline" id="line-461"><code>	utSplitCompile = <span class="lit-number">0x05</span></code></span>
+<span class="codeline" id="line-462"><code>	utSplitType    = <span class="lit-number">0x06</span></code></span>
+<span class="codeline" id="line-463"><code>)</code></span>
+<span class="codeline" id="line-464"><code></code></span>
+<span class="codeline" id="line-465"><code><span class="comment">// Opcodes for DWARFv5 debug_rnglists section.</span></code></span>
+<span class="codeline" id="line-466"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-467"><code>	rleEndOfList    = <span class="lit-number">0x0</span></code></span>
+<span class="codeline" id="line-468"><code>	rleBaseAddressx = <span class="lit-number">0x1</span></code></span>
+<span class="codeline" id="line-469"><code>	rleStartxEndx   = <span class="lit-number">0x2</span></code></span>
+<span class="codeline" id="line-470"><code>	rleStartxLength = <span class="lit-number">0x3</span></code></span>
+<span class="codeline" id="line-471"><code>	rleOffsetPair   = <span class="lit-number">0x4</span></code></span>
+<span class="codeline" id="line-472"><code>	rleBaseAddress  = <span class="lit-number">0x5</span></code></span>
+<span class="codeline" id="line-473"><code>	rleStartEnd     = <span class="lit-number">0x6</span></code></span>
+<span class="codeline" id="line-474"><code>	rleStartLength  = <span class="lit-number">0x7</span></code></span>
+<span class="codeline" id="line-475"><code>)</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

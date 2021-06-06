@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: vendor/golang.org/x/net/nettest</title>
+<link href="../../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>nettest</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../../../index.html#pkg-vendor/golang.org/x/net/nettest">vendor/golang.org/x/net/nettest</a><i> (on <a href="https://golang.org/pkg/vendor/golang.org/x/net/nettest/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/vendor/golang.org/x/net/nettest" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../../../dep/vendor/golang.org/x/net/nettest.html">17 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../../../../src/vendor/golang.org/x/net/nettest/conntest.go.html">conntest.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-1-fold-content"><label for="file-1-fold-content">   <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#doc">d➜</a> <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html">nettest.go</a></label><span id='file-1-fold-content-items' class="fold-items">
+		Package nettest provides utilities for network testing.
+</span>
+	<span class="nodocs">      <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest_unix.go.html">nettest_unix.go</a></span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (only one)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-MakePipe" data-popularity="35">	<input type='checkbox' class="fold" id="MakePipe-fold-content"><label for="MakePipe-fold-content"> type <a href="../../../../../src/vendor/golang.org/x/net/nettest/conntest.go.html#line-24">MakePipe</a> <i>(func)</i></label><span id='MakePipe-fold-content-docs' class="fold-docs">
+		MakePipe creates a connection between two endpoints and returns the pair
+		as c1 and c2, such that anything written to c1 is read by c2 and vice-versa.
+		The stop function closes all resources, including c1, c2, and the underlying
+		net.Listener (if there is one), and should not be nil.
+
+		<input type='checkbox' class="fold" id="MakePipe-fold-params"><label for="MakePipe-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='MakePipe-fold-params-items' class="fold-items"><span>
+			func <a href="nettest.html#name-TestConn">TestConn</a>(t *<a href="../../../../testing.html">testing</a>.<a href="../../../../testing.html#name-T">T</a>, mp <b>MakePipe</b>)</span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 12)</i></span></span>
+
+<div class="anchor value-res" id="name-LocalPath">	<input type='checkbox' class="fold" id="LocalPath-fold-content"><label for="LocalPath-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-230">LocalPath</a>() (<a href="../../../../builtin.html#name-string">string</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='LocalPath-fold-content-docs' class="fold-docs">
+		LocalPath returns a local path that can be used for Unix-domain
+		protocol testing.
+
+</span></div><div class="anchor value-res" id="name-LoopbackInterface">	<input type='checkbox' class="fold" id="LoopbackInterface-fold-content"><label for="LoopbackInterface-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-263">LoopbackInterface</a>() (*<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Interface">Interface</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='LoopbackInterface-fold-content-docs' class="fold-docs">
+		LoopbackInterface returns an available logical network interface
+		for loopback test.
+
+</span></div><div class="anchor value-res" id="name-MulticastSource">	<input type='checkbox' class="fold" id="MulticastSource-fold-content"><label for="MulticastSource-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-245">MulticastSource</a>(network <a href="../../../../builtin.html#name-string">string</a>, ifi *<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Interface">Interface</a>) (<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-IP">IP</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='MulticastSource-fold-content-docs' class="fold-docs">
+		MulticastSource returns a unicast IP address on ifi when ifi is an
+		IP multicast-capable network interface.
+
+		The provided network must be "ip", "ip4" or "ip6".
+
+</span></div><div class="anchor value-res" id="name-NewLocalListener">	<input type='checkbox' class="fold" id="NewLocalListener-fold-content"><label for="NewLocalListener-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-166">NewLocalListener</a>(network <a href="../../../../builtin.html#name-string">string</a>) (<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Listener">Listener</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='NewLocalListener-fold-content-docs' class="fold-docs">
+		NewLocalListener returns a listener which listens to a loopback IP
+		address or local file system path.
+
+		The provided network must be "tcp", "tcp4", "tcp6", "unix" or
+		"unixpacket".
+
+</span></div><div class="anchor value-res" id="name-NewLocalPacketListener">	<input type='checkbox' class="fold" id="NewLocalPacketListener-fold-content"><label for="NewLocalPacketListener-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-199">NewLocalPacketListener</a>(network <a href="../../../../builtin.html#name-string">string</a>) (<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-PacketConn">PacketConn</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='NewLocalPacketListener-fold-content-docs' class="fold-docs">
+		NewLocalPacketListener returns a packet listener which listens to a
+		loopback IP address or local file system path.
+
+		The provided network must be "udp", "udp4", "udp6" or "unixgram".
+
+</span></div><div class="anchor value-res" id="name-RoutedInterface">	<input type='checkbox' class="fold" id="RoutedInterface-fold-content"><label for="RoutedInterface-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-280">RoutedInterface</a>(network <a href="../../../../builtin.html#name-string">string</a>, flags <a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Flags">Flags</a>) (*<a href="../../../../net.html">net</a>.<a href="../../../../net.html#name-Interface">Interface</a>, <a href="../../../../builtin.html#name-error">error</a>)</label><span id='RoutedInterface-fold-content-docs' class="fold-docs">
+		RoutedInterface returns a network interface that can route IP
+		traffic and satisfies flags.
+
+		The provided network must be "ip", "ip4" or "ip6".
+
+</span></div><div class="anchor value-res" id="name-SupportsIPv4">	<input type='checkbox' class="fold" id="SupportsIPv4-fold-content"><label for="SupportsIPv4-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-68">SupportsIPv4</a>() <a href="../../../../builtin.html#name-bool">bool</a></label><span id='SupportsIPv4-fold-content-docs' class="fold-docs">
+		SupportsIPv4 reports whether the platform supports IPv4 networking
+		functionality.
+
+</span></div><div class="anchor value-res" id="name-SupportsIPv6">	<input type='checkbox' class="fold" id="SupportsIPv6-fold-content"><label for="SupportsIPv6-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-75">SupportsIPv6</a>() <a href="../../../../builtin.html#name-bool">bool</a></label><span id='SupportsIPv6-fold-content-docs' class="fold-docs">
+		SupportsIPv6 reports whether the platform supports IPv6 networking
+		functionality.
+
+</span></div><div class="anchor value-res" id="name-SupportsRawSocket">	<input type='checkbox' class="fold" id="SupportsRawSocket-fold-content"><label for="SupportsRawSocket-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-82">SupportsRawSocket</a>() <a href="../../../../builtin.html#name-bool">bool</a></label><span id='SupportsRawSocket-fold-content-docs' class="fold-docs">
+		SupportsRawSocket reports whether the current session is available
+		to use raw sockets.
+
+</span></div><div class="anchor value-res" id="name-TestableAddress">	<input type='checkbox' class="fold" id="TestableAddress-fold-content"><label for="TestableAddress-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-150">TestableAddress</a>(network, address <a href="../../../../builtin.html#name-string">string</a>) <a href="../../../../builtin.html#name-bool">bool</a></label><span id='TestableAddress-fold-content-docs' class="fold-docs">
+		TestableAddress reports whether address of network is testable on
+		the current platform configuration.
+
+</span></div><div class="anchor value-res" id="name-TestableNetwork">	<input type='checkbox' class="fold" id="TestableNetwork-fold-content"><label for="TestableNetwork-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/nettest.go.html#line-91">TestableNetwork</a>(network <a href="../../../../builtin.html#name-string">string</a>) <a href="../../../../builtin.html#name-bool">bool</a></label><span id='TestableNetwork-fold-content-docs' class="fold-docs">
+		TestableNetwork reports whether network is testable on the current
+		platform configuration.
+
+		See func Dial of the standard library for the supported networks.
+
+</span></div><div class="anchor value-res" id="name-TestConn">	<input type='checkbox' class="fold" id="TestConn-fold-content"><label for="TestConn-fold-content"> func <a href="../../../../../src/vendor/golang.org/x/net/nettest/conntest.go.html#line-31">TestConn</a>(t *<a href="../../../../testing.html">testing</a>.<a href="../../../../testing.html#name-T">T</a>, mp <a href="nettest.html#name-MakePipe">MakePipe</a>)</label><span id='TestConn-fold-content-docs' class="fold-docs">
+		TestConn tests that a net.Conn implementation properly satisfies the interface.
+		The tests should not produce any false positives, but may experience
+		false negatives. Thus, some issues may only be detected when the test is
+		run multiple times. For maximal effectiveness, run the tests under the
+		race detector.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

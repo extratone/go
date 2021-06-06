@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: ar.go in package internal/xcoff</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	ar.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/internal/xcoff.html">internal/xcoff</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2018 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> xcoff</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"encoding/binary"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"io"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i3"><span class="lit-string i3">"os"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i4"><span class="lit-string i4">"strconv"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i5"><span class="lit-string i5">"strings"</span></label></code></span>
+<span class="codeline" id="line-14"><code>)</code></span>
+<span class="codeline" id="line-15"><code></code></span>
+<span class="codeline" id="line-16"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-17"><code>	<a href="../../../pkg/internal/xcoff.html#name-SAIAMAG" class="ident">SAIAMAG</a>   = <span class="lit-number">0x8</span></code></span>
+<span class="codeline" id="line-18"><code>	<a href="../../../pkg/internal/xcoff.html#name-AIAFMAG" class="ident">AIAFMAG</a>   = <span class="lit-string">"`\n"</span></code></span>
+<span class="codeline" id="line-19"><code>	<a href="../../../pkg/internal/xcoff.html#name-AIAMAG" class="ident">AIAMAG</a>    = <span class="lit-string">"&lt;aiaff&gt;\n"</span></code></span>
+<span class="codeline" id="line-20"><code>	<a href="../../../pkg/internal/xcoff.html#name-AIAMAGBIG" class="ident">AIAMAGBIG</a> = <span class="lit-string">"&lt;bigaf&gt;\n"</span></code></span>
+<span class="codeline" id="line-21"><code></code></span>
+<span class="codeline" id="line-22"><code>	<span class="comment">// Sizeof</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="../../../pkg/internal/xcoff.html#name-FL_HSZ_BIG" class="ident">FL_HSZ_BIG</a> = <span class="lit-number">0x80</span></code></span>
+<span class="codeline" id="line-24"><code>	<a href="../../../pkg/internal/xcoff.html#name-AR_HSZ_BIG" class="ident">AR_HSZ_BIG</a> = <span class="lit-number">0x70</span></code></span>
+<span class="codeline" id="line-25"><code>)</code></span>
+<span class="codeline" id="line-26"><code></code></span>
+<span class="codeline" id="line-27"><code><span class="keyword">type</span> bigarFileHeader <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-28"><code>	Flmagic    [<a href="ar.go.html#line-17" class="ident">SAIAMAG</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Archive magic string</span></code></span>
+<span class="codeline" id="line-29"><code>	Flmemoff   [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// Member table offset</span></code></span>
+<span class="codeline" id="line-30"><code>	Flgstoff   [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// 32-bits global symtab offset</span></code></span>
+<span class="codeline" id="line-31"><code>	Flgst64off [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// 64-bits global symtab offset</span></code></span>
+<span class="codeline" id="line-32"><code>	Flfstmoff  [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// First member offset</span></code></span>
+<span class="codeline" id="line-33"><code>	Fllstmoff  [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// Last member offset</span></code></span>
+<span class="codeline" id="line-34"><code>	Flfreeoff  [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>      <span class="comment">// First member on free list offset</span></code></span>
+<span class="codeline" id="line-35"><code>}</code></span>
+<span class="codeline" id="line-36"><code></code></span>
+<span class="codeline" id="line-37"><code><span class="keyword">type</span> bigarMemberHeader <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-38"><code>	Arsize   [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// File member size</span></code></span>
+<span class="codeline" id="line-39"><code>	Arnxtmem [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Next member pointer</span></code></span>
+<span class="codeline" id="line-40"><code>	Arprvmem [<span class="lit-number">20</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Previous member pointer</span></code></span>
+<span class="codeline" id="line-41"><code>	Ardate   [<span class="lit-number">12</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// File member date</span></code></span>
+<span class="codeline" id="line-42"><code>	Aruid    [<span class="lit-number">12</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// File member uid</span></code></span>
+<span class="codeline" id="line-43"><code>	Argid    [<span class="lit-number">12</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// File member gid</span></code></span>
+<span class="codeline" id="line-44"><code>	Armode   [<span class="lit-number">12</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// File member mode (octal)</span></code></span>
+<span class="codeline" id="line-45"><code>	Arnamlen [<span class="lit-number">4</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>  <span class="comment">// File member name length</span></code></span>
+<span class="codeline" id="line-46"><code>	<span class="comment">// _ar_nam is removed because it's easier to get name without it.</span></code></span>
+<span class="codeline" id="line-47"><code>}</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// Archive represents an open AIX big archive.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-Archive" class="ident">Archive</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-51"><code>	<a href="ar.go.html#line-58" class="ident">ArchiveHeader</a></code></span>
+<span class="codeline" id="line-52"><code>	Members []*<a href="ar.go.html#line-63" class="ident">Member</a></code></span>
+<span class="codeline" id="line-53"><code></code></span>
+<span class="codeline" id="line-54"><code>	closer <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-104" class="ident">Closer</a></code></span>
+<span class="codeline" id="line-55"><code>}</code></span>
+<span class="codeline" id="line-56"><code></code></span>
+<span class="codeline" id="line-57"><code><span class="comment">// MemberHeader holds information about a big archive file header</span></code></span>
+<span class="codeline" id="line-58"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-ArchiveHeader" class="ident">ArchiveHeader</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-59"><code>	magic <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-60"><code>}</code></span>
+<span class="codeline" id="line-61"><code></code></span>
+<span class="codeline" id="line-62"><code><span class="comment">// Member represents a member of an AIX big archive.</span></code></span>
+<span class="codeline" id="line-63"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-Member" class="ident">Member</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-64"><code>	<a href="ar.go.html#line-69" class="ident">MemberHeader</a></code></span>
+<span class="codeline" id="line-65"><code>	sr *<a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-486" class="ident">SectionReader</a></code></span>
+<span class="codeline" id="line-66"><code>}</code></span>
+<span class="codeline" id="line-67"><code></code></span>
+<span class="codeline" id="line-68"><code><span class="comment">// MemberHeader holds information about a big archive member</span></code></span>
+<span class="codeline" id="line-69"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-MemberHeader" class="ident">MemberHeader</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-70"><code>	Name <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-71"><code>	Size <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-72"><code>}</code></span>
+<span class="codeline" id="line-73"><code></code></span>
+<span class="codeline" id="line-74"><code><span class="comment">// OpenArchive opens the named archive using os.Open and prepares it for use</span></code></span>
+<span class="codeline" id="line-75"><code><span class="comment">// as an AIX big archive.</span></code></span>
+<span class="codeline" id="line-76"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/internal/xcoff.html#name-OpenArchive" class="ident">OpenArchive</a></label>(<label for="r1" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="ar.go.html#line-50" class="ident">Archive</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-77"><code>	<label for="r2" class="ident">f</label>, <label for="r3" class="ident">err</label> := <a href="../../../pkg/os.html" class="ident i3">os</a>.<a href="../../os/file.go.html#line-310" class="ident">Open</a>(<label for="r1" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-78"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-79"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r3" class="ident">err</label></code></span>
+<span class="codeline" id="line-80"><code>	}</code></span>
+<span class="codeline" id="line-81"><code>	<label for="r4" class="ident">arch</label>, <label for="r3" class="ident">err</label> := <a href="ar.go.html#line-103" class="ident">NewArchive</a>(<label for="r2" class="ident">f</label>)</code></span>
+<span class="codeline" id="line-82"><code>	<span class="keyword">if</span> <label for="r3" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-83"><code>		<label for="r2" class="ident">f</label>.<a href="../../os/file_posix.go.html#line-21" class="ident">Close</a>()</code></span>
+<span class="codeline" id="line-84"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r3" class="ident">err</label></code></span>
+<span class="codeline" id="line-85"><code>	}</code></span>
+<span class="codeline" id="line-86"><code>	<label for="r4" class="ident">arch</label>.<a href="ar.go.html#line-54" class="ident">closer</a> = <label for="r2" class="ident">f</label></code></span>
+<span class="codeline" id="line-87"><code>	<span class="keyword">return</span> <label for="r4" class="ident">arch</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-88"><code>}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// Close closes the Archive.</span></code></span>
+<span class="codeline" id="line-91"><code><span class="comment">// If the Archive was created using NewArchive directly instead of OpenArchive,</span></code></span>
+<span class="codeline" id="line-92"><code><span class="comment">// Close has no effect.</span></code></span>
+<span class="codeline" id="line-93"><code><span class="keyword">func</span> (<label for="r5" class="ident">a</label> *<a href="ar.go.html#line-50" class="ident">Archive</a>) <label for="r6" class="ident">Close</label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-94"><code>	<span class="keyword">var</span> <label for="r7" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-95"><code>	<span class="keyword">if</span> <label for="r5" class="ident">a</label>.<a href="ar.go.html#line-54" class="ident">closer</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-96"><code>		<label for="r7" class="ident">err</label> = <label for="r5" class="ident">a</label>.<a href="ar.go.html#line-54" class="ident">closer</a>.<a href="../../io/io.go.html#line-105" class="ident">Close</a>()</code></span>
+<span class="codeline" id="line-97"><code>		<label for="r5" class="ident">a</label>.<a href="ar.go.html#line-54" class="ident">closer</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-98"><code>	}</code></span>
+<span class="codeline" id="line-99"><code>	<span class="keyword">return</span> <label for="r7" class="ident">err</label></code></span>
+<span class="codeline" id="line-100"><code>}</code></span>
+<span class="codeline" id="line-101"><code></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">// NewArchive creates a new Archive for accessing an AIX big archive in an underlying reader.</span></code></span>
+<span class="codeline" id="line-103"><code><span class="keyword">func</span> <label for="r8" class="ident"><a href="../../../pkg/internal/xcoff.html#name-NewArchive" class="ident">NewArchive</a></label>(<label for="r9" class="ident">r</label> <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-225" class="ident">ReaderAt</a>) (*<a href="ar.go.html#line-50" class="ident">Archive</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-104"><code>	<label for="r10" class="ident">parseDecimalBytes</label> := <span class="keyword">func</span>(<label for="r11" class="ident">b</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-105"><code>		<span class="keyword">return</span> <a href="../../../pkg/strconv.html" class="ident i4">strconv</a>.<a href="../../strconv/atoi.go.html#line-179" class="ident">ParseInt</a>(<a href="../../../pkg/strings.html" class="ident i5">strings</a>.<a href="../../strings/strings.go.html#line-867" class="ident">TrimSpace</a>(<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r11" class="ident">b</label>)), <span class="lit-number">10</span>, <span class="lit-number">64</span>)</code></span>
+<span class="codeline" id="line-106"><code>	}</code></span>
+<span class="codeline" id="line-107"><code>	<label for="r12" class="ident">sr</label> := <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-480" class="ident">NewSectionReader</a>(<label for="r9" class="ident">r</label>, <span class="lit-number">0</span>, <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">63</span>-<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-108"><code></code></span>
+<span class="codeline" id="line-109"><code>	<span class="comment">// Read File Header</span></code></span>
+<span class="codeline" id="line-110"><code>	<span class="keyword">var</span> <label for="r13" class="ident">magic</label> [<a href="ar.go.html#line-17" class="ident">SAIAMAG</a>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-111"><code>	<span class="keyword">if</span> <label for="r14" class="ident">_</label>, <label for="r15" class="ident">err</label> := <label for="r12" class="ident">sr</label>.<a href="../../io/io.go.html#line-526" class="ident">ReadAt</a>(<label for="r13" class="ident">magic</label>[:], <span class="lit-number">0</span>); <label for="r15" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-112"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r15" class="ident">err</label></code></span>
+<span class="codeline" id="line-113"><code>	}</code></span>
+<span class="codeline" id="line-114"><code></code></span>
+<span class="codeline" id="line-115"><code>	<label for="r16" class="ident">arch</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="ar.go.html#line-50" class="ident">Archive</a>)</code></span>
+<span class="codeline" id="line-116"><code>	<span class="keyword">switch</span> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r13" class="ident">magic</label>[:]) {</code></span>
+<span class="codeline" id="line-117"><code>	<span class="keyword">case</span> <a href="ar.go.html#line-20" class="ident">AIAMAGBIG</a>:</code></span>
+<span class="codeline" id="line-118"><code>		<label for="r16" class="ident">arch</label>.<a href="ar.go.html#line-59" class="ident">magic</a> = <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r13" class="ident">magic</label>[:])</code></span>
+<span class="codeline" id="line-119"><code>	<span class="keyword">case</span> <a href="ar.go.html#line-19" class="ident">AIAMAG</a>:</code></span>
+<span class="codeline" id="line-120"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"small AIX archive not supported"</span>)</code></span>
+<span class="codeline" id="line-121"><code>	<span class="keyword">default</span>:</code></span>
+<span class="codeline" id="line-122"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"unrecognised archive magic: 0x%x"</span>, <label for="r13" class="ident">magic</label>)</code></span>
+<span class="codeline" id="line-123"><code>	}</code></span>
+<span class="codeline" id="line-124"><code></code></span>
+<span class="codeline" id="line-125"><code>	<span class="keyword">var</span> <label for="r17" class="ident">fhdr</label> <a href="ar.go.html#line-27" class="ident">bigarFileHeader</a></code></span>
+<span class="codeline" id="line-126"><code>	<span class="keyword">if</span> <label for="r18" class="ident">_</label>, <label for="r19" class="ident">err</label> := <label for="r12" class="ident">sr</label>.<a href="../../io/io.go.html#line-508" class="ident">Seek</a>(<span class="lit-number">0</span>, <a href="../../../pkg/os.html" class="ident i3">os</a>.<a href="../../os/file.go.html#line-88" class="ident">SEEK_SET</a>); <label for="r19" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-127"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r19" class="ident">err</label></code></span>
+<span class="codeline" id="line-128"><code>	}</code></span>
+<span class="codeline" id="line-129"><code>	<span class="keyword">if</span> <label for="r20" class="ident">err</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r12" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r17" class="ident">fhdr</label>); <label for="r20" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-130"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-131"><code>	}</code></span>
+<span class="codeline" id="line-132"><code></code></span>
+<span class="codeline" id="line-133"><code>	<label for="r21" class="ident">off</label>, <label for="r22" class="ident">err</label> := <label for="r10" class="ident">parseDecimalBytes</label>(<label for="r17" class="ident">fhdr</label>.<a href="ar.go.html#line-32" class="ident">Flfstmoff</a>[:])</code></span>
+<span class="codeline" id="line-134"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-135"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"error parsing offset of first member in archive header(%q); %v"</span>, <label for="r17" class="ident">fhdr</label>, <label for="r22" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-136"><code>	}</code></span>
+<span class="codeline" id="line-137"><code></code></span>
+<span class="codeline" id="line-138"><code>	<span class="keyword">if</span> <label for="r21" class="ident">off</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-139"><code>		<span class="comment">// Occurs if the archive is empty.</span></code></span>
+<span class="codeline" id="line-140"><code>		<span class="keyword">return</span> <label for="r16" class="ident">arch</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-141"><code>	}</code></span>
+<span class="codeline" id="line-142"><code></code></span>
+<span class="codeline" id="line-143"><code>	<label for="r23" class="ident">lastoff</label>, <label for="r22" class="ident">err</label> := <label for="r10" class="ident">parseDecimalBytes</label>(<label for="r17" class="ident">fhdr</label>.<a href="ar.go.html#line-33" class="ident">Fllstmoff</a>[:])</code></span>
+<span class="codeline" id="line-144"><code>	<span class="keyword">if</span> <label for="r22" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-145"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"error parsing offset of first member in archive header(%q); %v"</span>, <label for="r17" class="ident">fhdr</label>, <label for="r22" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-146"><code>	}</code></span>
+<span class="codeline" id="line-147"><code></code></span>
+<span class="codeline" id="line-148"><code>	<span class="comment">// Read members</span></code></span>
+<span class="codeline" id="line-149"><code>	<span class="keyword">for</span> {</code></span>
+<span class="codeline" id="line-150"><code>		<span class="comment">// Read Member Header</span></code></span>
+<span class="codeline" id="line-151"><code><span class="comment">		// The member header is normally 2 bytes larger. But it's easier</span></code></span>
+<span class="codeline" id="line-152"><code><span class="comment">		// to read the name if the header is read without _ar_nam.</span></code></span>
+<span class="codeline" id="line-153"><code><span class="comment">		// However, AIAFMAG must be read afterward.</span></code></span>
+<span class="codeline" id="line-154"><code>		<span class="keyword">if</span> <label for="r24" class="ident">_</label>, <label for="r25" class="ident">err</label> := <label for="r12" class="ident">sr</label>.<a href="../../io/io.go.html#line-508" class="ident">Seek</a>(<label for="r21" class="ident">off</label>, <a href="../../../pkg/os.html" class="ident i3">os</a>.<a href="../../os/file.go.html#line-88" class="ident">SEEK_SET</a>); <label for="r25" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-155"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r25" class="ident">err</label></code></span>
+<span class="codeline" id="line-156"><code>		}</code></span>
+<span class="codeline" id="line-157"><code></code></span>
+<span class="codeline" id="line-158"><code>		<span class="keyword">var</span> <label for="r26" class="ident">mhdr</label> <a href="ar.go.html#line-37" class="ident">bigarMemberHeader</a></code></span>
+<span class="codeline" id="line-159"><code>		<span class="keyword">if</span> <label for="r27" class="ident">err</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r12" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r26" class="ident">mhdr</label>); <label for="r27" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-160"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r27" class="ident">err</label></code></span>
+<span class="codeline" id="line-161"><code>		}</code></span>
+<span class="codeline" id="line-162"><code></code></span>
+<span class="codeline" id="line-163"><code>		<label for="r28" class="ident">member</label> := <a href="../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="ar.go.html#line-63" class="ident">Member</a>)</code></span>
+<span class="codeline" id="line-164"><code>		<label for="r16" class="ident">arch</label>.<a href="ar.go.html#line-52" class="ident">Members</a> = <a href="../../../pkg/builtin.html#name-append" class="ident">append</a>(<label for="r16" class="ident">arch</label>.<a href="ar.go.html#line-52" class="ident">Members</a>, <label for="r28" class="ident">member</label>)</code></span>
+<span class="codeline" id="line-165"><code></code></span>
+<span class="codeline" id="line-166"><code>		<label for="r29" class="ident">size</label>, <label for="r30" class="ident">err</label> := <label for="r10" class="ident">parseDecimalBytes</label>(<label for="r26" class="ident">mhdr</label>.<a href="ar.go.html#line-38" class="ident">Arsize</a>[:])</code></span>
+<span class="codeline" id="line-167"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-168"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"error parsing size in member header(%q); %v"</span>, <label for="r26" class="ident">mhdr</label>, <label for="r30" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-169"><code>		}</code></span>
+<span class="codeline" id="line-170"><code>		<label for="r28" class="ident">member</label>.<a href="ar.go.html#line-71" class="ident">Size</a> = <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r29" class="ident">size</label>)</code></span>
+<span class="codeline" id="line-171"><code></code></span>
+<span class="codeline" id="line-172"><code>		<span class="comment">// Read name</span></code></span>
+<span class="codeline" id="line-173"><code>		<label for="r31" class="ident">namlen</label>, <label for="r30" class="ident">err</label> := <label for="r10" class="ident">parseDecimalBytes</label>(<label for="r26" class="ident">mhdr</label>.<a href="ar.go.html#line-45" class="ident">Arnamlen</a>[:])</code></span>
+<span class="codeline" id="line-174"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-175"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"error parsing name length in member header(%q); %v"</span>, <label for="r26" class="ident">mhdr</label>, <label for="r30" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-176"><code>		}</code></span>
+<span class="codeline" id="line-177"><code>		<label for="r32" class="ident">name</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r31" class="ident">namlen</label>)</code></span>
+<span class="codeline" id="line-178"><code>		<span class="keyword">if</span> <label for="r33" class="ident">err</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r12" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, <label for="r32" class="ident">name</label>); <label for="r33" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-179"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r33" class="ident">err</label></code></span>
+<span class="codeline" id="line-180"><code>		}</code></span>
+<span class="codeline" id="line-181"><code>		<label for="r28" class="ident">member</label>.<a href="ar.go.html#line-70" class="ident">Name</a> = <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r32" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-182"><code></code></span>
+<span class="codeline" id="line-183"><code>		<label for="r34" class="ident">fileoff</label> := <label for="r21" class="ident">off</label> + <a href="ar.go.html#line-24" class="ident">AR_HSZ_BIG</a> + <label for="r31" class="ident">namlen</label></code></span>
+<span class="codeline" id="line-184"><code>		<span class="keyword">if</span> <label for="r34" class="ident">fileoff</label>&amp;<span class="lit-number">1</span> != <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-185"><code>			<label for="r34" class="ident">fileoff</label>++</code></span>
+<span class="codeline" id="line-186"><code>			<span class="keyword">if</span> <label for="r35" class="ident">_</label>, <label for="r36" class="ident">err</label> := <label for="r12" class="ident">sr</label>.<a href="../../io/io.go.html#line-508" class="ident">Seek</a>(<span class="lit-number">1</span>, <a href="../../../pkg/os.html" class="ident i3">os</a>.<a href="../../os/file.go.html#line-89" class="ident">SEEK_CUR</a>); <label for="r36" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-187"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r36" class="ident">err</label></code></span>
+<span class="codeline" id="line-188"><code>			}</code></span>
+<span class="codeline" id="line-189"><code>		}</code></span>
+<span class="codeline" id="line-190"><code></code></span>
+<span class="codeline" id="line-191"><code>		<span class="comment">// Read AIAFMAG string</span></code></span>
+<span class="codeline" id="line-192"><code>		<span class="keyword">var</span> <label for="r37" class="ident">fmag</label> [<span class="lit-number">2</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-193"><code>		<span class="keyword">if</span> <label for="r38" class="ident">err</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r12" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r37" class="ident">fmag</label>); <label for="r38" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-194"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r38" class="ident">err</label></code></span>
+<span class="codeline" id="line-195"><code>		}</code></span>
+<span class="codeline" id="line-196"><code>		<span class="keyword">if</span> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>(<label for="r37" class="ident">fmag</label>[:]) != <a href="ar.go.html#line-18" class="ident">AIAFMAG</a> {</code></span>
+<span class="codeline" id="line-197"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"AIAFMAG not found after member header"</span>)</code></span>
+<span class="codeline" id="line-198"><code>		}</code></span>
+<span class="codeline" id="line-199"><code></code></span>
+<span class="codeline" id="line-200"><code>		<label for="r34" class="ident">fileoff</label> += <span class="lit-number">2</span> <span class="comment">// Add the two bytes of AIAFMAG</span></code></span>
+<span class="codeline" id="line-201"><code>		<label for="r28" class="ident">member</label>.<a href="ar.go.html#line-65" class="ident">sr</a> = <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-480" class="ident">NewSectionReader</a>(<label for="r12" class="ident">sr</label>, <label for="r34" class="ident">fileoff</label>, <label for="r29" class="ident">size</label>)</code></span>
+<span class="codeline" id="line-202"><code></code></span>
+<span class="codeline" id="line-203"><code>		<span class="keyword">if</span> <label for="r21" class="ident">off</label> == <label for="r23" class="ident">lastoff</label> {</code></span>
+<span class="codeline" id="line-204"><code>			<span class="keyword">break</span></code></span>
+<span class="codeline" id="line-205"><code>		}</code></span>
+<span class="codeline" id="line-206"><code>		<label for="r21" class="ident">off</label>, <label for="r30" class="ident">err</label> = <label for="r10" class="ident">parseDecimalBytes</label>(<label for="r26" class="ident">mhdr</label>.<a href="ar.go.html#line-39" class="ident">Arnxtmem</a>[:])</code></span>
+<span class="codeline" id="line-207"><code>		<span class="keyword">if</span> <label for="r30" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-208"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"error parsing offset of first member in archive header(%q); %v"</span>, <label for="r17" class="ident">fhdr</label>, <label for="r30" class="ident">err</label>)</code></span>
+<span class="codeline" id="line-209"><code>		}</code></span>
+<span class="codeline" id="line-210"><code></code></span>
+<span class="codeline" id="line-211"><code>	}</code></span>
+<span class="codeline" id="line-212"><code></code></span>
+<span class="codeline" id="line-213"><code>	<span class="keyword">return</span> <label for="r16" class="ident">arch</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-214"><code></code></span>
+<span class="codeline" id="line-215"><code>}</code></span>
+<span class="codeline" id="line-216"><code></code></span>
+<span class="codeline" id="line-217"><code><span class="comment">// GetFile returns the XCOFF file defined by member name.</span></code></span>
+<span class="codeline" id="line-218"><code><span class="comment">// FIXME: This doesn't work if an archive has two members with the same</span></code></span>
+<span class="codeline" id="line-219"><code><span class="comment">// name which can occur if a archive has both 32-bits and 64-bits files.</span></code></span>
+<span class="codeline" id="line-220"><code><span class="keyword">func</span> (<label for="r39" class="ident">arch</label> *<a href="ar.go.html#line-50" class="ident">Archive</a>) <label for="r40" class="ident">GetFile</label>(<label for="r41" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="file.go.html#line-76" class="ident">File</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-221"><code>	<span class="keyword">for</span> <label for="r42" class="ident">_</label>, <label for="r43" class="ident">mem</label> := <span class="keyword">range</span> <label for="r39" class="ident">arch</label>.<a href="ar.go.html#line-52" class="ident">Members</a> {</code></span>
+<span class="codeline" id="line-222"><code>		<span class="keyword">if</span> <label for="r43" class="ident">mem</label>.<a href="ar.go.html#line-70" class="ident">Name</a> == <label for="r41" class="ident">name</label> {</code></span>
+<span class="codeline" id="line-223"><code>			<span class="keyword">return</span> <a href="file.go.html#line-155" class="ident">NewFile</a>(<label for="r43" class="ident">mem</label>.<a href="ar.go.html#line-65" class="ident">sr</a>)</code></span>
+<span class="codeline" id="line-224"><code>		}</code></span>
+<span class="codeline" id="line-225"><code>	}</code></span>
+<span class="codeline" id="line-226"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/errors.go.html#line-17" class="ident">Errorf</a>(<span class="lit-string">"unknown member %s in archive"</span>, <label for="r41" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-227"><code></code></span>
+<span class="codeline" id="line-228"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

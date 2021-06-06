@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: net/internal/socktest</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>socktest</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../../index.html#pkg-net/internal/socktest">net/internal/socktest</a><i> (on <a href="https://golang.org/pkg/net/internal/socktest/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/net/internal/socktest" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../../dep/net/internal/socktest.html">3 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../../src/net/internal/socktest/switch.go.html#doc">d➜</a> <a href="../../../src/net/internal/socktest/switch.go.html">switch.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package socktest provides utilities for socket testing.
+</span>
+	<span class="nodocs">      <a href="../../../src/net/internal/socktest/switch_posix.go.html">switch_posix.go</a></span>
+	<span class="nodocs">      <a href="../../../src/net/internal/socktest/switch_unix.go.html">switch_unix.go</a></span>
+	<span class="nodocs">      <a href="../../../src/net/internal/socktest/sys_cloexec.go.html">sys_cloexec.go</a></span>
+	<span class="nodocs">      <a href="../../../src/net/internal/socktest/sys_unix.go.html">sys_unix.go</a></span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 8)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-AfterFilter" data-popularity="0">	<input type='checkbox' class="fold" id="AfterFilter-fold-content"><label for="AfterFilter-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-154">AfterFilter</a> <i>(func)</i></label><span id='AfterFilter-fold-content-docs' class="fold-docs">
+		An AfterFilter represents a socket system call filter after an
+		execution of a system call.
+
+		It will only be executed after a system call for a socket that has
+		an entry in internal table.
+		If the filter returns a non-nil error, the system call function
+		returns the non-nil error.
+
+
+</span></div><div class="anchor type-res" id="name-Cookie" data-popularity="150">	<input type='checkbox' class="fold" id="Cookie-fold-content"><label for="Cookie-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-57">Cookie</a> <a href="../../builtin.html#name-uint64">uint64</a> <i>(basic type)</i></label><span id='Cookie-fold-content-docs' class="fold-docs">
+		A Cookie represents a 3-tuple of a socket; address family, socket
+		type and protocol number.
+
+		<input type='checkbox' class="fold" id="Cookie-fold-methods"><label for="Cookie-fold-methods">Methods (<i>total 3</i>)</label><span id='Cookie-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Cookie-fold-method-Family"><label for="Cookie-fold-method-Family">( T) <a href="../../../src/net/internal/socktest/switch.go.html#line-60">Family</a>() <a href="../../builtin.html#name-int">int</a></label><span id='Cookie-fold-method-Family-docs' class="fold-docs">
+				Family returns an address family.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Cookie-fold-method-Protocol"><label for="Cookie-fold-method-Protocol">( T) <a href="../../../src/net/internal/socktest/switch.go.html#line-66">Protocol</a>() <a href="../../builtin.html#name-int">int</a></label><span id='Cookie-fold-method-Protocol-docs' class="fold-docs">
+				Protocol returns a protocol number.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Cookie-fold-method-Type"><label for="Cookie-fold-method-Type">( T) <a href="../../../src/net/internal/socktest/switch.go.html#line-63">Type</a>() <a href="../../builtin.html#name-int">int</a></label><span id='Cookie-fold-method-Type-docs' class="fold-docs">
+				Type returns a socket type.
+</span></span></span>
+
+</span></div><div class="anchor type-res" id="name-Filter" data-popularity="35">	<input type='checkbox' class="fold" id="Filter-fold-content"><label for="Filter-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-138">Filter</a> <i>(func)</i></label><span id='Filter-fold-content-docs' class="fold-docs">
+		A Filter represents a socket system call filter.
+
+		It will only be executed before a system call for a socket that has
+		an entry in internal table.
+		If the filter returns a non-nil error, the execution of system call
+		will be canceled and the system call function returns the non-nil
+		error.
+		It can return a non-nil AfterFilter for filtering after the
+		execution of the system call.
+
+		<input type='checkbox' class="fold" id="Filter-fold-params"><label for="Filter-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='Filter-fold-params-items' class="fold-items"><span>
+			func (*<a href="socktest.html#name-Switch">Switch</a>).<a href="../../../src/net/internal/socktest/switch.go.html#line-164">Set</a>(t <a href="socktest.html#name-FilterType">FilterType</a>, f <b>Filter</b>)</span></span>
+
+</span></div><div class="anchor type-res" id="name-FilterType" data-popularity="50">	<input type='checkbox' class="fold" id="FilterType-fold-content"><label for="FilterType-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-118">FilterType</a> <a href="../../builtin.html#name-int">int</a> <i>(basic type)</i></label><span id='FilterType-fold-content-docs' class="fold-docs">
+		A FilterType represents a filter type.
+
+		<input type='checkbox' class="fold" id="FilterType-fold-params"><label for="FilterType-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='FilterType-fold-params-items' class="fold-items"><span>
+			func (*<a href="socktest.html#name-Switch">Switch</a>).<a href="../../../src/net/internal/socktest/switch.go.html#line-164">Set</a>(t <b>FilterType</b>, f <a href="socktest.html#name-Filter">Filter</a>)</span></span>
+		<input type='checkbox' class="fold" id="FilterType-fold-values"><label for="FilterType-fold-values">As Types Of (<i>total 6</i>)</label><span id='FilterType-fold-values-items' class="fold-items"><span>
+			const <a href="socktest.html#name-FilterAccept">FilterAccept</a></span><span>
+			const <a href="socktest.html#name-FilterClose">FilterClose</a></span><span>
+			const <a href="socktest.html#name-FilterConnect">FilterConnect</a></span><span>
+			const <a href="socktest.html#name-FilterGetsockoptInt">FilterGetsockoptInt</a></span><span>
+			const <a href="socktest.html#name-FilterListen">FilterListen</a></span><span>
+			const <a href="socktest.html#name-FilterSocket">FilterSocket</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Sockets" data-popularity="75">	<input type='checkbox' class="fold" id="Sockets-fold-content"><label for="Sockets-fold-content"> type <a href="../../../src/net/internal/socktest/switch_unix.go.html#line-10">Sockets</a> <i>(map)</i></label><span id='Sockets-fold-content-docs' class="fold-docs">
+		Sockets maps a socket descriptor to the status of socket.
+
+		<input type='checkbox' class="fold" id="Sockets-fold-results"><label for="Sockets-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Sockets-fold-results-items' class="fold-items"><span>
+			func (*<a href="socktest.html#name-Switch">Switch</a>).<a href="../../../src/net/internal/socktest/switch.go.html#line-45">Sockets</a>() <b>Sockets</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-Stat" data-popularity="225">	<input type='checkbox' class="fold" id="Stat-fold-content"><label for="Stat-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-84">Stat</a> <i>(struct)</i></label><span id='Stat-fold-content-docs' class="fold-docs">
+		A Stat represents a per-cookie socket statistics.
+
+		<input type='checkbox' class="fold" id="Stat-fold-fields"><label for="Stat-fold-fields">Fields (<i>total 13</i>)</label><span id='Stat-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-AcceptFailed"><label for="Stat-fold-field-AcceptFailed"><a href="../../../src/net/internal/socktest/switch.go.html#line-98">AcceptFailed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-AcceptFailed-docs' class="fold-docs">
+				// number of sockets accept failed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Accepted"><label for="Stat-fold-field-Accepted"><a href="../../../src/net/internal/socktest/switch.go.html#line-92">Accepted</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-Accepted-docs' class="fold-docs">
+				// number of sockets accepted
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-CloseFailed"><label for="Stat-fold-field-CloseFailed"><a href="../../../src/net/internal/socktest/switch.go.html#line-99">CloseFailed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-CloseFailed-docs' class="fold-docs">
+				// number of sockets close failed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Closed"><label for="Stat-fold-field-Closed"><a href="../../../src/net/internal/socktest/switch.go.html#line-93">Closed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-Closed-docs' class="fold-docs">
+				// number of sockets closed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-ConnectFailed"><label for="Stat-fold-field-ConnectFailed"><a href="../../../src/net/internal/socktest/switch.go.html#line-96">ConnectFailed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-ConnectFailed-docs' class="fold-docs">
+				// number of sockets connect failed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Connected"><label for="Stat-fold-field-Connected"><a href="../../../src/net/internal/socktest/switch.go.html#line-90">Connected</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-Connected-docs' class="fold-docs">
+				// number of sockets connected
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Family"><label for="Stat-fold-field-Family"><a href="../../../src/net/internal/socktest/switch.go.html#line-85">Family</a> <i><a href="../../builtin.html#name-int">int</a></i></label><span id='Stat-fold-field-Family-docs' class="fold-docs">
+				// address family
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-ListenFailed"><label for="Stat-fold-field-ListenFailed"><a href="../../../src/net/internal/socktest/switch.go.html#line-97">ListenFailed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-ListenFailed-docs' class="fold-docs">
+				// number of sockets listen failed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Listened"><label for="Stat-fold-field-Listened"><a href="../../../src/net/internal/socktest/switch.go.html#line-91">Listened</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-Listened-docs' class="fold-docs">
+				// number of sockets listened
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-OpenFailed"><label for="Stat-fold-field-OpenFailed"><a href="../../../src/net/internal/socktest/switch.go.html#line-95">OpenFailed</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-OpenFailed-docs' class="fold-docs">
+				// number of sockets open failed
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Opened"><label for="Stat-fold-field-Opened"><a href="../../../src/net/internal/socktest/switch.go.html#line-89">Opened</a> <i><a href="../../builtin.html#name-uint64">uint64</a></i></label><span id='Stat-fold-field-Opened-docs' class="fold-docs">
+				// number of sockets opened
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Protocol"><label for="Stat-fold-field-Protocol"><a href="../../../src/net/internal/socktest/switch.go.html#line-87">Protocol</a> <i><a href="../../builtin.html#name-int">int</a></i></label><span id='Stat-fold-field-Protocol-docs' class="fold-docs">
+				// protocol number
+</span></span><span>
+			<input type='checkbox' class="fold" id="Stat-fold-field-Type"><label for="Stat-fold-field-Type"><a href="../../../src/net/internal/socktest/switch.go.html#line-86">Type</a> <i><a href="../../builtin.html#name-int">int</a></i></label><span id='Stat-fold-field-Type-docs' class="fold-docs">
+				// socket type
+</span></span></span>
+		<input type='checkbox' class="fold" id="Stat-fold-methods"><label for="Stat-fold-methods">Methods (<i>only one</i>)</label><span id='Stat-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../../src/net/internal/socktest/switch.go.html#line-102">String</a>() <a href="../../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Stat-fold-impls"><label for="Stat-fold-impls">Implements (<i>at least 2</i>)</label><span id='Stat-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../../fmt.html#name-Stringer">Stringer</a></span></span>
+		<input type='checkbox' class="fold" id="Stat-fold-results"><label for="Stat-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='Stat-fold-results-items' class="fold-items"><span>
+			func (*<a href="socktest.html#name-Switch">Switch</a>).<a href="../../../src/net/internal/socktest/switch.go.html#line-33">Stats</a>() []<b>Stat</b></span></span>
+
+</span></div><div class="anchor type-res" id="name-Status" data-popularity="150">	<input type='checkbox' class="fold" id="Status-fold-content"><label for="Status-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-73">Status</a> <i>(struct)</i></label><span id='Status-fold-content-docs' class="fold-docs">
+		A Status represents the status of a socket.
+
+		<input type='checkbox' class="fold" id="Status-fold-fields"><label for="Status-fold-fields">Fields (<i>total 3</i>)</label><span id='Status-fold-fields-items' class="fold-items"><span>
+			<span class="nodocs"><a href="../../../src/net/internal/socktest/switch.go.html#line-74">Cookie</a> <i><a href="socktest.html#name-Cookie">Cookie</a></i></span></span><span>
+			<input type='checkbox' class="fold" id="Status-fold-field-Err"><label for="Status-fold-field-Err"><a href="../../../src/net/internal/socktest/switch.go.html#line-75">Err</a> <i><a href="../../builtin.html#name-error">error</a></i></label><span id='Status-fold-field-Err-docs' class="fold-docs">
+				// error status of socket system call
+</span></span><span>
+			<input type='checkbox' class="fold" id="Status-fold-field-SocketErr"><label for="Status-fold-field-SocketErr"><a href="../../../src/net/internal/socktest/switch.go.html#line-76">SocketErr</a> <i><a href="../../builtin.html#name-error">error</a></i></label><span id='Status-fold-field-SocketErr-docs' class="fold-docs">
+				// error status of socket by SO_ERROR
+</span></span></span>
+		<input type='checkbox' class="fold" id="Status-fold-methods"><label for="Status-fold-methods">Methods (<i>only one</i>)</label><span id='Status-fold-methods-items' class="fold-items"><span>
+			<span class="nodocs">( T) <a href="../../../src/net/internal/socktest/switch.go.html#line-79">String</a>() <a href="../../builtin.html#name-string">string</a></span></span></span>
+		<input type='checkbox' class="fold" id="Status-fold-impls"><label for="Status-fold-impls">Implements (<i>at least 2</i>)</label><span id='Status-fold-impls-items' class="fold-items"><span>
+			 T : expvar.<a href="../../expvar.html#name-Var">Var</a></span><span>
+			 T : fmt.<a href="../../fmt.html#name-Stringer">Stringer</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Switch" data-popularity="500">	<input type='checkbox' class="fold" id="Switch-fold-content"><label for="Switch-fold-content"> type <a href="../../../src/net/internal/socktest/switch.go.html#line-15">Switch</a> <i>(struct)</i></label><span id='Switch-fold-content-docs' class="fold-docs">
+		A Switch represents a callpath point switch for socket system
+		calls.
+
+		<input type='checkbox' class="fold" id="Switch-fold-methods"><label for="Switch-fold-methods">Methods (<i>total 10</i>)</label><span id='Switch-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Accept"><label for="Switch-fold-method-Accept">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-132">Accept</a>(s <a href="../../builtin.html#name-int">int</a>) (ns <a href="../../builtin.html#name-int">int</a>, sa <a href="../../syscall.html">syscall</a>.<a href="../../syscall.html#name-Sockaddr">Sockaddr</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Accept-docs' class="fold-docs">
+				Accept wraps syscall.Accept.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Accept4"><label for="Switch-fold-method-Accept4">(*T) <a href="../../../src/net/internal/socktest/sys_cloexec.go.html#line-12">Accept4</a>(s, flags <a href="../../builtin.html#name-int">int</a>) (ns <a href="../../builtin.html#name-int">int</a>, sa <a href="../../syscall.html">syscall</a>.<a href="../../syscall.html#name-Sockaddr">Sockaddr</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Accept4-docs' class="fold-docs">
+				Accept4 wraps syscall.Accept4.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Close"><label for="Switch-fold-method-Close">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-44">Close</a>(s <a href="../../builtin.html#name-int">int</a>) (err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Close-docs' class="fold-docs">
+				Close wraps syscall.Close.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Connect"><label for="Switch-fold-method-Connect">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-74">Connect</a>(s <a href="../../builtin.html#name-int">int</a>, sa <a href="../../syscall.html">syscall</a>.<a href="../../syscall.html#name-Sockaddr">Sockaddr</a>) (err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Connect-docs' class="fold-docs">
+				Connect wraps syscall.Connect.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-GetsockoptInt"><label for="Switch-fold-method-GetsockoptInt">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-165">GetsockoptInt</a>(s, level, opt <a href="../../builtin.html#name-int">int</a>) (soerr <a href="../../builtin.html#name-int">int</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-GetsockoptInt-docs' class="fold-docs">
+				GetsockoptInt wraps syscall.GetsockoptInt.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Listen"><label for="Switch-fold-method-Listen">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-103">Listen</a>(s, backlog <a href="../../builtin.html#name-int">int</a>) (err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Listen-docs' class="fold-docs">
+				Listen wraps syscall.Listen.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Set"><label for="Switch-fold-method-Set">(*T) <a href="../../../src/net/internal/socktest/switch.go.html#line-164">Set</a>(t <a href="socktest.html#name-FilterType">FilterType</a>, f <a href="socktest.html#name-Filter">Filter</a>)</label><span id='Switch-fold-method-Set-docs' class="fold-docs">
+				Set deploys the socket system call filter f for the filter type t.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Socket"><label for="Switch-fold-method-Socket">(*T) <a href="../../../src/net/internal/socktest/sys_unix.go.html#line-12">Socket</a>(family, sotype, proto <a href="../../builtin.html#name-int">int</a>) (s <a href="../../builtin.html#name-int">int</a>, err <a href="../../builtin.html#name-error">error</a>)</label><span id='Switch-fold-method-Socket-docs' class="fold-docs">
+				Socket wraps syscall.Socket.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Sockets"><label for="Switch-fold-method-Sockets">(*T) <a href="../../../src/net/internal/socktest/switch.go.html#line-45">Sockets</a>() <a href="socktest.html#name-Sockets">Sockets</a></label><span id='Switch-fold-method-Sockets-docs' class="fold-docs">
+				Sockets returns mappings of socket descriptor to socket status.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Switch-fold-method-Stats"><label for="Switch-fold-method-Stats">(*T) <a href="../../../src/net/internal/socktest/switch.go.html#line-33">Stats</a>() []<a href="socktest.html#name-Stat">Stat</a></label><span id='Switch-fold-method-Stats-docs' class="fold-docs">
+				Stats returns a list of per-cookie socket statistics.
+</span></span></span>
+
+</span></div></div>
+<div id="exported-constants"><span class="title">Package-Level Constants<span class="title-stat"><i> (total 6)</i></span></span>
+
+<div class="anchor value-res" id="name-FilterAccept">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-124">FilterAccept</a> <a href="socktest.html#name-FilterType">FilterType</a> = 3 // for Accept, Accept4 or AcceptEx</span></div><div class="anchor value-res" id="name-FilterClose">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-126">FilterClose</a> <a href="socktest.html#name-FilterType">FilterType</a> = 5 // for Close or Closesocket</span></div><div class="anchor value-res" id="name-FilterConnect">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-122">FilterConnect</a> <a href="socktest.html#name-FilterType">FilterType</a> = 1 // for Connect or ConnectEx</span></div><div class="anchor value-res" id="name-FilterGetsockoptInt">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-125">FilterGetsockoptInt</a> <a href="socktest.html#name-FilterType">FilterType</a> = 4 // for GetsockoptInt</span></div><div class="anchor value-res" id="name-FilterListen">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-123">FilterListen</a> <a href="socktest.html#name-FilterType">FilterType</a> = 2 // for Listen</span></div><div class="anchor value-res" id="name-FilterSocket">	<span class="nodocs">const <a href="../../../src/net/internal/socktest/switch.go.html#line-121">FilterSocket</a> <a href="socktest.html#name-FilterType">FilterType</a> = 0 // for Socket</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

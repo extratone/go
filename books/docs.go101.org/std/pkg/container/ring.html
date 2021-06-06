@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: container/ring</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>ring</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-container/ring">container/ring</a><i> (on <a href="https://golang.org/pkg/container/ring/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/container/ring" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports 0 packages, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../src/container/ring/ring.go.html#doc">d➜</a> <a href="../../src/container/ring/ring.go.html">ring.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package ring implements operations on circular lists.</span></div>
+<div id="examples"><span class="title">Code Examples</span>
+
+	<input type='checkbox' class="fold" id="example-0-fold-content"><label for="example-0-fold-content">Ring_Do</label><span id='example-0-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 5
+			r := ring.New(5)
+		
+			// Get the length of the ring
+			n := r.Len()
+		
+			// Initialize the ring with some integer values
+			for i := 0; i < n; i++ {
+				r.Value = i
+				r = r.Next()
+			}
+		
+			// Iterate through the ring and print its contents
+			r.Do(func(p interface{}) {
+				fmt.Println(p.(int))
+			})
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-1-fold-content"><label for="example-1-fold-content">Ring_Len</label><span id='example-1-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 4
+			r := ring.New(4)
+		
+			// Print out its length
+			fmt.Println(r.Len())
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-2-fold-content"><label for="example-2-fold-content">Ring_Link</label><span id='example-2-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create two rings, r and s, of size 2
+			r := ring.New(2)
+			s := ring.New(2)
+		
+			// Get the length of the ring
+			lr := r.Len()
+			ls := s.Len()
+		
+			// Initialize r with 0s
+			for i := 0; i < lr; i++ {
+				r.Value = 0
+				r = r.Next()
+			}
+		
+			// Initialize s with 1s
+			for j := 0; j < ls; j++ {
+				s.Value = 1
+				s = s.Next()
+			}
+		
+			// Link ring r and ring s
+			rs := r.Link(s)
+		
+			// Iterate through the combined ring and print its contents
+			rs.Do(func(p interface{}) {
+				fmt.Println(p.(int))
+			})
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-3-fold-content"><label for="example-3-fold-content">Ring_Move</label><span id='example-3-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 5
+			r := ring.New(5)
+		
+			// Get the length of the ring
+			n := r.Len()
+		
+			// Initialize the ring with some integer values
+			for i := 0; i < n; i++ {
+				r.Value = i
+				r = r.Next()
+			}
+		
+			// Move the pointer forward by three steps
+			r = r.Move(3)
+		
+			// Iterate through the ring and print its contents
+			r.Do(func(p interface{}) {
+				fmt.Println(p.(int))
+			})
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-4-fold-content"><label for="example-4-fold-content">Ring_Next</label><span id='example-4-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 5
+			r := ring.New(5)
+		
+			// Get the length of the ring
+			n := r.Len()
+		
+			// Initialize the ring with some integer values
+			for i := 0; i < n; i++ {
+				r.Value = i
+				r = r.Next()
+			}
+		
+			// Iterate through the ring and print its contents
+			for j := 0; j < n; j++ {
+				fmt.Println(r.Value)
+				r = r.Next()
+			}
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-5-fold-content"><label for="example-5-fold-content">Ring_Prev</label><span id='example-5-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 5
+			r := ring.New(5)
+		
+			// Get the length of the ring
+			n := r.Len()
+		
+			// Initialize the ring with some integer values
+			for i := 0; i < n; i++ {
+				r.Value = i
+				r = r.Next()
+			}
+		
+			// Iterate through the ring backwards and print its contents
+			for j := 0; j < n; j++ {
+				r = r.Prev()
+				fmt.Println(r.Value)
+			}
+		
+		}
+
+</span>
+	<input type='checkbox' class="fold" id="example-6-fold-content"><label for="example-6-fold-content">Ring_Unlink</label><span id='example-6-fold-content-items' class="fold-items">
+		package main
+		
+		import (
+			"container/ring"
+			"fmt"
+		)
+		
+		func main() {
+			// Create a new ring of size 6
+			r := ring.New(6)
+		
+			// Get the length of the ring
+			n := r.Len()
+		
+			// Initialize the ring with some integer values
+			for i := 0; i < n; i++ {
+				r.Value = i
+				r = r.Next()
+			}
+		
+			// Unlink three elements from r, starting from r.Next()
+			r.Unlink(3)
+		
+			// Iterate through the remaining ring and print its contents
+			r.Do(func(p interface{}) {
+				fmt.Println(p.(int))
+			})
+		
+		}
+</span>
+</div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (only one)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-Ring" data-popularity="835">	<input type='checkbox' class="fold" id="Ring-fold-content"><label for="Ring-fold-content"> type <a href="../../src/container/ring/ring.go.html#line-14">Ring</a> <i>(struct)</i></label><span id='Ring-fold-content-docs' class="fold-docs">
+		A Ring is an element of a circular list, or ring.
+		Rings do not have a beginning or end; a pointer to any ring element
+		serves as reference to the entire ring. Empty rings are represented
+		as nil Ring pointers. The zero value for a Ring is a one-element
+		ring with a nil Value.
+
+		<input type='checkbox' class="fold" id="Ring-fold-fields"><label for="Ring-fold-fields">Fields (<i>only one</i>)</label><span id='Ring-fold-fields-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Ring-fold-field-Value"><label for="Ring-fold-field-Value"><a href="../../src/container/ring/ring.go.html#line-16">Value</a> <i>interface{}</i></label><span id='Ring-fold-field-Value-docs' class="fold-docs">
+				// for use by client; untouched by this library
+</span></span></span>
+		<input type='checkbox' class="fold" id="Ring-fold-methods"><label for="Ring-fold-methods">Methods (<i>total 7</i>)</label><span id='Ring-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Do"><label for="Ring-fold-method-Do">(*T) <a href="../../src/container/ring/ring.go.html#line-134">Do</a>(f func(interface{}))</label><span id='Ring-fold-method-Do-docs' class="fold-docs">
+				Do calls function f on each element of the ring, in forward order.
+				The behavior of Do is undefined if f changes *r.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Len"><label for="Ring-fold-method-Len">(*T) <a href="../../src/container/ring/ring.go.html#line-121">Len</a>() <a href="../builtin.html#name-int">int</a></label><span id='Ring-fold-method-Len-docs' class="fold-docs">
+				Len computes the number of elements in ring r.
+				It executes in time proportional to the number of elements.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Link"><label for="Ring-fold-method-Link">(*T) <a href="../../src/container/ring/ring.go.html#line-93">Link</a>(s *<b>Ring</b>) *<b>Ring</b></label><span id='Ring-fold-method-Link-docs' class="fold-docs">
+				Link connects ring r with ring s such that r.Next()
+				becomes s and returns the original value for r.Next().
+				r must not be empty.
+
+				If r and s point to the same ring, linking
+				them removes the elements between r and s from the ring.
+				The removed elements form a subring and the result is a
+				reference to that subring (if no elements were removed,
+				the result is still the original value for r.Next(),
+				and not nil).
+
+				If r and s point to different rings, linking
+				them creates a single ring with the elements of s inserted
+				after r. The result points to the element following the
+				last element of s after insertion.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Move"><label for="Ring-fold-method-Move">(*T) <a href="../../src/container/ring/ring.go.html#line-44">Move</a>(n <a href="../builtin.html#name-int">int</a>) *<b>Ring</b></label><span id='Ring-fold-method-Move-docs' class="fold-docs">
+				Move moves n % r.Len() elements backward (n &lt; 0) or forward (n &gt;= 0)
+				in the ring and returns that ring element. r must not be empty.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Next"><label for="Ring-fold-method-Next">(*T) <a href="../../src/container/ring/ring.go.html#line-26">Next</a>() *<b>Ring</b></label><span id='Ring-fold-method-Next-docs' class="fold-docs">
+				Next returns the next ring element. r must not be empty.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Prev"><label for="Ring-fold-method-Prev">(*T) <a href="../../src/container/ring/ring.go.html#line-34">Prev</a>() *<b>Ring</b></label><span id='Ring-fold-method-Prev-docs' class="fold-docs">
+				Prev returns the previous ring element. r must not be empty.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Ring-fold-method-Unlink"><label for="Ring-fold-method-Unlink">(*T) <a href="../../src/container/ring/ring.go.html#line-111">Unlink</a>(n <a href="../builtin.html#name-int">int</a>) *<b>Ring</b></label><span id='Ring-fold-method-Unlink-docs' class="fold-docs">
+				Unlink removes n % r.Len() elements from the ring r, starting
+				at r.Next(). If n % r.Len() == 0, r remains unchanged.
+				The result is the removed subring. r must not be empty.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Ring-fold-results"><label for="Ring-fold-results">As Outputs Of (<i>at least 6</i>)</label><span id='Ring-fold-results-items' class="fold-items"><span>
+			func <a href="ring.html#name-New">New</a>(n <a href="../builtin.html#name-int">int</a>) *<b>Ring</b></span><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-93">Link</a>(s *<b>Ring</b>) *<b>Ring</b></span><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-44">Move</a>(n <a href="../builtin.html#name-int">int</a>) *<b>Ring</b></span><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-26">Next</a>() *<b>Ring</b></span><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-34">Prev</a>() *<b>Ring</b></span><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-111">Unlink</a>(n <a href="../builtin.html#name-int">int</a>) *<b>Ring</b></span></span>
+		<input type='checkbox' class="fold" id="Ring-fold-params"><label for="Ring-fold-params">As Inputs Of (<i>at least one exported</i>)</label><span id='Ring-fold-params-items' class="fold-items"><span>
+			func (*Ring).<a href="../../src/container/ring/ring.go.html#line-93">Link</a>(s *<b>Ring</b>) *<b>Ring</b></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (only one)</i></span></span>
+
+<div class="anchor value-res" id="name-New">	<input type='checkbox' class="fold" id="New-fold-content"><label for="New-fold-content"> func <a href="../../src/container/ring/ring.go.html#line-62">New</a>(n <a href="../builtin.html#name-int">int</a>) *<a href="ring.html#name-Ring">Ring</a></label><span id='New-fold-content-docs' class="fold-docs">
+		New creates a ring of n elements.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

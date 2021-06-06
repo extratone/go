@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: child.go in package net/http/cgi</title>
+<link href="../../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	child.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../../pkg/net/http/cgi.html">net/http/cgi</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26],
+input[id=r27]:checked ~pre label[for=r27],
+input[id=r28]:checked ~pre label[for=r28],
+input[id=r29]:checked ~pre label[for=r29],
+input[id=r30]:checked ~pre label[for=r30],
+input[id=r31]:checked ~pre label[for=r31],
+input[id=r32]:checked ~pre label[for=r32],
+input[id=r33]:checked ~pre label[for=r33],
+input[id=r34]:checked ~pre label[for=r34],
+input[id=r35]:checked ~pre label[for=r35],
+input[id=r36]:checked ~pre label[for=r36],
+input[id=r37]:checked ~pre label[for=r37],
+input[id=r38]:checked ~pre label[for=r38],
+input[id=r39]:checked ~pre label[for=r39],
+input[id=r40]:checked ~pre label[for=r40],
+input[id=r41]:checked ~pre label[for=r41],
+input[id=r42]:checked ~pre label[for=r42],
+input[id=r43]:checked ~pre label[for=r43],
+input[id=r44]:checked ~pre label[for=r44],
+input[id=r45]:checked ~pre label[for=r45],
+input[id=r46]:checked ~pre label[for=r46],
+input[id=r47]:checked ~pre label[for=r47],
+input[id=r48]:checked ~pre label[for=r48],
+input[id=r49]:checked ~pre label[for=r49],
+input[id=r50]:checked ~pre label[for=r50]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3,
+input[id=i4]:checked ~pre .i4,
+input[id=i5]:checked ~pre .i5,
+input[id=i6]:checked ~pre .i6,
+input[id=i7]:checked ~pre .i7,
+input[id=i8]:checked ~pre .i8,
+input[id=i9]:checked ~pre .i9,
+input[id=i10]:checked ~pre .i10
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="r27" type="radio" name="g"/>
+<input id="r28" type="radio" name="g"/>
+<input id="r29" type="radio" name="g"/>
+<input id="r30" type="radio" name="g"/>
+<input id="r31" type="radio" name="g"/>
+<input id="r32" type="radio" name="g"/>
+<input id="r33" type="radio" name="g"/>
+<input id="r34" type="radio" name="g"/>
+<input id="r35" type="radio" name="g"/>
+<input id="r36" type="radio" name="g"/>
+<input id="r37" type="radio" name="g"/>
+<input id="r38" type="radio" name="g"/>
+<input id="r39" type="radio" name="g"/>
+<input id="r40" type="radio" name="g"/>
+<input id="r41" type="radio" name="g"/>
+<input id="r42" type="radio" name="g"/>
+<input id="r43" type="radio" name="g"/>
+<input id="r44" type="radio" name="g"/>
+<input id="r45" type="radio" name="g"/>
+<input id="r46" type="radio" name="g"/>
+<input id="r47" type="radio" name="g"/>
+<input id="r48" type="radio" name="g"/>
+<input id="r49" type="radio" name="g"/>
+<input id="r50" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+<input id="i4" type="radio" name="i"/>
+<input id="i5" type="radio" name="i"/>
+<input id="i6" type="radio" name="i"/>
+<input id="i7" type="radio" name="i"/>
+<input id="i8" type="radio" name="i"/>
+<input id="i9" type="radio" name="i"/>
+<input id="i10" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2011 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">// This file implements CGI from the perspective of a child</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment">// process.</span></code></span>
+<span class="codeline" id="line-7"><code></code></span>
+<span class="codeline" id="line-8"><code><span class="keyword">package</span> cgi</code></span>
+<span class="codeline" id="line-9"><code></code></span>
+<span class="codeline" id="line-10"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-11"><code>	<label for="i0"><span class="lit-string i0">"bufio"</span></label></code></span>
+<span class="codeline" id="line-12"><code>	<label for="i1"><span class="lit-string i1">"crypto/tls"</span></label></code></span>
+<span class="codeline" id="line-13"><code>	<label for="i2"><span class="lit-string i2">"errors"</span></label></code></span>
+<span class="codeline" id="line-14"><code>	<label for="i3"><span class="lit-string i3">"fmt"</span></label></code></span>
+<span class="codeline" id="line-15"><code>	<label for="i4"><span class="lit-string i4">"io"</span></label></code></span>
+<span class="codeline" id="line-16"><code>	<label for="i5"><span class="lit-string i5">"net"</span></label></code></span>
+<span class="codeline" id="line-17"><code>	<label for="i6"><span class="lit-string i6">"net/http"</span></label></code></span>
+<span class="codeline" id="line-18"><code>	<label for="i7"><span class="lit-string i7">"net/url"</span></label></code></span>
+<span class="codeline" id="line-19"><code>	<label for="i8"><span class="lit-string i8">"os"</span></label></code></span>
+<span class="codeline" id="line-20"><code>	<label for="i9"><span class="lit-string i9">"strconv"</span></label></code></span>
+<span class="codeline" id="line-21"><code>	<label for="i10"><span class="lit-string i10">"strings"</span></label></code></span>
+<span class="codeline" id="line-22"><code>)</code></span>
+<span class="codeline" id="line-23"><code></code></span>
+<span class="codeline" id="line-24"><code><span class="comment">// Request returns the HTTP request as represented in the current</span></code></span>
+<span class="codeline" id="line-25"><code><span class="comment">// environment. This assumes the current program is being run</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">// by a web server in a CGI environment.</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">// The returned Request's Body is populated, if applicable.</span></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../../pkg/net/http/cgi.html#name-Request" class="ident">Request</a></label>() (*<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../request.go.html#line-102" class="ident">Request</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-29"><code>	<label for="r1" class="ident">r</label>, <label for="r2" class="ident">err</label> := <a href="child.go.html#line-51" class="ident">RequestFromMap</a>(<a href="child.go.html#line-39" class="ident">envMap</a>(<a href="../../../../pkg/os.html" class="ident i8">os</a>.<a href="../../../os/env.go.html#line-139" class="ident">Environ</a>()))</code></span>
+<span class="codeline" id="line-30"><code>	<span class="keyword">if</span> <label for="r2" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-31"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r2" class="ident">err</label></code></span>
+<span class="codeline" id="line-32"><code>	}</code></span>
+<span class="codeline" id="line-33"><code>	<span class="keyword">if</span> <label for="r1" class="ident">r</label>.<a href="../request.go.html#line-198" class="ident">ContentLength</a> &gt; <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-34"><code>		<label for="r1" class="ident">r</label>.<a href="../request.go.html#line-181" class="ident">Body</a> = <a href="../../../../pkg/io.html" class="ident i4">io</a>.<a href="../../../io/io.go.html#line-612" class="ident">NopCloser</a>(<a href="../../../../pkg/io.html" class="ident i4">io</a>.<a href="../../../io/io.go.html#line-455" class="ident">LimitReader</a>(<a href="../../../../pkg/os.html" class="ident i8">os</a>.<a href="../../../os/file.go.html#line-64" class="ident">Stdin</a>, <label for="r1" class="ident">r</label>.<a href="../request.go.html#line-198" class="ident">ContentLength</a>))</code></span>
+<span class="codeline" id="line-35"><code>	}</code></span>
+<span class="codeline" id="line-36"><code>	<span class="keyword">return</span> <label for="r1" class="ident">r</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-37"><code>}</code></span>
+<span class="codeline" id="line-38"><code></code></span>
+<span class="codeline" id="line-39"><code><span class="keyword">func</span> envMap(<label for="r4" class="ident">env</label> []<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a> {</code></span>
+<span class="codeline" id="line-40"><code>	<label for="r5" class="ident">m</label> := <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>)</code></span>
+<span class="codeline" id="line-41"><code>	<span class="keyword">for</span> <label for="r6" class="ident">_</label>, <label for="r7" class="ident">kv</label> := <span class="keyword">range</span> <label for="r4" class="ident">env</label> {</code></span>
+<span class="codeline" id="line-42"><code>		<span class="keyword">if</span> <label for="r8" class="ident">idx</label> := <a href="../../../../pkg/strings.html" class="ident i10">strings</a>.<a href="../../../strings/strings.go.html#line-1024" class="ident">Index</a>(<label for="r7" class="ident">kv</label>, <span class="lit-string">"="</span>); <label for="r8" class="ident">idx</label> != -<span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-43"><code>			<label for="r5" class="ident">m</label>[<label for="r7" class="ident">kv</label>[:<label for="r8" class="ident">idx</label>]] = <label for="r7" class="ident">kv</label>[<label for="r8" class="ident">idx</label>+<span class="lit-number">1</span>:]</code></span>
+<span class="codeline" id="line-44"><code>		}</code></span>
+<span class="codeline" id="line-45"><code>	}</code></span>
+<span class="codeline" id="line-46"><code>	<span class="keyword">return</span> <label for="r5" class="ident">m</label></code></span>
+<span class="codeline" id="line-47"><code>}</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// RequestFromMap creates an http.Request from CGI variables.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">// The returned Request's Body field is not populated.</span></code></span>
+<span class="codeline" id="line-51"><code><span class="keyword">func</span> <label for="r9" class="ident"><a href="../../../../pkg/net/http/cgi.html#name-RequestFromMap" class="ident">RequestFromMap</a></label>(<label for="r10" class="ident">params</label> <span class="keyword">map</span>[<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>]<a href="../../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../request.go.html#line-102" class="ident">Request</a>, <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-52"><code>	<label for="r11" class="ident">r</label> := <a href="../../../../pkg/builtin.html#name-new" class="ident">new</a>(<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../request.go.html#line-102" class="ident">Request</a>)</code></span>
+<span class="codeline" id="line-53"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-109" class="ident">Method</a> = <label for="r10" class="ident">params</label>[<span class="lit-string">"REQUEST_METHOD"</span>]</code></span>
+<span class="codeline" id="line-54"><code>	<span class="keyword">if</span> <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-109" class="ident">Method</a> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-55"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cgi: no REQUEST_METHOD in environment"</span>)</code></span>
+<span class="codeline" id="line-56"><code>	}</code></span>
+<span class="codeline" id="line-57"><code></code></span>
+<span class="codeline" id="line-58"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-130" class="ident">Proto</a> = <label for="r10" class="ident">params</label>[<span class="lit-string">"SERVER_PROTOCOL"</span>]</code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">var</span> <label for="r12" class="ident">ok</label> <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-60"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-131" class="ident">ProtoMajor</a>, <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-132" class="ident">ProtoMinor</a>, <label for="r12" class="ident">ok</label> = <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../request.go.html#line-783" class="ident">ParseHTTPVersion</a>(<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-130" class="ident">Proto</a>)</code></span>
+<span class="codeline" id="line-61"><code>	<span class="keyword">if</span> !<label for="r12" class="ident">ok</label> {</code></span>
+<span class="codeline" id="line-62"><code>		<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cgi: invalid SERVER_PROTOCOL version"</span>)</code></span>
+<span class="codeline" id="line-63"><code>	}</code></span>
+<span class="codeline" id="line-64"><code></code></span>
+<span class="codeline" id="line-65"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-217" class="ident">Close</a> = <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-66"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-276" class="ident">Trailer</a> = <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../header.go.html#line-21" class="ident">Header</a>{}</code></span>
+<span class="codeline" id="line-67"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-165" class="ident">Header</a> = <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../header.go.html#line-21" class="ident">Header</a>{}</code></span>
+<span class="codeline" id="line-68"><code></code></span>
+<span class="codeline" id="line-69"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-238" class="ident">Host</a> = <label for="r10" class="ident">params</label>[<span class="lit-string">"HTTP_HOST"</span>]</code></span>
+<span class="codeline" id="line-70"><code></code></span>
+<span class="codeline" id="line-71"><code>	<span class="keyword">if</span> <label for="r13" class="ident">lenstr</label> := <label for="r10" class="ident">params</label>[<span class="lit-string">"CONTENT_LENGTH"</span>]; <label for="r13" class="ident">lenstr</label> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-72"><code>		<label for="r14" class="ident">clen</label>, <label for="r15" class="ident">err</label> := <a href="../../../../pkg/strconv.html" class="ident i9">strconv</a>.<a href="../../../strconv/atoi.go.html#line-179" class="ident">ParseInt</a>(<label for="r13" class="ident">lenstr</label>, <span class="lit-number">10</span>, <span class="lit-number">64</span>)</code></span>
+<span class="codeline" id="line-73"><code>		<span class="keyword">if</span> <label for="r15" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-74"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cgi: bad CONTENT_LENGTH in environment: "</span> + <label for="r13" class="ident">lenstr</label>)</code></span>
+<span class="codeline" id="line-75"><code>		}</code></span>
+<span class="codeline" id="line-76"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-198" class="ident">ContentLength</a> = <label for="r14" class="ident">clen</label></code></span>
+<span class="codeline" id="line-77"><code>	}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r16" class="ident">ct</label> := <label for="r10" class="ident">params</label>[<span class="lit-string">"CONTENT_TYPE"</span>]; <label for="r16" class="ident">ct</label> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-80"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-165" class="ident">Header</a>.<a href="../header.go.html#line-36" class="ident">Set</a>(<span class="lit-string">"Content-Type"</span>, <label for="r16" class="ident">ct</label>)</code></span>
+<span class="codeline" id="line-81"><code>	}</code></span>
+<span class="codeline" id="line-82"><code></code></span>
+<span class="codeline" id="line-83"><code>	<span class="comment">// Copy "HTTP_FOO_BAR" variables to "Foo-Bar" Headers</span></code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">for</span> <label for="r17" class="ident">k</label>, <label for="r18" class="ident">v</label> := <span class="keyword">range</span> <label for="r10" class="ident">params</label> {</code></span>
+<span class="codeline" id="line-85"><code>		<span class="keyword">if</span> !<a href="../../../../pkg/strings.html" class="ident i10">strings</a>.<a href="../../../strings/strings.go.html#line-444" class="ident">HasPrefix</a>(<label for="r17" class="ident">k</label>, <span class="lit-string">"HTTP_"</span>) || <label for="r17" class="ident">k</label> == <span class="lit-string">"HTTP_HOST"</span> {</code></span>
+<span class="codeline" id="line-86"><code>			<span class="keyword">continue</span></code></span>
+<span class="codeline" id="line-87"><code>		}</code></span>
+<span class="codeline" id="line-88"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-165" class="ident">Header</a>.<a href="../header.go.html#line-27" class="ident">Add</a>(<a href="../../../../pkg/strings.html" class="ident i10">strings</a>.<a href="../../../strings/strings.go.html#line-963" class="ident">ReplaceAll</a>(<label for="r17" class="ident">k</label>[<span class="lit-number">5</span>:], <span class="lit-string">"_"</span>, <span class="lit-string">"-"</span>), <label for="r18" class="ident">v</label>)</code></span>
+<span class="codeline" id="line-89"><code>	}</code></span>
+<span class="codeline" id="line-90"><code></code></span>
+<span class="codeline" id="line-91"><code>	<label for="r19" class="ident">uriStr</label> := <label for="r10" class="ident">params</label>[<span class="lit-string">"REQUEST_URI"</span>]</code></span>
+<span class="codeline" id="line-92"><code>	<span class="keyword">if</span> <label for="r19" class="ident">uriStr</label> == <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-93"><code>		<span class="comment">// Fallback to SCRIPT_NAME, PATH_INFO and QUERY_STRING.</span></code></span>
+<span class="codeline" id="line-94"><code>		<label for="r19" class="ident">uriStr</label> = <label for="r10" class="ident">params</label>[<span class="lit-string">"SCRIPT_NAME"</span>] + <label for="r10" class="ident">params</label>[<span class="lit-string">"PATH_INFO"</span>]</code></span>
+<span class="codeline" id="line-95"><code>		<label for="r20" class="ident">s</label> := <label for="r10" class="ident">params</label>[<span class="lit-string">"QUERY_STRING"</span>]</code></span>
+<span class="codeline" id="line-96"><code>		<span class="keyword">if</span> <label for="r20" class="ident">s</label> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-97"><code>			<label for="r19" class="ident">uriStr</label> += <span class="lit-string">"?"</span> + <label for="r20" class="ident">s</label></code></span>
+<span class="codeline" id="line-98"><code>		}</code></span>
+<span class="codeline" id="line-99"><code>	}</code></span>
+<span class="codeline" id="line-100"><code></code></span>
+<span class="codeline" id="line-101"><code>	<span class="comment">// There's apparently a de-facto standard for this.</span></code></span>
+<span class="codeline" id="line-102"><code><span class="comment">	// https://web.archive.org/web/20170105004655/http://docstore.mik.ua/orelly/linux/cgi/ch03_02.htm#ch03-35636</span></code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> <label for="r21" class="ident">s</label> := <label for="r10" class="ident">params</label>[<span class="lit-string">"HTTPS"</span>]; <label for="r21" class="ident">s</label> == <span class="lit-string">"on"</span> || <label for="r21" class="ident">s</label> == <span class="lit-string">"ON"</span> || <label for="r21" class="ident">s</label> == <span class="lit-string">"1"</span> {</code></span>
+<span class="codeline" id="line-104"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-300" class="ident">TLS</a> = &amp;<a href="../../../../pkg/crypto/tls.html" class="ident i1">tls</a>.<a href="../../../crypto/tls/common.go.html#line-217" class="ident">ConnectionState</a>{<a href="../../../crypto/tls/common.go.html#line-222" class="ident">HandshakeComplete</a>: <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a>}</code></span>
+<span class="codeline" id="line-105"><code>	}</code></span>
+<span class="codeline" id="line-106"><code></code></span>
+<span class="codeline" id="line-107"><code>	<span class="keyword">if</span> <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-238" class="ident">Host</a> != <span class="lit-string">""</span> {</code></span>
+<span class="codeline" id="line-108"><code>		<span class="comment">// Hostname is provided, so we can reasonably construct a URL.</span></code></span>
+<span class="codeline" id="line-109"><code>		<label for="r22" class="ident">rawurl</label> := <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-238" class="ident">Host</a> + <label for="r19" class="ident">uriStr</label></code></span>
+<span class="codeline" id="line-110"><code>		<span class="keyword">if</span> <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-300" class="ident">TLS</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-111"><code>			<label for="r22" class="ident">rawurl</label> = <span class="lit-string">"http://"</span> + <label for="r22" class="ident">rawurl</label></code></span>
+<span class="codeline" id="line-112"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-113"><code>			<label for="r22" class="ident">rawurl</label> = <span class="lit-string">"https://"</span> + <label for="r22" class="ident">rawurl</label></code></span>
+<span class="codeline" id="line-114"><code>		}</code></span>
+<span class="codeline" id="line-115"><code>		<label for="r23" class="ident">url</label>, <label for="r24" class="ident">err</label> := <a href="../../../../pkg/net/url.html" class="ident i7">url</a>.<a href="../../url/url.go.html#line-475" class="ident">Parse</a>(<label for="r22" class="ident">rawurl</label>)</code></span>
+<span class="codeline" id="line-116"><code>		<span class="keyword">if</span> <label for="r24" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-117"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cgi: failed to parse host and REQUEST_URI into a URL: "</span> + <label for="r22" class="ident">rawurl</label>)</code></span>
+<span class="codeline" id="line-118"><code>		}</code></span>
+<span class="codeline" id="line-119"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-123" class="ident">URL</a> = <label for="r23" class="ident">url</label></code></span>
+<span class="codeline" id="line-120"><code>	}</code></span>
+<span class="codeline" id="line-121"><code>	<span class="comment">// Fallback logic if we don't have a Host header or the URL</span></code></span>
+<span class="codeline" id="line-122"><code><span class="comment">	// failed to parse</span></code></span>
+<span class="codeline" id="line-123"><code>	<span class="keyword">if</span> <label for="r11" class="ident">r</label>.<a href="../request.go.html#line-123" class="ident">URL</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-124"><code>		<label for="r25" class="ident">url</label>, <label for="r26" class="ident">err</label> := <a href="../../../../pkg/net/url.html" class="ident i7">url</a>.<a href="../../url/url.go.html#line-475" class="ident">Parse</a>(<label for="r19" class="ident">uriStr</label>)</code></span>
+<span class="codeline" id="line-125"><code>		<span class="keyword">if</span> <label for="r26" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-126"><code>			<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"cgi: failed to parse REQUEST_URI into a URL: "</span> + <label for="r19" class="ident">uriStr</label>)</code></span>
+<span class="codeline" id="line-127"><code>		}</code></span>
+<span class="codeline" id="line-128"><code>		<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-123" class="ident">URL</a> = <label for="r25" class="ident">url</label></code></span>
+<span class="codeline" id="line-129"><code>	}</code></span>
+<span class="codeline" id="line-130"><code></code></span>
+<span class="codeline" id="line-131"><code>	<span class="comment">// Request.RemoteAddr has its port set by Go's standard http</span></code></span>
+<span class="codeline" id="line-132"><code><span class="comment">	// server, so we do here too.</span></code></span>
+<span class="codeline" id="line-133"><code>	<label for="r27" class="ident">remotePort</label>, <label for="r28" class="ident">_</label> := <a href="../../../../pkg/strconv.html" class="ident i9">strconv</a>.<a href="../../../strconv/atoi.go.html#line-224" class="ident">Atoi</a>(<label for="r10" class="ident">params</label>[<span class="lit-string">"REMOTE_PORT"</span>]) <span class="comment">// zero if unset or invalid</span></code></span>
+<span class="codeline" id="line-134"><code>	<label for="r11" class="ident">r</label>.<a href="../request.go.html#line-285" class="ident">RemoteAddr</a> = <a href="../../../../pkg/net.html" class="ident i5">net</a>.<a href="../../ipsock.go.html#line-227" class="ident">JoinHostPort</a>(<label for="r10" class="ident">params</label>[<span class="lit-string">"REMOTE_ADDR"</span>], <a href="../../../../pkg/strconv.html" class="ident i9">strconv</a>.<a href="../../../strconv/itoa.go.html#line-34" class="ident">Itoa</a>(<label for="r27" class="ident">remotePort</label>))</code></span>
+<span class="codeline" id="line-135"><code></code></span>
+<span class="codeline" id="line-136"><code>	<span class="keyword">return</span> <label for="r11" class="ident">r</label>, <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-137"><code>}</code></span>
+<span class="codeline" id="line-138"><code></code></span>
+<span class="codeline" id="line-139"><code><span class="comment">// Serve executes the provided Handler on the currently active CGI</span></code></span>
+<span class="codeline" id="line-140"><code><span class="comment">// request, if any. If there's no current CGI environment</span></code></span>
+<span class="codeline" id="line-141"><code><span class="comment">// an error is returned. The provided handler may be nil to use</span></code></span>
+<span class="codeline" id="line-142"><code><span class="comment">// http.DefaultServeMux.</span></code></span>
+<span class="codeline" id="line-143"><code><span class="keyword">func</span> <label for="r29" class="ident"><a href="../../../../pkg/net/http/cgi.html#name-Serve" class="ident">Serve</a></label>(<label for="r30" class="ident">handler</label> <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../server.go.html#line-86" class="ident">Handler</a>) <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-144"><code>	<label for="r31" class="ident">req</label>, <label for="r32" class="ident">err</label> := <a href="child.go.html#line-28" class="ident">Request</a>()</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">if</span> <label for="r32" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-146"><code>		<span class="keyword">return</span> <label for="r32" class="ident">err</label></code></span>
+<span class="codeline" id="line-147"><code>	}</code></span>
+<span class="codeline" id="line-148"><code>	<span class="keyword">if</span> <label for="r31" class="ident">req</label>.<a href="../request.go.html#line-181" class="ident">Body</a> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-149"><code>		<label for="r31" class="ident">req</label>.<a href="../request.go.html#line-181" class="ident">Body</a> = <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../http.go.html#line-113" class="ident">NoBody</a></code></span>
+<span class="codeline" id="line-150"><code>	}</code></span>
+<span class="codeline" id="line-151"><code>	<span class="keyword">if</span> <label for="r30" class="ident">handler</label> == <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-152"><code>		<label for="r30" class="ident">handler</label> = <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../server.go.html#line-2269" class="ident">DefaultServeMux</a></code></span>
+<span class="codeline" id="line-153"><code>	}</code></span>
+<span class="codeline" id="line-154"><code>	<label for="r33" class="ident">rw</label> := &amp;<a href="child.go.html#line-167" class="ident">response</a>{</code></span>
+<span class="codeline" id="line-155"><code>		<a href="child.go.html#line-168" class="ident">req</a>:    <label for="r31" class="ident">req</label>,</code></span>
+<span class="codeline" id="line-156"><code>		<a href="child.go.html#line-169" class="ident">header</a>: <a href="../../../../pkg/builtin.html#name-make" class="ident">make</a>(<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../header.go.html#line-21" class="ident">Header</a>),</code></span>
+<span class="codeline" id="line-157"><code>		<a href="child.go.html#line-173" class="ident">bufw</a>:   <a href="../../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../../bufio/bufio.go.html#line-584" class="ident">NewWriter</a>(<a href="../../../../pkg/os.html" class="ident i8">os</a>.<a href="../../../os/file.go.html#line-65" class="ident">Stdout</a>),</code></span>
+<span class="codeline" id="line-158"><code>	}</code></span>
+<span class="codeline" id="line-159"><code>	<label for="r30" class="ident">handler</label>.<a href="../server.go.html#line-87" class="ident">ServeHTTP</a>(<label for="r33" class="ident">rw</label>, <label for="r31" class="ident">req</label>)</code></span>
+<span class="codeline" id="line-160"><code>	<label for="r33" class="ident">rw</label>.<a href="child.go.html#line-184" class="ident">Write</a>(<a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a>) <span class="comment">// make sure a response is sent</span></code></span>
+<span class="codeline" id="line-161"><code>	<span class="keyword">if</span> <label for="r32" class="ident">err</label> = <label for="r33" class="ident">rw</label>.<a href="child.go.html#line-173" class="ident">bufw</a>.<a href="../../../bufio/bufio.go.html#line-600" class="ident">Flush</a>(); <label for="r32" class="ident">err</label> != <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-162"><code>		<span class="keyword">return</span> <label for="r32" class="ident">err</label></code></span>
+<span class="codeline" id="line-163"><code>	}</code></span>
+<span class="codeline" id="line-164"><code>	<span class="keyword">return</span> <a href="../../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-165"><code>}</code></span>
+<span class="codeline" id="line-166"><code></code></span>
+<span class="codeline" id="line-167"><code><span class="keyword">type</span> response <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-168"><code>	req            *<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../request.go.html#line-102" class="ident">Request</a></code></span>
+<span class="codeline" id="line-169"><code>	header         <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../header.go.html#line-21" class="ident">Header</a></code></span>
+<span class="codeline" id="line-170"><code>	code           <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a></code></span>
+<span class="codeline" id="line-171"><code>	wroteHeader    <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-172"><code>	wroteCGIHeader <a href="../../../../pkg/builtin.html#name-bool" class="ident">bool</a></code></span>
+<span class="codeline" id="line-173"><code>	bufw           *<a href="../../../../pkg/bufio.html" class="ident i0">bufio</a>.<a href="../../../bufio/bufio.go.html#line-558" class="ident">Writer</a></code></span>
+<span class="codeline" id="line-174"><code>}</code></span>
+<span class="codeline" id="line-175"><code></code></span>
+<span class="codeline" id="line-176"><code><span class="keyword">func</span> (<label for="r34" class="ident">r</label> *<a href="child.go.html#line-167" class="ident">response</a>) <label for="r35" class="ident">Flush</label>() {</code></span>
+<span class="codeline" id="line-177"><code>	<label for="r34" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>.<a href="../../../bufio/bufio.go.html#line-600" class="ident">Flush</a>()</code></span>
+<span class="codeline" id="line-178"><code>}</code></span>
+<span class="codeline" id="line-179"><code></code></span>
+<span class="codeline" id="line-180"><code><span class="keyword">func</span> (<label for="r36" class="ident">r</label> *<a href="child.go.html#line-167" class="ident">response</a>) <label for="r37" class="ident">Header</label>() <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../header.go.html#line-21" class="ident">Header</a> {</code></span>
+<span class="codeline" id="line-181"><code>	<span class="keyword">return</span> <label for="r36" class="ident">r</label>.<a href="child.go.html#line-169" class="ident">header</a></code></span>
+<span class="codeline" id="line-182"><code>}</code></span>
+<span class="codeline" id="line-183"><code></code></span>
+<span class="codeline" id="line-184"><code><span class="keyword">func</span> (<label for="r38" class="ident">r</label> *<a href="child.go.html#line-167" class="ident">response</a>) <label for="r39" class="ident">Write</label>(<label for="r40" class="ident">p</label> []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) (<label for="r41" class="ident">n</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>, <label for="r42" class="ident">err</label> <a href="../../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-185"><code>	<span class="keyword">if</span> !<label for="r38" class="ident">r</label>.<a href="child.go.html#line-171" class="ident">wroteHeader</a> {</code></span>
+<span class="codeline" id="line-186"><code>		<label for="r38" class="ident">r</label>.<a href="child.go.html#line-194" class="ident">WriteHeader</a>(<a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../status.go.html#line-15" class="ident">StatusOK</a>)</code></span>
+<span class="codeline" id="line-187"><code>	}</code></span>
+<span class="codeline" id="line-188"><code>	<span class="keyword">if</span> !<label for="r38" class="ident">r</label>.<a href="child.go.html#line-172" class="ident">wroteCGIHeader</a> {</code></span>
+<span class="codeline" id="line-189"><code>		<label for="r38" class="ident">r</label>.<a href="child.go.html#line-208" class="ident">writeCGIHeader</a>(<label for="r40" class="ident">p</label>)</code></span>
+<span class="codeline" id="line-190"><code>	}</code></span>
+<span class="codeline" id="line-191"><code>	<span class="keyword">return</span> <label for="r38" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>.<a href="../../../bufio/bufio.go.html#line-633" class="ident">Write</a>(<label for="r40" class="ident">p</label>)</code></span>
+<span class="codeline" id="line-192"><code>}</code></span>
+<span class="codeline" id="line-193"><code></code></span>
+<span class="codeline" id="line-194"><code><span class="keyword">func</span> (<label for="r43" class="ident">r</label> *<a href="child.go.html#line-167" class="ident">response</a>) <label for="r44" class="ident">WriteHeader</label>(<label for="r45" class="ident">code</label> <a href="../../../../pkg/builtin.html#name-int" class="ident">int</a>) {</code></span>
+<span class="codeline" id="line-195"><code>	<span class="keyword">if</span> <label for="r43" class="ident">r</label>.<a href="child.go.html#line-171" class="ident">wroteHeader</a> {</code></span>
+<span class="codeline" id="line-196"><code>		<span class="comment">// Note: explicitly using Stderr, as Stdout is our HTTP output.</span></code></span>
+<span class="codeline" id="line-197"><code>		<a href="../../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<a href="../../../../pkg/os.html" class="ident i8">os</a>.<a href="../../../os/file.go.html#line-66" class="ident">Stderr</a>, <span class="lit-string">"CGI attempted to write header twice on request for %s"</span>, <label for="r43" class="ident">r</label>.<a href="child.go.html#line-168" class="ident">req</a>.<a href="../request.go.html#line-123" class="ident">URL</a>)</code></span>
+<span class="codeline" id="line-198"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-199"><code>	}</code></span>
+<span class="codeline" id="line-200"><code>	<label for="r43" class="ident">r</label>.<a href="child.go.html#line-171" class="ident">wroteHeader</a> = <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-201"><code>	<label for="r43" class="ident">r</label>.<a href="child.go.html#line-170" class="ident">code</a> = <label for="r45" class="ident">code</label></code></span>
+<span class="codeline" id="line-202"><code>}</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">// writeCGIHeader finalizes the header sent to the client and writes it to the output.</span></code></span>
+<span class="codeline" id="line-205"><code><span class="comment">// p is not written by writeHeader, but is the first chunk of the body</span></code></span>
+<span class="codeline" id="line-206"><code><span class="comment">// that will be written. It is sniffed for a Content-Type if none is</span></code></span>
+<span class="codeline" id="line-207"><code><span class="comment">// set explicitly.</span></code></span>
+<span class="codeline" id="line-208"><code><span class="keyword">func</span> (<label for="r46" class="ident">r</label> *<a href="child.go.html#line-167" class="ident">response</a>) <label for="r47" class="ident">writeCGIHeader</label>(<label for="r48" class="ident">p</label> []<a href="../../../../pkg/builtin.html#name-byte" class="ident">byte</a>) {</code></span>
+<span class="codeline" id="line-209"><code>	<span class="keyword">if</span> <label for="r46" class="ident">r</label>.<a href="child.go.html#line-172" class="ident">wroteCGIHeader</a> {</code></span>
+<span class="codeline" id="line-210"><code>		<span class="keyword">return</span></code></span>
+<span class="codeline" id="line-211"><code>	}</code></span>
+<span class="codeline" id="line-212"><code>	<label for="r46" class="ident">r</label>.<a href="child.go.html#line-172" class="ident">wroteCGIHeader</a> = <a href="../../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-213"><code>	<a href="../../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../../fmt/print.go.html#line-202" class="ident">Fprintf</a>(<label for="r46" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>, <span class="lit-string">"Status: %d %s\r\n"</span>, <label for="r46" class="ident">r</label>.<a href="child.go.html#line-170" class="ident">code</a>, <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../status.go.html#line-150" class="ident">StatusText</a>(<label for="r46" class="ident">r</label>.<a href="child.go.html#line-170" class="ident">code</a>))</code></span>
+<span class="codeline" id="line-214"><code>	<span class="keyword">if</span> <label for="r49" class="ident">_</label>, <label for="r50" class="ident">hasType</label> := <label for="r46" class="ident">r</label>.<a href="child.go.html#line-169" class="ident">header</a>[<span class="lit-string">"Content-Type"</span>]; !<label for="r50" class="ident">hasType</label> {</code></span>
+<span class="codeline" id="line-215"><code>		<label for="r46" class="ident">r</label>.<a href="child.go.html#line-169" class="ident">header</a>.<a href="../header.go.html#line-36" class="ident">Set</a>(<span class="lit-string">"Content-Type"</span>, <a href="../../../../pkg/net/http.html" class="ident i6">http</a>.<a href="../sniff.go.html#line-21" class="ident">DetectContentType</a>(<label for="r48" class="ident">p</label>))</code></span>
+<span class="codeline" id="line-216"><code>	}</code></span>
+<span class="codeline" id="line-217"><code>	<label for="r46" class="ident">r</label>.<a href="child.go.html#line-169" class="ident">header</a>.<a href="../header.go.html#line-81" class="ident">Write</a>(<label for="r46" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>)</code></span>
+<span class="codeline" id="line-218"><code>	<label for="r46" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>.<a href="../../../bufio/bufio.go.html#line-703" class="ident">WriteString</a>(<span class="lit-string">"\r\n"</span>)</code></span>
+<span class="codeline" id="line-219"><code>	<label for="r46" class="ident">r</label>.<a href="child.go.html#line-173" class="ident">bufw</a>.<a href="../../../bufio/bufio.go.html#line-600" class="ident">Flush</a>()</code></span>
+<span class="codeline" id="line-220"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

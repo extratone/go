@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: runtime/pprof</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>pprof</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-runtime/pprof">runtime/pprof</a><i> (on <a href="https://golang.org/pkg/runtime/pprof/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/runtime/pprof" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/runtime/pprof.html">19 packages</a>, and imported by <a href="../../dep/runtime/pprof.html#imported-by">2 packages</a>
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<span class="nodocs">      <a href="../../src/runtime/pprof/elf.go.html">elf.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/label.go.html">label.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/map.go.html">map.go</a></span>
+	<input type='checkbox' checked class="fold" id="file-3-fold-content"><label for="file-3-fold-content">   <a href="../../src/runtime/pprof/pprof.go.html#doc">d➜</a> <a href="../../src/runtime/pprof/pprof.go.html">pprof.go</a></label><span id='file-3-fold-content-items' class="fold-items">
+		Package pprof writes runtime profiling data in the format expected
+		by the pprof visualization tool.
+
+		Profiling a Go program
+
+		The first step to profiling a Go program is to enable profiling.
+		Support for profiling benchmarks built with the standard testing
+		package is built into go test. For example, the following command
+		runs benchmarks in the current directory and writes the CPU and
+		memory profiles to cpu.prof and mem.prof:
+
+		    go test -cpuprofile cpu.prof -memprofile mem.prof -bench .
+
+		To add equivalent profiling support to a standalone program, add
+		code like the following to your main function:
+
+		   var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to `file`")
+		   var memprofile = flag.String("memprofile", "", "write memory profile to `file`")
+
+		   func main() {
+		       flag.Parse()
+		       if *cpuprofile != "" {
+		           f, err := os.Create(*cpuprofile)
+		           if err != nil {
+		               log.Fatal("could not create CPU profile: ", err)
+		           }
+		           defer f.Close() // error handling omitted for example
+		           if err := pprof.StartCPUProfile(f); err != nil {
+		               log.Fatal("could not start CPU profile: ", err)
+		           }
+		           defer pprof.StopCPUProfile()
+		       }
+
+		       // ... rest of the program ...
+
+		       if *memprofile != "" {
+		           f, err := os.Create(*memprofile)
+		           if err != nil {
+		               log.Fatal("could not create memory profile: ", err)
+		           }
+		           defer f.Close() // error handling omitted for example
+		           runtime.GC() // get up-to-date statistics
+		           if err := pprof.WriteHeapProfile(f); err != nil {
+		               log.Fatal("could not write memory profile: ", err)
+		           }
+		       }
+		   }
+
+		There is also a standard HTTP interface to profiling data. Adding
+		the following line will install handlers under the /debug/pprof/
+		URL to download live profiles:
+
+		   import _ "net/http/pprof"
+
+		See the net/http/pprof package for more details.
+
+		Profiles can then be visualized with the pprof tool:
+
+		   go tool pprof cpu.prof
+
+		There are many commands available from the pprof command line.
+		Commonly used commands include "top", which prints a summary of the
+		top program hot-spots, and "web", which opens an interactive graph
+		of hot-spots and their call graphs. Use "help" for information on
+		all pprof commands.
+
+		For more information about pprof, see
+		https://github.com/google/pprof/blob/master/doc/README.md.
+</span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/pprof_rusage.go.html">pprof_rusage.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/proto.go.html">proto.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/protobuf.go.html">protobuf.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/protomem.go.html">protomem.go</a></span>
+	<span class="nodocs">      <a href="../../src/runtime/pprof/runtime.go.html">runtime.go</a></span></div>
+<div id="exported-types"><span class="title">Package-Level Type Names<span class="title-stat"><i> (total 2)</i></span></span>
+
+<div id="exported-types-buttons" class="js-on">	/* sort by: <label id="sort-types-by-alphabet" class="button">alphabet</label> | <label id="sort-types-by-popularity" class="button">popularity</label> */</div><div class="anchor type-res" id="name-LabelSet" data-popularity="145">	<input type='checkbox' class="fold" id="LabelSet-fold-content"><label for="LabelSet-fold-content"> type <a href="../../src/runtime/pprof/label.go.html#line-20">LabelSet</a> <i>(struct)</i></label><span id='LabelSet-fold-content-docs' class="fold-docs">
+		LabelSet is a set of labels.
+
+		<input type='checkbox' class="fold" id="LabelSet-fold-results"><label for="LabelSet-fold-results">As Outputs Of (<i>at least one exported</i>)</label><span id='LabelSet-fold-results-items' class="fold-items"><span>
+			func <a href="pprof.html#name-Labels">Labels</a>(args ...<a href="../builtin.html#name-string">string</a>) <b>LabelSet</b></span></span>
+		<input type='checkbox' class="fold" id="LabelSet-fold-params"><label for="LabelSet-fold-params">As Inputs Of (<i>at least 2</i>)</label><span id='LabelSet-fold-params-items' class="fold-items"><span>
+			func <a href="pprof.html#name-Do">Do</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, labels <b>LabelSet</b>, f func(<a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>))</span><span>
+			func <a href="pprof.html#name-WithLabels">WithLabels</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, labels <b>LabelSet</b>) <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></span></span>
+
+</span></div><div class="anchor type-res" id="name-Profile" data-popularity="475">	<input type='checkbox' class="fold" id="Profile-fold-content"><label for="Profile-fold-content"> type <a href="../../src/runtime/pprof/pprof.go.html#line-133">Profile</a> <i>(struct)</i></label><span id='Profile-fold-content-docs' class="fold-docs">
+		A Profile is a collection of stack traces showing the call sequences
+		that led to instances of a particular event, such as allocation.
+		Packages can create and maintain their own profiles; the most common
+		use is for tracking resources that must be explicitly closed, such as files
+		or network connections.
+
+		A Profile's methods can be called from multiple goroutines simultaneously.
+
+		Each Profile has a unique name. A few profiles are predefined:
+
+			goroutine    - stack traces of all current goroutines
+			heap         - a sampling of memory allocations of live objects
+			allocs       - a sampling of all past memory allocations
+			threadcreate - stack traces that led to the creation of new OS threads
+			block        - stack traces that led to blocking on synchronization primitives
+			mutex        - stack traces of holders of contended mutexes
+
+		These predefined profiles maintain themselves and panic on an explicit
+		Add or Remove method call.
+
+		The heap profile reports statistics as of the most recently completed
+		garbage collection; it elides more recent allocation to avoid skewing
+		the profile away from live data and toward garbage.
+		If there has been no garbage collection at all, the heap profile reports
+		all known allocations. This exception helps mainly in programs running
+		without garbage collection enabled, usually for debugging purposes.
+
+		The heap profile tracks both the allocation sites for all live objects in
+		the application memory and for all objects allocated since the program start.
+		Pprof's -inuse_space, -inuse_objects, -alloc_space, and -alloc_objects
+		flags select which to display, defaulting to -inuse_space (live objects,
+		scaled by size).
+
+		The allocs profile is the same as the heap profile but changes the default
+		pprof display to -alloc_space, the total number of bytes allocated since
+		the program began (including garbage-collected bytes).
+
+		The CPU profile is not available as a Profile. It has a special API,
+		the StartCPUProfile and StopCPUProfile functions, because it streams
+		output to a writer during profiling.
+
+		<input type='checkbox' class="fold" id="Profile-fold-methods"><label for="Profile-fold-methods">Methods (<i>total 5</i>)</label><span id='Profile-fold-methods-items' class="fold-items"><span>
+			<input type='checkbox' class="fold" id="Profile-fold-method-Add"><label for="Profile-fold-method-Add">(*T) <a href="../../src/runtime/pprof/pprof.go.html#line-279">Add</a>(value interface{}, skip <a href="../builtin.html#name-int">int</a>)</label><span id='Profile-fold-method-Add-docs' class="fold-docs">
+				Add adds the current execution stack to the profile, associated with value.
+				Add stores value in an internal map, so value must be suitable for use as
+				a map key and will not be garbage collected until the corresponding
+				call to Remove. Add panics if the profile already contains a stack for value.
+
+				The skip parameter has the same meaning as runtime.Caller's skip
+				and controls where the stack trace begins. Passing skip=0 begins the
+				trace in the function calling Add. For example, given this
+				execution stack:
+
+					Add
+					called from rpc.NewClient
+					called from mypkg.Run
+					called from main.main
+
+				Passing skip=0 begins the stack trace at the call to Add inside rpc.NewClient.
+				Passing skip=1 begins the stack trace at the call to NewClient inside mypkg.Run.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Profile-fold-method-Count"><label for="Profile-fold-method-Count">(*T) <a href="../../src/runtime/pprof/pprof.go.html#line-252">Count</a>() <a href="../builtin.html#name-int">int</a></label><span id='Profile-fold-method-Count-docs' class="fold-docs">
+				Count returns the number of execution stacks currently in the profile.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Profile-fold-method-Name"><label for="Profile-fold-method-Name">(*T) <a href="../../src/runtime/pprof/pprof.go.html#line-247">Name</a>() <a href="../builtin.html#name-string">string</a></label><span id='Profile-fold-method-Name-docs' class="fold-docs">
+				Name returns this profile's name, which can be passed to Lookup to reobtain the profile.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Profile-fold-method-Remove"><label for="Profile-fold-method-Remove">(*T) <a href="../../src/runtime/pprof/pprof.go.html#line-305">Remove</a>(value interface{})</label><span id='Profile-fold-method-Remove-docs' class="fold-docs">
+				Remove removes the execution stack associated with value from the profile.
+				It is a no-op if the value is not in the profile.
+</span></span><span>
+			<input type='checkbox' class="fold" id="Profile-fold-method-WriteTo"><label for="Profile-fold-method-WriteTo">(*T) <a href="../../src/runtime/pprof/pprof.go.html#line-326">WriteTo</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>, debug <a href="../builtin.html#name-int">int</a>) <a href="../builtin.html#name-error">error</a></label><span id='Profile-fold-method-WriteTo-docs' class="fold-docs">
+				WriteTo writes a pprof-formatted snapshot of the profile to w.
+				If a write to w returns an error, WriteTo returns that error.
+				Otherwise, WriteTo returns nil.
+
+				The debug parameter enables additional output.
+				Passing debug=0 writes the gzip-compressed protocol buffer described
+				in https://github.com/google/pprof/tree/master/proto#overview.
+				Passing debug=1 writes the legacy text format with comments
+				translating addresses to function names and line numbers, so that a
+				programmer can read the profile without tools.
+
+				The predefined profiles may assign meaning to other debug values;
+				for example, when printing the "goroutine" profile, debug=2 means to
+				print the goroutine stacks in the same form that a Go program uses
+				when dying due to an unrecovered panic.
+</span></span></span>
+		<input type='checkbox' class="fold" id="Profile-fold-results"><label for="Profile-fold-results">As Outputs Of (<i>at least 3</i>)</label><span id='Profile-fold-results-items' class="fold-items"><span>
+			func <a href="pprof.html#name-Lookup">Lookup</a>(name <a href="../builtin.html#name-string">string</a>) *<b>Profile</b></span><span>
+			func <a href="pprof.html#name-NewProfile">NewProfile</a>(name <a href="../builtin.html#name-string">string</a>) *<b>Profile</b></span><span>
+			func <a href="pprof.html#name-Profiles">Profiles</a>() []*<b>Profile</b></span></span>
+
+</span></div></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 12)</i></span></span>
+
+<div class="anchor value-res" id="name-Do">	<input type='checkbox' class="fold" id="Do-fold-content"><label for="Do-fold-content"> func <a href="../../src/runtime/pprof/runtime.go.html#line-36">Do</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, labels <a href="pprof.html#name-LabelSet">LabelSet</a>, f func(<a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>))</label><span id='Do-fold-content-docs' class="fold-docs">
+		Do calls f with a copy of the parent context with the
+		given labels added to the parent's label map.
+		Goroutines spawned while executing f will inherit the augmented label-set.
+		Each key/value pair in labels is inserted into the label map in the
+		order provided, overriding any previous value for the same key.
+		The augmented label map will be set for the duration of the call to f
+		and restored once f returns.
+
+</span></div><div class="anchor value-res" id="name-ForLabels">	<input type='checkbox' class="fold" id="ForLabels-fold-content"><label for="ForLabels-fold-content"> func <a href="../../src/runtime/pprof/label.go.html#line-101">ForLabels</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, f func(key, value <a href="../builtin.html#name-string">string</a>) <a href="../builtin.html#name-bool">bool</a>)</label><span id='ForLabels-fold-content-docs' class="fold-docs">
+		ForLabels invokes f with each label set on the context.
+		The function f should return true to continue iteration or false to stop iteration early.
+
+</span></div><div class="anchor value-res" id="name-Label">	<input type='checkbox' class="fold" id="Label-fold-content"><label for="Label-fold-content"> func <a href="../../src/runtime/pprof/label.go.html#line-93">Label</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, key <a href="../builtin.html#name-string">string</a>) (<a href="../builtin.html#name-string">string</a>, <a href="../builtin.html#name-bool">bool</a>)</label><span id='Label-fold-content-docs' class="fold-docs">
+		Label returns the value of the label with the given key on ctx, and a boolean indicating
+		whether that label exists.
+
+</span></div><div class="anchor value-res" id="name-Labels">	<input type='checkbox' class="fold" id="Labels-fold-content"><label for="Labels-fold-content"> func <a href="../../src/runtime/pprof/label.go.html#line-80">Labels</a>(args ...<a href="../builtin.html#name-string">string</a>) <a href="pprof.html#name-LabelSet">LabelSet</a></label><span id='Labels-fold-content-docs' class="fold-docs">
+		Labels takes an even number of strings representing key-value pairs
+		and makes a LabelSet containing them.
+		A label overwrites a prior label with the same key.
+		Currently only the CPU and goroutine profiles utilize any labels
+		information.
+		See https://golang.org/issue/23458 for details.
+
+</span></div><div class="anchor value-res" id="name-Lookup">	<input type='checkbox' class="fold" id="Lookup-fold-content"><label for="Lookup-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-226">Lookup</a>(name <a href="../builtin.html#name-string">string</a>) *<a href="pprof.html#name-Profile">Profile</a></label><span id='Lookup-fold-content-docs' class="fold-docs">
+		Lookup returns the profile with the given name, or nil if no such profile exists.
+
+</span></div><div class="anchor value-res" id="name-NewProfile">	<input type='checkbox' class="fold" id="NewProfile-fold-content"><label for="NewProfile-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-208">NewProfile</a>(name <a href="../builtin.html#name-string">string</a>) *<a href="pprof.html#name-Profile">Profile</a></label><span id='NewProfile-fold-content-docs' class="fold-docs">
+		NewProfile creates a new profile with the given name.
+		If a profile with that name already exists, NewProfile panics.
+		The convention is to use a 'import/path.' prefix to create
+		separate name spaces for each package.
+		For compatibility with various tools that read pprof data,
+		profile names should not contain spaces.
+
+</span></div><div class="anchor value-res" id="name-Profiles">	<input type='checkbox' class="fold" id="Profiles-fold-content"><label for="Profiles-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-233">Profiles</a>() []*<a href="pprof.html#name-Profile">Profile</a></label><span id='Profiles-fold-content-docs' class="fold-docs">
+		Profiles returns a slice of all the known profiles, sorted by name.
+
+</span></div><div class="anchor value-res" id="name-SetGoroutineLabels">	<input type='checkbox' class="fold" id="SetGoroutineLabels-fold-content"><label for="SetGoroutineLabels-fold-content"> func <a href="../../src/runtime/pprof/runtime.go.html#line-24">SetGoroutineLabels</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>)</label><span id='SetGoroutineLabels-fold-content-docs' class="fold-docs">
+		SetGoroutineLabels sets the current goroutine's labels to match ctx.
+		A new goroutine inherits the labels of the goroutine that created it.
+		This is a lower-level API than Do, which should be used instead when possible.
+
+</span></div><div class="anchor value-res" id="name-StartCPUProfile">	<input type='checkbox' class="fold" id="StartCPUProfile-fold-content"><label for="StartCPUProfile-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-761">StartCPUProfile</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) <a href="../builtin.html#name-error">error</a></label><span id='StartCPUProfile-fold-content-docs' class="fold-docs">
+		StartCPUProfile enables CPU profiling for the current process.
+		While profiling, the profile will be buffered and written to w.
+		StartCPUProfile returns an error if profiling is already enabled.
+
+		On Unix-like systems, StartCPUProfile does not work by default for
+		Go code built with -buildmode=c-archive or -buildmode=c-shared.
+		StartCPUProfile relies on the SIGPROF signal, but that signal will
+		be delivered to the main program's SIGPROF signal handler (if any)
+		not to the one used by Go. To make it work, call os/signal.Notify
+		for syscall.SIGPROF, but note that doing so may break any profiling
+		being done by the main program.
+
+</span></div><div class="anchor value-res" id="name-StopCPUProfile">	<input type='checkbox' class="fold" id="StopCPUProfile-fold-content"><label for="StopCPUProfile-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-820">StopCPUProfile</a>()</label><span id='StopCPUProfile-fold-content-docs' class="fold-docs">
+		StopCPUProfile stops the current CPU profile, if any.
+		StopCPUProfile only returns after all the writes for the
+		profile have completed.
+
+</span></div><div class="anchor value-res" id="name-WithLabels">	<input type='checkbox' class="fold" id="WithLabels-fold-content"><label for="WithLabels-fold-content"> func <a href="../../src/runtime/pprof/label.go.html#line-59">WithLabels</a>(ctx <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a>, labels <a href="pprof.html#name-LabelSet">LabelSet</a>) <a href="../context.html">context</a>.<a href="../context.html#name-Context">Context</a></label><span id='WithLabels-fold-content-docs' class="fold-docs">
+		WithLabels returns a new context.Context with the given labels added.
+		A label overwrites a prior label with the same key.
+
+</span></div><div class="anchor value-res" id="name-WriteHeapProfile">	<input type='checkbox' class="fold" id="WriteHeapProfile-fold-content"><label for="WriteHeapProfile-fold-content"> func <a href="../../src/runtime/pprof/pprof.go.html#line-524">WriteHeapProfile</a>(w <a href="../io.html">io</a>.<a href="../io.html#name-Writer">Writer</a>) <a href="../builtin.html#name-error">error</a></label><span id='WriteHeapProfile-fold-content-docs' class="fold-docs">
+		WriteHeapProfile is shorthand for Lookup("heap").WriteTo(w, 0).
+		It is preserved for backwards compatibility.
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

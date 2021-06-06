@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../static/go101/images/101-v1.ico">
+		<link rel="apple-touch-icon" sizes="152x152" href="../static/go101/images/iphone-v1.jpeg">
+	
+		<title>Some Panic/Recover Use Cases - Go 101: an online Go programming book + knowledge base</title><link href="../static/bootstrap/v4.0.3-dark/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../static/go101/css/v97-dark.css" rel="stylesheet">
+		<link href="../static/prism/2020-08-03-dark/prism.css" rel="stylesheet">
+		<script src="../static/prism/2020-08-03-dark/prism.js"></script><script src="../static/jquery/jquery.min-v1.11.2.js"></script>
+		
+		
+		<style>
+		div, p, ul, li, td, th {line-height: 1.55;}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+
+		<div class="row nav-bar-with-borders"><div class="col-xs-6 col-sm-3 nav-item-active"><a href="../index.html">The Book</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="details.html">Go Details 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="unofficial-faq.html">Go FAQ 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="tips.html">Go Tips 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://github.com/go101/go101/wiki">Go 101 Wiki</a></div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go Practice 101</div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go 101 Tools</div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="quizzes.html">Go Quizzes 101</a></div></div><div class="alert alert-warning text-center"><small>
+<b><span class="new-text"><sup>new!</sup></span> <a href="tool-golds.html">Golds</a></b> -
+a Go local docs server (and code reader) showing type implementation relations.
+</small></div>
+<p>
+</p>
+<h1>Some Panic/Recover Use Cases</h1>
+
+
+
+<p>
+Panic and recover have been
+<a href="control-flows-more.html#panic-recover">introduced before</a>.
+The following of the current article will introduce some (good and bad)
+panic/recover use cases.
+</p>
+
+<a class="anchor" id="avoid-crashing"></a>
+<h3>Use Case 1: Avoid Panics Crashing Programs</h3>
+
+<div>
+<p>
+This should be the most popular use case of panic/recover.
+The use case is used commonly in concurrent programs, especially client-server programs.
+</p>
+
+An example:
+<pre class="line-numbers"><code class="language-go">package main
+
+import "errors"
+import "log"
+import "net"
+
+func main() {
+	listener, err := net.Listen("tcp", ":12345")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Println(err)
+		}
+		// Handle each client connection
+		// in a new goroutine.
+		go ClientHandler(conn)
+	}
+}
+
+func ClientHandler(c net.Conn) {
+	defer func() {
+		if v := recover(); v != nil {
+			log.Println("capture a panic:", v)
+			log.Println("avoid crashing the program")
+		}
+		c.Close()
+	}()
+	panic(errors.New("just a demo.")) // a demo-purpose panic
+}
+</code></pre>
+
+<p>
+Start the server and run <code>telnet localhost 12345</code> in another terminal,
+we can observe that the server will not crash down
+for the panics created in each client handler goroutine.
+</p>
+
+<p>
+If we don't recover the potential panic in each client handler goroutine,
+the potential panic will crash the program.
+</p>
+
+</div>
+
+<a class="anchor" id="auto-restart"></a>
+<h3>Use Case 2: Automatically Restart a Crashed Goroutine</h3>
+
+<div>
+
+When a panic is detected in a goroutine, we can create a new goroutine for it.
+An example:
+<pre class="line-numbers"><code class="language-go">package main
+
+import "log"
+import "time"
+
+func shouldNotExit() {
+	for {
+		// Simulate a workload.
+		time.Sleep(time.Second)
+
+		// Simulate an unexpected panic.
+		if time.Now().UnixNano() & 0x3 == 0 {
+			panic("unexpected situation")
+		}
+	}
+}
+
+func NeverExit(name string, f func()) {
+	defer func() {
+		if v := recover(); v != nil {
+			// A panic is detected.
+			log.Println(name, "is crashed. Restart it now.")
+			go NeverExit(name, f) // restart
+		}
+	}()
+	f()
+}
+
+func main() {
+	log.SetFlags(0)
+	go NeverExit("job#A", shouldNotExit)
+	go NeverExit("job#B", shouldNotExit)
+	select{} // block here for ever
+}
+</code></pre>
+</div>
+
+<a class="anchor" id="long-jump"></a>
+<h3>Use Case 3: Use <code>panic</code>/<code>recover</code> Calls to Simulate Long Jump Statements</h3>
+
+<div>
+<p>
+Sometimes, we can use panic/recover as a way to
+simulate crossing-function long jump statements
+and crossing-function returns,
+though generally this way is not recommended to use.
+This way does harm for both code readability and execution efficiency.
+The only benefit is sometimes it can make code look less verbose.
+</p>
+
+In the following example, once a panic is created in an inner function,
+the execution will jump to the deferred call.
+<pre class="line-numbers"><code class="language-go">package main
+
+import "fmt"
+
+func main() {
+	n := func () (result int)  {
+		defer func() {
+			if v := recover(); v != nil {
+				if n, ok := v.(int); ok {
+					result = n
+				}
+			}
+		}()
+
+		func () {
+			func () {
+				func () {
+					// ...
+					panic(123) // panic on succeeded
+				}()
+				// ...
+			}()
+		}()
+		// ...
+		return 0
+	}()
+	fmt.Println(n) // 123
+}
+</code></pre>
+</div>
+
+<a class="anchor" id="avoid-verbose"></a>
+<h3>Use Case 4: Use <code>panic</code>/<code>recover</code> Calls to Reduce Error Checks</h3>
+
+<div>
+
+An example:
+
+<pre class="line-numbers"><code class="language-go">func doSomething() (err error) {
+	defer func() {
+		err = recover()
+	}()
+
+	doStep1()
+	doStep2()
+	doStep3()
+	doStep4()
+	doStep5()
+
+	return
+}
+
+// In reality, the prototypes of the doStepN functions
+// might be different. For each of them,
+// * panic with nil for success and no needs to continue.
+// * panic with error for failure and no needs to continue.
+// * not panic for continuing.
+func doStepN() {
+	...
+	if err != nil {
+		panic(err)
+	}
+	...
+	if done {
+		panic(nil)
+	}
+}
+</code></pre>
+
+<p>
+The above code is less verbose than the following one.
+</p>
+
+<pre class="line-numbers"><code class="language-go">func doSomething() (err error) {
+	shouldContinue, err := doStep1()
+	if !shouldContinue {
+		return err
+	}
+	shouldContinue, err = doStep2()
+	if !shouldContinue {
+		return err
+	}
+	shouldContinue, err = doStep3()
+	if !shouldContinue {
+		return err
+	}
+	shouldContinue, err = doStep4()
+	if !shouldContinue {
+		return err
+	}
+	shouldContinue, err = doStep5()
+	if !shouldContinue {
+		return err
+	}
+
+	return
+}
+
+// If err is not nil, then shouldContinue must be true.
+// If shouldContinue is true, err might be nil or non-nil.
+func doStepN() (shouldContinue bool, err error) {
+	...
+	if err != nil {
+		return false, err
+	}
+	...
+	if done {
+		return false, nil
+	}
+	return true, nil
+}
+</code></pre>
+
+
+<!--
+<pre class="line-numbers"><code class="language-go">func doSomething() (err error) {
+package main
+
+import "fmt"
+
+func doTask(n int) {
+	if n%2 != 0 {
+		// Create a demo-purpose panic.
+		panic(fmt.Errorf("bad number: %v", n))
+	}
+	return
+}
+
+func doSomething() (err error) {
+	defer func() {
+		// The second optional return must be present here,
+		// otherwise, the assertion will panic if no errors occur.
+		err, _ = recover().(error)
+	}()
+
+	doTask(22)
+	doTask(98)
+	doTask(100)
+	doTask(53)
+	return nil
+}
+
+func main() {
+	fmt.Println(doSomething()) // bad number: 53
+}
+</code></pre>
+
+<p>
+The above code is less verbose than the following one.
+</p>
+
+<pre class="line-numbers"><code class="language-go">func doTask(n int) error {
+	if n%2 != 0 {
+		return fmt.Errorf("bad number: %v", n)
+	}
+	return nil
+}
+
+func doSomething() (err error) {
+	err = doTask(22)
+	if err != nil {
+		return
+	}
+	err = doTask(98)
+	if err != nil {
+		return
+	}
+	err = doTask(100)
+	if err != nil {
+		return
+	}
+	err = doTask(53)
+	if err != nil {
+		return
+	}
+	return
+}
+</code></pre>
+-->
+
+<p>
+However, usually, this panic/recover use pattern is not recommended to use.
+It is less Go-idiomatic and less efficient.
+</p>
+</div>
+
+
+
+
+<hr>
+
+<div class="alert alert-info"><small>
+
+<p>
+If you would like to learn some Go details and facts every serveral days,
+please follow Go 101's official Twitter account: <a href="https://twitter.com/go100and1">@go100and1</a>.
+</p>
+
+</small></div>
+
+<div class="alert alert-success"><small>
+
+<p>
+The <b><i>Go 101</i></b> project is hosted on
+<a href="https://github.com/go101/go101">Github</a>.
+Welcome to improve <b><i>Go 101</i></b> articles
+by submitting corrections for all kinds of mistakes,
+such as typos, grammar errors, wording inaccuracies,
+description flaws, code bugs and broken links.
+</p>
+
+</small></div>
+
+<div class="alert alert-warning"><small>
+
+<div>The digital versions of this book are available at the following places:
+<ul>
+<li>
+	<a href="https://leanpub.com/go101">Leanpub store</a>,
+	<i>$19.99+</i>, Leanpub gets 20%, Tapir gets 80%.
+</li>
+<li>
+	<a href="https://books.apple.com/us/book/id1459984231">Apple Books store</a>,
+	<i>$19.99</i>, Apple gets 30%, Tapir gets 70%.
+</li>
+<li>
+	<a href="https://www.amazon.com/dp/B07Q3HWZ98">Amazon Kindle store</a>,
+	<i>$39.99</i>, Amazon gets 65%, Tapir gets 35%.
+</li>
+<li>
+	<a href="https://github.com/go101/go101/releases">Free ebooks</a>,
+	including pdf, epub and azw3 formats.
+</li>
+</ul>
+</div><div>
+
+Tapir, the author of Go 101, has spent 4+ years on writing the Go 101 book
+and maintaining the go101.org website.
+New contents will continue being added to the book and the website from time to time.
+Tapir is also an indie game developer.
+You can also support Go 101 by playing <a href="https://www.tapirgames.com">Tapir's games</a>
+(made for both Android and iPhone/iPad):
+<ul>
+<li>
+	<a href="https://www.tapirgames.com/App/Color-Infection">Color Infection</a> (★★★★★), a physics based original casual puzzle game. 140+ levels. 
+</li>
+<li>
+	<a href="https://www.tapirgames.com/App/Rectangle-Pushers">Rectangle Pushers</a> (★★★★★), an original casual puzzle game. Two modes, 104+ levels. 
+</li>
+<li>
+	<a href="https://www.tapirgames.com/App/Let-Us-Play-With-Particles">Let's Play With Particles</a>, a casual action original game. Three mini games are included.
+</li>
+</ul>
+</div>
+
+Individual donations <a href="https://paypal.me/tapirliu">via PayPal</a> are also welcome.</small></div>
+
+<div class="row nav-bar-with-borders"><div class="col-xs-6 col-sm-3 nav-item-active"><a href="../index.html">The Book</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="details.html">Go Details 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="unofficial-faq.html">Go FAQ 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="tips.html">Go Tips 101</a></div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="https://github.com/go101/go101/wiki">Go 101 Wiki</a></div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go Practice 101</div>
+
+	<div class="col-xs-6 col-sm-3 nav-item-inactive" style="color: #ccc;">Go 101 Tools</div><div class="col-xs-6 col-sm-3 nav-item-inactive"><a href="quizzes.html">Go Quizzes 101</a></div></div></div>
+	</body>
+</html>

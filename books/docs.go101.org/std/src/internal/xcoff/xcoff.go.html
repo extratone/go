@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: xcoff.go in package internal/xcoff</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	xcoff.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/internal/xcoff.html">internal/xcoff</a>
+</code></pre>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2018 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> xcoff</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="comment">// File Header.</span></code></span>
+<span class="codeline" id="line-8"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-FileHeader32" class="ident">FileHeader32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-9"><code>	Fmagic   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Target machine</span></code></span>
+<span class="codeline" id="line-10"><code>	Fnscns   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Number of sections</span></code></span>
+<span class="codeline" id="line-11"><code>	Ftimedat <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Time and date of file creation</span></code></span>
+<span class="codeline" id="line-12"><code>	Fsymptr  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Byte offset to symbol table start</span></code></span>
+<span class="codeline" id="line-13"><code>	Fnsyms   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of entries in symbol table</span></code></span>
+<span class="codeline" id="line-14"><code>	Fopthdr  <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Number of bytes in optional header</span></code></span>
+<span class="codeline" id="line-15"><code>	Fflags   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Flags</span></code></span>
+<span class="codeline" id="line-16"><code>}</code></span>
+<span class="codeline" id="line-17"><code></code></span>
+<span class="codeline" id="line-18"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-FileHeader64" class="ident">FileHeader64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-19"><code>	Fmagic   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Target machine</span></code></span>
+<span class="codeline" id="line-20"><code>	Fnscns   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Number of sections</span></code></span>
+<span class="codeline" id="line-21"><code>	Ftimedat <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Time and date of file creation</span></code></span>
+<span class="codeline" id="line-22"><code>	Fsymptr  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Byte offset to symbol table start</span></code></span>
+<span class="codeline" id="line-23"><code>	Fopthdr  <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Number of bytes in optional header</span></code></span>
+<span class="codeline" id="line-24"><code>	Fflags   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Flags</span></code></span>
+<span class="codeline" id="line-25"><code>	Fnsyms   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of entries in symbol table</span></code></span>
+<span class="codeline" id="line-26"><code>}</code></span>
+<span class="codeline" id="line-27"><code></code></span>
+<span class="codeline" id="line-28"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-29"><code>	<a href="../../../pkg/internal/xcoff.html#name-FILHSZ_32" class="ident">FILHSZ_32</a> = <span class="lit-number">20</span></code></span>
+<span class="codeline" id="line-30"><code>	<a href="../../../pkg/internal/xcoff.html#name-FILHSZ_64" class="ident">FILHSZ_64</a> = <span class="lit-number">24</span></code></span>
+<span class="codeline" id="line-31"><code>)</code></span>
+<span class="codeline" id="line-32"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../pkg/internal/xcoff.html#name-U802TOCMAGIC" class="ident">U802TOCMAGIC</a> = <span class="lit-number">0737</span> <span class="comment">// AIX 32-bit XCOFF</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../pkg/internal/xcoff.html#name-U64_TOCMAGIC" class="ident">U64_TOCMAGIC</a> = <span class="lit-number">0767</span> <span class="comment">// AIX 64-bit XCOFF</span></code></span>
+<span class="codeline" id="line-35"><code>)</code></span>
+<span class="codeline" id="line-36"><code></code></span>
+<span class="codeline" id="line-37"><code><span class="comment">// Flags that describe the type of the object file.</span></code></span>
+<span class="codeline" id="line-38"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-39"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_RELFLG" class="ident">F_RELFLG</a>    = <span class="lit-number">0x0001</span></code></span>
+<span class="codeline" id="line-40"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_EXEC" class="ident">F_EXEC</a>      = <span class="lit-number">0x0002</span></code></span>
+<span class="codeline" id="line-41"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_LNNO" class="ident">F_LNNO</a>      = <span class="lit-number">0x0004</span></code></span>
+<span class="codeline" id="line-42"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_FDPR_PROF" class="ident">F_FDPR_PROF</a> = <span class="lit-number">0x0010</span></code></span>
+<span class="codeline" id="line-43"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_FDPR_OPTI" class="ident">F_FDPR_OPTI</a> = <span class="lit-number">0x0020</span></code></span>
+<span class="codeline" id="line-44"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_DSA" class="ident">F_DSA</a>       = <span class="lit-number">0x0040</span></code></span>
+<span class="codeline" id="line-45"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_VARPG" class="ident">F_VARPG</a>     = <span class="lit-number">0x0100</span></code></span>
+<span class="codeline" id="line-46"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_DYNLOAD" class="ident">F_DYNLOAD</a>   = <span class="lit-number">0x1000</span></code></span>
+<span class="codeline" id="line-47"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_SHROBJ" class="ident">F_SHROBJ</a>    = <span class="lit-number">0x2000</span></code></span>
+<span class="codeline" id="line-48"><code>	<a href="../../../pkg/internal/xcoff.html#name-F_LOADONLY" class="ident">F_LOADONLY</a>  = <span class="lit-number">0x4000</span></code></span>
+<span class="codeline" id="line-49"><code>)</code></span>
+<span class="codeline" id="line-50"><code></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// Section Header.</span></code></span>
+<span class="codeline" id="line-52"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-SectionHeader32" class="ident">SectionHeader32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-53"><code>	Sname    [<span class="lit-number">8</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Section name</span></code></span>
+<span class="codeline" id="line-54"><code>	Spaddr   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Physical address</span></code></span>
+<span class="codeline" id="line-55"><code>	Svaddr   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Virtual address</span></code></span>
+<span class="codeline" id="line-56"><code>	Ssize    <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Section size</span></code></span>
+<span class="codeline" id="line-57"><code>	Sscnptr  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Offset in file to raw data for section</span></code></span>
+<span class="codeline" id="line-58"><code>	Srelptr  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Offset in file to relocation entries for section</span></code></span>
+<span class="codeline" id="line-59"><code>	Slnnoptr <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Offset in file to line number entries for section</span></code></span>
+<span class="codeline" id="line-60"><code>	Snreloc  <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a>  <span class="comment">// Number of relocation entries</span></code></span>
+<span class="codeline" id="line-61"><code>	Snlnno   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a>  <span class="comment">// Number of line number entries</span></code></span>
+<span class="codeline" id="line-62"><code>	Sflags   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Flags to define the section type</span></code></span>
+<span class="codeline" id="line-63"><code>}</code></span>
+<span class="codeline" id="line-64"><code></code></span>
+<span class="codeline" id="line-65"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-SectionHeader64" class="ident">SectionHeader64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-66"><code>	Sname    [<span class="lit-number">8</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Section name</span></code></span>
+<span class="codeline" id="line-67"><code>	Spaddr   <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Physical address</span></code></span>
+<span class="codeline" id="line-68"><code>	Svaddr   <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Virtual address</span></code></span>
+<span class="codeline" id="line-69"><code>	Ssize    <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Section size</span></code></span>
+<span class="codeline" id="line-70"><code>	Sscnptr  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Offset in file to raw data for section</span></code></span>
+<span class="codeline" id="line-71"><code>	Srelptr  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Offset in file to relocation entries for section</span></code></span>
+<span class="codeline" id="line-72"><code>	Slnnoptr <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>  <span class="comment">// Offset in file to line number entries for section</span></code></span>
+<span class="codeline" id="line-73"><code>	Snreloc  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Number of relocation entries</span></code></span>
+<span class="codeline" id="line-74"><code>	Snlnno   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Number of line number entries</span></code></span>
+<span class="codeline" id="line-75"><code>	Sflags   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Flags to define the section type</span></code></span>
+<span class="codeline" id="line-76"><code>	Spad     <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Needs to be 72 bytes long</span></code></span>
+<span class="codeline" id="line-77"><code>}</code></span>
+<span class="codeline" id="line-78"><code></code></span>
+<span class="codeline" id="line-79"><code><span class="comment">// Flags defining the section type.</span></code></span>
+<span class="codeline" id="line-80"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-81"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_DWARF" class="ident">STYP_DWARF</a>  = <span class="lit-number">0x0010</span></code></span>
+<span class="codeline" id="line-82"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_TEXT" class="ident">STYP_TEXT</a>   = <span class="lit-number">0x0020</span></code></span>
+<span class="codeline" id="line-83"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_DATA" class="ident">STYP_DATA</a>   = <span class="lit-number">0x0040</span></code></span>
+<span class="codeline" id="line-84"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_BSS" class="ident">STYP_BSS</a>    = <span class="lit-number">0x0080</span></code></span>
+<span class="codeline" id="line-85"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_EXCEPT" class="ident">STYP_EXCEPT</a> = <span class="lit-number">0x0100</span></code></span>
+<span class="codeline" id="line-86"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_INFO" class="ident">STYP_INFO</a>   = <span class="lit-number">0x0200</span></code></span>
+<span class="codeline" id="line-87"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_TDATA" class="ident">STYP_TDATA</a>  = <span class="lit-number">0x0400</span></code></span>
+<span class="codeline" id="line-88"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_TBSS" class="ident">STYP_TBSS</a>   = <span class="lit-number">0x0800</span></code></span>
+<span class="codeline" id="line-89"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_LOADER" class="ident">STYP_LOADER</a> = <span class="lit-number">0x1000</span></code></span>
+<span class="codeline" id="line-90"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_DEBUG" class="ident">STYP_DEBUG</a>  = <span class="lit-number">0x2000</span></code></span>
+<span class="codeline" id="line-91"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_TYPCHK" class="ident">STYP_TYPCHK</a> = <span class="lit-number">0x4000</span></code></span>
+<span class="codeline" id="line-92"><code>	<a href="../../../pkg/internal/xcoff.html#name-STYP_OVRFLO" class="ident">STYP_OVRFLO</a> = <span class="lit-number">0x8000</span></code></span>
+<span class="codeline" id="line-93"><code>)</code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-95"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWINFO" class="ident">SSUBTYP_DWINFO</a>  = <span class="lit-number">0x10000</span> <span class="comment">// DWARF info section</span></code></span>
+<span class="codeline" id="line-96"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWLINE" class="ident">SSUBTYP_DWLINE</a>  = <span class="lit-number">0x20000</span> <span class="comment">// DWARF line-number section</span></code></span>
+<span class="codeline" id="line-97"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWPBNMS" class="ident">SSUBTYP_DWPBNMS</a> = <span class="lit-number">0x30000</span> <span class="comment">// DWARF public names section</span></code></span>
+<span class="codeline" id="line-98"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWPBTYP" class="ident">SSUBTYP_DWPBTYP</a> = <span class="lit-number">0x40000</span> <span class="comment">// DWARF public types section</span></code></span>
+<span class="codeline" id="line-99"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWARNGE" class="ident">SSUBTYP_DWARNGE</a> = <span class="lit-number">0x50000</span> <span class="comment">// DWARF aranges section</span></code></span>
+<span class="codeline" id="line-100"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWABREV" class="ident">SSUBTYP_DWABREV</a> = <span class="lit-number">0x60000</span> <span class="comment">// DWARF abbreviation section</span></code></span>
+<span class="codeline" id="line-101"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWSTR" class="ident">SSUBTYP_DWSTR</a>   = <span class="lit-number">0x70000</span> <span class="comment">// DWARF strings section</span></code></span>
+<span class="codeline" id="line-102"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWRNGES" class="ident">SSUBTYP_DWRNGES</a> = <span class="lit-number">0x80000</span> <span class="comment">// DWARF ranges section</span></code></span>
+<span class="codeline" id="line-103"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWLOC" class="ident">SSUBTYP_DWLOC</a>   = <span class="lit-number">0x90000</span> <span class="comment">// DWARF location lists section</span></code></span>
+<span class="codeline" id="line-104"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWFRAME" class="ident">SSUBTYP_DWFRAME</a> = <span class="lit-number">0xA0000</span> <span class="comment">// DWARF frames section</span></code></span>
+<span class="codeline" id="line-105"><code>	<a href="../../../pkg/internal/xcoff.html#name-SSUBTYP_DWMAC" class="ident">SSUBTYP_DWMAC</a>   = <span class="lit-number">0xB0000</span> <span class="comment">// DWARF macros section</span></code></span>
+<span class="codeline" id="line-106"><code>)</code></span>
+<span class="codeline" id="line-107"><code></code></span>
+<span class="codeline" id="line-108"><code><span class="comment">// Symbol Table Entry.</span></code></span>
+<span class="codeline" id="line-109"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-SymEnt32" class="ident">SymEnt32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-110"><code>	Nname   [<span class="lit-number">8</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Symbol name</span></code></span>
+<span class="codeline" id="line-111"><code>	Nvalue  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Symbol value</span></code></span>
+<span class="codeline" id="line-112"><code>	Nscnum  <a href="../../../pkg/builtin.html#name-int16" class="ident">int16</a>   <span class="comment">// Section number of symbol</span></code></span>
+<span class="codeline" id="line-113"><code>	Ntype   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a>  <span class="comment">// Basic and derived type specification</span></code></span>
+<span class="codeline" id="line-114"><code>	Nsclass <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>    <span class="comment">// Storage class of symbol</span></code></span>
+<span class="codeline" id="line-115"><code>	Nnumaux <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>    <span class="comment">// Number of auxiliary entries</span></code></span>
+<span class="codeline" id="line-116"><code>}</code></span>
+<span class="codeline" id="line-117"><code></code></span>
+<span class="codeline" id="line-118"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-SymEnt64" class="ident">SymEnt64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-119"><code>	Nvalue  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Symbol value</span></code></span>
+<span class="codeline" id="line-120"><code>	Noffset <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Offset of the name in string table or .debug section</span></code></span>
+<span class="codeline" id="line-121"><code>	Nscnum  <a href="../../../pkg/builtin.html#name-int16" class="ident">int16</a>  <span class="comment">// Section number of symbol</span></code></span>
+<span class="codeline" id="line-122"><code>	Ntype   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Basic and derived type specification</span></code></span>
+<span class="codeline" id="line-123"><code>	Nsclass <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>   <span class="comment">// Storage class of symbol</span></code></span>
+<span class="codeline" id="line-124"><code>	Nnumaux <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>   <span class="comment">// Number of auxiliary entries</span></code></span>
+<span class="codeline" id="line-125"><code>}</code></span>
+<span class="codeline" id="line-126"><code></code></span>
+<span class="codeline" id="line-127"><code><span class="keyword">const</span> <a href="../../../pkg/internal/xcoff.html#name-SYMESZ" class="ident">SYMESZ</a> = <span class="lit-number">18</span></code></span>
+<span class="codeline" id="line-128"><code></code></span>
+<span class="codeline" id="line-129"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-130"><code>	<span class="comment">// Nscnum</span></code></span>
+<span class="codeline" id="line-131"><code>	<a href="../../../pkg/internal/xcoff.html#name-N_DEBUG" class="ident">N_DEBUG</a> = -<span class="lit-number">2</span></code></span>
+<span class="codeline" id="line-132"><code>	<a href="../../../pkg/internal/xcoff.html#name-N_ABS" class="ident">N_ABS</a>   = -<span class="lit-number">1</span></code></span>
+<span class="codeline" id="line-133"><code>	<a href="../../../pkg/internal/xcoff.html#name-N_UNDEF" class="ident">N_UNDEF</a> = <span class="lit-number">0</span></code></span>
+<span class="codeline" id="line-134"><code></code></span>
+<span class="codeline" id="line-135"><code>	<span class="comment">//Ntype</span></code></span>
+<span class="codeline" id="line-136"><code>	<a href="../../../pkg/internal/xcoff.html#name-SYM_V_INTERNAL" class="ident">SYM_V_INTERNAL</a>  = <span class="lit-number">0x1000</span></code></span>
+<span class="codeline" id="line-137"><code>	<a href="../../../pkg/internal/xcoff.html#name-SYM_V_HIDDEN" class="ident">SYM_V_HIDDEN</a>    = <span class="lit-number">0x2000</span></code></span>
+<span class="codeline" id="line-138"><code>	<a href="../../../pkg/internal/xcoff.html#name-SYM_V_PROTECTED" class="ident">SYM_V_PROTECTED</a> = <span class="lit-number">0x3000</span></code></span>
+<span class="codeline" id="line-139"><code>	<a href="../../../pkg/internal/xcoff.html#name-SYM_V_EXPORTED" class="ident">SYM_V_EXPORTED</a>  = <span class="lit-number">0x4000</span></code></span>
+<span class="codeline" id="line-140"><code>	<a href="../../../pkg/internal/xcoff.html#name-SYM_TYPE_FUNC" class="ident">SYM_TYPE_FUNC</a>   = <span class="lit-number">0x0020</span> <span class="comment">// is function</span></code></span>
+<span class="codeline" id="line-141"><code>)</code></span>
+<span class="codeline" id="line-142"><code></code></span>
+<span class="codeline" id="line-143"><code><span class="comment">// Storage Class.</span></code></span>
+<span class="codeline" id="line-144"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-145"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_NULL" class="ident">C_NULL</a>    = <span class="lit-number">0</span>   <span class="comment">// Symbol table entry marked for deletion</span></code></span>
+<span class="codeline" id="line-146"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_EXT" class="ident">C_EXT</a>     = <span class="lit-number">2</span>   <span class="comment">// External symbol</span></code></span>
+<span class="codeline" id="line-147"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_STAT" class="ident">C_STAT</a>    = <span class="lit-number">3</span>   <span class="comment">// Static symbol</span></code></span>
+<span class="codeline" id="line-148"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_BLOCK" class="ident">C_BLOCK</a>   = <span class="lit-number">100</span> <span class="comment">// Beginning or end of inner block</span></code></span>
+<span class="codeline" id="line-149"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_FCN" class="ident">C_FCN</a>     = <span class="lit-number">101</span> <span class="comment">// Beginning or end of function</span></code></span>
+<span class="codeline" id="line-150"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_FILE" class="ident">C_FILE</a>    = <span class="lit-number">103</span> <span class="comment">// Source file name and compiler information</span></code></span>
+<span class="codeline" id="line-151"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_HIDEXT" class="ident">C_HIDEXT</a>  = <span class="lit-number">107</span> <span class="comment">// Unnamed external symbol</span></code></span>
+<span class="codeline" id="line-152"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_BINCL" class="ident">C_BINCL</a>   = <span class="lit-number">108</span> <span class="comment">// Beginning of include file</span></code></span>
+<span class="codeline" id="line-153"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_EINCL" class="ident">C_EINCL</a>   = <span class="lit-number">109</span> <span class="comment">// End of include file</span></code></span>
+<span class="codeline" id="line-154"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_WEAKEXT" class="ident">C_WEAKEXT</a> = <span class="lit-number">111</span> <span class="comment">// Weak external symbol</span></code></span>
+<span class="codeline" id="line-155"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_DWARF" class="ident">C_DWARF</a>   = <span class="lit-number">112</span> <span class="comment">// DWARF symbol</span></code></span>
+<span class="codeline" id="line-156"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_GSYM" class="ident">C_GSYM</a>    = <span class="lit-number">128</span> <span class="comment">// Global variable</span></code></span>
+<span class="codeline" id="line-157"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_LSYM" class="ident">C_LSYM</a>    = <span class="lit-number">129</span> <span class="comment">// Automatic variable allocated on stack</span></code></span>
+<span class="codeline" id="line-158"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_PSYM" class="ident">C_PSYM</a>    = <span class="lit-number">130</span> <span class="comment">// Argument to subroutine allocated on stack</span></code></span>
+<span class="codeline" id="line-159"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_RSYM" class="ident">C_RSYM</a>    = <span class="lit-number">131</span> <span class="comment">// Register variable</span></code></span>
+<span class="codeline" id="line-160"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_RPSYM" class="ident">C_RPSYM</a>   = <span class="lit-number">132</span> <span class="comment">// Argument to function or procedure stored in register</span></code></span>
+<span class="codeline" id="line-161"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_STSYM" class="ident">C_STSYM</a>   = <span class="lit-number">133</span> <span class="comment">// Statically allocated symbol</span></code></span>
+<span class="codeline" id="line-162"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_BCOMM" class="ident">C_BCOMM</a>   = <span class="lit-number">135</span> <span class="comment">// Beginning of common block</span></code></span>
+<span class="codeline" id="line-163"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_ECOML" class="ident">C_ECOML</a>   = <span class="lit-number">136</span> <span class="comment">// Local member of common block</span></code></span>
+<span class="codeline" id="line-164"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_ECOMM" class="ident">C_ECOMM</a>   = <span class="lit-number">137</span> <span class="comment">// End of common block</span></code></span>
+<span class="codeline" id="line-165"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_DECL" class="ident">C_DECL</a>    = <span class="lit-number">140</span> <span class="comment">// Declaration of object</span></code></span>
+<span class="codeline" id="line-166"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_ENTRY" class="ident">C_ENTRY</a>   = <span class="lit-number">141</span> <span class="comment">// Alternate entry</span></code></span>
+<span class="codeline" id="line-167"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_FUN" class="ident">C_FUN</a>     = <span class="lit-number">142</span> <span class="comment">// Function or procedure</span></code></span>
+<span class="codeline" id="line-168"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_BSTAT" class="ident">C_BSTAT</a>   = <span class="lit-number">143</span> <span class="comment">// Beginning of static block</span></code></span>
+<span class="codeline" id="line-169"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_ESTAT" class="ident">C_ESTAT</a>   = <span class="lit-number">144</span> <span class="comment">// End of static block</span></code></span>
+<span class="codeline" id="line-170"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_GTLS" class="ident">C_GTLS</a>    = <span class="lit-number">145</span> <span class="comment">// Global thread-local variable</span></code></span>
+<span class="codeline" id="line-171"><code>	<a href="../../../pkg/internal/xcoff.html#name-C_STTLS" class="ident">C_STTLS</a>   = <span class="lit-number">146</span> <span class="comment">// Static thread-local variable</span></code></span>
+<span class="codeline" id="line-172"><code>)</code></span>
+<span class="codeline" id="line-173"><code></code></span>
+<span class="codeline" id="line-174"><code><span class="comment">// File Auxiliary Entry</span></code></span>
+<span class="codeline" id="line-175"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxFile64" class="ident">AuxFile64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-176"><code>	Xfname   [<span class="lit-number">8</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Name or offset inside string table</span></code></span>
+<span class="codeline" id="line-177"><code>	Xftype   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>   <span class="comment">// Source file string type</span></code></span>
+<span class="codeline" id="line-178"><code>	Xauxtype <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>   <span class="comment">// Type of auxiliary entry</span></code></span>
+<span class="codeline" id="line-179"><code>}</code></span>
+<span class="codeline" id="line-180"><code></code></span>
+<span class="codeline" id="line-181"><code><span class="comment">// Function Auxiliary Entry</span></code></span>
+<span class="codeline" id="line-182"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxFcn32" class="ident">AuxFcn32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-183"><code>	Xexptr   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// File offset to exception table entry</span></code></span>
+<span class="codeline" id="line-184"><code>	Xfsize   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Size of function in bytes</span></code></span>
+<span class="codeline" id="line-185"><code>	Xlnnoptr <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// File pointer to line number</span></code></span>
+<span class="codeline" id="line-186"><code>	Xendndx  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Symbol table index of next entry</span></code></span>
+<span class="codeline" id="line-187"><code>	Xpad     <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Unused</span></code></span>
+<span class="codeline" id="line-188"><code>}</code></span>
+<span class="codeline" id="line-189"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxFcn64" class="ident">AuxFcn64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-190"><code>	Xlnnoptr <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// File pointer to line number</span></code></span>
+<span class="codeline" id="line-191"><code>	Xfsize   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Size of function in bytes</span></code></span>
+<span class="codeline" id="line-192"><code>	Xendndx  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Symbol table index of next entry</span></code></span>
+<span class="codeline" id="line-193"><code>	Xpad     <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Unused</span></code></span>
+<span class="codeline" id="line-194"><code>	Xauxtype <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Type of auxiliary entry</span></code></span>
+<span class="codeline" id="line-195"><code>}</code></span>
+<span class="codeline" id="line-196"><code></code></span>
+<span class="codeline" id="line-197"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxSect64" class="ident">AuxSect64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-198"><code>	Xscnlen  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// section length</span></code></span>
+<span class="codeline" id="line-199"><code>	Xnreloc  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Num RLDs</span></code></span>
+<span class="codeline" id="line-200"><code>	pad      <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a></code></span>
+<span class="codeline" id="line-201"><code>	Xauxtype <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a> <span class="comment">// Type of auxiliary entry</span></code></span>
+<span class="codeline" id="line-202"><code>}</code></span>
+<span class="codeline" id="line-203"><code></code></span>
+<span class="codeline" id="line-204"><code><span class="comment">// csect Auxiliary Entry.</span></code></span>
+<span class="codeline" id="line-205"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxCSect32" class="ident">AuxCSect32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-206"><code>	Xscnlen   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Length or symbol table index</span></code></span>
+<span class="codeline" id="line-207"><code>	Xparmhash <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Offset of parameter type-check string</span></code></span>
+<span class="codeline" id="line-208"><code>	Xsnhash   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// .typchk section number</span></code></span>
+<span class="codeline" id="line-209"><code>	Xsmtyp    <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Symbol alignment and type</span></code></span>
+<span class="codeline" id="line-210"><code>	Xsmclas   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Storage-mapping class</span></code></span>
+<span class="codeline" id="line-211"><code>	Xstab     <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Reserved</span></code></span>
+<span class="codeline" id="line-212"><code>	Xsnstab   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// Reserved</span></code></span>
+<span class="codeline" id="line-213"><code>}</code></span>
+<span class="codeline" id="line-214"><code></code></span>
+<span class="codeline" id="line-215"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-AuxCSect64" class="ident">AuxCSect64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-216"><code>	Xscnlenlo <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Lower 4 bytes of length or symbol table index</span></code></span>
+<span class="codeline" id="line-217"><code>	Xparmhash <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Offset of parameter type-check string</span></code></span>
+<span class="codeline" id="line-218"><code>	Xsnhash   <a href="../../../pkg/builtin.html#name-uint16" class="ident">uint16</a> <span class="comment">// .typchk section number</span></code></span>
+<span class="codeline" id="line-219"><code>	Xsmtyp    <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Symbol alignment and type</span></code></span>
+<span class="codeline" id="line-220"><code>	Xsmclas   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Storage-mapping class</span></code></span>
+<span class="codeline" id="line-221"><code>	Xscnlenhi <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Upper 4 bytes of length or symbol table index</span></code></span>
+<span class="codeline" id="line-222"><code>	Xpad      <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Unused</span></code></span>
+<span class="codeline" id="line-223"><code>	Xauxtype  <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Type of auxiliary entry</span></code></span>
+<span class="codeline" id="line-224"><code>}</code></span>
+<span class="codeline" id="line-225"><code></code></span>
+<span class="codeline" id="line-226"><code><span class="comment">// Auxiliary type</span></code></span>
+<span class="codeline" id="line-227"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-228"><code>	_AUX_EXCEPT = <span class="lit-number">255</span></code></span>
+<span class="codeline" id="line-229"><code>	_AUX_FCN    = <span class="lit-number">254</span></code></span>
+<span class="codeline" id="line-230"><code>	_AUX_SYM    = <span class="lit-number">253</span></code></span>
+<span class="codeline" id="line-231"><code>	_AUX_FILE   = <span class="lit-number">252</span></code></span>
+<span class="codeline" id="line-232"><code>	_AUX_CSECT  = <span class="lit-number">251</span></code></span>
+<span class="codeline" id="line-233"><code>	_AUX_SECT   = <span class="lit-number">250</span></code></span>
+<span class="codeline" id="line-234"><code>)</code></span>
+<span class="codeline" id="line-235"><code></code></span>
+<span class="codeline" id="line-236"><code><span class="comment">// Symbol type field.</span></code></span>
+<span class="codeline" id="line-237"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-238"><code>	<a href="../../../pkg/internal/xcoff.html#name-XTY_ER" class="ident">XTY_ER</a> = <span class="lit-number">0</span> <span class="comment">// External reference</span></code></span>
+<span class="codeline" id="line-239"><code>	<a href="../../../pkg/internal/xcoff.html#name-XTY_SD" class="ident">XTY_SD</a> = <span class="lit-number">1</span> <span class="comment">// Section definition</span></code></span>
+<span class="codeline" id="line-240"><code>	<a href="../../../pkg/internal/xcoff.html#name-XTY_LD" class="ident">XTY_LD</a> = <span class="lit-number">2</span> <span class="comment">// Label definition</span></code></span>
+<span class="codeline" id="line-241"><code>	<a href="../../../pkg/internal/xcoff.html#name-XTY_CM" class="ident">XTY_CM</a> = <span class="lit-number">3</span> <span class="comment">// Common csect definition</span></code></span>
+<span class="codeline" id="line-242"><code>)</code></span>
+<span class="codeline" id="line-243"><code></code></span>
+<span class="codeline" id="line-244"><code><span class="comment">// Defines for File auxiliary definitions: x_ftype field of x_file</span></code></span>
+<span class="codeline" id="line-245"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-246"><code>	<a href="../../../pkg/internal/xcoff.html#name-XFT_FN" class="ident">XFT_FN</a> = <span class="lit-number">0</span>   <span class="comment">// Source File Name</span></code></span>
+<span class="codeline" id="line-247"><code>	<a href="../../../pkg/internal/xcoff.html#name-XFT_CT" class="ident">XFT_CT</a> = <span class="lit-number">1</span>   <span class="comment">// Compile Time Stamp</span></code></span>
+<span class="codeline" id="line-248"><code>	<a href="../../../pkg/internal/xcoff.html#name-XFT_CV" class="ident">XFT_CV</a> = <span class="lit-number">2</span>   <span class="comment">// Compiler Version Number</span></code></span>
+<span class="codeline" id="line-249"><code>	<a href="../../../pkg/internal/xcoff.html#name-XFT_CD" class="ident">XFT_CD</a> = <span class="lit-number">128</span> <span class="comment">// Compiler Defined Information</span></code></span>
+<span class="codeline" id="line-250"><code>)</code></span>
+<span class="codeline" id="line-251"><code></code></span>
+<span class="codeline" id="line-252"><code><span class="comment">// Storage-mapping class.</span></code></span>
+<span class="codeline" id="line-253"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-254"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_PR" class="ident">XMC_PR</a>     = <span class="lit-number">0</span>  <span class="comment">// Program code</span></code></span>
+<span class="codeline" id="line-255"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_RO" class="ident">XMC_RO</a>     = <span class="lit-number">1</span>  <span class="comment">// Read-only constant</span></code></span>
+<span class="codeline" id="line-256"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_DB" class="ident">XMC_DB</a>     = <span class="lit-number">2</span>  <span class="comment">// Debug dictionary table</span></code></span>
+<span class="codeline" id="line-257"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_TC" class="ident">XMC_TC</a>     = <span class="lit-number">3</span>  <span class="comment">// TOC entry</span></code></span>
+<span class="codeline" id="line-258"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_UA" class="ident">XMC_UA</a>     = <span class="lit-number">4</span>  <span class="comment">// Unclassified</span></code></span>
+<span class="codeline" id="line-259"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_RW" class="ident">XMC_RW</a>     = <span class="lit-number">5</span>  <span class="comment">// Read/Write data</span></code></span>
+<span class="codeline" id="line-260"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_GL" class="ident">XMC_GL</a>     = <span class="lit-number">6</span>  <span class="comment">// Global linkage</span></code></span>
+<span class="codeline" id="line-261"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_XO" class="ident">XMC_XO</a>     = <span class="lit-number">7</span>  <span class="comment">// Extended operation</span></code></span>
+<span class="codeline" id="line-262"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_SV" class="ident">XMC_SV</a>     = <span class="lit-number">8</span>  <span class="comment">// 32-bit supervisor call descriptor</span></code></span>
+<span class="codeline" id="line-263"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_BS" class="ident">XMC_BS</a>     = <span class="lit-number">9</span>  <span class="comment">// BSS class</span></code></span>
+<span class="codeline" id="line-264"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_DS" class="ident">XMC_DS</a>     = <span class="lit-number">10</span> <span class="comment">// Function descriptor</span></code></span>
+<span class="codeline" id="line-265"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_UC" class="ident">XMC_UC</a>     = <span class="lit-number">11</span> <span class="comment">// Unnamed FORTRAN common</span></code></span>
+<span class="codeline" id="line-266"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_TC0" class="ident">XMC_TC0</a>    = <span class="lit-number">15</span> <span class="comment">// TOC anchor</span></code></span>
+<span class="codeline" id="line-267"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_TD" class="ident">XMC_TD</a>     = <span class="lit-number">16</span> <span class="comment">// Scalar data entry in the TOC</span></code></span>
+<span class="codeline" id="line-268"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_SV64" class="ident">XMC_SV64</a>   = <span class="lit-number">17</span> <span class="comment">// 64-bit supervisor call descriptor</span></code></span>
+<span class="codeline" id="line-269"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_SV3264" class="ident">XMC_SV3264</a> = <span class="lit-number">18</span> <span class="comment">// Supervisor call descriptor for both 32-bit and 64-bit</span></code></span>
+<span class="codeline" id="line-270"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_TL" class="ident">XMC_TL</a>     = <span class="lit-number">20</span> <span class="comment">// Read/Write thread-local data</span></code></span>
+<span class="codeline" id="line-271"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_UL" class="ident">XMC_UL</a>     = <span class="lit-number">21</span> <span class="comment">// Read/Write thread-local data (.tbss)</span></code></span>
+<span class="codeline" id="line-272"><code>	<a href="../../../pkg/internal/xcoff.html#name-XMC_TE" class="ident">XMC_TE</a>     = <span class="lit-number">22</span> <span class="comment">// TOC entry</span></code></span>
+<span class="codeline" id="line-273"><code>)</code></span>
+<span class="codeline" id="line-274"><code></code></span>
+<span class="codeline" id="line-275"><code><span class="comment">// Loader Header.</span></code></span>
+<span class="codeline" id="line-276"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-LoaderHeader32" class="ident">LoaderHeader32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-277"><code>	Lversion <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Loader section version number</span></code></span>
+<span class="codeline" id="line-278"><code>	Lnsyms   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of symbol table entries</span></code></span>
+<span class="codeline" id="line-279"><code>	Lnreloc  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of relocation table entries</span></code></span>
+<span class="codeline" id="line-280"><code>	Listlen  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Length of import file ID string table</span></code></span>
+<span class="codeline" id="line-281"><code>	Lnimpid  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of import file IDs</span></code></span>
+<span class="codeline" id="line-282"><code>	Limpoff  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Offset to start of import file IDs</span></code></span>
+<span class="codeline" id="line-283"><code>	Lstlen   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Length of string table</span></code></span>
+<span class="codeline" id="line-284"><code>	Lstoff   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Offset to start of string table</span></code></span>
+<span class="codeline" id="line-285"><code>}</code></span>
+<span class="codeline" id="line-286"><code></code></span>
+<span class="codeline" id="line-287"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-LoaderHeader64" class="ident">LoaderHeader64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-288"><code>	Lversion <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Loader section version number</span></code></span>
+<span class="codeline" id="line-289"><code>	Lnsyms   <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of symbol table entries</span></code></span>
+<span class="codeline" id="line-290"><code>	Lnreloc  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of relocation table entries</span></code></span>
+<span class="codeline" id="line-291"><code>	Listlen  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Length of import file ID string table</span></code></span>
+<span class="codeline" id="line-292"><code>	Lnimpid  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Number of import file IDs</span></code></span>
+<span class="codeline" id="line-293"><code>	Lstlen   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Length of string table</span></code></span>
+<span class="codeline" id="line-294"><code>	Limpoff  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Offset to start of import file IDs</span></code></span>
+<span class="codeline" id="line-295"><code>	Lstoff   <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Offset to start of string table</span></code></span>
+<span class="codeline" id="line-296"><code>	Lsymoff  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Offset to start of symbol table</span></code></span>
+<span class="codeline" id="line-297"><code>	Lrldoff  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Offset to start of relocation entries</span></code></span>
+<span class="codeline" id="line-298"><code>}</code></span>
+<span class="codeline" id="line-299"><code></code></span>
+<span class="codeline" id="line-300"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-301"><code>	<a href="../../../pkg/internal/xcoff.html#name-LDHDRSZ_32" class="ident">LDHDRSZ_32</a> = <span class="lit-number">32</span></code></span>
+<span class="codeline" id="line-302"><code>	<a href="../../../pkg/internal/xcoff.html#name-LDHDRSZ_64" class="ident">LDHDRSZ_64</a> = <span class="lit-number">56</span></code></span>
+<span class="codeline" id="line-303"><code>)</code></span>
+<span class="codeline" id="line-304"><code></code></span>
+<span class="codeline" id="line-305"><code><span class="comment">// Loader Symbol.</span></code></span>
+<span class="codeline" id="line-306"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-LoaderSymbol32" class="ident">LoaderSymbol32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-307"><code>	Lname   [<span class="lit-number">8</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a> <span class="comment">// Symbol name or byte offset into string table</span></code></span>
+<span class="codeline" id="line-308"><code>	Lvalue  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Address field</span></code></span>
+<span class="codeline" id="line-309"><code>	Lscnum  <a href="../../../pkg/builtin.html#name-int16" class="ident">int16</a>   <span class="comment">// Section number containing symbol</span></code></span>
+<span class="codeline" id="line-310"><code>	Lsmtype <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>    <span class="comment">// Symbol type, export, import flags</span></code></span>
+<span class="codeline" id="line-311"><code>	Lsmclas <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>    <span class="comment">// Symbol storage class</span></code></span>
+<span class="codeline" id="line-312"><code>	Lifile  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>   <span class="comment">// Import file ID; ordinal of import file IDs</span></code></span>
+<span class="codeline" id="line-313"><code>	Lparm   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>  <span class="comment">// Parameter type-check field</span></code></span>
+<span class="codeline" id="line-314"><code>}</code></span>
+<span class="codeline" id="line-315"><code></code></span>
+<span class="codeline" id="line-316"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-LoaderSymbol64" class="ident">LoaderSymbol64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-317"><code>	Lvalue  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// Address field</span></code></span>
+<span class="codeline" id="line-318"><code>	Loffset <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Byte offset into string table of symbol name</span></code></span>
+<span class="codeline" id="line-319"><code>	Lscnum  <a href="../../../pkg/builtin.html#name-int16" class="ident">int16</a>  <span class="comment">// Section number containing symbol</span></code></span>
+<span class="codeline" id="line-320"><code>	Lsmtype <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>   <span class="comment">// Symbol type, export, import flags</span></code></span>
+<span class="codeline" id="line-321"><code>	Lsmclas <a href="../../../pkg/builtin.html#name-int8" class="ident">int8</a>   <span class="comment">// Symbol storage class</span></code></span>
+<span class="codeline" id="line-322"><code>	Lifile  <a href="../../../pkg/builtin.html#name-int32" class="ident">int32</a>  <span class="comment">// Import file ID; ordinal of import file IDs</span></code></span>
+<span class="codeline" id="line-323"><code>	Lparm   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Parameter type-check field</span></code></span>
+<span class="codeline" id="line-324"><code>}</code></span>
+<span class="codeline" id="line-325"><code></code></span>
+<span class="codeline" id="line-326"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-Reloc32" class="ident">Reloc32</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-327"><code>	Rvaddr  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// (virtual) address of reference</span></code></span>
+<span class="codeline" id="line-328"><code>	Rsymndx <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Index into symbol table</span></code></span>
+<span class="codeline" id="line-329"><code>	Rsize   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Sign and reloc bit len</span></code></span>
+<span class="codeline" id="line-330"><code>	Rtype   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Toc relocation type</span></code></span>
+<span class="codeline" id="line-331"><code>}</code></span>
+<span class="codeline" id="line-332"><code></code></span>
+<span class="codeline" id="line-333"><code><span class="keyword">type</span> <a href="../../../pkg/internal/xcoff.html#name-Reloc64" class="ident">Reloc64</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-334"><code>	Rvaddr  <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a> <span class="comment">// (virtual) address of reference</span></code></span>
+<span class="codeline" id="line-335"><code>	Rsymndx <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">// Index into symbol table</span></code></span>
+<span class="codeline" id="line-336"><code>	Rsize   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Sign and reloc bit len</span></code></span>
+<span class="codeline" id="line-337"><code>	Rtype   <a href="../../../pkg/builtin.html#name-uint8" class="ident">uint8</a>  <span class="comment">// Toc relocation type</span></code></span>
+<span class="codeline" id="line-338"><code>}</code></span>
+<span class="codeline" id="line-339"><code></code></span>
+<span class="codeline" id="line-340"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-341"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_POS" class="ident">R_POS</a> = <span class="lit-number">0x00</span> <span class="comment">// A(sym) Positive Relocation</span></code></span>
+<span class="codeline" id="line-342"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_NEG" class="ident">R_NEG</a> = <span class="lit-number">0x01</span> <span class="comment">// -A(sym) Negative Relocation</span></code></span>
+<span class="codeline" id="line-343"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_REL" class="ident">R_REL</a> = <span class="lit-number">0x02</span> <span class="comment">// A(sym-*) Relative to self</span></code></span>
+<span class="codeline" id="line-344"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TOC" class="ident">R_TOC</a> = <span class="lit-number">0x03</span> <span class="comment">// A(sym-TOC) Relative to TOC</span></code></span>
+<span class="codeline" id="line-345"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TRL" class="ident">R_TRL</a> = <span class="lit-number">0x12</span> <span class="comment">// A(sym-TOC) TOC Relative indirect load.</span></code></span>
+<span class="codeline" id="line-346"><code></code></span>
+<span class="codeline" id="line-347"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TRLA" class="ident">R_TRLA</a> = <span class="lit-number">0x13</span> <span class="comment">// A(sym-TOC) TOC Rel load address. modifiable inst</span></code></span>
+<span class="codeline" id="line-348"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_GL" class="ident">R_GL</a>   = <span class="lit-number">0x05</span> <span class="comment">// A(external TOC of sym) Global Linkage</span></code></span>
+<span class="codeline" id="line-349"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TCL" class="ident">R_TCL</a>  = <span class="lit-number">0x06</span> <span class="comment">// A(local TOC of sym) Local object TOC address</span></code></span>
+<span class="codeline" id="line-350"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_RL" class="ident">R_RL</a>   = <span class="lit-number">0x0C</span> <span class="comment">// A(sym) Pos indirect load. modifiable instruction</span></code></span>
+<span class="codeline" id="line-351"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_RLA" class="ident">R_RLA</a>  = <span class="lit-number">0x0D</span> <span class="comment">// A(sym) Pos Load Address. modifiable instruction</span></code></span>
+<span class="codeline" id="line-352"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_REF" class="ident">R_REF</a>  = <span class="lit-number">0x0F</span> <span class="comment">// AL0(sym) Non relocating ref. No garbage collect</span></code></span>
+<span class="codeline" id="line-353"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_BA" class="ident">R_BA</a>   = <span class="lit-number">0x08</span> <span class="comment">// A(sym) Branch absolute. Cannot modify instruction</span></code></span>
+<span class="codeline" id="line-354"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_RBA" class="ident">R_RBA</a>  = <span class="lit-number">0x18</span> <span class="comment">// A(sym) Branch absolute. modifiable instruction</span></code></span>
+<span class="codeline" id="line-355"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_BR" class="ident">R_BR</a>   = <span class="lit-number">0x0A</span> <span class="comment">// A(sym-*) Branch rel to self. non modifiable</span></code></span>
+<span class="codeline" id="line-356"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_RBR" class="ident">R_RBR</a>  = <span class="lit-number">0x1A</span> <span class="comment">// A(sym-*) Branch rel to self. modifiable instr</span></code></span>
+<span class="codeline" id="line-357"><code></code></span>
+<span class="codeline" id="line-358"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLS" class="ident">R_TLS</a>    = <span class="lit-number">0x20</span> <span class="comment">// General-dynamic reference to TLS symbol</span></code></span>
+<span class="codeline" id="line-359"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLS_IE" class="ident">R_TLS_IE</a> = <span class="lit-number">0x21</span> <span class="comment">// Initial-exec reference to TLS symbol</span></code></span>
+<span class="codeline" id="line-360"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLS_LD" class="ident">R_TLS_LD</a> = <span class="lit-number">0x22</span> <span class="comment">// Local-dynamic reference to TLS symbol</span></code></span>
+<span class="codeline" id="line-361"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLS_LE" class="ident">R_TLS_LE</a> = <span class="lit-number">0x23</span> <span class="comment">// Local-exec reference to TLS symbol</span></code></span>
+<span class="codeline" id="line-362"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLSM" class="ident">R_TLSM</a>   = <span class="lit-number">0x24</span> <span class="comment">// Module reference to TLS symbol</span></code></span>
+<span class="codeline" id="line-363"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TLSML" class="ident">R_TLSML</a>  = <span class="lit-number">0x25</span> <span class="comment">// Module reference to local (own) module</span></code></span>
+<span class="codeline" id="line-364"><code></code></span>
+<span class="codeline" id="line-365"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TOCU" class="ident">R_TOCU</a> = <span class="lit-number">0x30</span> <span class="comment">// Relative to TOC - high order bits</span></code></span>
+<span class="codeline" id="line-366"><code>	<a href="../../../pkg/internal/xcoff.html#name-R_TOCL" class="ident">R_TOCL</a> = <span class="lit-number">0x31</span> <span class="comment">// Relative to TOC - low order bits</span></code></span>
+<span class="codeline" id="line-367"><code>)</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

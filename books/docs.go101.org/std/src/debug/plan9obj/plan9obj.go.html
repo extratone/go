@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: plan9obj.go in package debug/plan9obj</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	plan9obj.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/debug/plan9obj.html">debug/plan9obj</a>
+</code></pre>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2014 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="comment">/*</span></code></span>
+<span class="codeline" id="line-6"><code><span class="comment"> * Plan 9 a.out constants and data structures</span></code></span>
+<span class="codeline" id="line-7"><code><span class="comment"> */</span></code></span>
+<span class="codeline" id="line-8"><code></code></span>
+<span class="codeline" id="line-9"><code><span class="keyword">package</span> plan9obj</code></span>
+<span class="codeline" id="line-10"><code></code></span>
+<span class="codeline" id="line-11"><code><span class="comment">// Plan 9 Program header.</span></code></span>
+<span class="codeline" id="line-12"><code><span class="keyword">type</span> prog <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-13"><code>	Magic <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* magic number */</span></code></span>
+<span class="codeline" id="line-14"><code>	Text  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of text segment */</span></code></span>
+<span class="codeline" id="line-15"><code>	Data  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of initialized data */</span></code></span>
+<span class="codeline" id="line-16"><code>	Bss   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of uninitialized data */</span></code></span>
+<span class="codeline" id="line-17"><code>	Syms  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of symbol table */</span></code></span>
+<span class="codeline" id="line-18"><code>	Entry <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* entry point */</span></code></span>
+<span class="codeline" id="line-19"><code>	Spsz  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of pc/sp offset table */</span></code></span>
+<span class="codeline" id="line-20"><code>	Pcsz  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a> <span class="comment">/* size of pc/line number table */</span></code></span>
+<span class="codeline" id="line-21"><code>}</code></span>
+<span class="codeline" id="line-22"><code></code></span>
+<span class="codeline" id="line-23"><code><span class="comment">// Plan 9 symbol table entries.</span></code></span>
+<span class="codeline" id="line-24"><code><span class="keyword">type</span> sym <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-25"><code>	value <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a></code></span>
+<span class="codeline" id="line-26"><code>	typ   <a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-27"><code>	name  []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-28"><code>}</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code><span class="keyword">const</span> (</code></span>
+<span class="codeline" id="line-31"><code>	<a href="../../../pkg/debug/plan9obj.html#name-Magic64" class="ident">Magic64</a> = <span class="lit-number">0x8000</span> <span class="comment">// 64-bit expanded header</span></code></span>
+<span class="codeline" id="line-32"><code></code></span>
+<span class="codeline" id="line-33"><code>	<a href="../../../pkg/debug/plan9obj.html#name-Magic386" class="ident">Magic386</a>   = (<span class="lit-number">4</span>*<span class="lit-number">11</span>+<span class="lit-number">0</span>)*<span class="lit-number">11</span> + <span class="lit-number">7</span></code></span>
+<span class="codeline" id="line-34"><code>	<a href="../../../pkg/debug/plan9obj.html#name-MagicAMD64" class="ident">MagicAMD64</a> = (<span class="lit-number">4</span>*<span class="lit-number">26</span>+<span class="lit-number">0</span>)*<span class="lit-number">26</span> + <span class="lit-number">7</span> + <a href="plan9obj.go.html#line-31" class="ident">Magic64</a></code></span>
+<span class="codeline" id="line-35"><code>	<a href="../../../pkg/debug/plan9obj.html#name-MagicARM" class="ident">MagicARM</a>   = (<span class="lit-number">4</span>*<span class="lit-number">20</span>+<span class="lit-number">0</span>)*<span class="lit-number">20</span> + <span class="lit-number">7</span></code></span>
+<span class="codeline" id="line-36"><code>)</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

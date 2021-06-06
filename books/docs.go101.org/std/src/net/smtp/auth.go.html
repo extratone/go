@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: auth.go in package net/smtp</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	auth.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/net/smtp.html">net/smtp</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24],
+input[id=r25]:checked ~pre label[for=r25],
+input[id=r26]:checked ~pre label[for=r26]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="r25" type="radio" name="g"/>
+<input id="r26" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2010 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> smtp</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"crypto/hmac"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"crypto/md5"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"errors"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i3"><span class="lit-string i3">"fmt"</span></label></code></span>
+<span class="codeline" id="line-12"><code>)</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// Auth is implemented by an SMTP authentication mechanism.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/net/smtp.html#name-Auth" class="ident">Auth</a> <span class="keyword">interface</span> {</code></span>
+<span class="codeline" id="line-16"><code>	<span class="comment">// Start begins an authentication with a server.</span></code></span>
+<span class="codeline" id="line-17"><code><span class="comment">	// It returns the name of the authentication protocol</span></code></span>
+<span class="codeline" id="line-18"><code><span class="comment">	// and optionally data to include in the initial AUTH message</span></code></span>
+<span class="codeline" id="line-19"><code><span class="comment">	// sent to the server. It can return proto == "" to indicate</span></code></span>
+<span class="codeline" id="line-20"><code><span class="comment">	// that the authentication should be skipped.</span></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">	// If it returns a non-nil error, the SMTP client aborts</span></code></span>
+<span class="codeline" id="line-22"><code><span class="comment">	// the authentication attempt and closes the connection.</span></code></span>
+<span class="codeline" id="line-23"><code>	<a href="https://docs.go101.org/std/imp/net/smtp.Auth.html#name-Start" class="ident">Start</a>(server *<a href="auth.go.html#line-35" class="ident">ServerInfo</a>) (proto <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, toServer []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, err <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>)</code></span>
+<span class="codeline" id="line-24"><code></code></span>
+<span class="codeline" id="line-25"><code>	<span class="comment">// Next continues the authentication. The server has just sent</span></code></span>
+<span class="codeline" id="line-26"><code><span class="comment">	// the fromServer data. If more is true, the server expects a</span></code></span>
+<span class="codeline" id="line-27"><code><span class="comment">	// response, which Next should return as toServer; otherwise</span></code></span>
+<span class="codeline" id="line-28"><code><span class="comment">	// Next should return toServer == nil.</span></code></span>
+<span class="codeline" id="line-29"><code><span class="comment">	// If Next returns a non-nil error, the SMTP client aborts</span></code></span>
+<span class="codeline" id="line-30"><code><span class="comment">	// the authentication attempt and closes the connection.</span></code></span>
+<span class="codeline" id="line-31"><code>	<a href="https://docs.go101.org/std/imp/net/smtp.Auth.html#name-Next" class="ident">Next</a>(fromServer []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, more <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) (toServer []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, err <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>)</code></span>
+<span class="codeline" id="line-32"><code>}</code></span>
+<span class="codeline" id="line-33"><code></code></span>
+<span class="codeline" id="line-34"><code><span class="comment">// ServerInfo records information about an SMTP server.</span></code></span>
+<span class="codeline" id="line-35"><code><span class="keyword">type</span> <a href="../../../pkg/net/smtp.html#name-ServerInfo" class="ident">ServerInfo</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-36"><code>	Name <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>   <span class="comment">// SMTP server name</span></code></span>
+<span class="codeline" id="line-37"><code>	TLS  <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>     <span class="comment">// using TLS, with valid certificate for Name</span></code></span>
+<span class="codeline" id="line-38"><code>	Auth []<a href="../../../pkg/builtin.html#name-string" class="ident">string</a> <span class="comment">// advertised authentication mechanisms</span></code></span>
+<span class="codeline" id="line-39"><code>}</code></span>
+<span class="codeline" id="line-40"><code></code></span>
+<span class="codeline" id="line-41"><code><span class="keyword">type</span> plainAuth <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-42"><code>	identity, username, password <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-43"><code>	host                         <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-44"><code>}</code></span>
+<span class="codeline" id="line-45"><code></code></span>
+<span class="codeline" id="line-46"><code><span class="comment">// PlainAuth returns an Auth that implements the PLAIN authentication</span></code></span>
+<span class="codeline" id="line-47"><code><span class="comment">// mechanism as defined in RFC 4616. The returned Auth uses the given</span></code></span>
+<span class="codeline" id="line-48"><code><span class="comment">// username and password to authenticate to host and act as identity.</span></code></span>
+<span class="codeline" id="line-49"><code><span class="comment">// Usually identity should be the empty string, to act as username.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">//</span></code></span>
+<span class="codeline" id="line-51"><code><span class="comment">// PlainAuth will only send the credentials if the connection is using TLS</span></code></span>
+<span class="codeline" id="line-52"><code><span class="comment">// or is connected to localhost. Otherwise authentication will fail with an</span></code></span>
+<span class="codeline" id="line-53"><code><span class="comment">// error, without sending the credentials.</span></code></span>
+<span class="codeline" id="line-54"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/net/smtp.html#name-PlainAuth" class="ident">PlainAuth</a></label>(<label for="r1" class="ident">identity</label>, <label for="r2" class="ident">username</label>, <label for="r3" class="ident">password</label>, <label for="r4" class="ident">host</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="auth.go.html#line-15" class="ident">Auth</a> {</code></span>
+<span class="codeline" id="line-55"><code>	<span class="keyword">return</span> &amp;<a href="auth.go.html#line-41" class="ident">plainAuth</a>{<label for="r1" class="ident">identity</label>, <label for="r2" class="ident">username</label>, <label for="r3" class="ident">password</label>, <label for="r4" class="ident">host</label>}</code></span>
+<span class="codeline" id="line-56"><code>}</code></span>
+<span class="codeline" id="line-57"><code></code></span>
+<span class="codeline" id="line-58"><code><span class="keyword">func</span> isLocalhost(<label for="r6" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a> {</code></span>
+<span class="codeline" id="line-59"><code>	<span class="keyword">return</span> <label for="r6" class="ident">name</label> == <span class="lit-string">"localhost"</span> || <label for="r6" class="ident">name</label> == <span class="lit-string">"127.0.0.1"</span> || <label for="r6" class="ident">name</label> == <span class="lit-string">"::1"</span></code></span>
+<span class="codeline" id="line-60"><code>}</code></span>
+<span class="codeline" id="line-61"><code></code></span>
+<span class="codeline" id="line-62"><code><span class="keyword">func</span> (<label for="r7" class="ident">a</label> *<a href="auth.go.html#line-41" class="ident">plainAuth</a>) <label for="r8" class="ident">Start</label>(<label for="r9" class="ident">server</label> *<a href="auth.go.html#line-35" class="ident">ServerInfo</a>) (<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-63"><code>	<span class="comment">// Must have TLS, or else localhost server.</span></code></span>
+<span class="codeline" id="line-64"><code><span class="comment">	// Note: If TLS is not true, then we can't trust ANYTHING in ServerInfo.</span></code></span>
+<span class="codeline" id="line-65"><code><span class="comment">	// In particular, it doesn't matter if the server advertises PLAIN auth.</span></code></span>
+<span class="codeline" id="line-66"><code><span class="comment">	// That might just be the attacker saying</span></code></span>
+<span class="codeline" id="line-67"><code><span class="comment">	// "it's ok, you can trust me with your password."</span></code></span>
+<span class="codeline" id="line-68"><code>	<span class="keyword">if</span> !<label for="r9" class="ident">server</label>.<a href="auth.go.html#line-37" class="ident">TLS</a> &amp;&amp; !<a href="auth.go.html#line-58" class="ident">isLocalhost</a>(<label for="r9" class="ident">server</label>.<a href="auth.go.html#line-36" class="ident">Name</a>) {</code></span>
+<span class="codeline" id="line-69"><code>		<span class="keyword">return</span> <span class="lit-string">""</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"unencrypted connection"</span>)</code></span>
+<span class="codeline" id="line-70"><code>	}</code></span>
+<span class="codeline" id="line-71"><code>	<span class="keyword">if</span> <label for="r9" class="ident">server</label>.<a href="auth.go.html#line-36" class="ident">Name</a> != <label for="r7" class="ident">a</label>.<a href="auth.go.html#line-43" class="ident">host</a> {</code></span>
+<span class="codeline" id="line-72"><code>		<span class="keyword">return</span> <span class="lit-string">""</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"wrong host name"</span>)</code></span>
+<span class="codeline" id="line-73"><code>	}</code></span>
+<span class="codeline" id="line-74"><code>	<label for="r10" class="ident">resp</label> := []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r7" class="ident">a</label>.<a href="auth.go.html#line-42" class="ident">identity</a> + <span class="lit-string">"\x00"</span> + <label for="r7" class="ident">a</label>.<a href="auth.go.html#line-42" class="ident">username</a> + <span class="lit-string">"\x00"</span> + <label for="r7" class="ident">a</label>.<a href="auth.go.html#line-42" class="ident">password</a>)</code></span>
+<span class="codeline" id="line-75"><code>	<span class="keyword">return</span> <span class="lit-string">"PLAIN"</span>, <label for="r10" class="ident">resp</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-76"><code>}</code></span>
+<span class="codeline" id="line-77"><code></code></span>
+<span class="codeline" id="line-78"><code><span class="keyword">func</span> (<label for="r11" class="ident">a</label> *<a href="auth.go.html#line-41" class="ident">plainAuth</a>) <label for="r12" class="ident">Next</label>(<label for="r13" class="ident">fromServer</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r14" class="ident">more</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) ([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-79"><code>	<span class="keyword">if</span> <label for="r14" class="ident">more</label> {</code></span>
+<span class="codeline" id="line-80"><code>		<span class="comment">// We've already sent everything.</span></code></span>
+<span class="codeline" id="line-81"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/errors.html" class="ident i2">errors</a>.<a href="../../errors/errors.go.html#line-58" class="ident">New</a>(<span class="lit-string">"unexpected server challenge"</span>)</code></span>
+<span class="codeline" id="line-82"><code>	}</code></span>
+<span class="codeline" id="line-83"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-84"><code>}</code></span>
+<span class="codeline" id="line-85"><code></code></span>
+<span class="codeline" id="line-86"><code><span class="keyword">type</span> cramMD5Auth <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-87"><code>	username, secret <a href="../../../pkg/builtin.html#name-string" class="ident">string</a></code></span>
+<span class="codeline" id="line-88"><code>}</code></span>
+<span class="codeline" id="line-89"><code></code></span>
+<span class="codeline" id="line-90"><code><span class="comment">// CRAMMD5Auth returns an Auth that implements the CRAM-MD5 authentication</span></code></span>
+<span class="codeline" id="line-91"><code><span class="comment">// mechanism as defined in RFC 2195.</span></code></span>
+<span class="codeline" id="line-92"><code><span class="comment">// The returned Auth uses the given username and secret to authenticate</span></code></span>
+<span class="codeline" id="line-93"><code><span class="comment">// to the server using the challenge-response mechanism.</span></code></span>
+<span class="codeline" id="line-94"><code><span class="keyword">func</span> <label for="r15" class="ident"><a href="../../../pkg/net/smtp.html#name-CRAMMD5Auth" class="ident">CRAMMD5Auth</a></label>(<label for="r16" class="ident">username</label>, <label for="r17" class="ident">secret</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) <a href="auth.go.html#line-15" class="ident">Auth</a> {</code></span>
+<span class="codeline" id="line-95"><code>	<span class="keyword">return</span> &amp;<a href="auth.go.html#line-86" class="ident">cramMD5Auth</a>{<label for="r16" class="ident">username</label>, <label for="r17" class="ident">secret</label>}</code></span>
+<span class="codeline" id="line-96"><code>}</code></span>
+<span class="codeline" id="line-97"><code></code></span>
+<span class="codeline" id="line-98"><code><span class="keyword">func</span> (<label for="r18" class="ident">a</label> *<a href="auth.go.html#line-86" class="ident">cramMD5Auth</a>) <label for="r19" class="ident">Start</label>(<label for="r20" class="ident">server</label> *<a href="auth.go.html#line-35" class="ident">ServerInfo</a>) (<a href="../../../pkg/builtin.html#name-string" class="ident">string</a>, []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-99"><code>	<span class="keyword">return</span> <span class="lit-string">"CRAM-MD5"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-100"><code>}</code></span>
+<span class="codeline" id="line-101"><code></code></span>
+<span class="codeline" id="line-102"><code><span class="keyword">func</span> (<label for="r21" class="ident">a</label> *<a href="auth.go.html#line-86" class="ident">cramMD5Auth</a>) <label for="r22" class="ident">Next</label>(<label for="r23" class="ident">fromServer</label> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <label for="r24" class="ident">more</label> <a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>) ([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-103"><code>	<span class="keyword">if</span> <label for="r24" class="ident">more</label> {</code></span>
+<span class="codeline" id="line-104"><code>		<label for="r25" class="ident">d</label> := <a href="../../../pkg/crypto/hmac.html" class="ident i0">hmac</a>.<a href="../../crypto/hmac/hmac.go.html#line-128" class="ident">New</a>(<a href="../../../pkg/crypto/md5.html" class="ident i1">md5</a>.<a href="../../crypto/md5/md5.go.html#line-113" class="ident">New</a>, []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<label for="r21" class="ident">a</label>.<a href="auth.go.html#line-87" class="ident">secret</a>))</code></span>
+<span class="codeline" id="line-105"><code>		<label for="r25" class="ident">d</label>.<a href="../../io/io.go.html#line-97" class="ident">Write</a>(<label for="r23" class="ident">fromServer</label>)</code></span>
+<span class="codeline" id="line-106"><code>		<label for="r26" class="ident">s</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>, <span class="lit-number">0</span>, <label for="r25" class="ident">d</label>.<a href="../../hash/hash.go.html#line-39" class="ident">Size</a>())</code></span>
+<span class="codeline" id="line-107"><code>		<span class="keyword">return</span> []<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a>(<a href="../../../pkg/fmt.html" class="ident i3">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"%s %x"</span>, <label for="r21" class="ident">a</label>.<a href="auth.go.html#line-87" class="ident">username</a>, <label for="r25" class="ident">d</label>.<a href="../../hash/hash.go.html#line-33" class="ident">Sum</a>(<label for="r26" class="ident">s</label>))), <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-108"><code>	}</code></span>
+<span class="codeline" id="line-109"><code>	<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-110"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

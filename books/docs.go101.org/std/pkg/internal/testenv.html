@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Package: internal/testenv</title>
+<link href="../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="package-details"><code><span style="font-size:xx-large;">package <b>testenv</b></span>
+
+<span class="title">Import Path</span>
+	<a href="../../index.html#pkg-internal/testenv">internal/testenv</a><i> (on <a href="https://golang.org/pkg/internal/testenv/" target="_blank">golang.org</a> and <a href="https://pkg.go.dev/internal/testenv" target="_blank">go.dev</a>)</i>
+
+<span class="title">Dependency Relation</span>
+	imports <a href="../../dep/internal/testenv.html">11 packages</a>, and imported by 0 packages
+
+<div id="files"><span class="title">Involved Source Files</span>
+
+	<input type='checkbox' checked class="fold" id="file-0-fold-content"><label for="file-0-fold-content">   <a href="../../src/internal/testenv/testenv.go.html#doc">d➜</a> <a href="../../src/internal/testenv/testenv.go.html">testenv.go</a></label><span id='file-0-fold-content-items' class="fold-items">
+		Package testenv provides information about what functionality
+		is available in different testing environments run by the Go team.
+
+		It is an internal package because these details are specific
+		to the Go team's test setup (on build.golang.org) and not
+		fundamental to tests in general.
+</span>
+	<span class="nodocs">      <a href="../../src/internal/testenv/testenv_notwin.go.html">testenv_notwin.go</a></span></div>
+<div id="exported-functions"><span class="title">Package-Level Functions<span class="title-stat"><i> (total 26)</i></span></span>
+
+<div class="anchor value-res" id="name-Builder">	<input type='checkbox' class="fold" id="Builder-fold-content"><label for="Builder-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-31">Builder</a>() <a href="../builtin.html#name-string">string</a></label><span id='Builder-fold-content-docs' class="fold-docs">
+		Builder reports the name of the builder running this test
+		(for example, "linux-amd64" or "windows-386-gce").
+		If the test is not running on the build infrastructure,
+		Builder returns the empty string.
+
+</span></div><div class="anchor value-res" id="name-CanInternalLink">	<input type='checkbox' class="fold" id="CanInternalLink-fold-content"><label for="CanInternalLink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-198">CanInternalLink</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='CanInternalLink-fold-content-docs' class="fold-docs">
+		CanInternalLink reports whether the current system can link programs with
+		internal linking.
+		(This is the opposite of cmd/internal/sys.MustLinkExternal. Keep them in sync.)
+
+</span></div><div class="anchor value-res" id="name-CleanCmdEnv">	<input type='checkbox' class="fold" id="CleanCmdEnv-fold-content"><label for="CleanCmdEnv-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-271">CleanCmdEnv</a>(cmd *<a href="../os/exec.html">exec</a>.<a href="../os/exec.html#name-Cmd">Cmd</a>) *<a href="../os/exec.html">exec</a>.<a href="../os/exec.html#name-Cmd">Cmd</a></label><span id='CleanCmdEnv-fold-content-docs' class="fold-docs">
+		CleanCmdEnv will fill cmd.Env with the environment, excluding certain
+		variables that could modify the behavior of the Go tools such as
+		GODEBUG and GOTRACEBACK.
+
+</span></div><div class="anchor value-res" id="name-CPUIsSlow">	<input type='checkbox' class="fold" id="CPUIsSlow-fold-content"><label for="CPUIsSlow-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-291">CPUIsSlow</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='CPUIsSlow-fold-content-docs' class="fold-docs">
+		CPUIsSlow reports whether the CPU running the test is suspected to be slow.
+
+</span></div><div class="anchor value-res" id="name-GoTool">	<input type='checkbox' class="fold" id="GoTool-fold-content"><label for="GoTool-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-98">GoTool</a>() (<a href="../builtin.html#name-string">string</a>, <a href="../builtin.html#name-error">error</a>)</label><span id='GoTool-fold-content-docs' class="fold-docs">
+		GoTool reports the path to the Go tool.
+
+</span></div><div class="anchor value-res" id="name-GoToolPath">	<input type='checkbox' class="fold" id="GoToolPath-fold-content"><label for="GoToolPath-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-82">GoToolPath</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>) <a href="../builtin.html#name-string">string</a></label><span id='GoToolPath-fold-content-docs' class="fold-docs">
+		GoToolPath reports the path to the Go tool.
+		It is a convenience wrapper around GoTool.
+		If the tool is unavailable GoToolPath calls t.Skip.
+		If the tool should be available and isn't, GoToolPath calls t.Fatal.
+
+</span></div><div class="anchor value-res" id="name-HasCGO">	<input type='checkbox' class="fold" id="HasCGO-fold-content"><label for="HasCGO-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-184">HasCGO</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasCGO-fold-content-docs' class="fold-docs">
+		HasCGO reports whether the current system can use cgo.
+
+</span></div><div class="anchor value-res" id="name-HasExec">	<input type='checkbox' class="fold" id="HasExec-fold-content"><label for="HasExec-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-119">HasExec</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasExec-fold-content-docs' class="fold-docs">
+		HasExec reports whether the current system can start new processes
+		using os.StartProcess or (more commonly) exec.Command.
+
+</span></div><div class="anchor value-res" id="name-HasExternalNetwork">	<input type='checkbox' class="fold" id="HasExternalNetwork-fold-content"><label for="HasExternalNetwork-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-165">HasExternalNetwork</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasExternalNetwork-fold-content-docs' class="fold-docs">
+		HasExternalNetwork reports whether the current system can use
+		external (non-localhost) networks.
+
+</span></div><div class="anchor value-res" id="name-HasGoBuild">	<input type='checkbox' class="fold" id="HasGoBuild-fold-content"><label for="HasGoBuild-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-37">HasGoBuild</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasGoBuild-fold-content-docs' class="fold-docs">
+		HasGoBuild reports whether the current system can build programs with ``go build''
+		and then run them with os.StartProcess or exec.Command.
+
+</span></div><div class="anchor value-res" id="name-HasGoRun">	<input type='checkbox' class="fold" id="HasGoRun-fold-content"><label for="HasGoRun-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-65">HasGoRun</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasGoRun-fold-content-docs' class="fold-docs">
+		HasGoRun reports whether the current system can run programs with ``go run.''
+
+</span></div><div class="anchor value-res" id="name-HasLink">	<input type='checkbox' class="fold" id="HasLink-fold-content"><label for="HasLink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-237">HasLink</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasLink-fold-content-docs' class="fold-docs">
+		HasLink reports whether the current system can use os.Link.
+
+</span></div><div class="anchor value-res" id="name-HasSrc">	<input type='checkbox' class="fold" id="HasSrc-fold-content"><label for="HasSrc-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-128">HasSrc</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasSrc-fold-content-docs' class="fold-docs">
+		HasSrc reports whether the entire source tree is available under GOROOT.
+
+</span></div><div class="anchor value-res" id="name-HasSymlink">	<input type='checkbox' class="fold" id="HasSymlink-fold-content"><label for="HasSymlink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-222">HasSymlink</a>() <a href="../builtin.html#name-bool">bool</a></label><span id='HasSymlink-fold-content-docs' class="fold-docs">
+		HasSymlink reports whether the current system can use os.Symlink.
+
+</span></div><div class="anchor value-res" id="name-MustHaveCGO">	<input type='checkbox' class="fold" id="MustHaveCGO-fold-content"><label for="MustHaveCGO-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-189">MustHaveCGO</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveCGO-fold-content-docs' class="fold-docs">
+		MustHaveCGO calls t.Skip if cgo is not available.
+
+</span></div><div class="anchor value-res" id="name-MustHaveExec">	<input type='checkbox' class="fold" id="MustHaveExec-fold-content"><label for="MustHaveExec-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-139">MustHaveExec</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveExec-fold-content-docs' class="fold-docs">
+		MustHaveExec checks that the current system can start new processes
+		using os.StartProcess or (more commonly) exec.Command.
+		If not, MustHaveExec calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveExecPath">	<input type='checkbox' class="fold" id="MustHaveExecPath-fold-content"><label for="MustHaveExecPath-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-150">MustHaveExecPath</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>, path <a href="../builtin.html#name-string">string</a>)</label><span id='MustHaveExecPath-fold-content-docs' class="fold-docs">
+		MustHaveExecPath checks that the current system can start the named executable
+		using os.StartProcess or (more commonly) exec.Command.
+		If not, MustHaveExecPath calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveExternalNetwork">	<input type='checkbox' class="fold" id="MustHaveExternalNetwork-fold-content"><label for="MustHaveExternalNetwork-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-172">MustHaveExternalNetwork</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveExternalNetwork-fold-content-docs' class="fold-docs">
+		MustHaveExternalNetwork checks that the current system can use
+		external (non-localhost) networks.
+		If not, MustHaveExternalNetwork calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveGoBuild">	<input type='checkbox' class="fold" id="MustHaveGoBuild-fold-content"><label for="MustHaveGoBuild-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-55">MustHaveGoBuild</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveGoBuild-fold-content-docs' class="fold-docs">
+		MustHaveGoBuild checks that the current system can build programs with ``go build''
+		and then run them with os.StartProcess or exec.Command.
+		If not, MustHaveGoBuild calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveGoRun">	<input type='checkbox' class="fold" id="MustHaveGoRun-fold-content"><label for="MustHaveGoRun-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-72">MustHaveGoRun</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveGoRun-fold-content-docs' class="fold-docs">
+		MustHaveGoRun checks that the current system can run programs with ``go run.''
+		If not, MustHaveGoRun calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveLink">	<input type='checkbox' class="fold" id="MustHaveLink-fold-content"><label for="MustHaveLink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-246">MustHaveLink</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveLink-fold-content-docs' class="fold-docs">
+		MustHaveLink reports whether the current system can use os.Link.
+		If not, MustHaveLink calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustHaveSymlink">	<input type='checkbox' class="fold" id="MustHaveSymlink-fold-content"><label for="MustHaveSymlink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-229">MustHaveSymlink</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustHaveSymlink-fold-content-docs' class="fold-docs">
+		MustHaveSymlink reports whether the current system can use os.Symlink.
+		If not, MustHaveSymlink calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-MustInternalLink">	<input type='checkbox' class="fold" id="MustInternalLink-fold-content"><label for="MustInternalLink-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-215">MustInternalLink</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='MustInternalLink-fold-content-docs' class="fold-docs">
+		MustInternalLink checks that the current system can link programs with internal
+		linking.
+		If not, MustInternalLink calls t.Skip with an explanation.
+
+</span></div><div class="anchor value-res" id="name-SkipFlaky">	<span class="nodocs"> func <a href="../../src/internal/testenv/testenv.go.html#line-254">SkipFlaky</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>, issue <a href="../builtin.html#name-int">int</a>)</span></div><div class="anchor value-res" id="name-SkipFlakyNet">	<span class="nodocs"> func <a href="../../src/internal/testenv/testenv.go.html#line-261">SkipFlakyNet</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</span></div><div class="anchor value-res" id="name-SkipIfShortAndSlow">	<input type='checkbox' class="fold" id="SkipIfShortAndSlow-fold-content"><label for="SkipIfShortAndSlow-fold-content"> func <a href="../../src/internal/testenv/testenv.go.html#line-303">SkipIfShortAndSlow</a>(t <a href="../testing.html">testing</a>.<a href="../testing.html#name-TB">TB</a>)</label><span id='SkipIfShortAndSlow-fold-content-docs' class="fold-docs">
+		SkipIfShortAndSlow skips t if -short is set and the CPU running the test is
+		suspected to be slow.
+
+		(This is useful for CPU-intensive tests that otherwise complete quickly.)
+
+</span></div></div></code></pre><pre id="footer"><table><tr><td><img src="../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>

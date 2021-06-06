@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source: fat.go in package debug/macho</title>
+<link href="../../../css/light-v0.3.1.css" rel="stylesheet">
+<script src="../../../jvs/golds-v0.3.1.js"></script>
+<body onload="onPageLoad()"><div>
+
+<pre id="header"><code><span class="title">Source File</span>
+	fat.go
+
+<span class="title">Belonging Package</span>
+	<a href="../../../pkg/debug/macho.html">debug/macho</a>
+</code></pre>
+<style>input[type=radio] {display: none;}
+input[id=r0]:checked ~pre label[for=r0],
+input[id=r1]:checked ~pre label[for=r1],
+input[id=r2]:checked ~pre label[for=r2],
+input[id=r3]:checked ~pre label[for=r3],
+input[id=r4]:checked ~pre label[for=r4],
+input[id=r5]:checked ~pre label[for=r5],
+input[id=r6]:checked ~pre label[for=r6],
+input[id=r7]:checked ~pre label[for=r7],
+input[id=r8]:checked ~pre label[for=r8],
+input[id=r9]:checked ~pre label[for=r9],
+input[id=r10]:checked ~pre label[for=r10],
+input[id=r11]:checked ~pre label[for=r11],
+input[id=r12]:checked ~pre label[for=r12],
+input[id=r13]:checked ~pre label[for=r13],
+input[id=r14]:checked ~pre label[for=r14],
+input[id=r15]:checked ~pre label[for=r15],
+input[id=r16]:checked ~pre label[for=r16],
+input[id=r17]:checked ~pre label[for=r17],
+input[id=r18]:checked ~pre label[for=r18],
+input[id=r19]:checked ~pre label[for=r19],
+input[id=r20]:checked ~pre label[for=r20],
+input[id=r21]:checked ~pre label[for=r21],
+input[id=r22]:checked ~pre label[for=r22],
+input[id=r23]:checked ~pre label[for=r23],
+input[id=r24]:checked ~pre label[for=r24]
+{background: #226; color: #ff8;}
+input[id=i0]:checked ~pre .i0,
+input[id=i1]:checked ~pre .i1,
+input[id=i2]:checked ~pre .i2,
+input[id=i3]:checked ~pre .i3
+{background: brown; color: #eed;}
+</style><input id="r0" type="radio" name="g"/>
+<input id="r1" type="radio" name="g"/>
+<input id="r2" type="radio" name="g"/>
+<input id="r3" type="radio" name="g"/>
+<input id="r4" type="radio" name="g"/>
+<input id="r5" type="radio" name="g"/>
+<input id="r6" type="radio" name="g"/>
+<input id="r7" type="radio" name="g"/>
+<input id="r8" type="radio" name="g"/>
+<input id="r9" type="radio" name="g"/>
+<input id="r10" type="radio" name="g"/>
+<input id="r11" type="radio" name="g"/>
+<input id="r12" type="radio" name="g"/>
+<input id="r13" type="radio" name="g"/>
+<input id="r14" type="radio" name="g"/>
+<input id="r15" type="radio" name="g"/>
+<input id="r16" type="radio" name="g"/>
+<input id="r17" type="radio" name="g"/>
+<input id="r18" type="radio" name="g"/>
+<input id="r19" type="radio" name="g"/>
+<input id="r20" type="radio" name="g"/>
+<input id="r21" type="radio" name="g"/>
+<input id="r22" type="radio" name="g"/>
+<input id="r23" type="radio" name="g"/>
+<input id="r24" type="radio" name="g"/>
+<input id="i0" type="radio" name="i"/>
+<input id="i1" type="radio" name="i"/>
+<input id="i2" type="radio" name="i"/>
+<input id="i3" type="radio" name="i"/>
+
+<pre class="line-numbers"><span class="codeline" id="line-1"><code><span class="comment">// Copyright 2014 The Go Authors. All rights reserved.</span></code></span>
+<span class="codeline" id="line-2"><code><span class="comment">// Use of this source code is governed by a BSD-style</span></code></span>
+<span class="codeline" id="line-3"><code><span class="comment">// license that can be found in the LICENSE file.</span></code></span>
+<span class="codeline" id="line-4"><code></code></span>
+<span class="codeline" id="line-5"><code><span class="keyword">package</span> macho</code></span>
+<span class="codeline" id="line-6"><code></code></span>
+<span class="codeline" id="line-7"><code><span class="keyword">import</span> (</code></span>
+<span class="codeline" id="line-8"><code>	<label for="i0"><span class="lit-string i0">"encoding/binary"</span></label></code></span>
+<span class="codeline" id="line-9"><code>	<label for="i1"><span class="lit-string i1">"fmt"</span></label></code></span>
+<span class="codeline" id="line-10"><code>	<label for="i2"><span class="lit-string i2">"io"</span></label></code></span>
+<span class="codeline" id="line-11"><code>	<label for="i3"><span class="lit-string i3">"os"</span></label></code></span>
+<span class="codeline" id="line-12"><code>)</code></span>
+<span class="codeline" id="line-13"><code></code></span>
+<span class="codeline" id="line-14"><code><span class="comment">// A FatFile is a Mach-O universal binary that contains at least one architecture.</span></code></span>
+<span class="codeline" id="line-15"><code><span class="keyword">type</span> <a href="../../../pkg/debug/macho.html#name-FatFile" class="ident">FatFile</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-16"><code>	Magic  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-17"><code>	Arches []<a href="fat.go.html#line-33" class="ident">FatArch</a></code></span>
+<span class="codeline" id="line-18"><code>	closer <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-104" class="ident">Closer</a></code></span>
+<span class="codeline" id="line-19"><code>}</code></span>
+<span class="codeline" id="line-20"><code></code></span>
+<span class="codeline" id="line-21"><code><span class="comment">// A FatArchHeader represents a fat header for a specific image architecture.</span></code></span>
+<span class="codeline" id="line-22"><code><span class="keyword">type</span> <a href="../../../pkg/debug/macho.html#name-FatArchHeader" class="ident">FatArchHeader</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-23"><code>	Cpu    <a href="macho.go.html#line-60" class="ident">Cpu</a></code></span>
+<span class="codeline" id="line-24"><code>	SubCpu <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-25"><code>	Offset <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-26"><code>	Size   <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-27"><code>	Align  <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-28"><code>}</code></span>
+<span class="codeline" id="line-29"><code></code></span>
+<span class="codeline" id="line-30"><code><span class="keyword">const</span> fatArchHeaderSize = <span class="lit-number">5</span> * <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-31"><code></code></span>
+<span class="codeline" id="line-32"><code><span class="comment">// A FatArch is a Mach-O File inside a FatFile.</span></code></span>
+<span class="codeline" id="line-33"><code><span class="keyword">type</span> <a href="../../../pkg/debug/macho.html#name-FatArch" class="ident">FatArch</a> <span class="keyword">struct</span> {</code></span>
+<span class="codeline" id="line-34"><code>	<a href="fat.go.html#line-22" class="ident">FatArchHeader</a></code></span>
+<span class="codeline" id="line-35"><code>	*<a href="file.go.html#line-22" class="ident">File</a></code></span>
+<span class="codeline" id="line-36"><code>}</code></span>
+<span class="codeline" id="line-37"><code></code></span>
+<span class="codeline" id="line-38"><code><span class="comment">// ErrNotFat is returned from NewFatFile or OpenFat when the file is not a</span></code></span>
+<span class="codeline" id="line-39"><code><span class="comment">// universal binary but may be a thin binary, based on its magic number.</span></code></span>
+<span class="codeline" id="line-40"><code><span class="keyword">var</span> <a href="../../../pkg/debug/macho.html#name-ErrNotFat" class="ident">ErrNotFat</a> = &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<span class="lit-number">0</span>, <span class="lit-string">"not a fat Mach-O file"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-41"><code></code></span>
+<span class="codeline" id="line-42"><code><span class="comment">// NewFatFile creates a new FatFile for accessing all the Mach-O images in a</span></code></span>
+<span class="codeline" id="line-43"><code><span class="comment">// universal binary. The Mach-O binary is expected to start at position 0 in</span></code></span>
+<span class="codeline" id="line-44"><code><span class="comment">// the ReaderAt.</span></code></span>
+<span class="codeline" id="line-45"><code><span class="keyword">func</span> <label for="r0" class="ident"><a href="../../../pkg/debug/macho.html#name-NewFatFile" class="ident">NewFatFile</a></label>(<label for="r1" class="ident">r</label> <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-225" class="ident">ReaderAt</a>) (*<a href="fat.go.html#line-15" class="ident">FatFile</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-46"><code>	<span class="keyword">var</span> <label for="r2" class="ident">ff</label> <a href="fat.go.html#line-15" class="ident">FatFile</a></code></span>
+<span class="codeline" id="line-47"><code>	<label for="r3" class="ident">sr</label> := <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-480" class="ident">NewSectionReader</a>(<label for="r1" class="ident">r</label>, <span class="lit-number">0</span>, <span class="lit-number">1</span>&lt;&lt;<span class="lit-number">63</span>-<span class="lit-number">1</span>)</code></span>
+<span class="codeline" id="line-48"><code></code></span>
+<span class="codeline" id="line-49"><code>	<span class="comment">// Read the fat_header struct, which is always in big endian.</span></code></span>
+<span class="codeline" id="line-50"><code><span class="comment">	// Start with the magic number.</span></code></span>
+<span class="codeline" id="line-51"><code>	<label for="r4" class="ident">err</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r3" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r2" class="ident">ff</label>.<a href="fat.go.html#line-16" class="ident">Magic</a>)</code></span>
+<span class="codeline" id="line-52"><code>	<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-53"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<span class="lit-number">0</span>, <span class="lit-string">"error reading magic number"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-54"><code>	} <span class="keyword">else</span> <span class="keyword">if</span> <label for="r2" class="ident">ff</label>.<a href="fat.go.html#line-16" class="ident">Magic</a> != <a href="macho.go.html#line-36" class="ident">MagicFat</a> {</code></span>
+<span class="codeline" id="line-55"><code>		<span class="comment">// See if this is a Mach-O file via its magic number. The magic</span></code></span>
+<span class="codeline" id="line-56"><code><span class="comment">		// must be converted to little endian first though.</span></code></span>
+<span class="codeline" id="line-57"><code>		<span class="keyword">var</span> <label for="r5" class="ident">buf</label> [<span class="lit-number">4</span>]<a href="../../../pkg/builtin.html#name-byte" class="ident">byte</a></code></span>
+<span class="codeline" id="line-58"><code>		<a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>.<a href="../../encoding/binary/binary.go.html#line-116" class="ident">PutUint32</a>(<label for="r5" class="ident">buf</label>[:], <label for="r2" class="ident">ff</label>.<a href="fat.go.html#line-16" class="ident">Magic</a>)</code></span>
+<span class="codeline" id="line-59"><code>		<label for="r6" class="ident">leMagic</label> := <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-45" class="ident">LittleEndian</a>.<a href="../../encoding/binary/binary.go.html#line-63" class="ident">Uint32</a>(<label for="r5" class="ident">buf</label>[:])</code></span>
+<span class="codeline" id="line-60"><code>		<span class="keyword">if</span> <label for="r6" class="ident">leMagic</label> == <a href="macho.go.html#line-34" class="ident">Magic32</a> || <label for="r6" class="ident">leMagic</label> == <a href="macho.go.html#line-35" class="ident">Magic64</a> {</code></span>
+<span class="codeline" id="line-61"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <a href="fat.go.html#line-40" class="ident">ErrNotFat</a></code></span>
+<span class="codeline" id="line-62"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-63"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<span class="lit-number">0</span>, <span class="lit-string">"invalid magic number"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-64"><code>		}</code></span>
+<span class="codeline" id="line-65"><code>	}</code></span>
+<span class="codeline" id="line-66"><code>	<label for="r7" class="ident">offset</label> := <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<span class="lit-number">4</span>)</code></span>
+<span class="codeline" id="line-67"><code></code></span>
+<span class="codeline" id="line-68"><code>	<span class="comment">// Read the number of FatArchHeaders that come after the fat_header.</span></code></span>
+<span class="codeline" id="line-69"><code>	<span class="keyword">var</span> <label for="r8" class="ident">narch</label> <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a></code></span>
+<span class="codeline" id="line-70"><code>	<label for="r4" class="ident">err</label> = <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r3" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r8" class="ident">narch</label>)</code></span>
+<span class="codeline" id="line-71"><code>	<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-72"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<label for="r7" class="ident">offset</label>, <span class="lit-string">"invalid fat_header"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-73"><code>	}</code></span>
+<span class="codeline" id="line-74"><code>	<label for="r7" class="ident">offset</label> += <span class="lit-number">4</span></code></span>
+<span class="codeline" id="line-75"><code></code></span>
+<span class="codeline" id="line-76"><code>	<span class="keyword">if</span> <label for="r8" class="ident">narch</label> &lt; <span class="lit-number">1</span> {</code></span>
+<span class="codeline" id="line-77"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<label for="r7" class="ident">offset</label>, <span class="lit-string">"file contains no images"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-78"><code>	}</code></span>
+<span class="codeline" id="line-79"><code></code></span>
+<span class="codeline" id="line-80"><code>	<span class="comment">// Combine the Cpu and SubCpu (both uint32) into a uint64 to make sure</span></code></span>
+<span class="codeline" id="line-81"><code><span class="comment">	// there are not duplicate architectures.</span></code></span>
+<span class="codeline" id="line-82"><code>	<label for="r9" class="ident">seenArches</label> := <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>(<span class="keyword">map</span>[<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>]<a href="../../../pkg/builtin.html#name-bool" class="ident">bool</a>, <label for="r8" class="ident">narch</label>)</code></span>
+<span class="codeline" id="line-83"><code>	<span class="comment">// Make sure that all images are for the same MH_ type.</span></code></span>
+<span class="codeline" id="line-84"><code>	<span class="keyword">var</span> <label for="r10" class="ident">machoType</label> <a href="macho.go.html#line-40" class="ident">Type</a></code></span>
+<span class="codeline" id="line-85"><code></code></span>
+<span class="codeline" id="line-86"><code>	<span class="comment">// Following the fat_header comes narch fat_arch structs that index</span></code></span>
+<span class="codeline" id="line-87"><code><span class="comment">	// Mach-O images further in the file.</span></code></span>
+<span class="codeline" id="line-88"><code>	<label for="r2" class="ident">ff</label>.<a href="fat.go.html#line-17" class="ident">Arches</a> = <a href="../../../pkg/builtin.html#name-make" class="ident">make</a>([]<a href="fat.go.html#line-33" class="ident">FatArch</a>, <label for="r8" class="ident">narch</label>)</code></span>
+<span class="codeline" id="line-89"><code>	<span class="keyword">for</span> <label for="r11" class="ident">i</label> := <a href="../../../pkg/builtin.html#name-uint32" class="ident">uint32</a>(<span class="lit-number">0</span>); <label for="r11" class="ident">i</label> &lt; <label for="r8" class="ident">narch</label>; <label for="r11" class="ident">i</label>++ {</code></span>
+<span class="codeline" id="line-90"><code>		<label for="r12" class="ident">fa</label> := &amp;<label for="r2" class="ident">ff</label>.<a href="fat.go.html#line-17" class="ident">Arches</a>[<label for="r11" class="ident">i</label>]</code></span>
+<span class="codeline" id="line-91"><code>		<label for="r4" class="ident">err</label> = <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-162" class="ident">Read</a>(<label for="r3" class="ident">sr</label>, <a href="../../../pkg/encoding/binary.html" class="ident i0">binary</a>.<a href="../../encoding/binary/binary.go.html#line-48" class="ident">BigEndian</a>, &amp;<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-34" class="ident">FatArchHeader</a>)</code></span>
+<span class="codeline" id="line-92"><code>		<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-93"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<label for="r7" class="ident">offset</label>, <span class="lit-string">"invalid fat_arch header"</span>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-94"><code>		}</code></span>
+<span class="codeline" id="line-95"><code>		<label for="r7" class="ident">offset</label> += <a href="fat.go.html#line-30" class="ident">fatArchHeaderSize</a></code></span>
+<span class="codeline" id="line-96"><code></code></span>
+<span class="codeline" id="line-97"><code>		<label for="r13" class="ident">fr</label> := <a href="../../../pkg/io.html" class="ident i2">io</a>.<a href="../../io/io.go.html#line-480" class="ident">NewSectionReader</a>(<label for="r1" class="ident">r</label>, <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-25" class="ident">Offset</a>), <a href="../../../pkg/builtin.html#name-int64" class="ident">int64</a>(<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-26" class="ident">Size</a>))</code></span>
+<span class="codeline" id="line-98"><code>		<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-35" class="ident">File</a>, <label for="r4" class="ident">err</label> = <a href="file.go.html#line-228" class="ident">NewFile</a>(<label for="r13" class="ident">fr</label>)</code></span>
+<span class="codeline" id="line-99"><code>		<span class="keyword">if</span> <label for="r4" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-100"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r4" class="ident">err</label></code></span>
+<span class="codeline" id="line-101"><code>		}</code></span>
+<span class="codeline" id="line-102"><code></code></span>
+<span class="codeline" id="line-103"><code>		<span class="comment">// Make sure the architecture for this image is not duplicate.</span></code></span>
+<span class="codeline" id="line-104"><code>		<label for="r14" class="ident">seenArch</label> := (<a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-23" class="ident">Cpu</a>) &lt;&lt; <span class="lit-number">32</span>) | <a href="../../../pkg/builtin.html#name-uint64" class="ident">uint64</a>(<label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-24" class="ident">SubCpu</a>)</code></span>
+<span class="codeline" id="line-105"><code>		<span class="keyword">if</span> <label for="r15" class="ident">o</label>, <label for="r16" class="ident">k</label> := <label for="r9" class="ident">seenArches</label>[<label for="r14" class="ident">seenArch</label>]; <label for="r15" class="ident">o</label> || <label for="r16" class="ident">k</label> {</code></span>
+<span class="codeline" id="line-106"><code>			<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<label for="r7" class="ident">offset</label>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"duplicate architecture cpu=%v, subcpu=%#x"</span>, <label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-23" class="ident">Cpu</a>, <label for="r12" class="ident">fa</label>.<a href="fat.go.html#line-24" class="ident">SubCpu</a>), <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-107"><code>		}</code></span>
+<span class="codeline" id="line-108"><code>		<label for="r9" class="ident">seenArches</label>[<label for="r14" class="ident">seenArch</label>] = <a href="../../../pkg/builtin.html#name-true" class="ident">true</a></code></span>
+<span class="codeline" id="line-109"><code></code></span>
+<span class="codeline" id="line-110"><code>		<span class="comment">// Make sure the Mach-O type matches that of the first image.</span></code></span>
+<span class="codeline" id="line-111"><code>		<span class="keyword">if</span> <label for="r11" class="ident">i</label> == <span class="lit-number">0</span> {</code></span>
+<span class="codeline" id="line-112"><code>			<label for="r10" class="ident">machoType</label> = <label for="r12" class="ident">fa</label>.<a href="macho.go.html#line-22" class="ident">Type</a></code></span>
+<span class="codeline" id="line-113"><code>		} <span class="keyword">else</span> {</code></span>
+<span class="codeline" id="line-114"><code>			<span class="keyword">if</span> <label for="r12" class="ident">fa</label>.<a href="macho.go.html#line-22" class="ident">Type</a> != <label for="r10" class="ident">machoType</label> {</code></span>
+<span class="codeline" id="line-115"><code>				<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, &amp;<a href="file.go.html#line-184" class="ident">FormatError</a>{<label for="r7" class="ident">offset</label>, <a href="../../../pkg/fmt.html" class="ident i1">fmt</a>.<a href="../../fmt/print.go.html#line-217" class="ident">Sprintf</a>(<span class="lit-string">"Mach-O type for architecture #%d (type=%#x) does not match first (type=%#x)"</span>, <label for="r11" class="ident">i</label>, <label for="r12" class="ident">fa</label>.<a href="macho.go.html#line-22" class="ident">Type</a>, <label for="r10" class="ident">machoType</label>), <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>}</code></span>
+<span class="codeline" id="line-116"><code>			}</code></span>
+<span class="codeline" id="line-117"><code>		}</code></span>
+<span class="codeline" id="line-118"><code>	}</code></span>
+<span class="codeline" id="line-119"><code></code></span>
+<span class="codeline" id="line-120"><code>	<span class="keyword">return</span> &amp;<label for="r2" class="ident">ff</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-121"><code>}</code></span>
+<span class="codeline" id="line-122"><code></code></span>
+<span class="codeline" id="line-123"><code><span class="comment">// OpenFat opens the named file using os.Open and prepares it for use as a Mach-O</span></code></span>
+<span class="codeline" id="line-124"><code><span class="comment">// universal binary.</span></code></span>
+<span class="codeline" id="line-125"><code><span class="keyword">func</span> <label for="r17" class="ident"><a href="../../../pkg/debug/macho.html#name-OpenFat" class="ident">OpenFat</a></label>(<label for="r18" class="ident">name</label> <a href="../../../pkg/builtin.html#name-string" class="ident">string</a>) (*<a href="fat.go.html#line-15" class="ident">FatFile</a>, <a href="../../../pkg/builtin.html#name-error" class="ident">error</a>) {</code></span>
+<span class="codeline" id="line-126"><code>	<label for="r19" class="ident">f</label>, <label for="r20" class="ident">err</label> := <a href="../../../pkg/os.html" class="ident i3">os</a>.<a href="../../os/file.go.html#line-310" class="ident">Open</a>(<label for="r18" class="ident">name</label>)</code></span>
+<span class="codeline" id="line-127"><code>	<span class="keyword">if</span> <label for="r20" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-128"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-129"><code>	}</code></span>
+<span class="codeline" id="line-130"><code>	<label for="r21" class="ident">ff</label>, <label for="r20" class="ident">err</label> := <a href="fat.go.html#line-45" class="ident">NewFatFile</a>(<label for="r19" class="ident">f</label>)</code></span>
+<span class="codeline" id="line-131"><code>	<span class="keyword">if</span> <label for="r20" class="ident">err</label> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-132"><code>		<label for="r19" class="ident">f</label>.<a href="../../os/file_posix.go.html#line-21" class="ident">Close</a>()</code></span>
+<span class="codeline" id="line-133"><code>		<span class="keyword">return</span> <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a>, <label for="r20" class="ident">err</label></code></span>
+<span class="codeline" id="line-134"><code>	}</code></span>
+<span class="codeline" id="line-135"><code>	<label for="r21" class="ident">ff</label>.<a href="fat.go.html#line-18" class="ident">closer</a> = <label for="r19" class="ident">f</label></code></span>
+<span class="codeline" id="line-136"><code>	<span class="keyword">return</span> <label for="r21" class="ident">ff</label>, <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-137"><code>}</code></span>
+<span class="codeline" id="line-138"><code></code></span>
+<span class="codeline" id="line-139"><code><span class="keyword">func</span> (<label for="r22" class="ident">ff</label> *<a href="fat.go.html#line-15" class="ident">FatFile</a>) <label for="r23" class="ident">Close</label>() <a href="../../../pkg/builtin.html#name-error" class="ident">error</a> {</code></span>
+<span class="codeline" id="line-140"><code>	<span class="keyword">var</span> <label for="r24" class="ident">err</label> <a href="../../../pkg/builtin.html#name-error" class="ident">error</a></code></span>
+<span class="codeline" id="line-141"><code>	<span class="keyword">if</span> <label for="r22" class="ident">ff</label>.<a href="fat.go.html#line-18" class="ident">closer</a> != <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a> {</code></span>
+<span class="codeline" id="line-142"><code>		<label for="r24" class="ident">err</label> = <label for="r22" class="ident">ff</label>.<a href="fat.go.html#line-18" class="ident">closer</a>.<a href="../../io/io.go.html#line-105" class="ident">Close</a>()</code></span>
+<span class="codeline" id="line-143"><code>		<label for="r22" class="ident">ff</label>.<a href="fat.go.html#line-18" class="ident">closer</a> = <a href="../../../pkg/builtin.html#name-nil" class="ident">nil</a></code></span>
+<span class="codeline" id="line-144"><code>	}</code></span>
+<span class="codeline" id="line-145"><code>	<span class="keyword">return</span> <label for="r24" class="ident">err</label></code></span>
+<span class="codeline" id="line-146"><code>}</code></span>
+</pre><pre id="footer"><table><tr><td><img src="../../../png/go101-twitter.png"></td>
+<td>The pages are generated with <a href="../../../../../go101.org/article/tool-golds.html"><b>Golds</b></a> <i>v0.3.1</i>. (GOOS=linux GOARCH=amd64)
+<b>Golds</b> is a <a href="../../../../../go101.org/index.html">Go 101</a> project developed by <a href="https://tapirgames.com">Tapir Liu</a>.
+PR and bug reports are welcome and can be submitted to <a href="https://github.com/go101/golds">the issue list</a>.
+Please follow <a href="https://twitter.com/go100and1">@Go100and1</a> (reachable from the left QR code) to get the latest news of <b>Golds</b>.</td></tr></table></pre>
