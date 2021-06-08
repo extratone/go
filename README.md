@@ -1,5 +1,14 @@
 # The Go Programming Language
 
+## Books
+
+* https://gobyexample.com/
+* http://www.golangbootcamp.com/book
+
+
+
+---
+
 Go is an open source programming language that makes it easy to build simple,
 reliable, and efficient software.
 
